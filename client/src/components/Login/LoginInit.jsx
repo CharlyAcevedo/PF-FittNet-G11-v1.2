@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function LoginInit () {
-    const [ email, setEmail ] = useState("");
+    const [ username, setUsername ] = useState("");
     const [ password, setPassword ] = useState("");
     const [ error, setError ] = useState("");
     
@@ -13,30 +13,28 @@ export default function LoginInit () {
 
         e.preventDefault()
 
-        if (email && password) {
-            userLogin = { email: email, password: password };
+        if (username && password) {
+            userLogin = { username: username, password: password };
 
             console.log('está saliendo el post ', userLogin )
 
             axios.post('http://localhost:3001/api/login', userLogin)
             .then((res)=>{  
               console.log(res.data, '-> viendo qué respondio el post')              
-
-              if(res.data.length === 0) {
-                setError('usuario o password incorrecta');
-                setPassword("");
-                setEmail("");
-              }
-              if(res.data.length === 1) {
-             
+                          
+              if(res.data.login) {
+                // setError("");
+                // setPassword("");
+                // setUsername("");             
                 console.log(res.data, ' lo que debería setear en las cookies');
-
-                return  window.location = "http://localhost:3000/home"
+                let id = res.data.userId;
+                let name = res.data.name;
+                return  window.location = `http://localhost:3000/home/${id}/${name}`
               }
               if (typeof res.data === "string") {
                 setError('usuario o password incorrecta');
                 setPassword("");
-                setEmail("");
+                setUsername("");
 
               }
 
@@ -54,17 +52,18 @@ export default function LoginInit () {
         
         <div>
             <div> Entraste en / Login </div>
-            <div> Quiero ver el formulario de login </div>
+            <div> Email 1: "Franco@mail.com" pass: "1234" </div>
+            <div> Email 2: "Toni@mail.com" pass: "1234" </div>
             <div>
                 <h1>Iniciar sesión</h1>
-                <h2>Email state: {email}</h2>
+                <h2>Email state: {username}</h2>
                 <h2>Password state: {password}</h2>
 
                 <form >
 
-                  <input type='email' value= {email} 
+                  <input type='email' value= {username} 
                   name='email' placeholder='Email' required 
-                  onChange = {(e) => setEmail(e.target.value)}/>
+                  onChange = {(e) => setUsername(e.target.value)}/>
 
                   <input type='password' value= {password} 
                   name='password' placeholder='Contraseña' required 

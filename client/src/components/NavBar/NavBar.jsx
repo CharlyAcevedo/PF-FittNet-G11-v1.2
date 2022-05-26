@@ -13,7 +13,7 @@ export default function NavBar() {
         <button id="btn-create">Create Account</button>
       </Link>
 
-      <Link to="/home">
+      <Link to="/">
         <button id="btn-home">Home</button>
       </Link>
     </div>
