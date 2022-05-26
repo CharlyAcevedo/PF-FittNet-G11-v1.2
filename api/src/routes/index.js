@@ -3,6 +3,7 @@ const routeLogin = require('./login');
 const routeLogout = require('./logout');
 const routeRegister = require('./register');
 const routeHome = require('./home');
+const routeProfile = require('./profile');
 
 
 const router = Router();
@@ -12,6 +13,7 @@ router.use('/api', routeLogin);
 router.use('/api', routeLogout);
 router.use('/api', routeRegister);
 router.use('/api', routeHome);
+router.use('/api', routeProfile);
 
 // Rutas creadas
 // 0. Barra y barra api responde cuando un usuario no fue validado o 

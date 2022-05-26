@@ -13,7 +13,7 @@ export default function LandingInfo() {
             <div className='ingresar_registrarse'>
                 <img className='image_strong' src={strong} alt="" />
                 <Link className='ingresar' to='/login'>Ingresar</Link>
-                <Link className='registrarse' to='/register'>Registrarse</Link>
+                <Link className='registrarse' to='/registration'>Registrarse</Link>
                 <p className='parrafo1_landing'>La red de los mejores gimnasios acompañandote durante
                     todo el proceso de cambio</p>
             </div>
