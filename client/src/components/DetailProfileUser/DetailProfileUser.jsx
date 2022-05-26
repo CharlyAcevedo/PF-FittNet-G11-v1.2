@@ -1,9 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-export default function DetailProfile() {
+export default function DetailProfileUser() {
     let { id , name, type } = useParams();
-    console.log(id, name, type, 'id y name')
+    // console.log(id, name, type, 'id y name')
 
     // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
     // si le llega este id (de la fomra que lo espera) y si el usuario tiene una
@@ -18,27 +18,29 @@ export default function DetailProfile() {
     return (
         
         <div> 
-            <a>Id: {id}, name: {name} </a>
-            <a>Typo: {type}</a>
+            <p>Id: {id}, name: {name} </p>
+            <p>Typo: {type}</p>
             <br />
-            <h3>Estas tres partes pueden ser rutas distintas</h3>
-            <a>Hay que solicitar info para cada una de estás vistas</a>
+            <h3>Esta vista corresponde a un cliente final o "user"</h3>
+            <p>Hay que solicitar info para cada una de estás vistas</p>
             <h3>Carrito de compras</h3>
-            <a>Mi carrito</a>
+            <p>Mi carrito</p>
             <br />
             <h3>Historial de compras</h3>
-            <a>Mis compras</a>
+            <p>Mis compras</p>
             <br />
             <h3>Detalles del perfil</h3>
-            <a>Name: {name}</a>
+            <p>Name: {name}</p>
             <br />
-            <a>Tipo de plan: </a>
+            <p>Tipo de plan: </p>
             <br />
-            <a>Siguitene 2</a>
+            <p>Siguitene 2</p>
             <br />
-            <a>Siguitene 3</a>
+            <p>Siguitene 3</p>
             <br />
-            <a>Siguitene 4</a>
+            <p>Siguitene 4</p>
+            <br />
+            <a href='/'>Volver</a>
         </div>
         
 
