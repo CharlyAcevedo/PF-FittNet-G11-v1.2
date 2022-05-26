@@ -18,27 +18,37 @@ router.use(express.urlencoded({ extended: true }));
 
 // ESTO ES DEL FRONT PARA LA PROTECCIÓN DE RUTAS
 //---------------------------------------------------------------------------------
-const isNotAuthenticated = (req, res, next) => { // Hay que ver si es del front
+// const isNotAuthenticated = (req, res, next) => { // Hay que ver si es del front
 
-  // Si hay un usuario logueado redirigir a /home de lo contrario llamar a next()
+//   // Si hay un usuario logueado redirigir a /home de lo contrario llamar a next()
+//   console.log(req.cookies.userId, ' cómo van quedando las')
 
-  if ( req.cookies.userId ) {
-    res.redirect('/home'); 
+//   if ( req.cookies.userId ) {
+//     console.log('me lo están mandando a login')
+//     res.redirect('/api/login'); 
   
-  } else {
-    next();
-  }
+//   } else {
+//     next();
+//   }
 
-}
+// }
 
-router.get('/login', isNotAuthenticated, (req, res) => {
-    res.send('No hay sesión iniciada, puede continuar con el post')
+router.get('/login',  (req, res) => {
+    res.send('Ya existe una sesión iniciada no puede continuar con el post')
 });
 
 //----------------------------------------------------------------------------------
-
+// router.post('/login', isNotAuthenticated, async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
-    console.log('está entrando un post mierda!')
+    console.log('está entrando este post porque el usuario no está autenticado!')
+    
+    console.log(req.cookies, 'me llegan cookies de entrada?');
+    console.log('Las guarda el servidor o el cliente???');
+    // Conclusión, las guarda el cliente.
+    // Si un cliente no las tiene, no entra a /home
+    // Si Franco hace una solicitud, manda cookies suyas y se le responde a él
+    // Si Toni hace una solicitud, manda (otras) cookies suyas y se le responde a él
+    // Funcionaaa!
 
     const { email , password } = req.body
 
@@ -79,10 +89,17 @@ router.post('/login', async (req, res, next) => {
 
     if (user) { // Si encuentro el user en la db
     
-      console.log('tu user fue validado y vas a home')
+      console.log(user[0], 'tu user fue validado y vas a home')
+      
+      res.cookie('userId', user[0].id); // Hay que ver si esto también en el front
+
+      // res.status(200).json(user);
+      // console.log(req.cookies, ' cómo van quedando las (2)')
+      // No las veo porque se las paso al cliente y yo no las guardo
       res.status(200).json(user);
-      // res.cookie('userId', user[0].id); // Hay que ver si esto es del front
-      // res.redirect('/home'); // Hay que ver si esto es del front
+      
+      // res.redirect('/api/home'); // Hay que ver si esto es del front
+      
       // res.send('tu user fue validado y vas a home');
 
     } else {
