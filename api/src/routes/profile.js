@@ -19,7 +19,8 @@ function isAuthenticated(req, res, next) {
 // La ruta está protegida y verificada con passport y solo
 // es posible acceder a ella si el usuario está autenticado. 
 
-
+// Ponele que llega un objeto ---> {id: "uuid"}
+// Puede ser un uuid
 
 
 router.get('/profile',

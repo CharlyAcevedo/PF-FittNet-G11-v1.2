@@ -23,6 +23,8 @@ passport.use(new Strategy(
   function(username, password, done) {
     console.log('esto entra 52');
     routeRegister.findByUsername(username)
+    // Debería consultar con la base de datos de mongose DB
+    // Estoy buscando un email
     .then((user) => {
         console.log(user, ' user en la 54');
         if(!user) {
@@ -59,6 +61,8 @@ passport.serializeUser(function(user, done) {
 // Function deserializeUser is used to retrieve user data from session
 
 passport.deserializeUser(function(id, done) {
+  // Debería consultar con la base de datos de mongose DB
+
   routeRegister.findById(id)
   .then((user) => {
       done(null, user);
@@ -118,12 +122,13 @@ function(req, res) {
   // console.log(req.session, ' esto es req.session 120');
   let id = req.user.id;
   let name = req.user.name;
+  let type = req.user.type;
   console.log(req.user, ' esto es req.user 121');
   // { id: 1, name: 'Franco', email: 'Franco@mail.com', password: '1234' }
   
   // res.cookie('userId', id);
 
-  res.json({login: true , userId: id, name: name });
+  res.json({login: true , userId: id, name: name, type: type });
 
   // debería enviar el cookies
 
