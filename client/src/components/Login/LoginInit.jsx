@@ -85,6 +85,8 @@ export default function LoginInit () {
                 <br />
                 <a href='/registration'>Crear cuenta</a>
                 <br />
+                <a href='/resetpass'>Recuperar cuenta</a>
+                <br />
                 <a href='/'>Volver</a>        
             </div>
         </div>

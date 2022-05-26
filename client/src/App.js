@@ -8,6 +8,7 @@ import ClientRegister from "./views/ClientRegister";
 import InitRegister from "./views/InitRegister";
 import Profile from "./views/Profile";
 import LegendCe from "./components/LegendCe/LegendCe";
+import ResetPassword from "./views/ResetPassword";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/home/:type/:name/:id" element={<Home />} />
-          
+          <Route path="/resetpass" element={<ResetPassword />} />
           <Route path="/legendCe" element={<LegendCe />} />
           <Route path="/profile/:type/:name/:id" element={<Profile />} />
           <Route path="/login" element={<Login />} />
