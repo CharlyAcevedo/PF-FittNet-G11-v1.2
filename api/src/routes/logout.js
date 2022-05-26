@@ -4,11 +4,31 @@ const cookieparser = require('cookie-parser');
 const router = Router();
 router.use(cookieparser()); // veremos
 
-router.post('/logout', (req, res, next) => {
-    // console.log('recibo el post / logout')
-    // res.status(200).send("estoy en post de api/logout")
-    // console.log(req.cookies, 'las cookies en logout'); 
-    // Para ver si están viajando las cookies
+
+const isAuthenticated = (req, res, next) => { // Hay que ver si es del front
+
+    // Si hay un usuario logueado redirigir a /home de lo contrario llamar a next()
+  
+    if ( !req.cookies.userId ) {
+      res.redirect('/api/logout'); 
+    
+    } else {
+      next();
+    }
+  
+  }
+
+
+router.get('/logout', (req, res, next) => {
+    res.send('No hay ninguna sesión iniciada')
+})
+
+router.post('/logout', isAuthenticated, (req, res, next) => {
+
+    console.log('recibo el post / logout y cierro la sesión')
+    
+    // console.log(req.cookies, 'las cookies en logout');
+    // { userId: '1' } las cookies en logout   
 
     res.clearCookie('userId');
     res.redirect('/');

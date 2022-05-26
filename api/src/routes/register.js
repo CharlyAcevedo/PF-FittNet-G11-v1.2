@@ -23,14 +23,40 @@ router.findByUsername = function(email, cb) {
       return reject(null);
     });
 }
+router.findById = function(id, cb) {
+  console.log(id, 'llegó el id')
+
+  return new Promise(function (resolve, reject) {
+    let user = users.filter( u => u.id === Number(id))
+    
+    if (user.length === 0 || user.length === 1 ) {
+      return resolve(user);
+    }
+    
+    return reject(null);
+  });
+
+}
+
+const isNotAuthenticated = (req, res, next) => { // Hay que ver si es del front
+
+  // Si hay un usuario logueado redirigir a /home de lo contrario llamar a next()
+
+  if ( req.cookies.userId ) {
+    res.redirect('/api/register'); 
+  
+  } else {
+    next();
+  }
+
+}
 
 router.get('/register', (req, res, next) => {
-    res.send('Email incorrecto, por favor indique otro correo')
-    // No respondo "email yo existe" porque eso es una falla de seguridad
-    // da información de qué correos tenemos registrados en la db
+    res.send('No puede realizar un post /register mientras haya una sesión iniciada');
+    
 })
 
-router.post('/register', (req, res, next) => {
+router.post('/register', isNotAuthenticated, (req, res, next) => {
     
     const { name, email, password } = req.body;
 
@@ -49,13 +75,13 @@ router.post('/register', (req, res, next) => {
 
       if (findUser ) {
         console.log('Email incorrecto, por favor indique otro correo');
-        return res.redirect('/api/register');
+        return  res.send('Email incorrecto, por favor indique otro correo');
         
 
       } else {
         users.push({id, name, email, password}); // Acá debería crear el user en la db
-        console.log(users, 'luego de agregar el nuevo user')
-        console.log('Se creo el registro y volves a barra');
+        // console.log(users, 'luego de agregar el nuevo user')
+        // console.log('Se creo el registro y volves a barra');
         res.status(200).json(users[users.length - 1])
         // res.redirect('/');
         // res.send('Se creo el registro y volver a barra')   
@@ -63,8 +89,9 @@ router.post('/register', (req, res, next) => {
         
   
     } else {
-      console.log('Datos incompletos, no se creo el registro y vas a /register'); 
-      res.redirect('/api/register');
+      console.log('Datos incompletos, no se creo el registro'); 
+      // res.redirect('/api/register');
+      res.send('Datos incompletos, el registro no fue creado ');
       
   
     }
