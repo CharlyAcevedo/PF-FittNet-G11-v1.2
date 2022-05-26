@@ -123,12 +123,13 @@ function(req, res) {
   let id = req.user.id;
   let name = req.user.name;
   let type = req.user.type;
+  let avatar = req.user.avatar;
   console.log(req.user, ' esto es req.user 121');
   // { id: 1, name: 'Franco', email: 'Franco@mail.com', password: '1234' }
   
   // res.cookie('userId', id);
 
-  res.json({login: true , userId: id, name: name, type: type });
+  res.json({login: true , userId: id, name: name, type: type, avatar: avatar });
 
   // debería enviar el cookies
 

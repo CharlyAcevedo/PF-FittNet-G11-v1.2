@@ -12,8 +12,9 @@ router.use(cookieparser()); // veremos
 
 const users = [
     {id: 1, name: 'Franco', email: 'Franco@mail.com', password: '1234', type: 'user'},
-    {id: 2, name: 'Toni', email: 'Toni@mail.com', password: '1234', type: 'partner'},
-    {id: 3, name: 'Nano', email: 'Nano@mail.com', password: '1234', type: 'admin'}
+    {id: 2, name: 'Nano', email: 'Nano@mail.com', password: '1234', type: 'user', avatar: '4'},
+    {id: 3, name: 'Toni', email: 'Toni@mail.com', password: '1234', type: 'partner'},
+    {id: 4, name: 'Jessi', email: 'Jessi@mail.com', password: '1234', type: 'admin'}
 ]
 
 // Esta función simula la busquda del correo en la base de datos para 

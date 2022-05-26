@@ -3,23 +3,36 @@ import logoFittNet from "../../asets/images/logo_fitnet.jpg";
 import views from "../../asets/images/card_views.png";
 import Logout from "../Logout/Logout";
 import { useParams } from "react-router-dom";
+import SelecAvatar from "../SelectAvatar/SelectAvatar";
 
+// import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
-    let { id , name, type } = useParams();
-    console.log(id, name, type, 'id y name')
+    let { userId , name, type, avatar } = useParams();
+    console.log(userId, name, type, avatar, 'mis params')
 
     // debería llegarme por params si es un 
-    // "user" o un "partner" o incluso un "admin"
+    // "user" con sin avatar o un "partner" o incluso un "admin"
 
-
-    if (type === 'user') {
+    // Esto es una vista para un usuario sin avatar
+    if (type === 'user' && !avatar) {
         return (
             
+            <div> 
+                <SelecAvatar/>
+                <Logout/>                
+                <a href='/'>Volver</a>                
+            </div>         
+        )
+    }
+
+    // Esto es una vista para un usuario con avatar
+    if (type === 'user' && avatar) {
+        return (            
             <div> 
                 <div>Entraste en / Home {name}, bienvenido!</div>              
                 <img height="200" src={logoFittNet} alt="logo" />          
                 <div>Quiero ver info de mi perfil</div>
-                <a href={`/profile/${type}/${name}/${id}`}>Mi perfil</a>
+                <a href={`/profile/${type}/${name}/${userId}`}>Mi perfil</a>
                 <Logout/>
                 <br />
                 <a href='/'>Volver</a>
@@ -27,14 +40,15 @@ export default function HomeMain() {
             </div>         
         )
     }
+    
+    // Esto es una para cliente empresa
     if (type === 'partner') {
-        return (
-            
+        return (            
             <div> 
                 <div>Entraste en / Home {name}, bienvenido!</div>               
                 <img height="200" src={logoFittNet} alt="logo" />          
                 <div>Quiero ver info de mi perfil</div>
-                <a href={`/profile/${type}/${name}/${id}`}>Mi perfil</a>
+                <a href={`/profile/${type}/${name}/${userId}`}>Mi perfil</a>
                 <Logout/>
                 <br />
                 <a href='/'>Volver</a>
@@ -43,14 +57,14 @@ export default function HomeMain() {
         )
     }
 
+    // Esto es una para un administrador de sitio
     if (type === 'admin') {
-        return (
-            
+        return (            
             <div> 
                 <div>Entraste en / Home {name}, bienvenido!</div>               
                 <img height="200" src={logoFittNet} alt="logo" />          
                 <div>Quiero ver info de mi perfil</div>
-                <a href={`/profile/${type}/${name}/${id}`}>Mi perfil</a>
+                <a href={`/profile/${type}/${name}/${userId}`}>Mi perfil</a>
                 <Logout/>
                 <br />
                 <a href='/'>Volver</a>
