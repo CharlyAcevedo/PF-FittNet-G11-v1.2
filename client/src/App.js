@@ -23,7 +23,7 @@ function App() {
           <Route path="/legendCe" element={<LegendCe />} />
           <Route path="/profile/:type/:name/:userId" element={<Profile />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/registration" element={<InitRegister />} />
+          <Route path="/register" element={<InitRegister />} />
           <Route path="/user_register" element={<UserRegister />} />
           <Route path="/client_register" element={<ClientRegister />} />
         </Routes>

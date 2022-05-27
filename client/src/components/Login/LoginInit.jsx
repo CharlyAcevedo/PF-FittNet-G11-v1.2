@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import './styles/Login.css'
 
 export default function LoginInit () {
     const [ username, setUsername ] = useState("");
@@ -55,45 +57,66 @@ export default function LoginInit () {
 
     
     return (
-        
-        <div>
-            <div> Entraste en / Login </div>
-            <div> Email 1: "Franco@mail.com" pass: "1234" type: user</div>
-            <div> Email 2: "Nano@mail.com" pass: "1234" type: user con avatar</div>
-            <div> Email 3: "Toni@mail.com" pass: "1234" type: partner</div>
-            <div> Email 4: "Jessi@mail.com" pass: "1234" type: admin</div>
-            
-            <div>
-                <h1>Iniciar sesión</h1>
-                <h2>Email state: {username}</h2>
-                <h2>Password state: {password}</h2>
+    <div class="container">
 
-                <form >
+                  <div class="screen">
+                    <div class="screen_content">
+                        <div class="sign">
 
-                  <input type='email' value= {username} 
-                  name='email' placeholder='Email' required 
-                  onChange = {(e) => setUsername(e.target.value)}/>
+                          <div class="content-heading">
+                            <Link to='/'>
+                              <div className='container_btn'>
+                                  <div className='logo_Container'>
+                                  </div>
+                              </div>
+                            </Link>
+                              <div class='container_reg'>
+                                <a href='/register' style={{textDecoration: "none"}} >Crear cuenta</a>
+                              </div>
+                          </div>
+                        </div>
+                            <form class="login">
+                                <div class="login_field">
+                                    <input 
+                                      type='email' 
+                                      value= {username} 
+                                      name='email'
+                                      class="login_input" 
+                                      placeholder='Email' required 
+                                      onChange = {(e) => setUsername(e.target.value)}
+                                    />
+                                </div>
+                                <div class="login_field">
+                                    <input 
+                                      type='password' 
+                                      value= {password} 
+                                      name='password' 
+                                      class="login_input"
+                                      placeholder='Contraseña' required 
+                                      onChange = {(e) => setPassword(e.target.value)}
+                                    />
+                                </div>
 
-                  <input type='password' value= {password} 
-                  name='password' placeholder='Contraseña' required 
-                  onChange = {(e) => setPassword(e.target.value)}/>
-                  <h3>{error === "" ? null : error}</h3>
+                                <h3>{error === "" ? null : error}</h3>
 
-                  <input type='submit' value='Ingresar'  onClick={(e)=>onSubmit(e)} />
-
-                </form>
-                <button>Ingresa con tu cuenta Google</button>
-                <br />
+                                <input
+                                  class="button login_submit"
+                                  type='submit' 
+                                  value='Ingresar'  
+                                  onClick={(e)=>onSubmit(e)}
+                                />
+                            </form>			
+                        </div>
+                        <div class="screen_background">
+                            <span class="screen_background_shape shape4"></span>
+                            <span class="screen_background_shape shape3"></span>		
+                            <span class="screen_background_shape shape2"></span>
+                            <span class="screen_background_shape shape1"></span>
+                        </div>
+                      </div>       
+                    </div>
+                    
                 
-                {/* <a href="#">Falta hacer la verificación con Google</a> */}
-                <br />
-                <a href='/registration'>Crear cuenta</a>
-                <br />
-                <a href='/resetpass'>Recuperar cuenta</a>
-                <br />
-                <a href='/'>Volver</a>        
-            </div>
-        </div>
 
 
     )
