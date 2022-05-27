@@ -6,6 +6,7 @@ const routeHome = require('./home');
 const routeProfile = require('./profile');
 const routeAvatar = require('./avatar');
 const { route } = require('./register');
+const run = require('../controlers/test');
 
 const router = Router();
 
@@ -31,9 +32,18 @@ router.use('/api', routeAvatar);
 // 
 //
 
-router.get('/', (req, res) => {
-    console.log('fue redirigido a barra')
-    res.status(200).send("ahora estás en /  (barra)")
+router.get('/', async (req, res) => {
+    try {
+        console.log('fue redirigido a barra')
+        const prueba = await run()
+        console.log(prueba)
+        res.status(200).send("se creo el usuario")
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: "No se pudo crear el usuario"
+        })
+    }
 });
 
 

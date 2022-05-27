@@ -77,8 +77,7 @@ function isAuthenticated(req, res, next) {
 // Esta ruta get responde cuando un usuario con sesión activa intenta
 // hacer un post a /api/register.
 router.get('/register', (req, res, next) => {
-    res.send('No puede realizar un post /register mientras su sesión esté iniciada');
-    
+    res.send('No puede realizar un post /register mientras su sesión esté iniciada');   
 })
 
 
