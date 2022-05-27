@@ -2,36 +2,50 @@ const mongoose = require('mongoose');
 let regWord = /^[a-zA-Z0-9]{5}[a-zA-Z0-9]*\s*\w*/;
 // let regMail = /^[A-Z0-9a-z._%+-]{2}+@[A-Za-z0-9.-]{2}[A-Za-z0-9.-]*+\\.[A-Za-z]{2,64}/;
 
-const userSchema = new mongoose.Schema({
-    userName: {
+const infoUserSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    lastName: {
+        type: String,
+        required: true,
+    },
+    email: {
         type: String,
         required: true,
         lowercase: true,
         validate: {
             validator: v => regWord.test(v),
-            message: props => `${props.value} is not a valid User Name`
+            message: props => `${props.value} is not a valid email address`
         }
-    },
-    password: {
+    },    
+    phone: {
         type: String,
-        required: true,
     },
-    type:{
+    birthday: {
+        type: Date,
+    },
+    gender: {
         type: String,
-        required: true,
     },
-    info:{
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: "InfoUser"
+    photo: {
+        type: String,
     },
-    partner: {
+    active: {
+        type: Boolean,
+    },   
+    address: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: "Partner"
+        ref: "Address"
+    },
+    avatar:{
+        type: String,
     },
     createdAt: {
         type: Date,
         required: true,
-        // inmutable: true,
+        inmutable: true,
         default: () => Date.now(),
     },
     updatedAt: {
@@ -41,4 +55,4 @@ const userSchema = new mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model('Users', userSchema)
+module.exports = mongoose.model('InfoUser', infoUserSchema)

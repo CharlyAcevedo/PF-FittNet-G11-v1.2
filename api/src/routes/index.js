@@ -6,6 +6,9 @@ const routeHome = require('./home');
 const routeProfile = require('./profile');
 const routeAvatar = require('./avatar');
 const { route } = require('./register');
+const { findUser, findAllUsers } = require('../controlers/users')
+const Users = require('../models/User')
+const Run = require('../controlers/test')
 
 const router = Router();
 
@@ -16,6 +19,12 @@ router.use('/api', routeRegister);
 router.use('/api', routeHome);
 router.use('/api', routeProfile);
 router.use('/api', routeAvatar);
+
+router.post('/create', (req, res) => {
+    const newUser = Run()
+    console.log(newUser)
+    res.send(newUser)    
+})
 
 // Rutas creadas
 // 0. Barra y barra api responde cuando un usuario no fue validado o 
@@ -31,15 +40,30 @@ router.use('/api', routeAvatar);
 // 
 //
 
-router.get('/', (req, res) => {
-    console.log('fue redirigido a barra')
-    res.status(200).send("ahora estás en /  (barra)")
+router.get('/', async (req, res) => {
+    const userName = req.body
+    const response = await findUser(userName)
+    if(response === null) { 
+        res.status(404).send('User not found')
+    } else {
+        res.status(200).send(response)
+    }
 });
 
+router.get('/users', async (req, res) => {
+    const response = await findAllUsers()
+    if(response === null) { 
+        res.status(404).send('User not found')
+    } else {
+        res.status(200).send(response)
+    }
+})
 
-router.get('/api', (req, res) => {
+
+router.get('/api', async (req, res) => {
+    const response = await Users.find()
     console.log('fue redirigido a barra api')
-    res.status(200).send("ahora estás en /api  (barra api), has salido")
+    res.status(200).send(response)
 });
 
 

@@ -1,8 +1,9 @@
 const { Router } = require('express');
+const Users = require('../models/User')
 
-const cookieparser = require('cookie-parser');
+// const cookieparser = require('cookie-parser');
 const router = Router();
-router.use(cookieparser()); // veremos
+// router.use(cookieparser()); // veremos
 
 
 // Este array simula ser la base de datos a consultar.
@@ -10,23 +11,23 @@ router.use(cookieparser()); // veremos
 
 // Le podrías cargar esta info de entrada para que todos podamos consultar
 
-const users = [
-    {id: 1, name: 'Franco', email: 'Franco@mail.com', password: '1234', type: 'user'},
-    {id: 2, name: 'Toni', email: 'Toni@mail.com', password: '1234', type: 'partner'},
-    {id: 3, name: 'Nano', email: 'Nano@mail.com', password: '1234', type: 'admin'}
-]
+// const users = [
+//     {id: 1, name: 'Franco', email: 'Franco@mail.com', password: '1234', type: 'user'},
+//     {id: 2, name: 'Toni', email: 'Toni@mail.com', password: '1234', type: 'partner'},
+//     {id: 3, name: 'Nano', email: 'Nano@mail.com', password: '1234', type: 'admin'}
+// ]
 
 // Esta función simula la busquda del correo en la base de datos para 
 // intentar encontrar el usuario con ese correo.
 // Queda pendiente utilizar mongose para hacer la consulta
 // y enviar la función a controller.
 
-router.findByUsername = function(email, cb) {
+router.findByUsername = function(username, cb) {
       return new Promise(function (resolve, reject) {
       
       // Hay que hacer la consulta a la BD de mongose  
 
-      let user = users.find( u => u.email === email)
+      let user = Users.find(username)
 
       console.log(user, ' linea 18 de register')
 
@@ -44,14 +45,14 @@ router.findByUsername = function(email, cb) {
 // Queda pendiente utilizar mongose para hacer la consulta
 // y enviar la función a controller.
 
-router.findById = function(id, cb) {
+router.findById = function(_id, cb) {
   console.log(id, 'llegó el id 30 register')
 
   return new Promise(function (resolve, reject) {
 
      // Hay que hacer la consulta a la BD de mongose  
 
-    let user = users.find( u => u.id === Number(id))
+    let user = Users.find(_id)
     
     if (user) {
       (user, ' cómo devuelve la promesa a user 34')
@@ -87,40 +88,44 @@ router.get('/register', (req, res, next) => {
 router.post('/register', isAuthenticated, (req, res, next) => {
     
   //También debería recibir tipo de usuario "client" o "partner"
-  const { name, email, password, type } = req.body;
+  const { username, password, type } = req.body;
 
   console.log(req.body, 'lo que llega por body')
   
-  if ( !name || !email || !password || !type ) {
+  if ( !username || !password || !type ) {
       return res.send('campos incompletos');
   }
-  if ( name && email && password && type) {
+  if ( username && password && type) {
 
      // Hay que hacer la consulta a la BD de mongose  
 
-    let findUser = users.find(u => u.email === email)
+    let findUser = Users.find(username)
     // Acá iría a buscar el email del user en la db
 
-    let id = users.length + 1 ; // Genero un id
+    // let id = users.length + 1 ; // Genero un id
 
-    if (findUser ) { // Si el correo ya existe
-      console.log('Email incorrecto, por favor indique otro correo');
-      return  res.send('Email incorrecto, por favor indique otro correo');
+    if (findUser) { // Si el correo ya existe
+      console.log('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
+      return  res.send('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
       
     } else { // Si no el correo en bd, lo creo el usuario
 
        // Hay que hacer la consulta a la BD de mongose  
 
-      users.push({id, name, email, password, type}); 
+      const newUser = Users.create({ 
+        userName: username,
+        password: password,
+        type: type
+      }); 
       // Acá debería crear el user en la db
       // y retornar un mensaje de usuario creado con éxito
       // por ahora devuelvo el user creado
-      res.status(200).json(users[users.length - 1])
+      res.status(200).json(newUser)
     }        
 
    } else {
     
-    res.send('Datos incompletos, el registro no fue creado ');
+    res.status(404).send('Datos incompletos, el registro no fue creado ');
       
   }
 
