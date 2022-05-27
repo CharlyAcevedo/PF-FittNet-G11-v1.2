@@ -6,7 +6,6 @@ export default function Login() {
 
     return (
         <div className="main_login_view">
-            <NavBar/>
             <LoginInit/>
         </div>
     )
