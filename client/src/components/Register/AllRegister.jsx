@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
+import "./styles/Register.css"
 
 export default function AllRegister() {
   const [name, setName] = useState("");
@@ -48,73 +50,94 @@ export default function AllRegister() {
         .catch((error) => console.log(error));
     }
   }
-
+  
   return (
-    <div>
-      <div> Entraste en / Create </div>
-      <div> Quiero ver los datos del formulario que vamos a mandar </div>
-      <h5>Name: {name ? name : null}</h5>
-      <h5>Email: {email ? email : null}</h5>
-      <h5>Password: {password ? password : null}</h5>
-      <h5>Type state: {type ? type : null} </h5>
-      <br />
-      <div>
-        <h3>Registrarse</h3>
-        <div>
-          <h5>Tipo de cliente:</h5>
-          <select
-            name="select"
-            onChange={(e) =>
-              e.target.value === "Tipo de cliente"
-                ? null
-                : setType(e.target.value)
-            }
-          >
-            <option value="Tipo de cliente">Tipo de cliente</option>
-            <option value="user">Usuario Final</option>
-            <option value="partner">Cliente Empresa</option>
-          </select>
+    <div class="container">
+      <div class="screen">
+        <div class="screen_content">
+            <div class="sign">
+
+              {/* button navBar */}
+              <div class="content-heading">
+                <Link to='/home'>
+                  <div className='container_btn'>
+                      <div className='logo_Container'>
+                      </div>
+                  </div>
+                </Link>
+                <div class='container_reg'>
+                  <a href='/login' style={{textDecoration: "none"}} >Iniciar sesion</a>
+                </div>
+              </div>
+
+            {/* Form register */}
+            </div>
+                <form class="login">
+                    <div class="login_field">
+                        <input
+                          type='text' 
+                          name="name"
+                          className="login_input"
+                          placeholder="Nombre" required
+                          onChange={(e) => setName(e.target.value)}
+                          value={name}
+                        />
+                    </div>
+                    <div class="login_field">
+                        <input 
+                          type='email' 
+                          value= {email} 
+                          name='email'
+                          class="login_input" 
+                          placeholder='Email' required 
+                          onChange = {(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                    <div class="login_field">
+                        <input 
+                          type='password' 
+                          value= {password} 
+                          name='password' 
+                          class="login_input"
+                          placeholder='Contraseña' required 
+                          onChange = {(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+
+                    <h3>{error === "" ? null : error}</h3>
+
+                      <select
+                        name="select"
+                        onChange={(e) =>
+                          e.target.value === "Tipo de cliente"
+                            ? null
+                            : setType(e.target.value)
+                        }
+                      >
+                        <option value="Tipo de cliente">Tipo de cliente</option>
+                        <option value="client">Usuario Final</option>
+                        <option value="partner">Cliente Empresa</option>
+                      </select>
+                    <input
+                      class="button login_submit"
+                      type='submit' 
+                      value='Registrarse'  
+                      onClick={(e)=>onSubmit(e)}
+                    />
+                    <h3>{error ? error : null}</h3>
+                    <div>
+                    </div>
+                </form>			
+            </div>
+            {/* screen background */}
+            <div class="screen_background">
+                <span class="screen_background_shape shape4"></span>
+                <span class="screen_background_shape shape3"></span>		
+                <span class="screen_background_shape shape2"></span>
+                <span class="screen_background_shape shape1"></span>
+            </div>
+        
+          </div>       
         </div>
-
-        <form>
-          <input
-            name="name"
-            placeholder="Nombre"
-            required
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-          />
-
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-          />
-
-          <input
-            type="password"
-            name="password"
-            placeholder="Contraseña"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-          />
-
-          <h3>{error ? error : null}</h3>
-
-          <input
-            type="submit"
-            value="Registrarse"
-            onClick={(e) => onSubmit(e)}
-          />
-        </form>
-        <a href="/login">Iniciar sesión</a>
-        <br />
-        <a href="/">Volver</a>
-      </div>
-    </div>
   );
 }
