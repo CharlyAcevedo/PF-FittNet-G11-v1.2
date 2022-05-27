@@ -71,7 +71,7 @@ export default function AllRegister() {
             }
           >
             <option value="Tipo de cliente">Tipo de cliente</option>
-            <option value="client">Usuario Final</option>
+            <option value="user">Usuario Final</option>
             <option value="partner">Cliente Empresa</option>
           </select>
         </div>

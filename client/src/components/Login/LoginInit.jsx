@@ -23,15 +23,18 @@ export default function LoginInit () {
               console.log(res.data, '-> viendo qué respondio el post')              
                           
               if(res.data.login) {
-                // setError("");
-                // setPassword("");
-                // setUsername("");             
-                console.log(res.data, ' lo que debería setear en las cookies');
-                let id = res.data.userId;
-                let name = res.data.name;
-                let type = res.data.type;
+                         
+                console.log(res.data, ' lo que responde el back si se autentica el user');
+                let { userId, name, type, avatar } = res.data;
+                // let id = res.data.userId;
+                // let name = res.data.name;
+                // let type = res.data.type;
+                // let avatar = res.data.avatar;
+                if (typeof avatar === 'string') {
+                  return  window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`
+                }
                 // ya le paso info por params de quién estamos hablando
-                return  window.location = `http://localhost:3000/home/${type}/${name}/${id}`
+                return  window.location = `http://localhost:3000/home/${type}/${name}/${userId}`
                 // return  window.location = `http://localhost:3000/home/${id}/${name}`
               }
               if (typeof res.data === "string") {
@@ -56,8 +59,9 @@ export default function LoginInit () {
         <div>
             <div> Entraste en / Login </div>
             <div> Email 1: "Franco@mail.com" pass: "1234" type: user</div>
-            <div> Email 2: "Toni@mail.com" pass: "1234" type: partner</div>
-            <div> Email 3: "Nano@mail.com" pass: "1234" type: admin</div>
+            <div> Email 2: "Nano@mail.com" pass: "1234" type: user con avatar</div>
+            <div> Email 3: "Toni@mail.com" pass: "1234" type: partner</div>
+            <div> Email 4: "Jessi@mail.com" pass: "1234" type: admin</div>
             
             <div>
                 <h1>Iniciar sesión</h1>
@@ -84,6 +88,8 @@ export default function LoginInit () {
                 {/* <a href="#">Falta hacer la verificación con Google</a> */}
                 <br />
                 <a href='/registration'>Crear cuenta</a>
+                <br />
+                <a href='/resetpass'>Recuperar cuenta</a>
                 <br />
                 <a href='/'>Volver</a>        
             </div>
