@@ -11,8 +11,8 @@ export default function DetailProfileUser() {
 
     // Queda pendiente dispachar una acción para cargar en el estado global
     // la info del usuario en un objeto. Ejeplo --> State.detailUser = {}
-
-
+    
+  
 
 
     return (
