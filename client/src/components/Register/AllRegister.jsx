@@ -20,7 +20,7 @@ export default function AllRegister() {
     e.preventDefault();
 
     if (name && email && password && type) {
-      userCreate = { name: name, email: email, password: password, type: type };
+      userCreate = { name: name, username: email, password: password, type: type };
 
       console.log("está saliendo el post ", userCreate);
 
