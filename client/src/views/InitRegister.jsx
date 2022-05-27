@@ -6,7 +6,6 @@ export default function InitRegister() {
 
     return (
         <div className="main_home_view">
-            <NavBar/>
             <AllRegister/>
         </div>
     )
