@@ -15,7 +15,7 @@ return (
                 
                 <a href={'/legendUf'} ><button>Beneficios para miembros</button></a>
 
-                <a href={'/registration'} ><button id={style.butt}>Prueba gratis!</button></a>
+                <a href={'/register'} ><button id={style.butt}>Prueba gratis!</button></a>
               
               </ul>
              </nav>
