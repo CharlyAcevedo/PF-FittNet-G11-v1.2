@@ -3,16 +3,12 @@ let regMail =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 //regex para validar cualquier direccion que contenga caracteres unicode
 
-const userClientSchema = new mongoose.Schema({
+const partnerSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
   lastName: {
-    type: String,
-    required: true,
-  },
-  userName: {
     type: String,
     required: true,
   },
@@ -24,10 +20,6 @@ const userClientSchema = new mongoose.Schema({
       validator: (e) => regMail.test(e),
       message: (e) => `${e.value} is not a valid email address`,
     },
-  },
-  password: {
-    type: String,
-    required: true,
   },
   phone: {
     type: Number,
@@ -63,4 +55,4 @@ const userClientSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Companys", userClientSchema);
+module.exports = mongoose.model("Partner", partnerSchema);
