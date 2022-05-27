@@ -2,8 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 export default function DetailProfileUser() {
-    let { id , name, type } = useParams();
-    // console.log(id, name, type, 'id y name')
+    let { userId , name, type, avatar } = useParams();
+    console.log(userId, name, type, avatar, ' los params')
 
     // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
     // si le llega este id (de la fomra que lo espera) y si el usuario tiene una
@@ -18,7 +18,7 @@ export default function DetailProfileUser() {
     return (
         
         <div> 
-            <p>Id: {id}, name: {name} </p>
+            <p>Id: {userId}, name: {name} </p>
             <p>Typo: {type}</p>
             <br />
             <h3>Esta vista corresponde a un cliente final o "user"</h3>

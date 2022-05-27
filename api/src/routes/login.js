@@ -119,19 +119,13 @@ router.get('/login',  (req, res) => {
 router.post('/login',
 passport.authenticate('local', { failureRedirect: '/api/login' }),
 function(req, res) {
-  // console.log(req.session, ' esto es req.session 120');
-  let id = req.user.id;
-  let name = req.user.name;
-  let type = req.user.type;
-  let avatar = req.user.avatar;
-  console.log(req.user, ' esto es req.user 121');
-  // { id: 1, name: 'Franco', email: 'Franco@mail.com', password: '1234' }
   
-  // res.cookie('userId', id);
-
+  let { id, name, type, avatar } = req.user;
+  // { id: 1, name: 'Franco', email: 'Franco@mail.com', password: '1234' }
+  // avatar puede ver o no  
+  console.log(req.user, ' esto es req.user 121');
+ 
   res.json({login: true , userId: id, name: name, type: type, avatar: avatar });
-
-  // debería enviar el cookies
 
 });
 

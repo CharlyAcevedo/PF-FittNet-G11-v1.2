@@ -23,13 +23,27 @@ function isAuthenticated(req, res, next) {
 // Puede ser un uuid
 
 
-router.get('/profile',
-    isAuthenticated,
-    function(req, res){
-      res.json({ user: req.user });
-});
+
+router.get('/profile', function(req, res) {
+  let { userId } = req.body; 
+  if (userId) {
+    // Si tengo userId (uuid) buscar a la base de datos info relacionada con el id
+    // Si la encuentro debo devolver un objeto con propiedades que quiera mostrar
+    // en el detalle del usuario final, cliente empresa o admin.
+    // La info que voy a recibir va a variar en estructua y contedido para cada caso.
+    
+  }
+
+  res.status(200).json()
+})
 
 
 
+// Dejo comentada esta ruta protegida hasta que esté todo funcionando
+// router.get('/profile',
+//     isAuthenticated,
+//     function(req, res){
+//       res.json({ user: req.user });
+// });
 
 module.exports = router;  
