@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { createAvatar, getAvatar } = require('../controlers/misc.controllers');
+const { createAvatar, getAvatar } = require('../controlers/avatar.controllers');
 
 router.post('/avatar', createAvatar);
 router.get('/avatar', getAvatar);

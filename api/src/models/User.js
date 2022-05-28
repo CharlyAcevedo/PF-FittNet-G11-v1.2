@@ -6,6 +6,10 @@ const userSchema = new mongoose.Schema({
     name:{
         type: String,
         required: true,
+        validate: {
+            validator: v => regWord.test(v),
+            message: props => `${props.value} is not a valid User Name`
+        }
     },
     userName: {
         type: String,
@@ -25,6 +29,10 @@ const userSchema = new mongoose.Schema({
     type:{
         type: String,
         required: true,
+    },
+    avatar:{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Avatar"
     },
     info:{
         type: mongoose.SchemaTypes.ObjectId,

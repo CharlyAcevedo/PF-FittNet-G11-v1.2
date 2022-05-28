@@ -11,8 +11,10 @@ const router = Router();
 router.post('/logout',
   function(req, res){
     req.logout();
+    // res.clearCookie('sid'); // clear session id - ver si es necesario
     res.redirect('/');
-  });
+  }
+);
 
 
 
