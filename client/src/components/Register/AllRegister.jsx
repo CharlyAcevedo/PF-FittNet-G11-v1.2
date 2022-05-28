@@ -20,7 +20,7 @@ export default function AllRegister() {
     e.preventDefault();
 
     if (name && email && password && type) {
-      userCreate = { name: name, email: email, password: password, type: type };
+      userCreate = { name: name, username: email, password: password, type: type };
 
       console.log("está saliendo el post ", userCreate);
 
@@ -29,7 +29,7 @@ export default function AllRegister() {
         .then((res) => {
           console.log(res.data, "-> respuesta del post de creación de cuenta");
 
-          if (res.data.id) {
+          if (res.data._id) {
             setName("");
             setEmail("");
             setPassword("");
@@ -115,8 +115,10 @@ export default function AllRegister() {
                         }
                       >
                         <option value="Tipo de cliente">Tipo de cliente</option>
-                        <option value="client">Usuario Final</option>
+                        <option value="user">Usuario Final</option>
                         <option value="partner">Cliente Empresa</option>
+                        <option value="admin">Administrador</option> 
+                        {/* Quitar más adelante la opción Administrador*/}
                       </select>
                     <input
                       class="button login_submit"
