@@ -117,6 +117,8 @@ export default function AllRegister() {
                         <option value="Tipo de cliente">Tipo de cliente</option>
                         <option value="user">Usuario Final</option>
                         <option value="partner">Cliente Empresa</option>
+                        <option value="admin">Administrador</option> 
+                        {/* Quitar más adelante la opción Administrador*/}
                       </select>
                     <input
                       class="button login_submit"
