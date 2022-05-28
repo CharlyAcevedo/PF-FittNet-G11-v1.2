@@ -28,25 +28,20 @@ export default function LoginInit () {
                          
                 console.log(res.data, ' lo que responde el back si se autentica el user');
                 let { userId, name, type, avatar } = res.data;
-                // let id = res.data.userId;
-                // let name = res.data.name;
-                // let type = res.data.type;
-                // let avatar = res.data.avatar;
+              
                 if (typeof avatar === 'string') {
                   return  window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`
                 }
                 // ya le paso info por params de quién estamos hablando
                 return  window.location = `http://localhost:3000/home/${type}/${name}/${userId}`
-                // return  window.location = `http://localhost:3000/home/${id}/${name}`
+                
               }
               if (typeof res.data === "string") {
                 setError('usuario o password incorrecta');
                 setPassword("");
                 setUsername("");
 
-              }
-
-              
+              }              
               
             })
             .catch((error) => console.log(error))
