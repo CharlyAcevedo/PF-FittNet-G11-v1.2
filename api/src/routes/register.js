@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const Users = require('../models/User')
+const InfoUsers = require('../models/InfoUser');
+const Partner = require('../models/Partner');
 
 // const cookieparser = require('cookie-parser');
 const router = Router();
@@ -26,7 +28,7 @@ const router = Router();
 
 // router.findByUsername = function(username, cb) {
 //       return new Promise(function (resolve, reject) {
-      
+
 //       // Hay que hacer la consulta a la BD de mongose  
 
 //       let user = Users.find(username)
@@ -37,7 +39,7 @@ const router = Router();
 //         console.log(user, ' cómo devuelve la promesa a user 20')
 //         return resolve(user);
 //       }
-      
+
 //       return reject(null);
 //     });
 // }
@@ -55,12 +57,12 @@ const router = Router();
 //      // Hay que hacer la consulta a la BD de mongose  
 
 //     let user = Users.find(_id)
-    
+
 //     if (user) {
 //       (user, ' cómo devuelve la promesa a user 34')
 //       return resolve(user);
 //     }
-    
+
 //     return reject(null);
 //   });
 
@@ -70,7 +72,7 @@ const router = Router();
 // activa, y si la tengo no me deja continuar con el post a /api/register,
 // solo me deja hacerlo si no tengo una sesión iniciada.
 function isAuthenticated(req, res, next) {
-  if(req.isAuthenticated()) {
+  if (req.isAuthenticated()) {
     res.redirect('/api/register');
   } else {
     next();
@@ -80,7 +82,7 @@ function isAuthenticated(req, res, next) {
 // Esta ruta get responde cuando un usuario con sesión activa intenta
 // hacer un post a /api/register.
 router.get('/register', (req, res, next) => {
-    res.send('No puede realizar un post /register mientras su sesión esté iniciada');   
+  res.send('No puede realizar un post /register mientras su sesión esté iniciada');
 })
 
 
@@ -94,53 +96,91 @@ router.get('/register', (req, res, next) => {
 // Esta ruta post recibe request para crear nuevos usuarios en la base de datos.
 
 router.post('/register', isAuthenticated, async (req, res, next) => {
-    
+
   //También debería recibir tipo de usuario "client" o "partner"
   const { name, username, password, type } = req.body;
 
   console.log(req.body, 'lo que llega por body')
-  
-  if ( !name && !username || !password || !type ) {
-      return res.send('campos incompletos');
+
+  if (!name && !username || !password || !type) {
+    return res.send('campos incompletos');
   }
 
   try {
-    
-    if ( name && username && password && type) {
-  
-       // Hay que hacer la consulta a la BD de mongose  
-  
-      let findUser = await Users.find({userName: username})
+
+    if (name && username && password && type) {
+
+      // Hay que hacer la consulta a la BD de mongose  
+
+      let findUser = await Users.find({ userName: username })
       // Acá iría a buscar el email del user en la db
-  
+
       // let id = users.length + 1 ; // Genero un id
-  
+
       if (findUser.length !== 0) { // Si el correo ya existe
         console.log('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
-        return  res.send('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
-        
+        return res.send('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
+
       } else { // Si no el correo en bd, lo creo el usuario
-  
-         // Hay que hacer la consulta a la BD de mongose  
-  
-        const newUser = await Users.create({
-          userName: username,
-          name: name,
-          password: password,
-          type: type
-        });  
+
+        // Hay que hacer la consulta a la BD de mongose
+
+        if (type === 'user') {
+          const newUserInfo = new InfoUsers({
+            name: name,
+            email: username
+          })
+          await newUserInfo.save();
+          console.log("esta es la info del user", newUserInfo);
+          const newUser = await Users.create({
+            userName: username,
+            name: name,
+            password: password,
+            type: type,
+            info: newUserInfo._id
+          });
+          res.status(200).json(newUser)
+        }
+
+        if (type === "partner") {
+          const newPartnerInfo = new Partner({
+            name: name,
+            email: username,
+            userActive: true
+          })
+          await newPartnerInfo.save();
+          const newUser = await Users.create({
+            userName: username,
+            name: name,
+            password: password,
+            type: type,
+            info: newPartnerInfo._id
+          });
+          res.status(200).json(newUser)
+        }
+
+        if (type === "admin") {
+          const newUser = await Users.create({
+            userName: username,
+            name: name,
+            password: password,
+            type: type,
+          });
+          res.status(200).json(newUser)
+        }
+
+
         // Acá debería crear el user en la db
         // y retornar un mensaje de usuario creado con éxito
         // por ahora devuelvo el user creado
-        res.status(200).json(newUser)
-      }        
-  
-     } else {
-      
+      }
+
+    } else {
+
       res.status(404).send('Datos incompletos, el registro no fue creado ');
-        
+
     }
-    
+
   } catch (error) {
     console.log(error)
     res.status(404).send('Error: el registro no fue creado');
