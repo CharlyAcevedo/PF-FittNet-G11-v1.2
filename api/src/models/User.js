@@ -1,61 +1,45 @@
 const mongoose = require('mongoose');
-let regWord = /^[a-zA-Z0-9]{5}[a-zA-Z0-9]*\s*\w*/;
-let regMail = /^[A-Z0-9a-z._%+-]{2}+@[A-Za-z0-9.-]{2}[A-Za-z0-9.-]*+\\.[A-Za-z]{2,64}/;
-
+// let regWord = /^[a-zA-Z0-9]{5}[a-zA-Z0-9]*\s*\w*/;
+// let regMail = /^[A-Z0-9a-z._%+-]{2}+@[A-Za-z0-9.-]{2}[A-Za-z0-9.-]*+\\.[A-Za-z]{2,64}/;
+let regexEmail = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
 const userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    lastName: {
-        type: String,
-        required: true,
-    },
-    email: {
+    userName: {
         type: String,
         required: true,
         lowercase: true,
         validate: {
-            validator: v => regWord.test(v),
-            message: props => `${props.value} is not a valid email address`
-        }
-    },
-    userName: {
-        type: String,
-        required: true,
-        validate: {
-            validator: v => regWord.test(v),
+            validator: v => regexEmail.test(v),
             message: props => `${props.value} is not a valid User Name`
         }
     },
-    password: {
+    name: {
         type: String,
         required: true,
     },
-    phone: {
+    password: {
         type: String,
+        // required: true,
     },
-    birthday: {
-        type: Date,
-    },
-    gender: {
+    type:{
         type: String,
+        required: true,
     },
-    photo: {
+    avatar:{
         type: String,
+        required: false,
     },
-    active: {
-        type: Boolean,
-    },
-    address: {
+    info:{
         type: mongoose.SchemaTypes.ObjectId,
-        ref: "Address"
+        ref: "InfoUser"
     },
-
+    partner: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Partner"
+    },
     createdAt: {
         type: Date,
         required: true,
-        inmutable: true,
+        // inmutable: true,
         default: () => Date.now(),
     },
     updatedAt: {
@@ -63,7 +47,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         default: () => Date.now(),
     },
-
 })
 
 module.exports = mongoose.model('Users', userSchema)

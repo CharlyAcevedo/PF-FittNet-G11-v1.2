@@ -1,21 +1,21 @@
 const { Router } = require('express');
-
-const cookieparser = require('cookie-parser');
 const router = Router();
-router.use(cookieparser()); // veremos
 
-router.post('/logout', (req, res, next) => {
-    // console.log('recibo el post / logout')
-    // res.status(200).send("estoy en post de api/logout")
-    // console.log(req.cookies, 'las cookies en logout'); 
-    // Para ver si están viajando las cookies
 
-    res.clearCookie('userId');
+
+// Esta ruta sirve para desloguear un usuario
+// Cuando el usuario se deslogua, se limpian los datos de su sesión, y es
+// por ahora redirigido a / dónde recibirá un mensaje como respuesta.
+
+
+router.post('/logout',
+  function(req, res){
+    req.logout();
+    // res.clearCookie('sid'); // clear session id - ver si es necesario
     res.redirect('/');
-        
-    console.log('cerraste sesión y vas a barra, por eso responde estoy en get de api');
+  }
+);
 
-})
 
 
 
