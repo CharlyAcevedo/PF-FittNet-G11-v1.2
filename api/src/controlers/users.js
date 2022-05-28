@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { findByIdAndDelete } = require('../models/User');
 const User = require('../models/User');
 
 async function findUser(userName){
@@ -24,7 +25,8 @@ async function findAllUsers(){
 async function createUser(newUser) {
     try {
         const response = User.create({
-            userName: newUser.username,
+            name: newUser.name,
+            userName: newUser.userName,
             password: newUser.password,
             type: newUser.type,            
         })        
@@ -35,4 +37,14 @@ async function createUser(newUser) {
     }
 }
 
-module.exports = { findUser, findAllUsers }
+async function deleteUser(id){
+    try{
+        const userDeleted = await User.findByIdAndDelete(id)
+        console.log(userDeleted)
+    }  catch (error) {
+        console.log(error.message)
+        return error.message
+    }
+}
+
+module.exports = { findUser, findAllUsers, createUser, deleteUser }

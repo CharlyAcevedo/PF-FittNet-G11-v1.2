@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const Users = require('../models/User')
+const { findUser, findAllUsers, createUser, deleteUser } = require('../controlers/users')
 
 // const cookieparser = require('cookie-parser');
 const router = Router();
@@ -12,12 +13,12 @@ const router = Router();
 // Le podrías cargar esta info de entrada para que todos podamos consultar
 
 
-const users = [
-    {id: 1, name: 'Franco', email: 'Franco@mail.com', password: '1234', type: 'user'},
-    {id: 2, name: 'Nano', email: 'Nano@mail.com', password: '1234', type: 'user', avatar: '4'},
-    {id: 3, name: 'Toni', email: 'Toni@mail.com', password: '1234', type: 'partner'},
-    {id: 4, name: 'Jessi', email: 'Jessi@mail.com', password: '1234', type: 'admin'}
-]
+// const users = [
+//     {id: 1, name: 'Franco', email: 'Franco@mail.com', password: '1234', type: 'user'},
+//     {id: 2, name: 'Nano', email: 'Nano@mail.com', password: '1234', type: 'user', avatar: '4'},
+//     {id: 3, name: 'Toni', email: 'Toni@mail.com', password: '1234', type: 'partner'},
+//     {id: 4, name: 'Jessi', email: 'Jessi@mail.com', password: '1234', type: 'admin'}
+// ]
 
 // Esta función simula la busquda del correo en la base de datos para 
 // intentar encontrar el usuario con ese correo.
@@ -29,7 +30,7 @@ router.findByUsername = function(username, cb) {
       
       // Hay que hacer la consulta a la BD de mongose  
 
-      let user = Users.find(username)
+      let user = findUser(username)
 
       console.log(user, ' linea 18 de register')
 
@@ -54,7 +55,7 @@ router.findById = function(_id, cb) {
 
      // Hay que hacer la consulta a la BD de mongose  
 
-    let user = Users.find(_id)
+    let user = findUser(_id)
     
     if (user) {
       (user, ' cómo devuelve la promesa a user 34')
@@ -87,26 +88,26 @@ router.get('/register', (req, res, next) => {
 
 // Esta ruta post recibe request para crear nuevos usuarios en la base de datos.
 
-router.post('/register', isAuthenticated, (req, res, next) => {
+router.post('/register', isAuthenticated, async (req, res, next) => {
     
   //También debería recibir tipo de usuario "client" o "partner"
-  const { username, password, type } = req.body;
+  const { name, email, password, type } = req.body;
 
   console.log(req.body, 'lo que llega por body')
   
-  if ( !username || !password || !type ) {
+  if ( !name || !email || !password || !type ) {
       return res.send('campos incompletos');
   }
-  if ( username && password && type) {
+  if ( name && email && password && type ) {
 
      // Hay que hacer la consulta a la BD de mongose  
 
-    let findUser = Users.find(username)
+    let findUser = await Users.find({ userName: email })
     // Acá iría a buscar el email del user en la db
 
     // let id = users.length + 1 ; // Genero un id
-
-    if (findUser) { // Si el correo ya existe
+    console.log(findUser._id)
+    if (findUser._id) { // Si el correo ya existe
       console.log('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
       return  res.send('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
       
@@ -114,14 +115,16 @@ router.post('/register', isAuthenticated, (req, res, next) => {
 
        // Hay que hacer la consulta a la BD de mongose  
 
-      const newUser = Users.create({ 
-        userName: username,
+      const newUser = await createUser({ 
+        name: name,
+        userName: email,
         password: password,
         type: type
       }); 
       // Acá debería crear el user en la db
       // y retornar un mensaje de usuario creado con éxito
       // por ahora devuelvo el user creado
+      console.log(newUser)
       res.status(200).json(newUser)
     }        
 
@@ -130,6 +133,15 @@ router.post('/register', isAuthenticated, (req, res, next) => {
     res.status(404).send('Datos incompletos, el registro no fue creado ');
       
   }
+
+  //---- CUIDADO OJO ---- ruta para borrar usuarios
+
+  router.delete('/api/user/delete/:id', isAuthenticated, async (req, res, next) => {
+    const {id} = req.params;
+    const response = deleteUser(id);
+    console.log(response)
+    res.send(response)
+  })
 
 })
 

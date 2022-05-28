@@ -26,16 +26,16 @@ router.post(
 );
 
 // Middleware para mostrar la sesión actual en cada request
-router.use((req, res, next) => {
-  // console.log(req.session, ' esto es req.session 120');
-  // console.log(req.user, ' esto es req.user 121');
-  next();
-});
+// router.use((req, res, next) => {
+//   // console.log(req.session, ' esto es req.session 120');
+//   // console.log(req.user, ' esto es req.user 121');
+//   next();
+// });
 
 
-router.get('/login',  (req, res) => {
-    res.send('Email o contraseña incorrecta');
-});
+// router.get('/login',  (req, res) => {
+//     res.send('Email o contraseña incorrecta');
+// });
 
 
 //------------------------------------------------------------------
