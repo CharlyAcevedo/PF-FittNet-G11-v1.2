@@ -35,4 +35,12 @@ async function createUser(newUser) {
     }
 }
 
+// const updateUser = async(req, res) => {
+//     try {
+        
+//     } catch (error) {
+//         console.log("error: ", error)
+//     }
+// }
+
 module.exports = { findUser, findAllUsers }

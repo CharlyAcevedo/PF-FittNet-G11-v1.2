@@ -1,9 +1,11 @@
 .nav{
-    background-color: white;
     padding-left: 100px;
     padding-right: 100px;
     height: 80px;
     position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
 }
 .nav img{
     float: left;
@@ -14,6 +16,8 @@
 .ul{
     position: absolute;
     width: 800px;
+    display: flex;
+    flex-direction: flex-end;
     padding-inline-start: 300px;
     padding-block-start: 10px;
 }
