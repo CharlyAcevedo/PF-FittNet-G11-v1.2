@@ -65,7 +65,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(_id, done) {  
-  findUser(_id)
+  findUser({_id: _id})
   .then((user) => {
       done(null, user);
     })    
@@ -76,7 +76,7 @@ passport.deserializeUser(function(_id, done) {
 
 server.use(
   session({
-    secret: SECRET,
+    secret: SECRET || 'secret',
     resave: true,
     saveUninitialized: true,
   })

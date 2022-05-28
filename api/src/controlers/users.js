@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 async function findUser(userName){
     try {
-        const response = User.findOne(userName)        
+        const response = await User.findOne(userName)        
         return response
     } catch (error) {
         console.log(error.message)
@@ -13,7 +13,7 @@ async function findUser(userName){
 
 async function findAllUsers(){
     try {
-        const response = User.find()        
+        const response = await User.find()        
         return response
     }  catch (error) {
         console.log(error.message)
@@ -23,7 +23,7 @@ async function findAllUsers(){
 
 async function createUser(newUser) {
     try {
-        const response = User.create({
+        const response = await User.create({
             userName: newUser.username,
             password: newUser.password,
             type: newUser.type,            
