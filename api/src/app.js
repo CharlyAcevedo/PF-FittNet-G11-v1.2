@@ -74,13 +74,13 @@ passport.deserializeUser(function(_id, done) {
     })
 });
 
-// server.use(
-//   session({
-//     secret: SECRET,
-//     resave: true,
-//     saveUninitialized: true,
-//   })
-// ); // estaban seteados a false
+server.use(
+  session({
+    secret: SECRET,
+    resave: true,
+    saveUninitialized: true,
+  })
+); // estaban seteados a false
 
 server.use(passport.initialize());
 server.use(passport.session());
