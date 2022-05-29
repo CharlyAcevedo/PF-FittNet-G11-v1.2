@@ -14,15 +14,24 @@ export default function Paginated() {
 
   const defaultRecipesXPage = useSelector((state) => state.currentLimit);
 
-  const recipesToShow = useSelector((state) => state.recipesToShow);
+  const gymsToShow = useSelector((state) => state.gymsToShow);
   const currentPage = useSelector((state) => state.currentPage)
 
   const [recipesXPage, setRecipesXPage] = useState(defaultRecipesXPage);
 
-  const totalPages = Math.ceil(recipesToShow.length / recipesXPage);
+  const totalPages = Math.ceil(gymsToShow.length / recipesXPage);
 
   const limit = currentPage * recipesXPage;
   const offset = limit - recipesXPage;
+
+  useEffect(() => {
+    const payload = {
+      currentPage: currentPage,
+      offset: offset,
+      limit: limit
+    }
+    dispatch(setCurrentPage(payload))// eslint-disable-next-line
+  },[])
 
   useEffect(() => {
     const payload = {
@@ -81,7 +90,7 @@ export default function Paginated() {
 
   const nextPage = () => {
     if(currentPage === totalPages) return
-    if (currentPage < recipesToShow.length) {
+    if (currentPage < gymsToShow.length) {
       dispatch(setPageNumber(currentPage + 1));
     }
   };

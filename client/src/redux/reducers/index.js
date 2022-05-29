@@ -6,6 +6,7 @@ import {
   SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT,
   GET_ALL_GYMS,
+  GET_GYM_DETAIL,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   userDetail: {},
   gyms: [],
   gymsToShow: [],
+  gymDetail: {},
   partners: [],
   partnersToShow: [],
   avatars: [],
@@ -49,7 +51,21 @@ export default function rootReducer(state = initialState, { type, payload }) {
         partners: payload,
         partnersToShow: payload,
       };
-    case GET_ALL_GYMS:
+    case GET_ALL_GYMS:      
+      if (payload.error) {
+        return {
+          ...state,
+          errors: payload.error,
+        };
+      }
+      const newPage1 = payload.slice(payload.offset, payload.limit);
+      return {
+        ...state,
+        gyms: payload,
+        gymsToShow: payload,
+        pageToShow: newPage1,
+      };
+    case GET_GYM_DETAIL:
       if (payload.error) {
         return {
           ...state,
@@ -58,8 +74,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       }
       return {
         ...state,
-        gyms: payload,
-        gymsToShow: payload,
+        gymDetail: payload,        
       };
     case 'POST_AVATAR':
       return {

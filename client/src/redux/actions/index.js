@@ -1,15 +1,16 @@
 import axios from "axios";
 
-import { 
-  GET_ALL_USERS, 
-  GET_ALL_PARTNERS, 
-  POST_USER, 
+import {
+  GET_ALL_USERS,
+  GET_ALL_PARTNERS,
+  POST_USER,
   GET_AVATARS,
   SET_CURRENT_PAGE,
   SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT,
   GET_ALL_GYMS,
- } from "./actionTypes";
+  GET_GYM_DETAIL
+} from "./actionTypes";
 
 export function getAllUsers() {
   return async (dispatch) => {
@@ -31,7 +32,7 @@ export function getAllUsers() {
 export function postUser(payload) {
   return async (dispatch) => {
     try {
-      const response = await axios.post("/users", payload);
+      const response = await axios.post("/api/users", payload);
       dispatch({
         type: POST_USER,
         payload: response.data,
@@ -65,7 +66,7 @@ export function getAllPartner() {
 export function getAllGyms() {
   return async (dispatch) => {
     try {
-      const response = await axios.get("/gyms");
+      const response = await axios.get("/api/allgyms");
       dispatch({
         type: GET_ALL_GYMS,
         payload: response.data,
@@ -90,10 +91,26 @@ export const postAvatar = (id, body) => async dispatch => {
     console.log("error: ", error)
   }
 }
+export function getGymDetail(id) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`/api/gymbyid/${id}`);
+      dispatch({
+        type: GET_GYM_DETAIL,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_GYM_DETAIL,
+        payload: { error: err.message },
+      });
+    }
+  }
+}
 
 export const getAvatars = () => async (dispatch) => {
   try {
-    const dataAvatar = await axios.get(`http://localhost:3001/api/avatar`);
+    const dataAvatar = await axios.get(`/api/avatar`);
     dispatch({
       type: GET_AVATARS,
       payload: dataAvatar.data,

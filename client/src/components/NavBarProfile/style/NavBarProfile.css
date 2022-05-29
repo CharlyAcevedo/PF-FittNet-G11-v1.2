@@ -1,5 +1,11 @@
 .box-nav-bar-profile {
-    border: 2px solid #46fe095b;
+    position: fixed;
+    width: 100%;
+    height: 5.5vh;
+    background: #fcfcfc;
+    background: linear-gradient(180deg, #f0e8d7ed 0%, #fffcf5 44%, #f0e8d7ed 100%);
+    border: 2px solid #f0e8d7ed;
+    z-index: 10;
 }
 
 .list-nav-bar{
