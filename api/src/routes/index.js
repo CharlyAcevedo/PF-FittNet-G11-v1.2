@@ -23,7 +23,7 @@ router.use('/api', routeProfile);
 router.use('/api', routeAvatar);
 router.use('/api', resetPassword);
 
-router.use('/gyms', routeGyms);
+router.use('/api', routeGyms);
 
 router.post('/create', (req, res) => {
     const newUser = Run()

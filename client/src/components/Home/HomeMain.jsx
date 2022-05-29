@@ -1,20 +1,32 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import Logout from "../Logout/Logout";
 import SelecAvatar from "../SelectAvatar/SelectAvatar";
 import GymCards from "../GymCards/GymCards";
 import UserCards from "../UserCards/UserCards";
 import NavBarProfile from "../NavBarProfile/NavBarProfile";
 import PartnerCards from "../PartnerCards/PartnerCards";
+import { getAllGyms } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
-    let { userId , name, type, avatar } = useParams();
-    // console.log(userId, name, type, avatar, 'mis params')
-
+    let { userId , name, type, avatar } = useParams(); 
     // debería llegarme por params si es un 
     // "user" con sin avatar o un "partner" o incluso un "admin"
+
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        // dispachar la action ¿pero qué voy a escuchar??? No sé si sea userId
+        // console.log('sale la action de traer gyms')
+        dispatch(getAllGyms());
+
+    },[userId])
+
+
 
     // Esto es una vista para un usuario sin avatar
     if (type === 'user' && !avatar) {
