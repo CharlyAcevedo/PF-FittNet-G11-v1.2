@@ -1,10 +1,12 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import logoFittNet from "../../asets/images/logo_fitnet.jpg";
 import Logout from "../Logout/Logout";
 import SelecAvatar from "../SelectAvatar/SelectAvatar";
 import GymCards from "../GymCards/GymCards";
+import UserCards from "../UserCards/UserCards";
 import NavBarProfile from "../NavBarProfile/NavBarProfile";
+import PartnerCards from "../PartnerCards/PartnerCards";
+
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
@@ -40,14 +42,10 @@ export default function HomeMain() {
     if (type === 'partner') {
         return (            
             <div> 
-                <div>Entraste en / Home {name}, bienvenido!</div>               
-                <img height="200" src={logoFittNet} alt="logo" />          
-                <div>Quiero ver info de mi perfil</div>
-                <a href={`/profile/${type}/${name}/${userId}`}>Mi perfil</a>
-                <Logout/>
-                <br />
-                <a href='/'>Volver</a>
+                <NavBarProfile/>
                 <h3>Qué más quiero ver como Ciente Empresa cuando llego a home???</h3>   
+                <UserCards/>
+                <h4>Promociones y descuentos</h4>
             </div>         
         )
     }
@@ -56,14 +54,12 @@ export default function HomeMain() {
     if (type === 'admin') {
         return (            
             <div> 
-                <div>Entraste en / Home {name}, bienvenido!</div>               
-                <img height="200" src={logoFittNet} alt="logo" />          
-                <div>Quiero ver info de mi perfil</div>
-                <a href={`/profile/${type}/${name}/${userId}`}>Mi perfil</a>
-                <Logout/>
-                <br />
-                <a href='/'>Volver</a>
-                <h3>Qué más quiero ver como Admin cuando llego a home???</h3>   
+                <NavBarProfile/>
+                <h3>Qué más quiere ver un usuario Admin en su home???</h3>
+                <PartnerCards/>
+                <UserCards/>
+                <h3>Una vista como user</h3>
+                <h3>Una vista como partner</h3>
             </div>         
         )
     }
