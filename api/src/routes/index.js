@@ -5,10 +5,11 @@ const routeRegister = require('./register');
 const routeHome = require('./home');
 const routeProfile = require('./profile');
 const routeAvatar = require('./avatar');
-const { route } = require('./register');
-const { findUser, findAllUsers } = require('../controlers/users')
-const Users = require('../models/User')
-const Run = require('../controlers/test')
+const Users = require('../models/User');
+const resetPassword = require('./resetPass');
+const { route } = require('./register'); // Raroooooo
+const { findUser, findAllUsers } = require('../controlers/users');
+const Run = require('../controlers/test');
 
 const router = Router();
 
@@ -19,6 +20,7 @@ router.use('/api', routeRegister);
 router.use('/api', routeHome);
 router.use('/api', routeProfile);
 router.use('/api', routeAvatar);
+router.use('/api', resetPassword);
 
 router.post('/create', (req, res) => {
     const newUser = Run()

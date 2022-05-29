@@ -1,14 +1,15 @@
 import React from "react";
-import logoFittNet from "../../asets/images/logo_fitnet.jpg";
-import views from "../../asets/images/card_views.png";
-import Logout from "../Logout/Logout";
 import { useParams } from "react-router-dom";
+import logoFittNet from "../../asets/images/logo_fitnet.jpg";
+import Logout from "../Logout/Logout";
 import SelecAvatar from "../SelectAvatar/SelectAvatar";
+import GymCards from "../GymCards/GymCards";
+import NavBarProfile from "../NavBarProfile/NavBarProfile";
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
     let { userId , name, type, avatar } = useParams();
-    console.log(userId, name, type, avatar, 'mis params')
+    // console.log(userId, name, type, avatar, 'mis params')
 
     // debería llegarme por params si es un 
     // "user" con sin avatar o un "partner" o incluso un "admin"
@@ -28,15 +29,9 @@ export default function HomeMain() {
     // Esto es una vista para un usuario con avatar
     if (type === 'user' && avatar) {
         return (            
-            <div> 
-                <div>Entraste en / Home {name}, bienvenido!</div>              
-                <img height="200" src={logoFittNet} alt="logo" />          
-                <div>Quiero ver info de mi perfil</div>
-                <a href={`/profile/${type}/${name}/${userId}`}>Mi perfil</a>
-                <Logout/>
-                <br />
-                <a href='/'>Volver</a>
-                <img src={views} alt="views"/>    
+            <div>                
+                <NavBarProfile/>
+                <GymCards/>               
             </div>         
         )
     }
