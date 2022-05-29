@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { GET_ALL_USERS, GET_ALL_CLIENTS, POST_USER } from "./actionTypes";
+import { GET_ALL_USERS, GET_ALL_CLIENTS, POST_USER, GET_AVATARS } from "./actionTypes";
 
 export function getAllUsers() {
   return async (dispatch) => {
@@ -17,4 +17,16 @@ export function getAllUsers() {
       });
     }
   };
+}
+
+export const getAvatars = () => async dispatch => {
+  try {
+    const dataAvatar = await axios.get(`http://localhost:3001/api/avatar`)
+    dispatch ({
+      type: 'GET_AVATARS',
+      payload: dataAvatar.data
+    })
+  } catch (error) {
+    console.log("error: ", error)
+  }
 }

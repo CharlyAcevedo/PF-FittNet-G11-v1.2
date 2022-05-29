@@ -7,7 +7,7 @@ const gymSchema = new mongoose.Schema({
   },
   address: {
     type: mongoose.SchemaTypes.ObjectId,
-    ref: "Address",
+    ref: "Address", //! address del gimnasio, pero direcciones tanto de gym como de user comun se guardan en la misma coleccion ?
   },
   services: {
     type: mongoose.SchemaTypes.ObjectId,

@@ -7,9 +7,9 @@ const routeProfile = require('./profile');
 const routeAvatar = require('./avatar');
 const Users = require('../models/User');
 const resetPassword = require('./resetPass');
-const { route } = require('./register'); // Raroooooo
 const { findUser, findAllUsers } = require('../controlers/users');
 const Run = require('../controlers/test');
+
 
 const router = Router();
 
@@ -43,12 +43,16 @@ router.post('/create', (req, res) => {
 //
 
 router.get('/', async (req, res) => {
-    const userName = req.body
-    const response = await findUser(userName)
-    if(response === null) { 
-        res.status(404).send('User not found')
-    } else {
-        res.status(200).send(response)
+    try {
+        console.log('fue redirigido a barra')
+        const prueba = await Run()
+        console.log(prueba)
+        res.status(200).send("se creo el usuario")
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: "No se pudo crear el usuario"
+        })
     }
 });
 

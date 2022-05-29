@@ -10,7 +10,7 @@ const partnerSchema = new mongoose.Schema({
   },
   lastName: {
     type: String,
-    required: true,
+    // required: true,
   },
   email: {
     type: String,
@@ -23,7 +23,7 @@ const partnerSchema = new mongoose.Schema({
   },
   phone: {
     type: Number,
-    required: true,
+    // required: true,
   },
   planType: {
     type: mongoose.SchemaTypes.ObjectId,
@@ -31,7 +31,7 @@ const partnerSchema = new mongoose.Schema({
   },
   profileCategory: {
     type: Array,
-    required: true,
+    // required: true,
   },
   userActive: {
     type: Boolean,
@@ -47,7 +47,7 @@ const partnerSchema = new mongoose.Schema({
   },
   paymentMethods: {
     type: Array,
-    required: true,
+    // required: true,
   },
   category: {
     type: mongoose.SchemaTypes.ObjectId,
