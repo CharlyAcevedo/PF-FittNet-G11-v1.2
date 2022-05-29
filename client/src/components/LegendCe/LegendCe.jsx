@@ -1,6 +1,6 @@
 import React from "react";
 import img from '../images/logoPF.jpg'
-import style from '../LegendCe/styles/LegendCe.module.css'
+import style from './styles/LegendCe.module.css'
 import Slider from "../Slider/Slider";
 import CardPlans from '../CardPlans/CardPlans'
 

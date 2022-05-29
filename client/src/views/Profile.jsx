@@ -6,7 +6,7 @@ import logoFittNet from "../asets/images/logo_fitnet.jpg";
 import Logout from "../components/Logout/Logout";
 
 export default function Profile() {
-    let { id , name, type } = useParams();
+    let { name, type } = useParams();
     
     if (type === 'user') {
         return (

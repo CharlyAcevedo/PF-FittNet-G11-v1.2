@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "../components/NavBar/NavBar";
 import AllRegister from "../components/Register/AllRegister";
 
 export default function InitRegister() {

@@ -8,7 +8,7 @@ import { CardAvatar } from "./CardAvatar.jsx";
 import styles from "./styles/avatar.module.css";
 
 export default function SelectAvatar() {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   const avatars = useSelector((state) => state.avatars);
 
@@ -17,14 +17,14 @@ export default function SelectAvatar() {
   useEffect(() => {
     if (avatars.length === 0) {
       dispatch(getAvatars());
-    }
+    } // eslint-disable-next-line
   }, []);
 
   console.log(avatars);
 
-  const handleOpen = () => {
-    !open ? setOpen(true) : setOpen(false);
-  };
+  // const handleOpen = () => {
+  //   !open ? setOpen(true) : setOpen(false);
+  // };
 
   return (
     <div className={styles.containerAvatar}>
