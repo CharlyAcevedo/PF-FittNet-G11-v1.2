@@ -31,7 +31,7 @@ export function getAllUsers() {
 export function postUser(payload) {
   return async (dispatch) => {
     try {
-      const response = await axios.post("/users", payload);
+      const response = await axios.post("/api/users", payload);
       dispatch({
         type: POST_USER,
         payload: response.data,
@@ -81,7 +81,7 @@ export function getAllGyms() {
 
 export const getAvatars = () => async (dispatch) => {
   try {
-    const dataAvatar = await axios.get(`http://localhost:3001/api/avatar`);
+    const dataAvatar = await axios.get(`/api/avatar`);
     dispatch({
       type: GET_AVATARS,
       payload: dataAvatar.data,

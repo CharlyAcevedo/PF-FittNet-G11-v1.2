@@ -5,6 +5,7 @@ const routeRegister = require('./register');
 const routeHome = require('./home');
 const routeProfile = require('./profile');
 const routeAvatar = require('./avatar');
+const routeGyms = require('./gyms')
 const { route } = require('./register');
 const run = require('../controlers/test');
 
@@ -17,6 +18,8 @@ router.use('/api', routeRegister);
 router.use('/api', routeHome);
 router.use('/api', routeProfile);
 router.use('/api', routeAvatar);
+
+router.use('/gyms', routeGyms);
 
 router.post('/create', (req, res) => {
     const newUser = Run()
