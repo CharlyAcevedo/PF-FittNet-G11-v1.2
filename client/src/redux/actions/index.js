@@ -9,6 +9,7 @@ import {
   SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT,
   GET_ALL_GYMS,
+  GET_GYM_DETAIL
  } from "./actionTypes";
 
 export function getAllUsers() {
@@ -78,6 +79,22 @@ export function getAllGyms() {
     }
   }
 };
+export function getGymDetail(id) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`/api/gymbyid/${id}`);
+      dispatch({
+        type: GET_GYM_DETAIL,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_GYM_DETAIL,
+        payload: { error: err.message },
+      });
+    }
+  }
+}
 
 export const getAvatars = () => async (dispatch) => {
   try {

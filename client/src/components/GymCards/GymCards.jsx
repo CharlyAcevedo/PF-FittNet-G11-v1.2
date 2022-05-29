@@ -7,6 +7,7 @@ export default function GymsCards() {
   
     const gyms = useSelector((state) => state.gymsToShow)
 
+
     return (            
         <div className="main-box-cards">
             <h2>Esta es la caja principal</h2>
@@ -18,7 +19,7 @@ export default function GymsCards() {
                             key= {g._id}
                             id={g._id}
                             name = {g.name}
-                            rating = {g.rating}
+                            rating = {g.raiting}
                             price ={g.price}
                             image = {g.image}                            
                         />                    
