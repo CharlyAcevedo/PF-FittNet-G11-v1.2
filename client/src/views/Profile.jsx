@@ -10,30 +10,24 @@ export default function Profile() {
     
     if (type === 'user') {
         return (
-            <div >
-                <img height="200" src={logoFittNet} alt="logo" />
-                <h5>Bienvenido a tu perfil {name}</h5>
-                 <DetailProfileUser/>
+            <div >          
+                <DetailProfileUser/>
                 <Logout/>
             </div>
         )
     }
     if (type === 'partner') {
         return (
-            <div >
-                <img height="200" src={logoFittNet} alt="logo" />
-                <h5>Bienvenido a tu perfil {name}</h5>
-                 <DetailProfilePartner/>
+            <div >           
+                <DetailProfilePartner/>
                 <Logout/>
             </div>
         )
     }
     if (type === 'admin') {
         return (
-            <div >
-                <img height="200" src={logoFittNet} alt="logo" />
-                <h5>Bienvenido a tu perfil {name}</h5>
-                 <DetailProfileAdmin/>
+            <div >               
+                <DetailProfileAdmin/>
                 <Logout/>
             </div>
         )
