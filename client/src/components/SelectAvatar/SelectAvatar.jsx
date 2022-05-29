@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getAvatars } from "../../redux/actions";
@@ -28,10 +28,10 @@ export default function SelectAvatar() {
 
   return (
     <div className={styles.containerAvatar}>
-      <h2 style={{margin: "0 auto 1.65rem auto"}}>No cuentas con un avatar, selecciona uno:</h2>
+      <h2 style={{margin: "0 auto 1.65rem auto"}}>Para continuar selecciona la opcion que mas refleje tu personalidad:</h2>
       <div className={styles.containerCardAvatar}>
         {avatars?.map((x, y) => (
-          <CardAvatar key={y} name={x.avatarName} image={x.avatarImage} features={x.features}/>
+          <CardAvatar key={y} id={x._id} avName={x.avatarName} image={x.avatarImage} features={x.features}/>
         ))}
       </div>
     </div>

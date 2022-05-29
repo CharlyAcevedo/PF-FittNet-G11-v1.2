@@ -9,6 +9,7 @@ import InitRegister from "./views/InitRegister";
 import Profile from "./views/Profile";
 import LegendCe from "./components/LegendCe/LegendCe.jsx";
 import ResetPassword from "./views/ResetPassword";
+// import UserHome from "./views/UserHome";
 
 function App() {
   return (
