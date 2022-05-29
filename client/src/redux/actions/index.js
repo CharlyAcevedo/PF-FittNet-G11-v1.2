@@ -65,7 +65,7 @@ export function getAllPartner() {
 export function getAllGyms() {
   return async (dispatch) => {
     try {
-      const response = await axios.get("/gyms");
+      const response = await axios.get("/api/allgyms");
       dispatch({
         type: GET_ALL_GYMS,
         payload: response.data,

@@ -9,7 +9,8 @@ const {
 
 const router = Router();
 
-router.get("/", async (req, res) => {
+// Para solicitar info de todos los gyms
+router.get("/allgyms", async (req, res) => {
   try {
     const response = await getAllGyms();
     res.status(200).send(response);
@@ -18,7 +19,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+// Para solicitar info de un gym por su id
+// router.get("/:id", async (req, res) => { 
+//  ---> Tiene conficto con la anterior porque espera un id
+router.get("/gymbyid/:id", async (req, res) => {
   try {
       const { id } = req.params;
     const response = await getGymById(id);
@@ -28,7 +32,8 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
+// Para solicitar info de un gym con su name
+router.get('/gymbyname', async (req, res) => {
     try {
         const { name } = req.query;
         const response = await getGymByName(name);
@@ -38,7 +43,8 @@ router.get('/', async (req, res) => {
       }
 });
 
-router.put('/', async (req, res) => {
+// Para actualizar un gym
+router.put('/gymupdate', async (req, res) => {
     try {        
         const response = await saveGyms(req.body);
         res.status(200).send(response);
@@ -47,7 +53,8 @@ router.put('/', async (req, res) => {
       }
 });
 
-router.post('/', async (req, res) => {
+// Para crear gym
+router.post('/gymcreate', async (req, res) => {
     try {    
         const response = await postGyms(req.body);
         res.status(200).send(response);
