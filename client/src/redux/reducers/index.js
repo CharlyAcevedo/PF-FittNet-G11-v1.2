@@ -49,7 +49,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         partners: payload,
         partnersToShow: payload,
       };
-    case GET_ALL_GYMS:
+    case GET_ALL_GYMS:      
       if (payload.error) {
         return {
           ...state,

@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import NavBarProfile from "../NavBarProfile/NavBarProfile";
 
 export default function DetailProfileUser() {
     let { userId , name, type, avatar } = useParams();
@@ -17,7 +18,8 @@ export default function DetailProfileUser() {
 
     return (
         
-        <div> 
+        <div>
+            <NavBarProfile/> 
             <p>Id: {userId}, name: {name} </p>
             <p>Typo: {type}</p>
             <br />
