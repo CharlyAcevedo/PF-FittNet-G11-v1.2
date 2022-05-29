@@ -6,6 +6,7 @@ import {
   SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT,
   GET_ALL_GYMS,
+  GET_GYM_DETAIL,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   userDetail: {},
   gyms: [],
   gymsToShow: [],
+  gymDetail: {},
   partners: [],
   partnersToShow: [],
   avatars: [],
@@ -62,6 +64,17 @@ export default function rootReducer(state = initialState, { type, payload }) {
         gyms: payload,
         gymsToShow: payload,
         pageToShow: newPage1,
+      };
+    case GET_GYM_DETAIL:
+      if (payload.error) {
+        return {
+          ...state,
+          errors: payload.error,
+        };
+      }
+      return {
+        ...state,
+        gymDetail: payload,        
       };
     case GET_AVATARS:
       if (payload.error) {
