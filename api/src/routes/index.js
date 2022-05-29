@@ -9,6 +9,7 @@ const Users = require('../models/User');
 const resetPassword = require('./resetPass');
 const { findUser, findAllUsers } = require('../controlers/users');
 const Run = require('../controlers/test');
+const routeGyms = require('./gyms');
 
 
 const router = Router();
