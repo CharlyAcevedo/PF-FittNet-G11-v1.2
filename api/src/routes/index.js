@@ -7,6 +7,7 @@ const routeProfile = require('./profile');
 const routeAvatar = require('./avatar');
 const Users = require('../models/User');
 const resetPassword = require('./resetPass');
+const routeGyms = require('./gyms');
 const { findUser, findAllUsers } = require('../controlers/users');
 const Run = require('../controlers/test');
 
