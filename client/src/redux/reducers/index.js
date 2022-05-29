@@ -56,10 +56,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
           errors: payload.error,
         };
       }
+      const newPage1 = payload.slice(payload.offset, payload.limit);
       return {
         ...state,
         gyms: payload,
         gymsToShow: payload,
+        pageToShow: newPage1,
       };
     case GET_AVATARS:
       if (payload.error) {

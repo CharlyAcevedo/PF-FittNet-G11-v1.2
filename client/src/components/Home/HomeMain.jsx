@@ -10,6 +10,7 @@ import PartnerCards from "../PartnerCards/PartnerCards";
 import { getAllGyms } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import IncomesGraph from '../Graphics/Incomes'
+import Paginated from "../paginated/paginated";
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
@@ -44,6 +45,7 @@ export default function HomeMain() {
         return (            
             <div>                
                 <NavBarProfile/>
+                <Paginated/>
                 <GymCards/>               
             </div>         
         )
