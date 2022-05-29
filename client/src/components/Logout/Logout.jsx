@@ -19,7 +19,7 @@ export default function Logout() {
 
   return (
     <div>
-      <button onClick={(e)=> onClick(e)}>Logout</button>
+      <p onClick={(e)=> onClick(e)}>Logout</p>
     </div>
   );
 }
