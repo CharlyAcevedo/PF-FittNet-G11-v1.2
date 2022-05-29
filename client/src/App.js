@@ -9,6 +9,7 @@ import InitRegister from "./views/InitRegister";
 import Profile from "./views/Profile";
 import LegendCe from "./components/LegendCe/LegendCe";
 import ResetPassword from "./views/ResetPassword";
+import UserPrices from './components/UserPrices/UserPrices'
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/register" element={<InitRegister />} />
           <Route path="/user_register" element={<UserRegister />} />
           <Route path="/client_register" element={<ClientRegister />} />
+          <Route path="/userprices" element={<UserPrices />} />
         </Routes>
       </div>
     </div>
