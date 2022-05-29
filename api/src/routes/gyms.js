@@ -24,7 +24,7 @@ router.get("/allgyms", async (req, res) => {
 //  ---> Tiene conficto con la anterior porque espera un id
 router.get("/gymbyid/:id", async (req, res) => {
   try {
-      const { id } = req.params;
+    const { id } = req.params;
     const response = await getGymById(id);
     res.status(200).send(response);
   } catch (error) {
