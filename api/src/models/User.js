@@ -18,17 +18,18 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        // required: true,
+        required: true,
     },
-    type:{
+    type: {
         type: String,
         required: true,
     },
-    avatar:{
-        type: String,
+    avatar: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Avatar",
         required: false,
     },
-    info:{
+    info: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "InfoUser"
     },

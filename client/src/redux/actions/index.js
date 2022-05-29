@@ -30,3 +30,15 @@ export const getAvatars = () => async dispatch => {
     console.log("error: ", error)
   }
 }
+
+export const postAvatar = (id, body) => async dispatch => {
+  try {
+    const dataUdpateAvatar = await axios.put(`http://localhost:3001/api/user/avatar/${id}`, body)
+    dispatch({
+      type: 'POST_AVATAR',
+      payload: dataUdpateAvatar.data
+    })
+  } catch (error) {
+    console.log("error: ", error)
+  }
+}

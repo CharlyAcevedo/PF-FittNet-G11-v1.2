@@ -19,7 +19,7 @@ const infoUserSchema = new mongoose.Schema({
             validator: v => regWord.test(v),
             message: props => `${props.value} is not a valid email address`
         }
-    },    
+    },
     phone: {
         type: String,
     },
@@ -34,13 +34,14 @@ const infoUserSchema = new mongoose.Schema({
     },
     active: {
         type: Boolean,
-    },   
+    },
     address: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Address"
     },
-    avatar:{
-        type: String,
+    avatar: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Avatar"
     },
     createdAt: {
         type: Date,

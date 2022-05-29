@@ -7,6 +7,7 @@ import {
 
 const initialState = {
     users: [],
+    user: {},
     usersToShow: [],
     gyms: [],
     userDetail: {},
@@ -28,6 +29,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         avatars: payload
+      }
+    case 'POST_AVATAR':
+      console.log(payload)
+      return {
+        ...state,
+        user: payload
       }
     default:
       return state;
