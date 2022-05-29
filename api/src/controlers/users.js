@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Types;
+const { findByIdAndDelete } = require('../models/User');
 const User = require('../models/User');
 const InfoUser = require('../models/InfoUser');
 
@@ -66,4 +67,14 @@ const updateAvatarForUser = async (req, res) => {
     }
 }
 
-module.exports = { findUser, findAllUsers, updateAvatarForUser }
+async function deleteUser(id){
+    try{
+        const userDeleted = await User.findByIdAndDelete(id)
+        console.log(userDeleted)
+    }  catch (error) {
+        console.log(error.message)
+        return error.message
+    }
+}
+
+module.exports = { findUser, findAllUsers, createUser, deleteUser, updateAvatarForUser }

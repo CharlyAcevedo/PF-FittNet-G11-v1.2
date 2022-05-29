@@ -1,0 +1,14 @@
+.main-box-cards {
+    border: 2px solid #FEAA09;
+    height: auto;
+    width: 100%;
+
+}
+
+.box-cards {
+    border: 2px solid #096bfe;
+    width: auto;
+    height: auto;
+    padding-bottom: 60px;
+    padding-top: 40px;
+}

@@ -1,20 +1,26 @@
 const mongoose = require('mongoose');
+const { regEmail, regWord } = require('../controlers/regExes');
 // let regWord = /^[a-zA-Z0-9]{5}[a-zA-Z0-9]*\s*\w*/;
-// let regMail = /^[A-Z0-9a-z._%+-]{2}+@[A-Za-z0-9.-]{2}[A-Za-z0-9.-]*+\\.[A-Za-z]{2,64}/;
-let regexEmail = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+
 const userSchema = new mongoose.Schema({
+    name:{
+        type: String,
+        required: true,
+        validate: {
+            validator: v => regWord.test(v),
+            message: props => `${props.value} is not a valid User Name`
+        }
+    },
     userName: {
         type: String,
         required: true,
         lowercase: true,
+        trim: true,
+        unique: true,
         validate: {
-            validator: v => regexEmail.test(v),
+            validator: v => regEmail.test(v),
             message: props => `${props.value} is not a valid User Name`
         }
-    },
-    name: {
-        type: String,
-        required: true,
     },
     password: {
         type: String,

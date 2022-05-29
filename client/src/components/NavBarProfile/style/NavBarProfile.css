@@ -1,0 +1,35 @@
+.box-nav-bar-profile {
+    border: 2px solid #46fe095b;
+}
+
+.list-nav-bar{
+    display: inline-block;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    text-align: right;
+
+}
+
+.items-nav-bar-profile {
+    font-size: 20px;
+    float: left;
+    margin-right: 5px;
+    margin-left: 5px;
+    padding: 0 6px;
+    border-radius: 2rem;
+    margin-top: 0px;
+    padding-top: auto;
+    padding-left: auto;
+    padding-right: auto;
+    padding-bottom: auto;
+    text-align:center;
+    justify-content:center;
+    cursor: pointer;
+    border: 1px solid #D05353;;
+    color: #707D28;
+}
+#name-profile {
+    cursor: default;
+    
+}

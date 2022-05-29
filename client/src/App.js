@@ -7,7 +7,7 @@ import UserRegister from "./views/UserRegister";
 import ClientRegister from "./views/ClientRegister";
 import InitRegister from "./views/InitRegister";
 import Profile from "./views/Profile";
-import LegendCe from "./components/LegendCe/LegendCe";
+import LegendCe from "./components/LegendCe/LegendCe.jsx";
 import ResetPassword from "./views/ResetPassword";
 
 

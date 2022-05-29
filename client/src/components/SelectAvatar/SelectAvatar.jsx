@@ -22,7 +22,7 @@ export default function SelectAvatar() {
   useEffect(() => {
     if (avatars.length === 0) {
       dispatch(getAvatars());
-    }
+    } // eslint-disable-next-line
   }, []);
 
   console.log(avatars);
