@@ -21,11 +21,13 @@ const gymSchema = new mongoose.Schema({
     ref: "Address", //! address del gimnasio, pero direcciones tanto de gym como de user comun se guardan en la misma coleccion ?
   },
   services: {
-    type: mongoose.SchemaTypes.ObjectId,
+    type: Array,
+    of: mongoose.SchemaTypes.ObjectId,
     ref: "Service",
   },
   trainers: {
-    type: mongoose.SchemaTypes.ObjectId,
+    type: Array,
+    of: mongoose.SchemaTypes.ObjectId,
     ref: "Users",
   },
   logo: {
@@ -41,11 +43,13 @@ const gymSchema = new mongoose.Schema({
     required: true,
   },
   uEnd: {
-    type: mongoose.SchemaTypes.ObjectId,
+    type: Array,
+    of: mongoose.SchemaTypes.ObjectId,
     ref: "Users",
   },
   socialNetworks: {
-    type: mongoose.SchemaTypes.ObjectId,
+    type: Array,
+    of: mongoose.SchemaTypes.ObjectId,
     ref: "SocialMedia",
   },
   gymActive: {
