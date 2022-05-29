@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { findByIdAndDelete } = require('../models/User');
 const User = require('../models/User');
 
 async function findUser(userName){
@@ -35,12 +36,14 @@ async function createUser(newUser) {
     }
 }
 
-// const updateUser = async(req, res) => {
-//     try {
-        
-//     } catch (error) {
-//         console.log("error: ", error)
-//     }
-// }
+async function deleteUser(id){
+    try{
+        const userDeleted = await User.findByIdAndDelete(id)
+        console.log(userDeleted)
+    }  catch (error) {
+        console.log(error.message)
+        return error.message
+    }
+}
 
-module.exports = { findUser, findAllUsers }
+module.exports = { findUser, findAllUsers, createUser, deleteUser }

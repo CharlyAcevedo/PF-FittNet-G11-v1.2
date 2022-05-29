@@ -5,8 +5,12 @@ const routeRegister = require('./register');
 const routeHome = require('./home');
 const routeProfile = require('./profile');
 const routeAvatar = require('./avatar');
-const { route } = require('./register');
-const run = require('../controlers/test');
+const Users = require('../models/User');
+const resetPassword = require('./resetPass');
+const routeGyms = require('./gyms');
+const { findUser, findAllUsers } = require('../controlers/users');
+const Run = require('../controlers/test');
+
 
 const router = Router();
 
@@ -17,6 +21,9 @@ router.use('/api', routeRegister);
 router.use('/api', routeHome);
 router.use('/api', routeProfile);
 router.use('/api', routeAvatar);
+router.use('/api', resetPassword);
+
+router.use('/api', routeGyms);
 
 router.post('/create', (req, res) => {
     const newUser = Run()
@@ -41,7 +48,7 @@ router.post('/create', (req, res) => {
 router.get('/', async (req, res) => {
     try {
         console.log('fue redirigido a barra')
-        const prueba = await run()
+        const prueba = await Run()
         console.log(prueba)
         res.status(200).send("se creo el usuario")
     } catch (error) {

@@ -1,9 +1,16 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 import styles from "./styles/avatar.module.css";
 
 export const CardAvatar = (props) => {
-  const { name, image, features } = props;
+  const { id, avName, image, features } = props;
+  let { userId , name, type } = useParams();
+
+  function handleOnClick(e){
+    return  window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${id}`
+  }
+
   return (
     <div className={styles.containerCardAvatar}>
       <div className={styles.card}>
@@ -12,7 +19,7 @@ export const CardAvatar = (props) => {
             style={{ backgroundImage: `url(${image})` }}
             className={styles.cardFront}
           >
-            <h3 className={styles.cardTitle}>{name}</h3>
+            <h3 className={styles.cardTitle}>{avName}</h3>
           </div>
 
           <div className={styles.cardBack}>
@@ -24,7 +31,7 @@ export const CardAvatar = (props) => {
                 </li>
               ))}
             </ul>
-            <button className={styles.btnSelectAvatar}>Seleccionar</button>
+            <button className={styles.btnSelectAvatar} onClick={handleOnClick}>Seleccionar</button>
           </div>
         </div>
       </div>
