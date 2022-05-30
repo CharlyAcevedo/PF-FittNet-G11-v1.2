@@ -94,6 +94,7 @@ export default function LoginInit() {
 
             <input
               className={styles.loginSubmit}
+
               type="submit"
               value="Ingresar"
               onClick={(e) => onSubmit(e)}

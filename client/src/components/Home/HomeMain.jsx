@@ -9,7 +9,8 @@ import NavBarProfile from "../NavBarProfile/NavBarProfile";
 import PartnerCards from "../PartnerCards/PartnerCards";
 import { getAllGyms } from "../../redux/actions";
 import { useDispatch } from "react-redux";
-
+import IncomesGraph from '../Graphics/Incomes'
+import Paginated from "../paginated/paginated";
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
@@ -22,8 +23,7 @@ export default function HomeMain() {
     useEffect(()=>{
         // dispachar la action ¿pero qué voy a escuchar??? No sé si sea userId
         // console.log('sale la action de traer gyms')
-        dispatch(getAllGyms());
-
+        dispatch(getAllGyms()); // eslint-disable-next-line
     },[userId])
 
 
@@ -45,6 +45,7 @@ export default function HomeMain() {
         return (            
             <div>                
                 <NavBarProfile/>
+                <Paginated/>
                 <GymCards/>               
             </div>         
         )
@@ -55,7 +56,8 @@ export default function HomeMain() {
         return (            
             <div> 
                 <NavBarProfile/>
-                <h3>Qué más quiero ver como Ciente Empresa cuando llego a home???</h3>   
+                <h3>Qué más quiero ver como Ciente Empresa cuando llego a home???</h3>
+                <IncomesGraph />   
                 <UserCards/>
                 <h4>Promociones y descuentos</h4>
             </div>         
@@ -70,6 +72,9 @@ export default function HomeMain() {
                 <h3>Qué más quiere ver un usuario Admin en su home???</h3>
                 <PartnerCards/>
                 <UserCards/>
+                <h3>Vista de la parte financiera, ingresos, egresos, por pagar, por cobrar</h3>
+                <IncomesGraph />
+
                 <h3>Una vista como user</h3>
                 <h3>Una vista como partner</h3>
             </div>         

@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store/index';
 import axios from 'axios';
 import dotenv from 'dotenv';
-import 'normalize.css'
+// import 'normalize.css'
 
 dotenv.config();
 

@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 
 export default function GymsCards() {
   
-    const gyms = useSelector((state) => state.gymsToShow)
+    const gyms = useSelector((state) => state.pageToShow);
+
 
     return (            
         <div className="main-box-cards">
@@ -18,7 +19,7 @@ export default function GymsCards() {
                             key= {g._id}
                             id={g._id}
                             name = {g.name}
-                            rating = {g.rating}
+                            rating = {g.raiting}
                             price ={g.price}
                             image = {g.image}                            
                         />                    
