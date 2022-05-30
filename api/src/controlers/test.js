@@ -4,16 +4,16 @@ const User = require('../models/User')
 async function run() {
     try {
         const newUser = await User.create({
-            name: "Alberto",
-            lastName: "Acevedo",
-            userName: "charlyacevedo",
-            email: "charlyacevedo@hotmail.com", 
-            address: {
-                street: "calle 20",
-                city: "mexico"
-            }           
+            name: "Prueba",
+            lastName: "rueba2",
+            userName: "charlyaedoaaaaa",
+            email: "charlyacevedadasdsadsado@hotmail.com", 
+            // address: {
+            //     street: "calle 20",
+            //     city: "mexico"
+            // }           
         })
-        console.log(newUser)
+        return newUser
     } catch (error) {
         console.log(error.message)
     }

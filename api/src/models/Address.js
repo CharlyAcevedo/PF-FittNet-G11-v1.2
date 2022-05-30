@@ -9,7 +9,7 @@ const addressSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    adress: {
+    address: {
         type: String,        
     },
     apartment: {
@@ -27,7 +27,6 @@ const addressSchema = new mongoose.Schema({
     zipCode: {
         type: Number,
     }
-
 });
 
 module.exports = mongoose.model('Address', addressSchema);

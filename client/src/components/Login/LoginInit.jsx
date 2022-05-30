@@ -1,90 +1,113 @@
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import styles from "./styles/LoginInit.module.css";
 
-export default function LoginInit () {
-    const [ email, setEmail ] = useState("");
-    const [ password, setPassword ] = useState("");
-    const [ error, setError ] = useState("");
-    
-    function onSubmit(e) {
-        let userLogin;
+export default function LoginInit() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-        console.log('está saliendo el post ', userLogin )
+  function onSubmit(e) {
+    let userLogin;
 
-        e.preventDefault()
+    console.log("está saliendo el post ", userLogin);
 
-        if (email && password) {
-            userLogin = { email: email, password: password };
+    e.preventDefault();
 
-            console.log('está saliendo el post ', userLogin )
+    if (username && password) {
+      userLogin = { username: username, password: password };
 
-            axios.post('http://localhost:3001/api/login', userLogin)
-            .then((res)=>{  
-              console.log(res.data, '-> viendo qué respondio el post')              
+      console.log("está saliendo el post ", userLogin);
 
-              if(res.data.length === 0) {
-                setError('usuario o password incorrecta');
-                setPassword("");
-                setEmail("");
-              }
-              if(res.data.length === 1) {
-             
-                console.log(res.data, ' lo que debería setear en las cookies');
+      axios
+        .post("http://localhost:3001/api/login", userLogin)
+        .then((res) => {
+          console.log(res.data, "-> viendo qué respondio el post");
 
-                return  window.location = "http://localhost:3000/home"
-              }
-              if (typeof res.data === "string") {
-                setError('usuario o password incorrecta');
-                setPassword("");
-                setEmail("");
+          if (res.data.login) {
+            console.log(
+              res.data,
+              " lo que responde el back si se autentica el user"
+            );
+            let { userId, name, type, avatar } = res.data;
 
-              }
-
-              
-              
-            })
-            .catch((error) => console.log(error))
-
-        }
-
+            if (typeof avatar === "string") {
+              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`);
+            }
+            // ya le paso info por params de quién estamos hablando
+            return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
+          }
+          if (typeof res.data === "string") {
+            setError("usuario o password incorrecta");
+            setPassword("");
+            setUsername("");
+          }
+        })
+        .catch((error) => console.log(error));
     }
+  }
 
-
-    return (
-        
-        <div>
-            <div> Entraste en / Login </div>
-            <div> Quiero ver el formulario de login </div>
-            <div>
-                <h1>Iniciar sesión</h1>
-                <h2>Email state: {email}</h2>
-                <h2>Password state: {password}</h2>
-
-                <form >
-
-                  <input type='email' value= {email} 
-                  name='email' placeholder='Email' required 
-                  onChange = {(e) => setEmail(e.target.value)}/>
-
-                  <input type='password' value= {password} 
-                  name='password' placeholder='Contraseña' required 
-                  onChange = {(e) => setPassword(e.target.value)}/>
-                  <h3>{error === "" ? null : error}</h3>
-
-                  <input type='submit' value='Ingresar'  onClick={(e)=>onSubmit(e)} />
-
-                </form>
-                <button>Ingresa con tu cuenta Google</button>
-                <br />
-                
-                {/* <a href="#">Falta hacer la verificación con Google</a> */}
-                <br />
-                <a href='/register'>Crear cuenta</a>
-                <br />
-                <a href='/'>Volver</a>        
+  return (
+    <div className={styles.container}>
+      <div className={styles.screen}>
+        <div className={styles.screenContent}>
+          <div className={styles.sign}>
+            <div className={styles.contentHeading}>
+              <Link to="/">
+                <div className={styles.containerBtn}>
+                  <div className={styles.logoContainer}></div>
+                </div>
+              </Link>
+              <div className={styles.containerReg}>
+                <a href="/register" style={{ textDecoration: "none" }}>
+                  Crear cuenta
+                </a>
+              </div>
             </div>
+          </div>
+          <form className={styles.login}>
+            <div className={styles.loginField}>
+              <input
+                type="email"
+                value={username}
+                name="email"
+                className={styles.loginInput}
+                placeholder="Email"
+                required
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <div className="login_field">
+              <input
+                type="password"
+                value={password}
+                name="password"
+                className={styles.loginInput}
+                placeholder="Contraseña"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <h3>{error === "" ? null : error}</h3>
+
+            <input
+              className={styles.loginSubmit}
+
+              type="submit"
+              value="Ingresar"
+              onClick={(e) => onSubmit(e)}
+            />
+          </form>
         </div>
-
-
-    )
+        <div className={`${styles.screenBackground}`}>
+          <span className={styles.shape4}></span>
+          <span className={styles.shape3}></span>
+          <span className={styles.shape2}></span>
+          <span className={styles.shape1}></span>
+        </div>
+      </div>
+    </div>
+  );
 }

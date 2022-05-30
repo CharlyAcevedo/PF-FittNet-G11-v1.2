@@ -1,26 +1,9 @@
 const mongoose = require('mongoose');
-let regWord = /^[a-zA-Z0-9]{5}[a-zA-Z0-9]*\s*\w*/;
-let regMail = /^[A-Z0-9a-z._%+-]{2}+@[A-Za-z0-9.-]{2}[A-Za-z0-9.-]*+\\.[A-Za-z]{2,64}/;
+const { regEmail, regWord } = require('../controlers/regExes');
+// let regWord = /^[a-zA-Z0-9]{5}[a-zA-Z0-9]*\s*\w*/;
 
 const userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    lastName: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-        required: true,
-        lowercase: true,
-        validate: {
-            validator: v => regWord.test(v),
-            message: props => `${props.value} is not a valid email address`
-        }
-    },
-    userName: {
+    name:{
         type: String,
         required: true,
         validate: {
@@ -28,34 +11,42 @@ const userSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid User Name`
         }
     },
+    userName: {
+        type: String,
+        required: true,
+        lowercase: true,
+        trim: true,
+        unique: true,
+        validate: {
+            validator: v => regEmail.test(v),
+            message: props => `${props.value} is not a valid User Name`
+        }
+    },
     password: {
         type: String,
         required: true,
     },
-    phone: {
+    type: {
         type: String,
+        required: true,
     },
-    birthday: {
-        type: Date,
-    },
-    gender: {
-        type: String,
-    },
-    photo: {
-        type: String,
-    },
-    active: {
-        type: Boolean,
-    },
-    address: {
+    avatar: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: "Address"
+        ref: "Avatar",
+        required: false,
     },
-
+    info: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "InfoUser"
+    },
+    partner: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Partner"
+    },
     createdAt: {
         type: Date,
         required: true,
-        inmutable: true,
+        // inmutable: true,
         default: () => Date.now(),
     },
     updatedAt: {
@@ -63,7 +54,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         default: () => Date.now(),
     },
-
 })
 
 module.exports = mongoose.model('Users', userSchema)

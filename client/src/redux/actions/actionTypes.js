@@ -1,3 +1,9 @@
-const GET_ALL_USERS = 'GET_ALL_USERS';
-const GET_ALL_CLIENTS = 'GET_ALL_CLIENTS';
-const POST_USER = 'POST_USER';
+export const GET_ALL_USERS = 'GET_ALL_USERS';
+export const GET_ALL_PARTNERS = 'GET_ALL_PARTNERS';
+export const GET_AVATARS = 'GET_AVATARS'
+export const POST_USER = 'POST_USER';
+export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+export const SET_PAGE_NUMBER = 'SET_PAGE_NUMBER';
+export const SET_CURRENT_LIMIT = 'SET_CURRENT_LIMIT';
+export const GET_ALL_GYMS = 'GET_ALL_GYMS';
+export const GET_GYM_DETAIL = 'GET_GYM_DETAIL'
