@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import DetailProfileUser from "../components/DetailProfileUser/DetailProfileUser";
 import DetailProfilePartner from "../components/DetailProfilePartner/DetailProfilePartner";
 import DetailProfileAdmin from "../components/DetailProfileAdmin/DetailProfileAdmin";
+import Logout from "../components/Logout/Logout";
 
 
 export default function Profile() {
