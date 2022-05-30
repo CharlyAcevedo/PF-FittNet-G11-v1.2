@@ -10,9 +10,9 @@ export default function GymsCards() {
 
     return (            
         <div className="main-box-cards">
-            <h2>Esta es la caja principal</h2>
+            <h2>.</h2>
             <div className="box-cards">
-                <h5>Esta es la caja de las cards</h5>
+                <h5>Aqui puede ver los gimnasios de su preferencia</h5>
                 {gyms.length ? gyms.map(g =>{
                     return (
                         <GymCard                        

@@ -19,12 +19,12 @@ export default function Logout() {
     <div>
       <p
         onClick={(e) => onClick(e)}
-        style={{
-          backgroundColor: "#f5978c",
-          padding: ".8rem 2rem",
-          cursor: "pointer",
-          fontWeight: "700",
-        }}
+        // style={{
+        //   backgroundColor: "#f5978c",
+        //   padding: ".8rem 2rem",
+        //   cursor: "pointer",
+        //   fontWeight: "700",
+        // }}
       >
         Logout
       </p>
