@@ -1,0 +1,69 @@
+.boxNavBar {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  align-items: center;
+  background: linear-gradient(
+    180deg,
+    #f0e8d7ed 0%,
+    #fffcf5 44%,
+    #f0e8d7ed 100%
+  );
+  /* display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: linear-gradient(
+    180deg,
+    #f0e8d7ed 0%,
+    #fffcf5 44%,
+    #f0e8d7ed 100%
+  ); */
+  /* justify-content: space-between; */
+}
+
+.ListNavBar {
+  display: flex;
+  /* background-color: red; */
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.itemNavBar {
+  border: 1px solid #d05353;
+  padding: 1px 8px;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.itemNavBar:hover {
+  background-color: #d05353;
+}
+
+.itemNavBar a {
+  text-decoration: none;
+  color: rgb(41, 41, 41);
+}
+
+.itemNavBar a:hover {
+  color: rgb(233, 233, 233);
+}
+
+.itemNavBarLogout {
+  border: 1px solid #d05353;
+  padding: 1px 8px;
+  border-radius: 2rem;
+  height: 28px;
+  cursor: pointer;
+  color: #707d28;
+}
+
+.nameProfile {
+  border: 1px solid #d05353;
+  color: #707d28;
+  border-radius: 2rem;
+  padding: 0.1rem;
+  text-align: center;
+}

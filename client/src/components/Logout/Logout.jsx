@@ -16,18 +16,8 @@ export default function Logout() {
   }
 
   return (
-    <div>
-      <p
-        onClick={(e) => onClick(e)}
-        style={{
-          backgroundColor: "#f5978c",
-          padding: ".8rem 2rem",
-          cursor: "pointer",
-          fontWeight: "700",
-        }}
-      >
-        Logout
-      </p>
-    </div>
+    <>
+      <p onClick={(e) => onClick(e)}>Logout</p>
+    </>
   );
 }
