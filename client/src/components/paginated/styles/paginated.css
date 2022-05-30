@@ -1,0 +1,109 @@
+.general_container{    
+    position: fixed;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content:space-between;
+    flex-direction: row;
+    background: #fcfcfc;
+    background: linear-gradient(180deg, #f0e8d7ed 0%, #fffcf5 44%, #f0e8d7ed 100%);
+    top: 5.4vh;
+    width: 100%;
+    height: 5vh;
+    padding-left: 2em;
+    padding-right: 2em;
+    line-height: 4vh;
+    font-size: 2vh;
+    color: #41381c;
+    text-shadow: 1px 1px 1px #41381c;
+    transition: transform .5s;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.label_current_page{
+    position: relative;
+    float: left;
+}
+
+.current_page_input{
+    background-color:azure;
+    position: relative;
+    float: right;
+    width: 2em;
+    height: 3.5vh;
+    line-height: 3vh;
+    border-radius: 5px;
+    border-width: 2px;
+    border-style: inset;
+    margin-top: .1em;
+}
+
+.paginated_container{
+    display: inline-block;
+    background-color:azure;
+    border-radius: 5px;
+    height: 4.5vh;
+    padding-top: 0;
+    padding-left: .5em;
+    padding-right: .5em;
+    list-style: none;
+    border-width: 2px;
+    border-style: inset;
+}
+
+.btn_paginated{
+    float: left;
+    text-decoration: none;    
+}
+
+.btn_primary{
+    background: linear-gradient(45deg, #f0e8d7ed 0%, #fffcf5 44%, #f0e8d7ed 100%);
+    border-radius: 5px;
+    min-width: 1.8em;
+    border: none;
+    height: 3.2vh;
+    margin: 0 .1em;
+}
+
+.btn_primary:hover{
+    background: linear-gradient(120deg, #f0e8d7ed 0%, #fffcf5 44%, #f0e8d7ed 100%);
+    box-shadow: 1px 1px 1px #41381c;
+
+}
+
+.btn_primary_active{
+    background: linear-gradient(60deg, #f0e8d7ed 0%, #f3e7cb 44%, #f0e8d7ed 100%);
+    box-shadow: 2px 2px 2px #41381c;
+    border-radius: 5px;
+    min-width: 1.8em;
+    border: none;
+    height: 3.2vh;
+    margin: 0 .2em;    
+}
+
+.btn_prev_next{
+    margin-top: .2em;
+    min-width: 2em;
+}
+
+.select_page{
+    border: none;
+    margin-top: .2em;
+    height: 3.5vh;
+    border-radius: 5px;
+    border-width: 2px;
+    border-style: inset;
+}
+
+@media (max-width: 700px) {
+    .btn_number{
+        display: none;
+    }
+}
+
+@media (max-width: 380px) {
+    .toShow_selector{
+        display: none;
+    }
+}
