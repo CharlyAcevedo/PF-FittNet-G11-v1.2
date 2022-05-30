@@ -6,6 +6,7 @@ import Login from "./views/Login";
 import UserRegister from "./views/UserRegister";
 import ClientRegister from "./views/ClientRegister"
 import InitRegister from "./views/InitRegister"
+import LegendCe from "./components/LegendCe/LegendCe"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/registration" element={<InitRegister />} />
           <Route path="/user_register" element={<UserRegister />} />
           <Route path="/client_register" element={<ClientRegister />} />
+          <Route path="/legendCe" element={<LegendCe />} />
         </Routes>
       </div>
     </div>

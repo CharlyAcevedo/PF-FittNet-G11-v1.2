@@ -1,0 +1,66 @@
+.container{
+    position: relative;
+}
+.logo{
+    position:relative;
+    margin-top: 20px;
+    width: 120px;
+    cursor: pointer;
+}
+
+.container h1{
+    margin-top: -40px;
+    padding-left: 100px;
+    color: rgba(72,48,66,1);
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-style:normal;
+    font-size: x-large;
+}
+
+.legend{
+    height: 100px;
+    width: 1200px;
+    text-align: center;
+    background-color:#f5978c;
+    border: 1px solid rgba(72,48,66,1);
+    border-radius: 20px;
+    margin-left: 100px;
+}
+.legend h3{
+    width: 1100px;
+    color:rgba(72,48,66,1);
+    font-style: italic;
+    font-size: larger;
+    font-weight: 500;
+    font-family: Verdana, Geneva, Tahoma, monospace;
+    padding-left: 50px;
+    margin-top: 0px;
+}
+.containCard{
+    padding-left: 650px;
+    margin-top: -425px;
+}
+.containSiler{
+    text-align: left;
+   margin-left: 50px;
+   margin-top: 5px;
+}
+.btn{
+    width: 100px;
+    height: 30px;
+    background-color: #f5978c;
+    border-radius: 5px;
+    border: 1px solid rgba(72,48,66,1);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 700;
+    color:rgb(14, 14, 43);
+    cursor: pointer;
+    box-shadow: 0.1em 0.1em gray;
+    margin-left: 200px;
+    margin-top:1px;
+}
+.btn:hover{
+    transform: scale(1.1);
+    border:0;
+    box-shadow: 0.1em 0.1em #f5978c;
+}
