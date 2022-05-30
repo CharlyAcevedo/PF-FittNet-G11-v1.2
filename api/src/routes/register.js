@@ -18,7 +18,11 @@ function isAuthenticated(req, res, next) {
   }
 }
 
+// router.get('/random', (req, res, next) => {
+//   const secretToken = randomsstring.generate();
 
+//   res.status(200).json(secretToken);
+// })
 
 //-------------------------------------------------------------------------------
 // Esta ruta get responde cuando un usuario con sesión activa intenta
