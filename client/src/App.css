@@ -1,4 +1,28 @@
-.App {
+:root{
+  --main-color: #fb6d10;
+  --color--logo: #f5978c;
+  --dark-color: #11152a;
+  --light-color: #d0d4de;
+
+  --color-prim: #fb6d10;
+  --color-primD1:#ff893b;
+  --color-primD2:#ff9550;
+  --color-primD3:#ffaa72;
+  --color-primD4: #ffbb8f;
+  
+  --color-sec:#b31e43;
+  --color-secD1:#d1496b;
+  --color-secD2:#ff7a9b;
+  --color-secD3:#ffaabf;
+
+  --color-ter:#483042;
+
+  --color-cua:#666680;
+  --color-cuaD1:#57576f;
+  --color-cuaD2:#8a8ab1;
+  --color-cuaD3:#8a8ab1;
+}
+App {
   text-align: center;
 }
 

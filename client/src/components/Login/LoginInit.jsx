@@ -1,118 +1,112 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import './styles/Login.css'
+import styles from "./styles/LoginInit.module.css";
 
-export default function LoginInit () {
-    const [ username, setUsername ] = useState("");
-    const [ password, setPassword ] = useState("");
-    const [ error, setError ] = useState("");
-    
-    function onSubmit(e) {
-        let userLogin;
+export default function LoginInit() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-        console.log('está saliendo el post ', userLogin )
+  function onSubmit(e) {
+    let userLogin;
 
-        e.preventDefault()
+    console.log("está saliendo el post ", userLogin);
 
-        if (username && password) {
-            userLogin = { username: username, password: password };
+    e.preventDefault();
 
-            console.log('está saliendo el post ', userLogin )
+    if (username && password) {
+      userLogin = { username: username, password: password };
 
-            axios.post('http://localhost:3001/api/login', userLogin)
-            .then((res)=>{  
-              console.log(res.data, '-> viendo qué respondio el post')              
-                          
-              if(res.data.login) {
-                         
-                console.log(res.data, ' lo que responde el back si se autentica el user');
-                let { userId, name, type, avatar } = res.data;
-              
-                if (typeof avatar === 'string') {
-                  return  window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`
-                }
-                // ya le paso info por params de quién estamos hablando
-                return  window.location = `http://localhost:3000/home/${type}/${name}/${userId}`
-                
-              }
-              if (typeof res.data === "string") {
-                setError('usuario o password incorrecta');
-                setPassword("");
-                setUsername("");
+      console.log("está saliendo el post ", userLogin);
 
-              }              
-              
-            })
-            .catch((error) => console.log(error))
+      axios
+        .post("http://localhost:3001/api/login", userLogin)
+        .then((res) => {
+          console.log(res.data, "-> viendo qué respondio el post");
 
-        }
+          if (res.data.login) {
+            console.log(
+              res.data,
+              " lo que responde el back si se autentica el user"
+            );
+            let { userId, name, type, avatar } = res.data;
 
+            if (typeof avatar === "string") {
+              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`);
+            }
+            // ya le paso info por params de quién estamos hablando
+            return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
+          }
+          if (typeof res.data === "string") {
+            setError("usuario o password incorrecta");
+            setPassword("");
+            setUsername("");
+          }
+        })
+        .catch((error) => console.log(error));
     }
+  }
 
-    
-    return (
-    <div class="container">
+  return (
+    <div className={styles.container}>
+      <div className={styles.screen}>
+        <div className={styles.screenContent}>
+          <div className={styles.sign}>
+            <div className={styles.contentHeading}>
+              <Link to="/">
+                <div className={styles.containerBtn}>
+                  <div className={styles.logoContainer}></div>
+                </div>
+              </Link>
+              <div className={styles.containerReg}>
+                <a href="/register" style={{ textDecoration: "none" }}>
+                  Crear cuenta
+                </a>
+              </div>
+            </div>
+          </div>
+          <form className={styles.login}>
+            <div className={styles.loginField}>
+              <input
+                type="email"
+                value={username}
+                name="email"
+                className={styles.loginInput}
+                placeholder="Email"
+                required
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <div className="login_field">
+              <input
+                type="password"
+                value={password}
+                name="password"
+                className={styles.loginInput}
+                placeholder="Contraseña"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
-                  <div class="screen">
-                    <div class="screen_content">
-                        <div class="sign">
+            <h3>{error === "" ? null : error}</h3>
 
-                          <div class="content-heading">
-                            <Link to='/'>
-                              <div className='container_btn'>
-                                  <div className='logo_Container'>
-                                  </div>
-                              </div>
-                            </Link>
-                              <div class='container_reg'>
-                                <a href='/register' style={{textDecoration: "none"}} >Crear cuenta</a>
-                              </div>
-                          </div>
-                        </div>
-                            <form class="login">
-                                <div class="login_field">
-                                    <input 
-                                      type='email' 
-                                      value= {username} 
-                                      name='email'
-                                      class="login_input" 
-                                      placeholder='Email' required 
-                                      onChange = {(e) => setUsername(e.target.value)}
-                                    />
-                                </div>
-                                <div class="login_field">
-                                    <input 
-                                      type='password' 
-                                      value= {password} 
-                                      name='password' 
-                                      class="login_input"
-                                      placeholder='Contraseña' required 
-                                      onChange = {(e) => setPassword(e.target.value)}
-                                    />
-                                </div>
-
-                                <h3>{error === "" ? null : error}</h3>
-
-                                <input
-                                  class="button login_submit"
-                                  type='submit' 
-                                  value='Ingresar'  
-                                  onClick={(e)=>onSubmit(e)}
-                                />
-                            </form>			
-                        </div>
-                        <div class="screen_background">
-                            <span class="screen_background_shape shape4"></span>
-                            <span class="screen_background_shape shape3"></span>		
-                            <span class="screen_background_shape shape2"></span>
-                            <span class="screen_background_shape shape1"></span>
-                        </div>
-                      </div>       
-                    </div>
-                    
-                
-
-
-    )
+            <input
+              className={styles.loginSubmit}
+              type="submit"
+              value="Ingresar"
+              onClick={(e) => onSubmit(e)}
+            />
+          </form>
+        </div>
+        <div className={`${styles.screenBackground}`}>
+          <span className={styles.shape4}></span>
+          <span className={styles.shape3}></span>
+          <span className={styles.shape2}></span>
+          <span className={styles.shape1}></span>
+        </div>
+      </div>
+    </div>
+  );
 }
