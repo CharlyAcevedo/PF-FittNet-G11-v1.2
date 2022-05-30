@@ -2,17 +2,13 @@ import React from "react";
 import img from '../../asets/images/benefits(uf).jpg'
 import logo from '../../asets/images/logoPF.jpg'
 import style from '../LegendUf/style/LegendUf.module.css'
+import NavBar from '../NavBar/NavBar'
 
 export default function LegendUf (){
     
     return(
         <div>
-            <div className={style.nav}>
-            <a href={'/'} ><img src={logo} alt='' /></a>
-            </div>
-            <div className={style.pq}>
-                <h1>Porque FittNet?</h1>
-            </div>
+            <NavBar />
             <div className={style.img}>
                 <img src={img} alt='' />
             </div>
