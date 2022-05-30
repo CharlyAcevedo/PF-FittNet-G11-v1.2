@@ -1,23 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 
-:root{
-    --main-color: #fb6d10;
-    --color--logo: #f5978c;
-    --dark-color: #11152a;
-    --light-color: #d0d4de;
+/* --color-sec:#b31e43;
+--color-secD1:#d1496b;
+--color-secD2:#ff7a9b;
+--color-secD3:#ffaabf; */
 
-    --color-sec:#86112e;
-    --color-secD1:#9a2d48;
-    --color-secD2:#aa405a;
-    --color-secD3:#c1697e;
-
-    --color-ter:#483042;
-
-    --color-cua:#666680;
-    --color-cuaD1:#57576f;
-    --color-cuaD2:#8a8ab1;
-    --color-cuaD3:#8a8ab1;
-}
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -26,7 +13,7 @@
 }
 
 .container {
-    background: linear-gradient(90deg, var(--color-secD3), var(--color-secD1));		
+    background: linear-gradient(90deg, var(--color-secD3), var(--color-secD1));
     height: 100vh;
     width: 100%;
     display: flex;
@@ -37,7 +24,7 @@
 	justify-content: center;
 }
 
-.content-heading{
+.contentHeading{
     backdrop-filter: blur(0px);
 	width: 100%;
 	height: 50px;
@@ -51,14 +38,14 @@
 	box-shadow: 0px 0px 24px var(--light-color);
 }
 
-.container_btn{    
+.containerBtn{    
     position: absolute;
     top: 65%;
     left: 16%;
     transform: translate(-50% , -50%) ;
 }
 
-.logo_Container{
+.logoContainer{
 	border-radius: 50px;
     background-size: cover;
     background-position: center center;
@@ -68,13 +55,13 @@
     width: 100px;
     background-image:url("../../../asets/images/logo_fitnet.jpg") ;
 }
-.container_reg{
+.containerReg{
 	display: flex;
     justify-content: flex-end;
 	padding: 0px 10px 0px 0px;
 
 }
-.container_reg a{
+.containerReg a{
 	background: #fff;
 	font-size: 12px;
 	margin-top: 15px;
@@ -92,13 +79,13 @@
 	transition: .2s;
 }
 
-.screen_content {
+.screenContent {
 	z-index: 1;
 	position: relative;	
 	height: 100%;
 }
 
-.screen_background {		
+.screenBackground {		
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -109,21 +96,20 @@
 	clip-path: inset(0 0 0 0);	
 }
 
-.screen_background_shape {
+.shape1 {
 	transform: rotate(45deg);
 	position: absolute;
-}
-
-.shape1 {
 	height: 520px;
 	width: 520px;
-	background: var(--color--logo);	
+	background: var(--color-secD3);	
 	top: -50px;
 	right: 120px;	
 	border-radius: 0 72px 0 0;
 }
 
 .shape2 {
+	transform: rotate(45deg);
+	position: absolute;
 	height: 210px;
 	width: 220px;
 	background: var(--color-secD1);
@@ -133,6 +119,8 @@
 }
 
 .shape3 {
+	transform: rotate(45deg);
+	position: absolute;
 	height: 540px;
 	width: 190px;
 	background: linear-gradient(270deg, var(--color-sec), var(--color-secD1));
@@ -142,6 +130,8 @@
 }
 
 .shape4 {
+	transform: rotate(45deg);
+	position: absolute;
 	height: 400px;
 	width: 200px;
 	background: var(--color-secD2);	
@@ -157,18 +147,18 @@
     text-align: initial
 }
 
-.login_field {
+.loginField {
 	padding: 20px 0px;	
 	position: relative;	
 }
 
-.login_icon {
+.loginIcon {
 	position: absolute;
 	top: 30px;
 	color: var(--color-secD1);
 }
 
-.login_input {
+.loginInput {
 	border: none;
 	border-bottom: 2px solid #fff;
 	background: none;
@@ -179,14 +169,14 @@
 	transition: .2s;
 }
 
-.login_input:active,
-.login_input:focus,
-.login_input:hover {
+.loginInput:active,
+.loginInput:focus,
+.loginInput:hover {
 	outline: none;
 	border-bottom-color: var(--color-secD1);
 }
 
-.login_submit {
+.loginSubmit {
 	background: #fff;
 	font-size: 14px;
 	margin-top: 30px;
@@ -204,10 +194,11 @@
 	transition: .2s;
 }
 
-.login_submit:active,
-.login_submit:focus,
-.login_submit:hover {
+.loginSubmit:active,
+.loginSubmit:focus,
+.loginSubmit:hover {
 	border-bottom-color: var(--color-secD1);
 	outline: none;
 }
+
 
