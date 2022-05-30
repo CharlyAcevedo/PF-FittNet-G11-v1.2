@@ -18,7 +18,7 @@ export default function LandingInfo() {
                     todo el proceso de cambio</p>
             </div>
             <div className='promo_div'>
-                <Link className='promos' to='/precios'>Conocé nuestras promos</Link>
+                <Link className='promos' to='/useprices'>Conocé nuestras promos</Link>
             </div>
             <div>
                 <p className='titulo_empeza'>El cambio empieza adentro tuyo</p>
