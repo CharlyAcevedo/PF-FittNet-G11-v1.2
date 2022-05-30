@@ -4,10 +4,10 @@ import Landing from "./views/Landing";
 import Home from "./views/Home";
 import Login from "./views/Login";
 import UserRegister from "./views/UserRegister";
+import LegendCe from "./components/LegendCe/LegendCe"
 import ClientRegister from "./views/ClientRegister";
 import InitRegister from "./views/InitRegister";
 import Profile from "./views/Profile";
-import LegendCe from "./components/LegendCe/LegendCe.jsx";
 import ResetPassword from "./views/ResetPassword";
 import UserPrices from './components/UserPrices/UserPrices'
 import GymDetail from "./views/GymDetail";
@@ -27,7 +27,9 @@ function App() {
           <Route path="/register" element={<InitRegister />} />
           <Route path="/user_register" element={<UserRegister />} />
           <Route path="/client_register" element={<ClientRegister />} />
+          <Route path="/legendCe" element={<LegendCe />} />
           <Route path="/userprices" element={<UserPrices />} />
+
         </Routes>
     </div>
   );
