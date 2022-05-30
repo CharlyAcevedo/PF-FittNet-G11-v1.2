@@ -3,8 +3,7 @@
     flex-direction: column;
     padding: 1% 4% 4% 4%; 
     max-width: 100%;
-    max-height: 900px;
-    background-color: rgba(0, 0, 0, 0.199);
+    max-height: 900px;    
 }
 .pricesTable{        
     background-image: radial-gradient(circle at bottom right, #00dade5d 3%, #c601e95d 60%, #84009b5d 90%);    

@@ -2,11 +2,12 @@ import React from "react";
 import Table from 'react-bootstrap/Table'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import style from './styles/UserPrices.module.css';
+import NavBar from "../NavBar/NavBar";
 
 
 
 
-export default function NavBar() {
+export default function UserPrices() {
     const planes = [
         {
             planName: "Inicial",
@@ -99,6 +100,7 @@ export default function NavBar() {
 
     return (
         <div className={style.pricesTableContainer}>
+            <NavBar/>
         <h1>
             Elegí la suscripcion que mas se adapte a vos <br />
             o toma las clases individuales que mas te gustan.
