@@ -37,6 +37,7 @@
     background-color: #f5978c;
     border: 1px solid rgba(72, 48, 66,1);
     border-radius: 2px;
-    color:rgba(72, 48, 66,1);
+    color:rgb(7, 7, 48);
     font-size: medium;
+    margin-block-start: 25px;
 }
