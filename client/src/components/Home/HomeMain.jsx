@@ -32,7 +32,7 @@ export default function HomeMain() {
     if (type === 'user' && !avatar) {
         return (
             
-            <div> 
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}> 
                 <SelecAvatar/>
                 <Logout/>                
                 <a href='/'>Volver</a>                
