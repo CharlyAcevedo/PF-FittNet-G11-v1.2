@@ -4,13 +4,13 @@
 --color-secD1:#d1496b;
 --color-secD2:#ff7a9b;
 --color-secD3:#ffaabf; */
-
+/* 
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;	
 	font-family: Raleway, sans-serif;
-}
+} */
 
 .container {
     background: linear-gradient(90deg, var(--color-secD3), var(--color-secD1));

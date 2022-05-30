@@ -1,19 +1,13 @@
 import React from "react";
 import Table from 'react-bootstrap/Table'
-import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import style from './styles/UserPrices.module.css';
-// import gym from '../../asets/images/gym2.jpg'
-// import gym1 from '../../asets/images/gym5.jpg'
-// import gym2 from '../../asets/images/gym4.jpg'
-// import gym3 from '../../asets/images/gym5.jpg'
-// import gym4 from '../../asets/images/gym2.jpg'
-// import gym5 from '../../asets/images/gym4.jpg'
-// import gym6 from '../../asets/images/gym5.jpg'
-// import gym7 from '../../asets/images/gym2.jpg'
+import NavBar from "../NavBar/NavBar";
 
 
 
-export default function NavBar() {
+
+export default function UserPrices() {
     const planes = [
         {
             planName: "Inicial",
@@ -105,12 +99,13 @@ export default function NavBar() {
     ]
 
     return (
-        <div className={style.prices_table_container}>
+        <div className={style.pricesTableContainer}>
+            <NavBar/>
         <h1>
             Elegí la suscripcion que mas se adapte a vos <br />
             o toma las clases individuales que mas te gustan.
         </h1>
-            <Table responsive='md' className={style.prices_table}>
+            <Table responsive='md' className={style.pricesTable}>
                 <thead>
                     <tr>
                         <th></th>
@@ -165,7 +160,7 @@ export default function NavBar() {
                 </tbody>
             </Table>
 
-            <Table responsive='md' className={style.classes_table_container}>
+            <Table responsive='md' className={style.classesTableContainer}>
                 <div className={style.expand} >Pesas y maquinas</div>
                 <div className={style.expand} >Crossfit</div>
                 <div className={style.expand} >Dance</div>
