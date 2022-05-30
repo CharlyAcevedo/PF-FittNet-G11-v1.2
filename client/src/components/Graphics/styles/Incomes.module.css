@@ -6,6 +6,7 @@
 
 .graph_container{
     margin: auto;
+    margin-top: 2rem;
     width: 70%;
     height: 35vh;
     z-index: 10;

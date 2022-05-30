@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import "./styles/Login.css";
+import styles from "./styles/LoginInit.module.css";
 
 export default function LoginInit() {
   const [username, setUsername] = useState("");
@@ -49,30 +49,30 @@ export default function LoginInit() {
   }
 
   return (
-    <div className="container">
-      <div className="screen">
-        <div className="screen_content">
-          <div className="sign">
-            <div className="content-heading">
+    <div className={styles.container}>
+      <div className={styles.screen}>
+        <div className={styles.screenContent}>
+          <div className={styles.sign}>
+            <div className={styles.contentHeading}>
               <Link to="/">
-                <div className="container_btn">
-                  <div className="logo_Container"></div>
+                <div className={styles.containerBtn}>
+                  <div className={styles.logoContainer}></div>
                 </div>
               </Link>
-              <div className="container_reg">
+              <div className={styles.containerReg}>
                 <a href="/register" style={{ textDecoration: "none" }}>
                   Crear cuenta
                 </a>
               </div>
             </div>
           </div>
-          <form className="login">
-            <div className="login_field">
+          <form className={styles.login}>
+            <div className={styles.loginField}>
               <input
                 type="email"
                 value={username}
                 name="email"
-                className="login_input"
+                className={styles.loginInput}
                 placeholder="Email"
                 required
                 onChange={(e) => setUsername(e.target.value)}
@@ -83,7 +83,7 @@ export default function LoginInit() {
                 type="password"
                 value={password}
                 name="password"
-                className="login_input"
+                className={styles.loginInput}
                 placeholder="Contraseña"
                 required
                 onChange={(e) => setPassword(e.target.value)}
@@ -93,18 +93,19 @@ export default function LoginInit() {
             <h3>{error === "" ? null : error}</h3>
 
             <input
-              className="button login_submit"
+              className={styles.loginSubmit}
+
               type="submit"
               value="Ingresar"
               onClick={(e) => onSubmit(e)}
             />
           </form>
         </div>
-        <div className="screen_background">
-          <span className="screen_background_shape shape4"></span>
-          <span className="screen_background_shape shape3"></span>
-          <span className="screen_background_shape shape2"></span>
-          <span className="screen_background_shape shape1"></span>
+        <div className={`${styles.screenBackground}`}>
+          <span className={styles.shape4}></span>
+          <span className={styles.shape3}></span>
+          <span className={styles.shape2}></span>
+          <span className={styles.shape1}></span>
         </div>
       </div>
     </div>

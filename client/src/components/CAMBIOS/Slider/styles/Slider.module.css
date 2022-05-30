@@ -16,13 +16,13 @@ overflow: hidden;
 transition: .3s ease alt;
 z-index: 9;
 position: relative;
+/* text-align: left; */
 }
 
 .slide img{
     width: 40%;
     vertical-align: top;
     cursor: pointer;
-    margin-right: 700px;
 } 
 
 

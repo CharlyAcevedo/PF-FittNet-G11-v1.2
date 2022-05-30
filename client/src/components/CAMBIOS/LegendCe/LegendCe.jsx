@@ -1,6 +1,6 @@
 import React from "react";
-import img from '../images/logoPF.jpg'
-import style from './styles/LegendCe.module.css'
+import img from '../../asets/images/logoPF.jpg'
+import style from '../LegendCe/styles/LegendCe.module.css'
 import Slider from "../Slider/Slider";
 import CardPlans from '../CardPlans/CardPlans'
 
@@ -17,9 +17,12 @@ export default function LegendCe(){
                 de esta manera logramos expandir la cartera de nuestros clientes, multiplicando sus ingresos! 
             </h3>
             </div>
-            <div className={style.sliderCard}>
-            <Slider />
-            <CardPlans />
+            <div className={style.containSiler}>
+            <Slider className={style.containSiler} />
+            <button className={style.btn}> <a href={'/'} ></a>REGISTRATE</button>
+            </div>
+            <div className={style.containCard} >
+            <CardPlans /> 
             </div>
         </div>
     )
