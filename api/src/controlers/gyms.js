@@ -5,7 +5,7 @@ const Address = require('../models/Address');
 async function getAllGyms() {
     try {
         const response = await Gims.find({})
-        .populate('address')
+            .populate('address')
         return response
     } catch (error) {
         console.log(error.message)
@@ -16,6 +16,7 @@ async function getAllGyms() {
 async function getGymById(id) {
     try {
         const response = await Gims.findById({ _id: id })
+            .populate('address')
         return response
     } catch (error) {
         console.log(error.message)

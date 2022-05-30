@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { ObjectId } = mongoose.Types;
 const { findByIdAndDelete } = require('../models/User');
 const User = require('../models/User');
 const InfoUser = require('../models/InfoUser');

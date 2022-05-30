@@ -22,7 +22,7 @@ export default function SelectAvatar() {
 
   return (
     <div className={styles.containerAvatar}>
-      <h2 style={{ margin: "0 auto 1.65rem auto" }}>
+      <h2 style={{ margin: "0 auto 1.65rem auto", textAlign: "center" }}>
         No cuentas con un avatar, selecciona uno:
       </h2>
       <div className={styles.containerCardAvatar}>
