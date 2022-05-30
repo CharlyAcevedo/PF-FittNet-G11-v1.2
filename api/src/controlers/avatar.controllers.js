@@ -31,5 +31,7 @@ const createAvatar = async (req, res) => {
     }
 }
 
+// const selectAvatarUser = async ()
+
 
 module.exports = { getAvatar, createAvatar }

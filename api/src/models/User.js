@@ -26,15 +26,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    type:{
+    type: {
         type: String,
         required: true,
     },
-    avatar:{
+    avatar: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: "Avatar"
+        ref: "Avatar",
+        required: false,
     },
-    info:{
+    info: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "InfoUser"
     },

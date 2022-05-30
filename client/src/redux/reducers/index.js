@@ -76,6 +76,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         gymDetail: payload,        
       };
+    case 'POST_AVATAR':
+      return {
+        ...state,
+        user: payload
+      }
     case GET_AVATARS:
       if (payload.error) {
         return {

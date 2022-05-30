@@ -121,18 +121,19 @@
   padding: 2rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  /* margin: 0 auto; */
 }
 
 .containerCardAvatar {
   width: 90%;
-  margin: 0 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
 }
 
 .card {
-  width: 250px;
+  width: 280px;
 }
 
 .cardContent {
@@ -185,7 +186,7 @@
 }
 
 .cardTitle {
-  font-size: 2rem;
+  font-size: 1.8rem;
   transform: var(--level-three);
   order: 2;
   text-transform: uppercase;

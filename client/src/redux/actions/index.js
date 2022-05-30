@@ -1,16 +1,16 @@
 import axios from "axios";
 
-import { 
-  GET_ALL_USERS, 
-  GET_ALL_PARTNERS, 
-  POST_USER, 
+import {
+  GET_ALL_USERS,
+  GET_ALL_PARTNERS,
+  POST_USER,
   GET_AVATARS,
   SET_CURRENT_PAGE,
   SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT,
   GET_ALL_GYMS,
   GET_GYM_DETAIL
- } from "./actionTypes";
+} from "./actionTypes";
 
 export function getAllUsers() {
   return async (dispatch) => {
@@ -78,7 +78,19 @@ export function getAllGyms() {
       });
     }
   }
-};
+}
+
+export const postAvatar = (id, body) => async dispatch => {
+  try {
+    const dataUdpateAvatar = await axios.put(`http://localhost:3001/api/user/avatar/${id}`, body)
+    dispatch({
+      type: 'POST_AVATAR',
+      payload: dataUdpateAvatar.data
+    })
+  } catch (error) {
+    console.log("error: ", error)
+  }
+}
 export function getGymDetail(id) {
   return async (dispatch) => {
     try {
