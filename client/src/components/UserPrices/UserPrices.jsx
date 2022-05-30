@@ -1,15 +1,15 @@
 import React from "react";
 import Table from 'react-bootstrap/Table'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
 import style from './styles/UserPrices.module.css';
-import gym from '../../asets/images/gym2.jpg'
-import gym1 from '../../asets/images/gym5.jpg'
-import gym2 from '../../asets/images/gym4.jpg'
-import gym3 from '../../asets/images/gym5.jpg'
-import gym4 from '../../asets/images/gym2.jpg'
-import gym5 from '../../asets/images/gym4.jpg'
-import gym6 from '../../asets/images/gym5.jpg'
-import gym7 from '../../asets/images/gym2.jpg'
+// import gym from '../../asets/images/gym2.jpg'
+// import gym1 from '../../asets/images/gym5.jpg'
+// import gym2 from '../../asets/images/gym4.jpg'
+// import gym3 from '../../asets/images/gym5.jpg'
+// import gym4 from '../../asets/images/gym2.jpg'
+// import gym5 from '../../asets/images/gym4.jpg'
+// import gym6 from '../../asets/images/gym5.jpg'
+// import gym7 from '../../asets/images/gym2.jpg'
 
 
 
