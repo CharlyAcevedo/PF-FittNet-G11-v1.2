@@ -1,22 +1,23 @@
-.prices_table_container{    
+.pricesTableContainer{    
     display: flex;    
     flex-direction: column;
     padding: 1% 4% 4% 4%; 
     max-width: 100%;
     max-height: 900px;
+    background-color: rgba(0, 0, 0, 0.199);
 }
-.prices_table{        
+.pricesTable{        
     background-image: radial-gradient(circle at bottom right, #00dade5d 3%, #c601e95d 60%, #84009b5d 90%);    
     margin-top: 3%;
     font-style: italic;      
     color: black;    
     border-radius: 8px;
-    vertical-align:middle; 
+    vertical-align: middle; 
     padding: auto;
     box-shadow:  11px 11px 22px #cacaca,
                  -11px -11px 22px #f6f6f6;
 }
-.classes_table_container{
+.classesTableContainer{
     margin-top: 7%;
     margin-bottom: 7%;
     font-size: xxx-large;
