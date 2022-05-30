@@ -35,7 +35,7 @@ export const CardAvatar = (props) => {
           </div>
 
           <div className={styles.cardBack}>
-            <h2>Caracteristicas</h2>
+            <h5 style={{fontWeight: "700"}}>Caracteristicas</h5>
             <ul>
               {features?.map((x, y) => (
                 <li className={styles.listFeaturesAvatar} key={y}>
