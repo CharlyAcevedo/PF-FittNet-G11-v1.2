@@ -8,20 +8,20 @@ import styles from "./styles/avatar.module.css";
 export const CardAvatar = (props) => {
   const { name, image, features, id, userId, typeuser, nameUser } = props;
 
-
   const dispatch = useDispatch();
-
 
   const navigate = useNavigate();
 
   const handleUdpateAvatar = (idAvatar, e) => {
     e.preventDefault();
-    const avatar = {avatar: idAvatar}
-    dispatch(postAvatar(userId, avatar))
-    alert(`elegiste el avatar ${name}, ahora vas a ser redirigido a los gimnasios que cumplan con las caracteristicas de este avatar`)
-    console.log("se agrego el avatar al usuario")
-    navigate(`/home/${typeuser}/${nameUser}/${userId}/${idAvatar}`)
-  }
+    const avatar = { avatar: idAvatar };
+    dispatch(postAvatar(userId, avatar));
+    alert(
+      `elegiste el avatar ${name}, ahora vas a ser redirigido a los gimnasios que cumplan con las caracteristicas de este avatar`
+    );
+    console.log("se agrego el avatar al usuario");
+    navigate(`/home/${typeuser}/${nameUser}/${userId}/${idAvatar}`);
+  };
 
   return (
     <div className={styles.containerCardAvatar}>
@@ -43,7 +43,12 @@ export const CardAvatar = (props) => {
                 </li>
               ))}
             </ul>
-            <button className={styles.btnSelectAvatar} onClick={(e) => handleUdpateAvatar(id, e)}>Seleccionar</button>
+            <button
+              className={styles.btnSelectAvatar}
+              onClick={(e) => handleUdpateAvatar(id, e)}
+            >
+              Seleccionar
+            </button>
           </div>
         </div>
       </div>
