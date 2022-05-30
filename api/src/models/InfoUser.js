@@ -31,10 +31,7 @@ const infoUserSchema = new mongoose.Schema({
     },
     photo: {
         type: String,
-    },
-    active: {
-        type: Boolean,
-    },
+    },  
     address: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Address"

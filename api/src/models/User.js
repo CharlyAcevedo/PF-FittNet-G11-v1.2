@@ -26,6 +26,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    active: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    secretToken: {
+        type: String,
+        required: true,
+    },      
     type: {
         type: String,
         required: true,
