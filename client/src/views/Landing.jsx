@@ -6,7 +6,7 @@ export default function Landing() {
 
     return (
         <div className="main_landing">
-            <NavBar/>
+            <NavBar />
             <LandingInfo/>
         </div>
     )
