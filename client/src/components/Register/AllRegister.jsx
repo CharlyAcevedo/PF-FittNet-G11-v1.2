@@ -14,7 +14,7 @@ export default function AllRegister() {
   const regexPassword =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?#&/|:;,<>+~-])([A-Za-z\d$@$!%*?#&/|:;,<>+~-]|[^ ]){8,15}$/;
   // Minimo 8 caracteres
-  //  Maximo 15
+  //Maximo 15 caracteres
   // Al menos una letra mayúscula
   //  Al menos una letra minucula
   //  Al menos un dígito
