@@ -9,8 +9,25 @@ import {
   SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT,
   GET_ALL_GYMS,
-  GET_GYM_DETAIL
+  GET_GYM_DETAIL,
+  SET_USER_GEO,
 } from "./actionTypes";
+
+export function setUserGeo(payload) {
+  return async (dispatch) => {
+    try {      
+      dispatch({
+        type: SET_USER_GEO,
+        payload: payload,
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_USER_GEO,
+        payload: { error: err.message },
+      });
+    }
+  }
+};
 
 export function getAllUsers() {
   return async (dispatch) => {
@@ -82,7 +99,7 @@ export function getAllGyms() {
 
 export const postAvatar = (id, body) => async dispatch => {
   try {
-    const dataUdpateAvatar = await axios.put(`http://localhost:3001/api/user/avatar/${id}`, body)
+    const dataUdpateAvatar = await axios.put(`/api/user/avatar/${id}`, body)
     dispatch({
       type: 'POST_AVATAR',
       payload: dataUdpateAvatar.data
@@ -92,28 +109,6 @@ export const postAvatar = (id, body) => async dispatch => {
   }
 }
 
-// export const postGoogleSignIn = (token, body) => async dispatch => {
-//   try {
-//     const dataGoogle = await axios.post(`http://localhost:3001/api/google/auth`, {
-//       tokenId: token,
-//       data: body
-//     })
-//     dispatch({
-//       type: 'POST_USER_GOOGLE',
-//       payload: dataGoogle.data.usuario,
-//     })
-//   } catch (error) {
-//     console.log("error", error)
-//   }
-// }
-
-// export const getUserGoogle = (data) => dispatch => {
-//   console.log(data)
-//   dispatch({
-//     type: 'GET_GOOGLE_USER',
-//     payload: data
-//   })
-// }
 export const getUser = (id) => async dispatch => {
   try {
     const dataUser = await axios.get(`http://localhost:3001/api/user/profile/${id}`)
