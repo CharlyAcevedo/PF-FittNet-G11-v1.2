@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const Users = require('../models/User')
-const { deleteUser, findUser } = require('../controlers/users')
+const { deleteUser } = require('../controlers/users')
 const InfoUsers = require('../models/InfoUser');
 const Partner = require('../models/Partner');
 const bcrypt = require('bcrypt');
@@ -34,40 +34,40 @@ router.get('/register', (req, res, next) => {
 // Esta ruta post recibe request para crear nuevos usuarios en la base de datos.
 //-------------------------------------------------------------------------------
 
-router.post('/register', isAuthenticated, async (req, res, next) => {
-
-    
+router.post('/register', isAuthenticated, async (req, res, next) => {   
   //También debería recibir tipo de usuario "admin", "client" o "partner"
-
+  
   const { name, username, password, type } = req.body;
-
   // console.log(req.body, 'lo que llega por body')
-
+  
   if (!name && !username || !password || !type) {
     return res.send('campos incompletos');
   }
   
   try {
-
+    
     
     if ( name && username && password && type) {  
- 
-      let findUser = await Users.find({userName: username})   
-      console.log(findUser, 'Cómo llega findUser hasta acá')    
+      let salt = 8; // número de saltos "niveles de seguridad"
+      let newUser;        
+      let userId;
 
-      if (findUser.length !== 0) { // Si el correo ya existe
-        // console.log('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
+      // No pongo el await para que no las espere las romesas y vaya directamente al promiseAll
+      const findUser = Users.find({userName: username})   
+      const secretToken = randomstring.generate(7); // Genero un token de seguridad
+      const hashPassword = bcrypt.hash(password, salt)
+      
+      // Largo las tres promesas en paralelo para ahorar tiempo
+      let promiseAll = await Promise.all([findUser, secretToken, hashPassword])
+
+      console.log(promiseAll, 'mis tres promesas!')
+
+      if (promiseAll[0].length !== 0) { // Si el correo ya existe
+        
         return res.send('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
 
       } else { // Si no encuentro el correo en bd, creo el usuario con ese email
-        let secretToken = randomstring.generate(7); // Genero un token de seguridad
-        
-        let salt = 8; // número de saltos "niveles de seguridad"     
-        let hashPassword = await bcrypt.hash(password, salt)
-        
-        // console.log(hashPassword, ' la clave hasheada')
-        // Store hash in your password DB. (Guardar la clave hasheada)         
-
+       
         if (type === 'user') {
           const newUserInfo = new InfoUsers({
             name: name,
@@ -75,16 +75,16 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
           })
           await newUserInfo.save();
           console.log("esta es la info del user", newUserInfo);
-          const newUser = await Users.create({
+          newUser = await Users.create({
             userName: username,
             name: name,
-            password: hashPassword,
-            secretToken: secretToken,
+            password: promiseAll[2],
+            secretToken: promiseAll[1],
             active: false,
             type: type,
             info: newUserInfo._id
           });
-          //res.status(200).json(newUser)
+          
         }
 
         if (type === "partner") {
@@ -94,39 +94,37 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
             userActive: true
           })
           await newPartnerInfo.save();
-          const newUser = await Users.create({
+          newUser = await Users.create({
             userName: username,
             name: name,
-            password: hashPassword,
-            secretToken: secretToken,
+            password: promiseAll[2],
+            secretToken: promiseAll[1],
             active: false,
             type: type,
             info: newPartnerInfo._id
           });
-          //res.status(200).json(newUser)
+          
         }
 
         if (type === "admin") {
-          const newUser = await Users.create({
+          newUser = await Users.create({
             userName: username,
             name: name,
-            password: hashPassword,
-            secretToken: secretToken,
+            password: promiseAll[2],
+            secretToken: promiseAll[1],
             active: false,
             type: type,
           });
-          //res.status(200).json(newUser)
+          
         }
+        // console.log(newUser, 'newUser de la 122')
 
-        let user = await Users.findOne({userName: username});
-        let userId;
-
-        // console.log(user, 'el user que se creo')
-        if (user._id) {
-          userId = user._id
+        if (newUser._id) {
+          userId = newUser._id
         }
-
-        res.redirect(`/api/email/${userId}/${secretToken}`);     
+        
+        // Mando a la próxima ruta id, secretToken y correo electrónico por params
+        res.redirect(`/api/email/${userId}/${promiseAll[1]}/${newUser.userName}`);     
       }
 
     } else {

@@ -30,7 +30,7 @@ export default function AllRegister() {
       console.log("está saliendo el post ", userCreate);
 
       axios
-        .post("http://localhost:3001/api/register", userCreate)
+        .post("/api/register", userCreate)
         .then((res) => {
           console.log(res.data, "-> respuesta del post de creación de cuenta");
 

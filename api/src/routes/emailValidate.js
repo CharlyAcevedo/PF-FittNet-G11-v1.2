@@ -24,22 +24,23 @@ const router = Router();
 // del email registrado (validar para activar la cuenta)
 //-------------------------------------------------------------------------------
 
-router.get('/email/:userId/:secretToken', async (req, res, next) => {
-  let { userId, secretToken } = req.params;
-  // console.log(req.params, 'el userID y el sercretToken')
-  // console.log('este código entraaa')
+router.get('/email/:userId/:secretToken/:userName', async (req, res, next) => {
+  let { userId, secretToken, userName } = req.params;
+  // Recordar que userName es un email
+  // console.log(req.params, 'el userID, el sercretToken y el userName')
   // http://localhost:3000/activation/ -> activación en el front
+
   let verifitationLink = `http://localhost:3000/activation/${userId}/${secretToken}`
   try {
     await transporter.sendMail({
       from: '"Activación de cuenta" <fittnet.com>', // sender address
-      to: "fer_0144@hotmail.com", // list of receivers
+      to: userName, // list of receivers
       subject: "Activación de cuenta FittNet", // Subject line
       html: `<b>Por favor has click en el siguiente link para verificar su correo</b>
       <a href="${verifitationLink}">${verifitationLink}</a> ` // html body
     });
     
-    res.send('Te mando el correo con el token');
+    res.send('Send email to verify');
 
   } catch (error) {
     console.log(error)    
