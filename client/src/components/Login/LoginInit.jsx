@@ -67,8 +67,8 @@ export default function LoginInit() {
 
     google.accounts.id.prompt();
 
-    setGoogleUser(userGoogle);
-  }, []);
+    setGoogleUser(userGoogle);// eslint-disable-next-line
+  }, [google.accounts]);
 
   const handleLogoutGoogle = (e) => {
     e.preventDefault();
