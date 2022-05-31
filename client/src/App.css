@@ -1,4 +1,6 @@
-:root{
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,500;0,700;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800&display=swap");
+
+:root {
   --main-color: #fb6d10;
   --color--logo: #f5978c;
   --dark-color: #11152a;
@@ -15,7 +17,10 @@
   --color-secD2:#ff7a9b;
   --color-secD3:#ffaabf;
 
-  --color-ter:#483042;
+  --color-sec: #b31e43;
+  --color-secD1: #d1496b;
+  --color-secD2: #ff7a9b;
+  --color-secD3: #ffaabf;
 
   --color-cua:#666680;
   --color-cuaD1:#57576f;
@@ -28,6 +33,29 @@
   --color-quiD3:#ffaa72;
   --color-quiD4: #ffbb8f;
 }
+
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: rgb(37, 38, 39);
+  background: linear-gradient(
+    45deg,
+    rgba(37, 38, 39, 1) 26%,
+    rgba(24, 25, 27, 1) 62%,
+    rgba(2, 2, 3, 1) 87%
+  );
+}
+
 App {
   text-align: center;
 }
