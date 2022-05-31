@@ -70,11 +70,11 @@ export default function LoginInit() {
     setGoogleUser(userGoogle);
   }, []);
 
-  const handleLogoutGoogle = (e) => {
-    e.preventDefault();
-    document.getElementById("signInDiv").hidden = false;
-    localStorage.removeItem("token");
-  };
+  // const handleLogoutGoogle = (e) => {
+  //   e.preventDefault();
+  //   document.getElementById("signInDiv").hidden = false;
+  //   localStorage.removeItem("token");
+  // };
 
   function onSubmit(e) {
     let userLogin;
