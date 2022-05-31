@@ -2,13 +2,13 @@
   --main-color: #fb6d10;
   --color--logo: #f5978c;
   --dark-color: #11152a;
-  --light-color: #d0d4de;
+  --light-color: #fff;
 
-  --color-prim: #fb6d10;
-  --color-primD1:#ff893b;
-  --color-primD2:#ff9550;
-  --color-primD3:#ffaa72;
-  --color-primD4: #ffbb8f;
+  --color-prim: #ff004c;
+  --color-primD1:#ff2767;
+  --color-primD2:#f74177;
+  --color-primD3:#fe5889;
+  --color-primD4: #ff83a8;
   
   --color-sec:#b31e43;
   --color-secD1:#d1496b;
@@ -21,6 +21,12 @@
   --color-cuaD1:#57576f;
   --color-cuaD2:#8a8ab1;
   --color-cuaD3:#8a8ab1;
+
+  --color-qui:#fb6d10;
+  --color-quiD1:#ff893b;
+  --color-quiD2:#ff9550;
+  --color-quiD3:#ffaa72;
+  --color-quiD4: #ffbb8f;
 }
 App {
   text-align: center;
