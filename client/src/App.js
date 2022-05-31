@@ -8,7 +8,6 @@ import LegendCe from "./components/LegendCe/LegendCe"
 import ClientRegister from "./views/ClientRegister";
 import InitRegister from "./views/InitRegister";
 import Profile from "./views/Profile";
-// import ResetPassword from "./views/ResetPassword";
 import UserPrices from './components/UserPrices/UserPrices'
 import GymDetail from "./views/GymDetail";
 import LegendUf from "./components/LegendUf/LegendUf";
@@ -22,8 +21,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/home/:type/:name/:userId/:avatar" element={<Home />} />
           <Route path="/home/:type/:name/:userId" element={<Home />} />
-          <Route path="/detail/gym/:userId" element={<GymDetail />} />
-          <Route path="/resetpass" element={<ResetPassword />} />
+          <Route path="/detail/gym/:userId" element={<GymDetail />} />          
           <Route path="/legendCe" element={<LegendCe />} />
           <Route path="/profile/:type/:name/:userId" element={<Profile />} />
           <Route path="/login" element={<Login />} />
