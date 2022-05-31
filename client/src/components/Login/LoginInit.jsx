@@ -53,22 +53,25 @@ export default function LoginInit() {
 
   useEffect(() => {
     /* global google*/
-    google.accounts.id.initialize({
+    window.google?.accounts.id.initialize({
       client_id:
         "157510772086-98ehfc8l140rpqoer006k78qugr3e62l.apps.googleusercontent.com",
       callback: handleCallbackGoogle,
     });
 
-    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
-      theme: "outline",
-      size: "large",
-      shape: "circle",
-    });
+    window.google?.accounts.id.renderButton(
+      document.getElementById("signInDiv"),
+      {
+        theme: "outline",
+        size: "large",
+        shape: "circle",
+      }
+    );
 
-    google.accounts.id.prompt();
+    window.google?.accounts.id.prompt();
 
-    setGoogleUser(userGoogle);// eslint-disable-next-line
-  }, [google.accounts]);
+    setGoogleUser(userGoogle); // eslint-disable-next-line
+  }, [window.google?.accounts]);
 
   // const handleLogoutGoogle = (e) => {
   //   e.preventDefault();
@@ -166,7 +169,7 @@ export default function LoginInit() {
               value="Ingresar"
               onClick={(e) => onSubmit(e)}
             />
-            <div id="signInDiv" style={{paddingTop: "1.5rem"}}></div>
+            <div id="signInDiv" style={{ paddingTop: "1.5rem" }}></div>
             {/* <button onClick={(e) => handleLogoutGoogle(e)}>Logout</button> */}
           </form>
         </div>
