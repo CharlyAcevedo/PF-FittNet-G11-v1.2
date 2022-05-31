@@ -4,6 +4,7 @@ const { findUser, findAllUsers, createUser, deleteUser } = require('../controler
 const InfoUsers = require('../models/InfoUser');
 const Partner = require('../models/Partner');
 const bcrypt = require('bcrypt');
+const randomstring = require("randomstring");
 
 // const cookieparser = require('cookie-parser');
 const router = Router();
@@ -18,11 +19,6 @@ function isAuthenticated(req, res, next) {
   }
 }
 
-// router.get('/random', (req, res, next) => {
-//   const secretToken = randomsstring.generate();
-
-//   res.status(200).json(secretToken);
-// })
 
 //-------------------------------------------------------------------------------
 // Esta ruta get responde cuando un usuario con sesión activa intenta
@@ -31,6 +27,14 @@ function isAuthenticated(req, res, next) {
 
 router.get('/register', (req, res, next) => {
   res.send('No puede realizar un post /register mientras su sesión esté iniciada');
+})
+
+
+
+router.get('/email', (req, res, next) => {
+  let token = 'nano 0144 =)'
+  
+  res.send('Te mando el correo con el token');
 })
 
 //-------------------------------------------------------------------------------
@@ -55,21 +59,20 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
     
     if ( name && username && password && type) {  
  
-      let findUser = await Users.find({userName: username})
-    
+      let findUser = await Users.find({userName: username})    
 
       if (findUser.length !== 0) { // Si el correo ya existe
         console.log('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
         return res.send('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
 
       } else { // Si no encuentro el correo en bd, creo el usuario con ese email
-        let salt = 8; // número de saltos "niveles de seguridad"
-
-        // Acá tengo que hashear la clave que me llega
+        let secretToken = randomstring.generate(7); // Genero un token de seguridad
+        
+        let salt = 8; // número de saltos "niveles de seguridad"     
         let hashPassword = await bcrypt.hash(password, salt)
         
-        console.log(hashPassword, ' la clave hasheada')
-        // Store hash in your password DB. (Guardar la clave hasheada)
+        // console.log(hashPassword, ' la clave hasheada')
+        // Store hash in your password DB. (Guardar la clave hasheada)         
 
         if (type === 'user') {
           const newUserInfo = new InfoUsers({
@@ -82,6 +85,8 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
             userName: username,
             name: name,
             password: hashPassword,
+            secretToken: secretToken,
+            active: false,
             type: type,
             info: newUserInfo._id
           });
@@ -99,6 +104,8 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
             userName: username,
             name: name,
             password: hashPassword,
+            secretToken: secretToken,
+            active: false,
             type: type,
             info: newPartnerInfo._id
           });
@@ -110,6 +117,8 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
             userName: username,
             name: name,
             password: hashPassword,
+            secretToken: secretToken,
+            active: false,
             type: type,
           });
           res.status(200).json(newUser)

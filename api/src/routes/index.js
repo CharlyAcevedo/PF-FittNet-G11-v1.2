@@ -6,13 +6,15 @@ const routeHome = require('./home');
 const routeProfile = require('./profile');
 const routeAvatar = require('./avatar');
 const routeUser = require('./user');
-const { route } = require('./register');
+// const { route } = require('./register');
 const run = require('../controlers/test');
 const Users = require('../models/User');
-const resetPassword = require('./resetPass');
+const routeResetPassword = require('./resetPass');
 const routeGyms = require('./gyms');
-const { findUser, findAllUsers } = require('../controlers/users');
+const routeActivation = require('./activation');
+const { findAllUsers } = require('../controlers/users');
 const Run = require('../controlers/test');
+const { route } = require('./register');
 
 
 const router = Router();
@@ -25,9 +27,14 @@ router.use('/api', routeHome);
 router.use('/api', routeProfile);
 router.use('/api', routeAvatar);
 router.use('/api', routeUser);
-router.use('/api', resetPassword);
-
+router.use('/api', routeResetPassword);
 router.use('/api', routeGyms);
+router.use('/api', routeActivation);
+
+
+
+
+
 
 router.post('/create', (req, res) => {
     const newUser = Run()
