@@ -1,155 +1,207 @@
-.ingresarRegistrarse{    
-    display: flex;
-    justify-content: flex-end;
-    background: #f5978c;
-    background: linear-gradient(160deg, #f5978c 47%, rgb(72, 48, 66) 30%, rgba(72,48,66,1) 14%);
-    height: 300px;
-    margin-top: 5%;
+.ingresarRegistrarse {
+  display: flex;
+  justify-content: flex-end;
+  background: #f5978c;
+  background: linear-gradient(
+    160deg,
+    #f5978c 47%,
+    rgb(72, 48, 66) 30%,
+    rgba(72, 48, 66, 1) 14%
+  );
+  height: 300px;
+  margin-top: 5%;
 }
-.ingresar{
-    position: absolute;
-    text-decoration: none; 
-    border: 2.5px solid #fb6d10;
-    border-radius: 10px;
-    color: #683042;
-    font-weight: 700;
-    font-style: italic;
-    font-size: larger;
-    padding: 0px 2px 0px 2px;
-    margin: 4% 30% 0px 4px;
-    background-color:#f5978c;
-    cursor: pointer;
+.ingresar {
+  position: absolute;
+  text-decoration: none;
+  border: 2.5px solid #fb6d10;
+  border-radius: 10px;
+  color: #683042;
+  font-weight: 700;
+  font-style: italic;
+  font-size: larger;
+  padding: 0px 2px 0px 2px;
+  margin: 4% 30% 0px 4px;
+  background-color: #f5978c;
+  cursor: pointer;
 }
-.registrarse{
-    position: absolute;
-    text-decoration: none;
-    border: 2.5px solid #fb6d10;    
-    border-radius: 10px;
-    color: #683042;
-    font-weight: 700;
-    font-style: italic;
-    font-size: larger;
-    padding: 0px 2px 0px 2px;
-    margin: 4% 10% 0px 4px;
-    background-color:#f5978c;
-    cursor: pointer;
+.registrarse {
+  position: absolute;
+  text-decoration: none;
+  border: 2.5px solid #fb6d10;
+  border-radius: 10px;
+  color: #683042;
+  font-weight: 700;
+  font-style: italic;
+  font-size: larger;
+  padding: 0px 2px 0px 2px;
+  margin: 4% 10% 0px 4px;
+  background-color: #f5978c;
+  cursor: pointer;
 }
-.imageStrong{
-    margin: 20px 47% 20px 0px;
-    border-radius: 20px;
+.imageStrong {
+  margin: 20px 47% 20px 0px;
+  border-radius: 20px;
 }
-.parrafo1Landing{
-    position: absolute;
-    color: #fff7f5;
-    font-style: italic;
-    font-weight: 900;
-    font-size:x-large ;
-    margin: 11% 2% 0px 50%
+.parrafo1Landing {
+  position: absolute;
+  color: #fff7f5;
+  font-style: italic;
+  font-weight: 900;
+  font-size: x-large;
+  margin: 11% 2% 0px 50%;
 }
-.promos{
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    padding: 0.5%;
-    border: 2.5px solid #fb6d10;
-    border-radius: 19px;
-    color: #683042;
-    font-style: italic;
-    font-weight: 700;
-    font-size: x-large;
-    cursor: pointer;
+.promos {
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 0.5%;
+  border: 2.5px solid #fb6d10;
+  border-radius: 19px;
+  color: #683042;
+  font-style: italic;
+  font-weight: 700;
+  font-size: x-large;
+  cursor: pointer;
 }
-.promoDiv{
-    margin: 4% 0% 4% 0;
+.promoDiv {
+  margin: 7% 0% 7% 0;
 }
-.mujerHombre{
-    max-width:100%;
+
+.containerBtnPromos {
+  width: 20%;
+  margin: 0 auto;
 }
-.tituloEmpeza{
-    position: absolute;
-    font-size: 50px;
-    font-style: italic;
-    font-weight: 800;
-    color: #fff5fc;
-    margin: 1% 30% 0 25% 
+
+@media (max-width: 1600px) {
+  .containerBtnPromos {
+    width: 26%;
+  }
 }
-.footerEmpeza{
-    position: absolute;
-    padding: 40% 25% 0 25%;
-    color: #fff7f5;
-    font-size: x-large;
-    font-style: italic;
+
+@media (max-width: 1500px) {
+  .containerBtnPromos {
+    width: 28%;
+  }
 }
-.empezaAqui{
-    position: absolute;
-    text-decoration: none;
-    margin: 49% 0 0 41%;
-    padding: 0.5%;
-    font-size: x-large;
-    font-style: italic;
-    font-weight: 800;
-    border: 3px solid white;
-    border-radius: 20px;
-    background-color: white;
-    color: black;
+
+@media (max-width: 1400px) {
+  .containerBtnPromos {
+    width: 30%;
+  }
 }
-.uniteGyms{
-    max-width:100%;
+
+@media (max-width: 1300px) {
+  .containerBtnPromos {
+    width: 35%;
+  }
 }
-.tituloUnite{
-    position: absolute;
-    font-size: 50px;
-    font-style: italic;
-    font-weight: 800;
-    color: #fff7f5;
-    margin: 1% 30% 0 25% 
+.mujerHombre {
+  max-width: 100%;
 }
-.footerUnite{
-    position: absolute;
-    padding: 40% 25% 0 25%;
-    color: #fff7f5;
-    font-size: x-large;
-    font-style: italic;
+.tituloEmpeza {
+  position: absolute;
+  font-size: 50px;
+  font-style: italic;
+  font-weight: 800;
+  color: #fff5fc;
+  margin: 1% 30% 0 25%;
 }
-.uniteAqui{
-    position: absolute;
-    text-decoration: none;
-    margin: 49% 0 0 41%;
-    padding: 0.5%;
-    font-size: x-large;
-    font-style: italic;
-    font-weight: 800;
-    border: 3px solid white;
-    border-radius: 20px;
-    background-color: white;
-    color: black;
+.footerEmpeza {
+  position: absolute;
+  padding: 40% 25% 0 25%;
+  color: #fff7f5;
+  font-size: x-large;
+  font-style: italic;
 }
-.promosUsuarios{
-    display: flex;
-    justify-content:space-between;
+.empezaAqui {
+  position: absolute;
+  text-decoration: none;
+  margin: 49% 0 0 41%;
+  padding: 0.5%;
+  font-size: x-large;
+  font-style: italic;
+  font-weight: 800;
+  border: 3px solid white;
+  border-radius: 20px;
+  background-color: white;
+  color: black;
 }
-.promoBalance{
-    border: 4px solid #f5978c;
-    border-radius: 15px;
-    padding: 0 5% 0 5%;
-    margin:4% 0% 4% 11%;    
+.uniteGyms {
+  max-width: 100%;
 }
-.promoBulk{
-    border: 4px solid rgb(72, 48, 66);
-    border-radius: 15px;
-    padding: 0 5% 0 5%;
-    margin:4% 11% 4% 0%; 
+.tituloUnite {
+  position: absolute;
+  font-size: 50px;
+  font-style: italic;
+  font-weight: 800;
+  color: #fff7f5;
+  margin: 1% 30% 0 25%;
 }
-.balanceLista{    
-    text-align: left;
-    margin: 0;
-    padding: 0;
+.footerUnite {
+  position: absolute;
+  padding: 40% 25% 0 25%;
+  color: #fff7f5;
+  font-size: x-large;
+  font-style: italic;
 }
-.bulkLista{
-    text-align: left;
-    margin: 0;
-    padding: 0
+.uniteAqui {
+  position: absolute;
+  text-decoration: none;
+  margin: 49% 0 0 41%;
+  padding: 0.5%;
+  font-size: x-large;
+  font-style: italic;
+  font-weight: 800;
+  border: 3px solid white;
+  border-radius: 20px;
+  background-color: white;
+  color: black;
 }
-.precioBalance{
-    text-decoration: none;
+.promosUsuarios {
+  display: flex;
+  justify-content: space-between;
+}
+.promoBalance {
+  border: 2px solid #ff004c;
+  border-radius: 15px;
+  box-shadow: 0 0 15px #ff004c;
+  transform: translate3d(-5%, -5%, 0);
+  /* background-color: rgba(255, 255, 255, 0.3); */
+  padding: 2% 5% 2% 5%;
+  color: #fff;
+  margin: 4% 0% 4% 11%;
+}
+
+.promoBulk {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.733);
+  transform: translate3d(-5%, -5%, 0);
+  border-radius: 15px;
+  padding: 2.5% 5% 0 5%;
+  color: #fff;
+  margin: 4% 11% 4% 4%;
+}
+.balanceLista {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.balanceLista li {
+  list-style: none;
+}
+
+.balanceLista li span {
+    color: #ff004c;
+    font-size: 1.3rem;
+    margin-right: 1rem;
+}
+.bulkLista {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+.precioBalance {
+  text-decoration: none;
 }
