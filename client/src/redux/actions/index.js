@@ -109,6 +109,19 @@ export const postAvatar = (id, body) => async dispatch => {
   }
 }
 
+export const getUser = (id) => async dispatch => {
+  try {
+    const dataUser = await axios.get(`http://localhost:3001/api/user/profile/${id}`)
+    console.log(dataUser.data)
+    dispatch({
+      type: 'GET_USER',
+      payload: dataUser.data,
+    })
+  } catch (error) {
+    console.log("error", error)
+  }
+}
+
 export function getGymDetail(id) {
   return async (dispatch) => {
     try {
