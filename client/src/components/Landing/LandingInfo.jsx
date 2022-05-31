@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { setUserGeo } from '../../redux/actions/index'
 import strong from '../../asets/images/gym2.jpg'
 import mujerHombre from '../../asets/images/man-1920.jpg'
 import uniteGyms from '../../asets/images/modern-gym.jpg'
@@ -8,8 +10,28 @@ import style from '../Landing/styles/Landing.module.css'
 
 export default function LandingInfo() {
 
+    const dispatch = useDispatch()
+   
+    useEffect(() => {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          const payload = {
+            latitud: position.coords.latitude,
+            longitud: position.coords.longitude,
+          };
+          dispatch(setUserGeo(payload))
+        },
+        function (error) {
+          console.log(error);
+        },
+        {
+          enableHighAccuracy: true,
+        }
+      );// eslint-disable-next-line
+    }, []);
+    
     return (
-        <div>           
+        <div>                   
             <div className={style.ingresarRegistrarse}>
                 <img className={style.imageStrong} src={strong} alt="" />
                 <Link className={style.ingresar} to='/login'>Ingresar</Link>

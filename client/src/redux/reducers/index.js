@@ -7,13 +7,21 @@ import {
   SET_CURRENT_LIMIT,
   GET_ALL_GYMS,
   GET_GYM_DETAIL,
+  SET_USER_GEO,
 } from "../actions/actionTypes";
+
+const lat =-34.6154611;
+const lng =-58.5733843;
 
 const initialState = {
   users: [],
   user: {},
   usersToShow: [],
   userDetail: {},
+  currentGeo: {
+    latitud: lat,
+    longitud: lng
+  },
   gyms: [],
   gymsToShow: [],
   gymDetail: {},
@@ -26,8 +34,23 @@ const initialState = {
   errors: "",
 };
 
+
 export default function rootReducer(state = initialState, { type, payload }) {
   switch (type) {
+    case SET_USER_GEO:
+      if (payload.error) {
+        return {
+          ...state,
+          errors: payload.error,
+        };
+      }
+      return {
+        ...state,
+        currentGeo: {
+          latitud: payload.latitud ? payload.latitud : lat,
+          longitud: payload.longitud ? payload.longitud : lng
+        }
+      };
     case GET_ALL_USERS:
       if (payload.error) {
         return {

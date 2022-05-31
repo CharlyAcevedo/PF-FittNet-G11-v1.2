@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { regEmail, regWord } = require('../controlers/regExes');
-// let regWord = /^[a-zA-Z0-9]{5}[a-zA-Z0-9]*\s*\w*/;
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -8,7 +7,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         validate: {
             validator: v => regWord.test(v),
-            message: props => `${props.value} is not a valid User Name`
+            message: props => `${props.value} is not a valid Name`
         }
     },
     userName: {
@@ -46,7 +45,7 @@ const userSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         required: true,
-        // inmutable: true,
+        inmutable: true,
         default: () => Date.now(),
     },
     updatedAt: {
