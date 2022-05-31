@@ -1,14 +1,13 @@
 const { Router } = require('express');
 const Users = require('../models/User')
-const { findUser, findAllUsers, createUser, deleteUser } = require('../controlers/users')
+const { deleteUser, findUser } = require('../controlers/users')
 const InfoUsers = require('../models/InfoUser');
 const Partner = require('../models/Partner');
 const bcrypt = require('bcrypt');
 const randomstring = require("randomstring");
 
-// const cookieparser = require('cookie-parser');
+
 const router = Router();
-// router.use(cookieparser()); // veremos
 
 
 function isAuthenticated(req, res, next) {
@@ -18,6 +17,7 @@ function isAuthenticated(req, res, next) {
     next();
   }
 }
+
 
 
 //-------------------------------------------------------------------------------
@@ -30,13 +30,6 @@ router.get('/register', (req, res, next) => {
 })
 
 
-
-router.get('/email', (req, res, next) => {
-  let token = 'nano 0144 =)'
-  
-  res.send('Te mando el correo con el token');
-})
-
 //-------------------------------------------------------------------------------
 // Esta ruta post recibe request para crear nuevos usuarios en la base de datos.
 //-------------------------------------------------------------------------------
@@ -48,7 +41,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
 
   const { name, username, password, type } = req.body;
 
-  console.log(req.body, 'lo que llega por body')
+  // console.log(req.body, 'lo que llega por body')
 
   if (!name && !username || !password || !type) {
     return res.send('campos incompletos');
@@ -59,10 +52,11 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
     
     if ( name && username && password && type) {  
  
-      let findUser = await Users.find({userName: username})    
+      let findUser = await Users.find({userName: username})   
+      console.log(findUser, 'Cómo llega findUser hasta acá')    
 
       if (findUser.length !== 0) { // Si el correo ya existe
-        console.log('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
+        // console.log('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
         return res.send('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
 
       } else { // Si no encuentro el correo en bd, creo el usuario con ese email
@@ -90,7 +84,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
             type: type,
             info: newUserInfo._id
           });
-          res.status(200).json(newUser)
+          //res.status(200).json(newUser)
         }
 
         if (type === "partner") {
@@ -109,7 +103,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
             type: type,
             info: newPartnerInfo._id
           });
-          res.status(200).json(newUser)
+          //res.status(200).json(newUser)
         }
 
         if (type === "admin") {
@@ -121,13 +115,18 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
             active: false,
             type: type,
           });
-          res.status(200).json(newUser)
+          //res.status(200).json(newUser)
         }
 
+        let user = await Users.findOne({userName: username});
+        let userId;
 
-        // Acá debería crear el user en la db
-        // y retornar un mensaje de usuario creado con éxito
-        // por ahora devuelvo el user creado
+        // console.log(user, 'el user que se creo')
+        if (user._id) {
+          userId = user._id
+        }
+
+        res.redirect(`/api/email/${userId}/${secretToken}`);     
       }
 
     } else {
@@ -162,4 +161,3 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
 // }))
 
 module.exports = router;
-

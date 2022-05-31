@@ -97,17 +97,20 @@ export default function LoginInit() {
           console.log(res.data, "-> viendo qué respondio el post");
 
           if (res.data.login) {
-            console.log(
-              res.data,
-              " lo que responde el back si se autentica el user"
-            );
-            let { userId, name, type, avatar } = res.data;
+            console.log(res.data, " lo que responde el back si se autentica el user" );
+            
+            let { userId, name, type, avatar, active } = res.data;
 
-            if (typeof avatar === "string") {
-              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`);
+            if (active === true) { // Si la cuenta está activa
+              if (typeof avatar === "string") {
+                return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`);
+              }
+              // ya le paso info por params de quién estamos hablando
+              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
+
+            } else {
+              setError("Cuenta inactiva, verifiación de email pendiente");
             }
-            // ya le paso info por params de quién estamos hablando
-            return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
           }
           if (typeof res.data === "string") {
             setError("usuario o password incorrecta");
@@ -161,7 +164,7 @@ export default function LoginInit() {
               />
             </div>
 
-            <h3>{error === "" ? null : error}</h3>
+            <p>{error === "" ? null : error}</p>
 
             <input
               className={styles.loginSubmit}
