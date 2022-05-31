@@ -1,12 +1,80 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles/LoginInit.module.css";
+import jwt_decode from "jwt-decode";
+import { getUser } from "../../redux/actions";
 
 export default function LoginInit() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [googleUser, setGoogleUser] = useState({});
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  const userGoogle = useSelector((state) => state.user);
+
+  console.log(userGoogle);
+
+  const token = localStorage.getItem("token");
+
+  const dispatch = useDispatch();
+
+  const handleCallbackGoogle = async (response) => {
+    const userObject = jwt_decode(response.credential);
+    if (!token) {
+      console.log("ENTRO A GENERAR TOKEN", response.credential);
+      const pruebaGoogle = await axios.post(
+        `http://localhost:3001/api/google/auth`,
+        {
+          tokenId: response.credential,
+          data: userObject,
+        }
+      );
+      const finalizacionData = await pruebaGoogle.data;
+      console.log("ESTA DATA TRAJO", finalizacionData);
+      dispatch(getUser(finalizacionData.usuario._id));
+      localStorage.setItem("token", response.credential);
+      document.getElementById("signInDiv").hidden = true;
+      console.log(googleUser);
+      const { avatar } = finalizacionData.usuario;
+      if (!avatar) {
+        return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
+      } else {
+        return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
+      }
+    } else {
+      console.log("estas autenticado actualmente no vas a poder acceder");
+      navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    /* global google*/
+    google.accounts.id.initialize({
+      client_id:
+        "157510772086-98ehfc8l140rpqoer006k78qugr3e62l.apps.googleusercontent.com",
+      callback: handleCallbackGoogle,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+      shape: "circle",
+    });
+
+    google.accounts.id.prompt();
+
+    setGoogleUser(userGoogle);
+  }, []);
+
+  const handleLogoutGoogle = (e) => {
+    e.preventDefault();
+    document.getElementById("signInDiv").hidden = false;
+    localStorage.removeItem("token");
+  };
 
   function onSubmit(e) {
     let userLogin;
@@ -94,11 +162,12 @@ export default function LoginInit() {
 
             <input
               className={styles.loginSubmit}
-
               type="submit"
               value="Ingresar"
               onClick={(e) => onSubmit(e)}
             />
+            <div id="signInDiv" style={{paddingTop: "1.5rem"}}></div>
+            {/* <button onClick={(e) => handleLogoutGoogle(e)}>Logout</button> */}
           </form>
         </div>
         <div className={`${styles.screenBackground}`}>

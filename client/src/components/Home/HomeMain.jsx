@@ -39,28 +39,9 @@ export default function HomeMain() {
         }}
       >
         <SelecAvatar />
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "1.5rem",
-            alignItems: "center",
-          }}
-        >
+        <div style={{ display: "flex", flexDirection: "row", gap: "1.5rem" }}>
           <Logout />
-          <a
-            href="/"
-            style={{
-              backgroundColor: "#f5978c",
-              textDecoration: "none",
-              padding: ".8rem 2rem",
-              color: "#141414",
-              fontWeight: "700",
-              cursor: "pointer",
-            }}
-          >
-            Volver
-          </a>
+          <a href="/">Volver</a>
         </div>
       </div>
     );

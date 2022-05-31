@@ -9,7 +9,7 @@ const infoUserSchema = new mongoose.Schema({
     },
     lastName: {
         type: String,
-        // required: true, //? Comentado por que en el formulario de register todavia no existe este usuario
+        required: true,
     },
     email: {
         type: String,

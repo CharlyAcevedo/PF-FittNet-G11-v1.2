@@ -11,6 +11,7 @@ import {
 
 const initialState = {
   users: [],
+  user: {},
   usersToShow: [],
   userDetail: {},
   gyms: [],
@@ -51,7 +52,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         partners: payload,
         partnersToShow: payload,
       };
-    case GET_ALL_GYMS:      
+    case GET_ALL_GYMS:
       if (payload.error) {
         return {
           ...state,
@@ -65,6 +66,18 @@ export default function rootReducer(state = initialState, { type, payload }) {
         gymsToShow: payload,
         pageToShow: newPage1,
       };
+    case 'POST_USER_GOOGLE':
+      console.log(payload)
+      return {
+        ...state,
+        user: payload
+      }
+    case 'GET_USER':
+      console.log(payload)
+      return {
+        ...state,
+        user: payload
+      }
     case GET_GYM_DETAIL:
       if (payload.error) {
         return {
@@ -74,7 +87,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       }
       return {
         ...state,
-        gymDetail: payload,        
+        gymDetail: payload,
       };
     case 'POST_AVATAR':
       return {

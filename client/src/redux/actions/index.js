@@ -91,6 +91,42 @@ export const postAvatar = (id, body) => async dispatch => {
     console.log("error: ", error)
   }
 }
+
+// export const postGoogleSignIn = (token, body) => async dispatch => {
+//   try {
+//     const dataGoogle = await axios.post(`http://localhost:3001/api/google/auth`, {
+//       tokenId: token,
+//       data: body
+//     })
+//     dispatch({
+//       type: 'POST_USER_GOOGLE',
+//       payload: dataGoogle.data.usuario,
+//     })
+//   } catch (error) {
+//     console.log("error", error)
+//   }
+// }
+
+// export const getUserGoogle = (data) => dispatch => {
+//   console.log(data)
+//   dispatch({
+//     type: 'GET_GOOGLE_USER',
+//     payload: data
+//   })
+// }
+export const getUser = (id) => async dispatch => {
+  try {
+    const dataUser = await axios.get(`http://localhost:3001/api/user/profile/${id}`)
+    console.log(dataUser.data)
+    dispatch({
+      type: 'GET_USER',
+      payload: dataUser.data,
+    })
+  } catch (error) {
+    console.log("error", error)
+  }
+}
+
 export function getGymDetail(id) {
   return async (dispatch) => {
     try {

@@ -32,9 +32,10 @@
     text-align:center;
     justify-content:center;
     cursor: pointer;
-    border: 1px solid #D05353;
+    border: 1px solid #D05353;;
     color: #707D28;
 }
 #name-profile {
     cursor: default;
+    
 }

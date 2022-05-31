@@ -66,14 +66,75 @@ const updateAvatarForUser = async (req, res) => {
     }
 }
 
-async function deleteUser(id){
-    try{
+async function deleteUser(id) {
+    try {
         const userDeleted = await User.findByIdAndDelete(id)
         console.log(userDeleted)
-    }  catch (error) {
+    } catch (error) {
         console.log(error.message)
         return error.message
     }
 }
 
-module.exports = { findUser, findAllUsers, createUser, deleteUser, updateAvatarForUser }
+const googleSignIn = async (req, res) => {
+    const googleToken = req.body.tokenId
+    const { email, name, given_name, family_name, picture } = req.body.data;
+    const userName = email;
+    try {
+        const usuarioDb = await User.findOne({ userName })
+        let usuario;
+        if (!usuarioDb) {
+            const userInfo = new InfoUser({
+                name: name,
+                lastName: family_name,
+                email: userName,
+                photo: picture,
+            });
+            await userInfo.save();
+            const infoId = userInfo._id
+            usuario = new User({
+                name: given_name,
+                userName: userName,
+                password: "0xoaudfj203ru09dsfu2390fdsfc90sdf2dfs",
+                type: "user",
+                info: infoId
+            });
+        } else {
+            usuario = usuarioDb;
+        }
+        await usuario.save();
+        res.json({
+            ok: true,
+            usuario,
+            googleToken
+        })
+    } catch (error) {
+        console.log("error: ", error);
+        res.status(500).json({
+            ok: false,
+            msg: "No se pudo crear el usuario"
+        })
+    }
+}
+
+const getUser = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await User.findById(id)
+            .populate('avatar', 'avatarName')
+        res.json({
+            ok: true,
+            user
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).jso({
+            ok: false,
+            msg: "Unexpected error"
+        })
+    }
+}
+
+
+
+module.exports = { findUser, findAllUsers, createUser, deleteUser, updateAvatarForUser, googleSignIn, getUser }
