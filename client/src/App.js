@@ -8,10 +8,12 @@ import LegendCe from "./components/LegendCe/LegendCe"
 import ClientRegister from "./views/ClientRegister";
 import InitRegister from "./views/InitRegister";
 import Profile from "./views/Profile";
-import ResetPassword from "./views/ResetPassword";
+// import ResetPassword from "./views/ResetPassword";
 import UserPrices from './components/UserPrices/UserPrices'
 import GymDetail from "./views/GymDetail";
 import LegendUf from "./components/LegendUf/LegendUf";
+import ResetPassword from "./components/UpdatePassword/ResetPassword";
+import UpdatePasword from "./components/UpdatePassword/UpdatePassword";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route path="/client_register" element={<ClientRegister />} />
           <Route path="/legendUf" element={<LegendUf />} />
           <Route path="/userprices" element={<UserPrices />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/updatepassword" element={<UpdatePasword />} />
 
         </Routes>
     </div>
