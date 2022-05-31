@@ -1,3 +1,174 @@
+.contPrim{
+    height: 70vh;
+    width: 100%;
+    display: flex;
+    background-image: url('../../../asets/images/Langing/wallpaperbetter\ \(1\).jpg');
+    background-size: cover;
+    padding: 0px;
+}
+
+.contElempadre{
+    height: 70%;
+    width: 47%;
+    position: absolute;
+    padding: 1px 1px 1px 1px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+.contElem{
+    height: 70%;
+    width: 100%;
+    position: absolute;
+    position: absolute;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.contText{
+    position: absolute;
+	z-index: 1;
+	-webkit-clip-path: inset(0 0 0 0);
+	clip-path: inset(0 0 0 0);
+    position: absolute;
+    color: #fff7f5;
+    font-style: italic;
+    font-size:x-large ;
+    padding: 15px;
+    animation: upercase 1.5s forwards .1s;
+}
+.contText h1{
+    font-size: 20px;
+    font-weight: 700;
+    background: #fff;
+    padding: 15px 10px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    color:#fff;
+    background:  var(--color-primD1);
+    backdrop-filter: blur(5px);
+}
+.contlin{
+    height: 100%;
+    width: 100%;
+    /* background: rgba(255,255,255,0.2); */
+    /* backdrop-filter: blur(5px); */
+    border: 3px solid rgb(255, 255, 255);
+    
+}
+
+.btn{
+    border-radius: 10px;
+    border-style: none;
+    background-color: var(--color-primD3);
+    margin-top: 30px;
+    padding: 12px 40px 12px 40px;
+    cursor: pointer ;
+    font-size: 20px;
+    color: #ffffff;
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+    
+}
+
+.btn:hover {
+    background-color: rgb(19, 15, 15);
+    color: #ffffff;
+    transition-delay: 0.2s;
+    transition: 0.8s;
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+}
+.screenBackground {		
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 0;
+	-webkit-clip-path: inset(0 0 0 0);
+	clip-path: inset(0 0 0 0);	
+}
+
+.shapeButtom1 {
+	transform: rotate(12deg);
+	position: absolute;
+	height: 70%;
+	width: 20%;
+	background: var(--light-color);	
+	top: 46.5%;
+	right: 13%;	
+	border-radius: 0px;
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+    animation: slideInButtom 1s forwards .1s;
+}
+
+.shapeTop1 {
+	transform: rotate(-12deg);
+	position: absolute;
+	height: 70%;
+	width: 20%;
+	background: var(--light-color);	
+	top: -16.5%;
+	right: 13%;	
+	border-radius: 0px;
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+    animation: slideInTop 1s forwards .1s;
+}
+.shapeButtom2 {
+	transform: rotate(12deg);
+	position: absolute;
+	height: 70%;
+	width: 20%;
+	background: var(--light-color);	
+	top: 46.5%;
+	right: 55%;
+	border-radius: 0px;
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+    animation: slideInButtom 1.5s forwards .1s;
+}
+
+.shapeTop2 {
+	transform: rotate(-12deg);
+	position: absolute;
+	height: 70%;
+	width: 20%;
+	background: var(--light-color);	
+	top: -16.5%;
+	right: 55%;	
+	border-radius: 0px;
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+    animation: slideInTop 1.5s forwards .1s;
+}
+
+.shapeButtom4 {
+	transform: rotate(12deg);
+	position: absolute;
+	height: 70%;
+	width: 20%;
+	background: var(--light-color);	
+	top: 46.5%;
+	right: 97%;	
+	border-radius: 0px;
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+    animation: slideInButtom 1.5s forwards .1s;
+}
+
+.shapeTop4 {
+	transform: rotate(-12deg);
+	position: absolute;
+	height: 70%;
+	width: 20%;
+	background: var(--light-color);	
+	top: -16.5%;
+	right: 97%;	
+	border-radius: 0px;
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+    animation: slideInTop 1.5s forwards .1s;
+}
+
+
 .ingresarRegistrarse{    
     display: flex;
     justify-content: flex-end;
@@ -153,3 +324,32 @@
 .precioBalance{
     text-decoration: none;
 }
+
+@keyframes slideInTop {
+	0% {
+	  transform: translateX(-500px);
+      
+	}
+	100% {
+	  transform: translateX(0px);
+      transform: rotate(-12deg);
+	}
+  }
+  
+  @keyframes slideInButtom {
+	0% {
+	  transform: translateX(-500px);
+	}
+	100% {
+	  transform: translateX(0px);
+      transform: rotate(12deg);
+	}
+  }
+  @keyframes upercase {
+      0%{
+          transform: scale(.0001) ;
+      }
+      100%{
+          transform: scale(1);
+      }
+  }
