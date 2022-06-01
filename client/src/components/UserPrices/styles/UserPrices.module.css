@@ -1,0 +1,37 @@
+.pricesTableContainer{    
+    display: flex;    
+    flex-direction: column;
+    padding: 1% 4% 4% 4%; 
+    max-width: 100%;
+    max-height: 900px;    
+}
+.pricesTable{        
+    background-image: radial-gradient(circle at bottom right, #00dade5d 3%, #c601e95d 60%, #84009b5d 90%);    
+    margin-top: 3%;
+    font-style: italic;      
+    color: black;    
+    border-radius: 8px;
+    vertical-align: middle; 
+    padding: auto;
+    box-shadow:  11px 11px 22px #cacaca,
+                 -11px -11px 22px #f6f6f6;
+}
+.classesTableContainer{
+    margin-top: 7%;
+    margin-bottom: 7%;
+    font-size: xxx-large;
+    font-style: italic;
+    font-weight: 600;
+    color: black;
+}
+.expand{
+    transition: 0.5s;    
+    background-image: url('../../../asets/images/gym4.jpg');
+}
+
+
+.expand:hover{        
+    cursor: pointer;    
+    height: 300px;
+    color: black;
+}

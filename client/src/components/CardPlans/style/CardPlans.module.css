@@ -1,14 +1,14 @@
 .containCp{
-    width: 640px;
+    /* width: 640px; */
     height: 450px;
     display: flex;
-    background-color: black;
 }
 
 .containEx{
     background-color: #fff7f5;
-    width: 250px;
-    height: 450px;
+    width: 220px;
+    height: 420px;
+    text-align: center;
     border: 1px solid #f5978c;
     cursor:cell;
 }
@@ -22,25 +22,22 @@
     color: #f5978c;
     text-shadow: 0.05em 0.05em rgba(72, 48, 66,1);
     padding-left: 20px;
-    font-size:xx-large;
 }
 
 .containEx li{
     width: 180px;
-   margin-left: -15px;
-   font-size: small;
+   /* margin-left: -15px; */
+   font-size: medium;
    font-style: normal;
-   font-family: Verdana, Geneva, Tahoma, monospace;
    font-weight: 600;
    color: rgba(72, 48, 66,1);
 }
 
 .containEx h4{
-    margin-left: 25px;
     background-color: #f5978c;
-    width: 150px;
     border: 1px solid rgba(72, 48, 66,1);
     border-radius: 2px;
-    text-align: center;
-    color:rgba(72, 48, 66,1);
+    color:rgb(7, 7, 48);
+    font-size: medium;
+    margin-block-start: 25px;
 }

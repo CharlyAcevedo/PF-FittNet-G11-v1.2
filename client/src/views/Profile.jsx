@@ -4,6 +4,7 @@ import DetailProfilePartner from "../components/DetailProfilePartner/DetailProfi
 import DetailProfileAdmin from "../components/DetailProfileAdmin/DetailProfileAdmin";
 import Logout from "../components/Logout/Logout";
 
+
 export default function Profile() {
     let { type } = useParams();
     

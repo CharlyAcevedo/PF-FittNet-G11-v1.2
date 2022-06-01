@@ -1,0 +1,15 @@
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.mapContainer{
+    width: 80vw;
+    height: 70vh;
+    background-color: rgb(100, 180, 255);
+}

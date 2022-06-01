@@ -5,7 +5,11 @@ const userPlanSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    services: [String]
+    services: [String],
+    price: {
+        type: Number,
+        
+    }
     //array de servicios, relacionar con el esquema de servicios
 });
 

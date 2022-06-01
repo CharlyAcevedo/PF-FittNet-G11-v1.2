@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import NavBarProfile from "../NavBarProfile/NavBarProfile";
 
 export default function DetailProfileAdmin() {
-    let { id , name, type } = useParams();
-    // console.log(id, name, type, 'id y name')
+    let { id, userId , name, type } = useParams();
+   
 
     // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
     // si le llega este id (de la fomra que lo espera) y si el usuario tiene una
@@ -40,6 +40,10 @@ export default function DetailProfileAdmin() {
             <p>Siguitene 3</p>
             <br />
             <p>Siguitene 4</p>
+            <br />
+            <a href={`/updatepassword/${userId}`}>Cambiar mi contraseña</a>
+            <br />            
+            <a href={`/deactivate/${userId}`}>Borra mi cuenta</a>
             <br />
             <a href='/'>Volver</a>
         </div>

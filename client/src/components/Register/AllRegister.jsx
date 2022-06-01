@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "./styles/Register.css"
+import styles from "./styles/AllRegister.module.css";
 
 export default function AllRegister() {
   const [name, setName] = useState("");
@@ -10,7 +10,19 @@ export default function AllRegister() {
   const [type, setType] = useState("");
   const [error, setError] = useState("");
 
-  //falta validaciones de formulario.
+  //! Regex de validacion
+  const regexPassword =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?#&/|:;,<>+~-])([A-Za-z\d$@$!%*?#&/|:;,<>+~-]|[^ ]){8,15}$/;
+  // Minimo 8 caracteres
+  //Maximo 15 caracteres
+  // Al menos una letra mayúscula
+  //  Al menos una letra minucula
+  //  Al menos un dígito
+  //   No espacios en blanco
+  //   Al menos 1 caracter especial
+  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const regexName = /^[A-Z]+$/i;
+  //--------------------------------------------
 
   function onSubmit(e) {
     let userCreate;
@@ -18,128 +30,156 @@ export default function AllRegister() {
     console.log("está saliendo el post ", userCreate);
 
     e.preventDefault();
-
-    if (name && email && password && type) {
-      userCreate = { name: name, username: email, password: password, type: type };
+    //------------------------
+    //Validamos los input antes de realizar el post,
+    //se validan los campos completos y caracteristicas puntuales de los mismos.
+    if (!name) {
+      return alert("El nombre es requerido");
+    } else if (!regexName.test(name)) {
+      return alert("El nombre es invalido");
+    } else if (!email) {
+      return alert("El Email es requerido");
+    } else if (!regexEmail.test(email)) {
+      return alert("Email invalido");
+    } else if (!password) {
+      return alert("Password requerida");
+    } else if (!regexPassword.test(password)) {
+      return alert(
+        "Contraseña invalida:Minimo 8 caracteres, Maximo 15, Al menos una letra mayuscula, una letra minuscula, un digito, sin espacios en blanco, Al menos un caracter esoecial"
+      );
+    } else if (!type) {
+      return alert("Debes seleccionar el tipo de cliente!");
+    }
+    //----------------------
+    else {
+      userCreate = {
+        name: name,
+        username: email,
+        password: password,
+        type: type,
+      };
 
       console.log("está saliendo el post ", userCreate);
 
       axios
-        .post("http://localhost:3001/api/register", userCreate)
+        .post("/api/register", userCreate)
         .then((res) => {
           console.log(res.data, "-> respuesta del post de creación de cuenta");
 
-          if (res.data._id) {
+          // if (res.data._id) {
+          if (typeof res.data === "string") {
             setName("");
-            setEmail("");
             setPassword("");
             setError("");
-
-            window.alert("Usuario creado con éxito");
+            setEmail("");
+            
+            window.alert(`Su solicitud ha sido recibida y hemos enviado un correo de activación a su email`);
             return (window.location = "http://localhost:3000/login");
           }
-          if (typeof res.data === "string") {
+          if (res.data) {
             setName("");
             setEmail("");
             setPassword("");
             setError(res.data);
-
+            console.log(res.data);
             window.alert(res.data);
           }
         })
         .catch((error) => console.log(error));
     }
   }
-  
-  return (
-    <div class="container">
-      <div class="screen">
-        <div class="screen_content">
-            <div class="sign">
 
-              {/* button navBar */}
-              <div class="content-heading">
-                <Link to='/home'>
-                  <div className='container_btn'>
-                      <div className='logo_Container'>
-                      </div>
-                  </div>
-                </Link>
-                <div class='container_reg'>
-                  <a href='/login' style={{textDecoration: "none"}} >Iniciar sesion</a>
+  return (
+    <div className={styles.container}>
+      <div className={styles.screen}>
+        <div className={styles.screenContent}>
+          <div className={styles.sign}>
+            {/* button navBar */}
+            <div className={styles.contentHeading}>
+              <Link to="/">
+                <div className={styles.containerBtn}>
+                  <div className={styles.logoContainer}></div>
                 </div>
+              </Link>
+              <div className={styles.containerReg}>
+                <a href="/login" style={{ textDecoration: "none" }}>
+                  Iniciar sesion
+                </a>
               </div>
+            </div>
 
             {/* Form register */}
+          </div>
+          <form className={styles.login}>
+            <div className={styles.loginRield}>
+              <input
+                type="text"
+                name="name"
+                value={name}
+                className={styles.loginInput}
+                placeholder="Nombre"
+                required
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
-                <form class="login">
-                    <div class="login_field">
-                        <input
-                          type='text' 
-                          name="name"
-                          className="login_input"
-                          placeholder="Nombre" required
-                          onChange={(e) => setName(e.target.value)}
-                          value={name}
-                        />
-                    </div>
-                    <div class="login_field">
-                        <input 
-                          type='email' 
-                          value= {email} 
-                          name='email'
-                          class="login_input" 
-                          placeholder='Email' required 
-                          onChange = {(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-                    <div class="login_field">
-                        <input 
-                          type='password' 
-                          value= {password} 
-                          name='password' 
-                          class="login_input"
-                          placeholder='Contraseña' required 
-                          onChange = {(e) => setPassword(e.target.value)}
-                        />
-                    </div>
+            <div className={styles.loginField}>
+              <input
+                type="email"
+                value={email}
+                name="email"
+                className={styles.loginInput}
+                placeholder="Email"
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className={styles.loginRield}>
+              <input
+                type="password"
+                value={password}
+                name="password"
+                className={styles.loginInput}
+                placeholder="Contraseña"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
-                    <h3>{error === "" ? null : error}</h3>
-
-                      <select
-                        name="select"
-                        onChange={(e) =>
-                          e.target.value === "Tipo de cliente"
-                            ? null
-                            : setType(e.target.value)
-                        }
-                      >
-                        <option value="Tipo de cliente">Tipo de cliente</option>
-                        <option value="user">Usuario Final</option>
-                        <option value="partner">Cliente Empresa</option>
-                        <option value="admin">Administrador</option> 
-                        {/* Quitar más adelante la opción Administrador*/}
-                      </select>
-                    <input
-                      class="button login_submit"
-                      type='submit' 
-                      value='Registrarse'  
-                      onClick={(e)=>onSubmit(e)}
-                    />
-                    <h3>{error ? error : null}</h3>
-                    <div>
-                    </div>
-                </form>			
+            <h3>{error === "" ? null : error}</h3>
+            <div className={styles.loginRield}>
+              <select
+                name="select"
+                onChange={(e) =>
+                  e.target.value === "Tipo de cliente"
+                    ? null
+                    : setType(e.target.value)
+                }
+              >
+                <option value="Tipo de cliente">Tipo de cliente</option>
+                <option value="user">Usuario Final</option>
+                <option value="partner">Cliente Empresa</option>
+                <option value="admin">Administrador</option>
+                {/* Quitar más adelante la opción Administrador*/}
+              </select>
             </div>
-            {/* screen background */}
-            <div class="screen_background">
-                <span class="screen_background_shape shape4"></span>
-                <span class="screen_background_shape shape3"></span>		
-                <span class="screen_background_shape shape2"></span>
-                <span class="screen_background_shape shape1"></span>
-            </div>
-        
-          </div>       
+            <input
+              className={styles.loginSubmit}
+              type="submit"
+              value="Registrarse"
+              onClick={(e) => onSubmit(e)}
+            />
+            <h3>{error ? error : null}</h3>
+            <div></div>
+          </form>
         </div>
+        {/* screen background */}
+        <div className={`${styles.screenBackground}`}>
+          <span className={styles.shape4}></span>
+          <span className={styles.shape3}></span>
+          <span className={styles.shape2}></span>
+          <span className={styles.shape1}></span>
+        </div>
+      </div>
+    </div>
   );
 }

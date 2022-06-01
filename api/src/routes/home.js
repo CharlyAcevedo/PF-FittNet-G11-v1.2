@@ -20,11 +20,7 @@ const router = Router();
 
 router.get('/home', isAuthenticated, async (req, res) => {
     console.log(req.user, ' lo que guarda req.user' );
-
     res.json({ user: req.user })
-  
-   
-
 });
 
 

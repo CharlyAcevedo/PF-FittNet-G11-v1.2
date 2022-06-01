@@ -1,16 +1,33 @@
 import axios from "axios";
 
-import { 
-  GET_ALL_USERS, 
-  GET_ALL_PARTNERS, 
-  POST_USER, 
+import {
+  GET_ALL_USERS,
+  GET_ALL_PARTNERS,
+  POST_USER,
   GET_AVATARS,
   SET_CURRENT_PAGE,
   SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT,
   GET_ALL_GYMS,
-  GET_GYM_DETAIL
- } from "./actionTypes";
+  GET_GYM_DETAIL,
+  SET_USER_GEO,
+} from "./actionTypes";
+
+export function setUserGeo(payload) {
+  return async (dispatch) => {
+    try {      
+      dispatch({
+        type: SET_USER_GEO,
+        payload: payload,
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_USER_GEO,
+        payload: { error: err.message },
+      });
+    }
+  }
+};
 
 export function getAllUsers() {
   return async (dispatch) => {
@@ -78,7 +95,33 @@ export function getAllGyms() {
       });
     }
   }
-};
+}
+
+export const postAvatar = (id, body) => async dispatch => {
+  try {
+    const dataUdpateAvatar = await axios.put(`/api/user/avatar/${id}`, body)
+    dispatch({
+      type: 'POST_AVATAR',
+      payload: dataUdpateAvatar.data
+    })
+  } catch (error) {
+    console.log("error: ", error)
+  }
+}
+
+export const getUser = (id) => async dispatch => {
+  try {
+    const dataUser = await axios.get(`http://localhost:3001/api/user/profile/${id}`)
+    console.log(dataUser.data)
+    dispatch({
+      type: 'GET_USER',
+      payload: dataUser.data,
+    })
+  } catch (error) {
+    console.log("error", error)
+  }
+}
+
 export function getGymDetail(id) {
   return async (dispatch) => {
     try {
