@@ -20,7 +20,8 @@ export default function NavBarDevelopers() {
                 <a style={{padding: "10px" }} href="/userprices">Precios para usuarios</a>  
                 <a style={{padding: "10px" }} href="/resetpassword">Reseteo password</a>
                 <a style={{padding: "10px" }} href="/updatepassword">Actualización de password</a>
-                <a style={{padding: "10px" }} href="/activation/userId/unsereto">Activación de cuenta</a> 
+                <a style={{padding: "10px" }} href="/activation/userId/unsereto">Activación de cuenta</a>
+                <a style={{padding: "10px" }} href="/deactivate/userId">Desactivar cuenta</a>
 
               
             </ul>
