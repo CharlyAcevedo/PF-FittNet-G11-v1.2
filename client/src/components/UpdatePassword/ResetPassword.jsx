@@ -1,6 +1,32 @@
 import React from "react";
 import { useState } from "react";
 
+// Esta es la ruta del back que podemos usar
+// router.post('/updatepassword', async (req, res, next) => {
+// if (userId && newPassword && oldPassword && !secretToken) { // Actualizo una vieja contraseña  
+// if (userId && newPassword && !oldPassword && secretToken) { // Seteo un nueva contraseña
+// if (userId && !newPassword && !oldPassword && !secretToken) { // Reinicio la contraseña
+
+// 1 Me pasa el username en el formulario (email)
+// 2 Le envío un secret token a su correo electrónico
+// 4 El back me tiene que devolver el userId del usuario
+// 5 Armo un objeto con el userId, la newPassword y el token
+// 6 Verifico tener los dos datos anteriores más validation (estado)
+// 7 Mando el put al back y tengo que recibir un mensaje de confirmación o rechazo
+// 8 Redirijo al usuario a login
+//---------------------------------------------------------------------
+// Esto es lo que le voy a envíar desde el front
+
+// 1ra llamada al back (voy a entrar en el tercer if de arriba)
+// le envío --> obj1 = {userName: userName}
+// El back responde enviandome el userId de usuario al front
+// y además me envia un correo con un secretToken
+
+// 2da llamda al back (voy a entrar en el segundo if de arriba)
+// let obj2 = {userId: userId, newPassword: newPassword, secretToken: secretToken}
+// Me responde con un mensaje de confirmación
+
+
 
 export default function ResetPassword() {
   // Esta función sirve para cuando alguien quiere recuperar una contraseña que olvidó.
@@ -9,7 +35,6 @@ export default function ResetPassword() {
   // segundo renderizado if(validation) que me va a permitir armar un form para 
   // el back. Y en el proximo llamado al back setearía una nueva contraseña.
   // También necesito controlar los formularios e ir seteando errores y mostrarlos.
-  // 
   // Fernando.
 
   const [username, setUsername] = useState("");

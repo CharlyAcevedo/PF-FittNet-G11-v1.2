@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { findByIdAndDelete } = require('../models/User');
 const User = require('../models/User');
 const InfoUser = require('../models/InfoUser');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 async function findUser(userName) {
     try {
@@ -135,6 +136,14 @@ const getUser = async (req, res) => {
     }
 }
 
+function isValidObjectId(id){
+    
+    if(ObjectId.isValid(id)){
+        if((String)(new ObjectId(id)) === id)
+            return true;
+        return false;
+    }
+    return false;
+}
 
-
-module.exports = { findUser, findAllUsers, createUser, deleteUser, updateAvatarForUser, googleSignIn, getUser }
+module.exports = { findUser, findAllUsers, createUser, deleteUser, updateAvatarForUser, googleSignIn, getUser, isValidObjectId }
