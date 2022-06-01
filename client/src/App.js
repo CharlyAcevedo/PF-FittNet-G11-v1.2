@@ -16,7 +16,7 @@ import UpdatePasword from "./components/UpdatePassword/UpdatePassword";
 import MapGyms from "./components/MapsAndGeo/MapGyms";
 import Activation from "./components/Activation/Activation";
 import DeactivateAccount from "./components/DeactivateAccount/DeactivateAccount";
-
+import FormUser from "./components/Forms/FormUser"
 
 function App() {
   return (
@@ -38,7 +38,8 @@ function App() {
           <Route path="/maps" element={<MapGyms/>} />
           <Route path="/updatepassword/:userId" element={<UpdatePasword />} />
           <Route path="/activation/:userId/:secretToken" element={<Activation />} />
-          <Route path="/deactivate/:userId" element={<DeactivateAccount />} />
+          <Route path="/deactivate/:userId" element={<DeactivateAccount />} />            
+          <Route path="/FormUser" element={<FormUser/>} />
         </Routes>
     </div>
   );

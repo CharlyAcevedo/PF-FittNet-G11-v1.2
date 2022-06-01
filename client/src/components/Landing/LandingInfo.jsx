@@ -31,6 +31,7 @@ export default function LandingInfo() {
     }, []);
     
     return (
+
         <div>                   
             <div className={style.ingresarRegistrarse}>
                 <img className={style.imageStrong} src={strong} alt="" />
