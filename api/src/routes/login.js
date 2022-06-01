@@ -25,11 +25,9 @@ router.post(
 );
 
 
-
 router.get('/login',  (req, res) => {
     res.send('Email o contraseña incorrecta');
 });
-
 
 
 // Middleware para mostrar la sesión actual en cada request

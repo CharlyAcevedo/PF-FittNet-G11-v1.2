@@ -36,6 +36,7 @@ export default function DeactivateAccount() {
             .then((response)=> {
                 console.log(response.data)
                 window.alert(response.data)
+                return (window.location = "http://localhost:3000/");
             })
             .catch((error)=> {console.lgo(error)})
             setPassword(""); // limpio el estado
