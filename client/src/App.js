@@ -10,6 +10,7 @@ import Profile from "./views/Profile";
 import LegendCe from "./components/LegendCe/LegendCe.jsx";
 import ResetPassword from "./views/ResetPassword";
 import GymDetail from "./views/GymDetail";
+import FormUser from "./components/Forms/FormUser"
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/register" element={<InitRegister />} />
         <Route path="/user_register" element={<UserRegister />} />
         <Route path="/client_register" element={<ClientRegister />} />
+        <Route path="/FormUser" element={<FormUser/>} />
       </Routes>
     </div>
   );
