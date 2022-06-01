@@ -1,13 +1,15 @@
 const { Router } = require('express');
 const nodemailer = require("nodemailer");
+const USER_ACCOUNT = process.env.USER_ACCOUNT
+const PASS_ACCOUNT = process.env.PASS_ACCOUNT
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
-        user: 'sysorestudios@gmail.com',
-        pass: 'hctbzqgmgbiitjtm'
+        user: USER_ACCOUNT,
+        pass: PASS_ACCOUNT
     }
 });
 transporter.verify(()=>{
