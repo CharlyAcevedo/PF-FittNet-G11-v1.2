@@ -30,25 +30,26 @@ export default function AllRegister() {
       console.log("está saliendo el post ", userCreate);
 
       axios
-        .post("http://localhost:3001/api/register", userCreate)
+        .post("/api/register", userCreate)
         .then((res) => {
           console.log(res.data, "-> respuesta del post de creación de cuenta");
 
-          if (res.data._id) {
+          // if (res.data._id) {
+          if (typeof res.data === "string") {
             setName("");
-            setEmail("");
             setPassword("");
             setError("");
-
-            window.alert("Usuario creado con éxito");
+            setEmail("");
+            
+            window.alert(`Su solicitud ha sido recibida y hemos enviado un correo de activación a su email`);
             return (window.location = "http://localhost:3000/login");
           }
-          if (typeof res.data === "string") {
+          if (res.data) {
             setName("");
             setEmail("");
             setPassword("");
             setError(res.data);
-
+            console.log(res.data);
             window.alert(res.data);
           }
         })

@@ -5,17 +5,31 @@ const bcrypt = require('bcrypt');
 
 const router = Router();
 
-router.put('/activation', async (req, res, next) => {
-  let { userId, secretToken } = req.body;
+
+//-----------------------------------------------------------------------
+// Esta ruta responde cuando necesito activar una cuenta recién creada y es
+// llamada directamente por los usuarios cuando les enviamos el correo de
+// validación de email, en el cual va un link para llamarla.
+//------------------------------------------------------------------------
+
+router.get('/activation/:userId/:secretToken', async (req, res, next) => {
+  let { userId, secretToken } = req.params;
+  // console.log(req.params, ' el id y el secret en activation')
 
   try {
-      let user = await Users.find({_id: userId});
+      // let user = await Users.find({_id: userId});
+      let user = await Users.findById(userId);
 
-      if (user.length && user[0].secretToken === secretToken) {
+      // console.log(user, 'paso1')
+
+      // if (user.length && user[0].secretToken === secretToken) {
+      if (user._id && user.secretToken === secretToken) {
         let activationToken = await Users.findByIdAndUpdate(userId, {active: true});
-        
-        if (activationToken) {
-            return res.status(200).send('Cuenta activada con éxito');
+        // console.log(activationToken, 'paso2')
+
+        if (activationToken.name) {
+          let name = activationToken.name;
+          return res.status(200).send(`<h3>Felicitaciones ${name} cuenta ha sido activada con éxito</h3>`);
         }
 
         return res.status(200).send('La cuenta no puedo ser activada')
@@ -26,9 +40,13 @@ router.put('/activation', async (req, res, next) => {
       console.log(error)
       res.status(400).send('Ocurrió un error durante la activación');     
     }
-
 })
 
+
+//-------------------------------------------------------------------------
+// Esta ruta responde cuando un usuario necesita "borrar" (desactivar) su
+// cuenta en la app. El estado active del usuario pasa a ser "false"
+//-------------------------------------------------------------------------
 
 router.put('/deleteuseraccount', async (req, res, next) => {
     let { userId, password } = req.body;

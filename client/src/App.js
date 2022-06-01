@@ -13,6 +13,9 @@ import GymDetail from "./views/GymDetail";
 import LegendUf from "./components/LegendUf/LegendUf";
 import ResetPassword from "./components/UpdatePassword/ResetPassword";
 import UpdatePasword from "./components/UpdatePassword/UpdatePassword";
+import Activation from "./components/Activation/Activation";
+import DeactivateAccount from "./components/DeactivateAccount/DeactivateAccount";
+
 
 function App() {
   return (
@@ -32,6 +35,8 @@ function App() {
           <Route path="/userprices" element={<UserPrices />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="/updatepassword" element={<UpdatePasword />} />
+          <Route path="/activation/:userId/:secretToken" element={<Activation />} />
+          <Route path="/deactivate/:userId" element={<DeactivateAccount />} />
 
         </Routes>
     </div>
