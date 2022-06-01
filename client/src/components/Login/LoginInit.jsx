@@ -52,7 +52,6 @@ export default function LoginInit() {
   };
 
   useEffect(() => {
-    /* global google*/
     window.google?.accounts.id.initialize({
       client_id:
         "157510772086-98ehfc8l140rpqoer006k78qugr3e62l.apps.googleusercontent.com",

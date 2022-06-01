@@ -19,9 +19,10 @@ const initialState = {
   usersToShow: [],
   userDetail: {},
   currentGeo: {
-    latitud: lat,
-    longitud: lng
+    latitude: lat,
+    longitude: lng
   },
+  currentGymCreated: {},
   gyms: [],
   gymsToShow: [],
   gymDetail: {},
@@ -47,8 +48,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         currentGeo: {
-          latitud: payload.latitud ? payload.latitud : lat,
-          longitud: payload.longitud ? payload.longitud : lng
+          latitude: payload.latitude ? payload.latitude : lat,
+          longitude: payload.longitude ? payload.longitude : lng
         }
       };
     case GET_ALL_USERS:

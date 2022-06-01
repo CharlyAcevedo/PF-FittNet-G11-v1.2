@@ -16,6 +16,10 @@ const gymSchema = new mongoose.Schema({
     type: Array,
     of: String,
   },
+  geolocation: {
+    type: Array,
+    of: Number,
+  },
   address: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Address", //! address del gimnasio, pero direcciones tanto de gym como de user comun se guardan en la misma coleccion ?
