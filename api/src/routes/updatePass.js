@@ -4,18 +4,19 @@ const Users = require('../models/User')
 // const cookieparser = require('cookie-parser');
 const router = Router();
 
-// uso esta ruta para borrar la contraseña
+// uso esta ruta para "borrar" la contraseña
 // podría reutilizar esta ruta para cambiar la contraseña
 // para lo segundo debería recibir la contraseña vieja
 
 // FALTA TERMINAR - 
-// ya busca el usuario por su id y lo encuentra
+// ya busca esl usuario por su id y lo encuentra
 
-router.post('/reset', async (req, res, next) => {
+router.post('/updatepassword', async (req, res, next) => {
 
-    let { userId } = req.body; // Si quiero borrar una pass
-    let { newPassword } = req.body; // Luego de borrarla necesito una nueva
-    let { oldPassword } = req.body; // Si quiero solo cambiar mi contraseña
+    let { userId } = req.body; 
+    let { newPassword } = req.body;
+    let { oldPassword } = req.body; 
+    let { secretToken } = req.body;
     
     
     try {
@@ -23,13 +24,13 @@ router.post('/reset', async (req, res, next) => {
         
         if (findUserById === 0) return res.send('Usuario no encontrado')
         
-        if (userId && newPassword && oldPassword) { // Actualizo una vieja contraseña
+        if (userId && newPassword && oldPassword && !secretToken) { // Actualizo una vieja contraseña
     
         }
-        if (userId && newPassword && !oldPassword) { // Seteo un nueva contraseña
+        if (userId && newPassword && !oldPassword && secretToken) { // Seteo un nueva contraseña
     
         }
-        if (userId && !newPassword && !oldPassword) { // Reinicio la contraseña
+        if (userId && !newPassword && !oldPassword && !secretToken) { // Reinicio la contraseña
     
         }
         

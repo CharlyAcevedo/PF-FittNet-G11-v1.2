@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const Users = require('../models/User')
 const bcrypt = require('bcrypt');
+const { isValidObjectId } = require('../controlers/users')
 
 
 const router = Router();
@@ -50,13 +51,23 @@ router.get('/activation/:userId/:secretToken', async (req, res, next) => {
 
 router.put('/deleteuseraccount', async (req, res, next) => {
     let { userId, password } = req.body;
-    // res.send('Put a delete user account')
+    console.log('Put a delete user account')
+
+    let isObjectId = isValidObjectId(userId); // valido el uuid
+    if (!isObjectId) return res.send('Id no valido')
+
   
     try {
+        // console.log('Va y busca en la base de datos con el id')
         let user = await Users.findById(userId);
+        // Adventure.findById(id, function (err, adventure) {});
+        // let user = await Users.findById(userId);
+        // .then((response)=>{ return response})
+        // .catch((error)=> { return res.send('Usuario no encotrado')})
 
         let compare;
         let inactiveAccount;
+        // console.log(user, 'el user de la premesa 62')
 
         if (!user) {
             return res.send('Usuario no encotrado');

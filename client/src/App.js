@@ -34,10 +34,10 @@ function App() {
           <Route path="/legendUf" element={<LegendUf />} />
           <Route path="/userprices" element={<UserPrices />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
-          <Route path="/updatepassword" element={<UpdatePasword />} />
+          <Route path="/updatepassword/:userId" element={<UpdatePasword />} />
           <Route path="/activation/:userId/:secretToken" element={<Activation />} />
           <Route path="/deactivate/:userId" element={<DeactivateAccount />} />
-
+          
         </Routes>
     </div>
   );

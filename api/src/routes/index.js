@@ -8,7 +8,7 @@ const routeAvatar = require('./avatar');
 const routeUser = require('./user');
 const run = require('../controlers/test');
 const Users = require('../models/User');
-const routeResetPassword = require('./resetPass');
+const routeUpdatePassword = require('./updatePass');
 const routeGyms = require('./gyms');
 const routeActivation = require('./activation');
 const routeEmailValidate = require('./emailValidate')
@@ -27,7 +27,7 @@ router.use('/api', routeHome);
 router.use('/api', routeProfile);
 router.use('/api', routeAvatar);
 router.use('/api', routeUser);
-router.use('/api', routeResetPassword);
+router.use('/api', routeUpdatePassword);
 router.use('/api', routeGyms);
 router.use('/api', routeActivation);
 router.use('/api', routeEmailValidate);
