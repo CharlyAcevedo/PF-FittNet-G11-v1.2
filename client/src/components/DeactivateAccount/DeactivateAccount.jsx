@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from "react-router-dom";
-// import axios from 'axios';
+import axios from 'axios';
 import { useState } from 'react';
 
 
@@ -28,13 +28,16 @@ export default function DeactivateAccount() {
         
 
         if (userId.length > 3 && password && !error) {
-            // let object = {userId, password};
+            let object = {userId, password};
 
-            console.log('sale el get al back');
+            console.log(object, 'lo que sale el get al back');
 
-            // axios.put(`/api/deleteuseraccount/`, object)
-            // .then((response)=> {console.log(response.data)})
-            // .catch((error)=> {console.lgo(error)})
+            axios.put(`/api/deleteuseraccount/`, object)
+            .then((response)=> {
+                console.log(response.data)
+                window.alert(response.data)
+            })
+            .catch((error)=> {console.lgo(error)})
             setPassword(""); // limpio el estado
         }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import NavBarProfile from "../NavBarProfile/NavBarProfile";
 export default function DetailProfilePartner() {
-    let { id , name, type } = useParams();
+    let { id , userId, name, type } = useParams();
     // console.log(id, name, type, 'id y name')
 
     // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
@@ -39,6 +39,10 @@ export default function DetailProfilePartner() {
             <p>Siguitene 3</p>
             <br />
             <p>Siguitene 4</p>
+            <br />
+            <a href={`/updatepassword/${userId}`}>Cambiar mi contraseña</a>
+            <br /> 
+            <a href={`/deactivate/${userId}`}>Borra mi cuenta</a>
             <br />
             <a href='/'>Volver</a>
         </div>
