@@ -16,7 +16,7 @@ export default function LoginInit() {
 
   const userGoogle = useSelector((state) => state.user);
 
-  console.log(userGoogle);
+  // console.log(userGoogle);
 
   const token = localStorage.getItem("token");
 
@@ -27,7 +27,7 @@ export default function LoginInit() {
     if (!token) {
       console.log("ENTRO A GENERAR TOKEN", response.credential);
       const pruebaGoogle = await axios.post(
-        `http://localhost:3001/api/google/auth`,
+        `/api/google/auth`,
         {
           tokenId: response.credential,
           data: userObject,
@@ -52,7 +52,6 @@ export default function LoginInit() {
   };
 
   useEffect(() => {
-    /* global google*/
     window.google?.accounts.id.initialize({
       client_id:
         "157510772086-98ehfc8l140rpqoer006k78qugr3e62l.apps.googleusercontent.com",
@@ -92,22 +91,25 @@ export default function LoginInit() {
       console.log("está saliendo el post ", userLogin);
 
       axios
-        .post("http://localhost:3001/api/login", userLogin)
+        .post("/api/login", userLogin)
         .then((res) => {
           console.log(res.data, "-> viendo qué respondio el post");
 
           if (res.data.login) {
-            console.log(
-              res.data,
-              " lo que responde el back si se autentica el user"
-            );
-            let { userId, name, type, avatar } = res.data;
+            console.log(res.data, " lo que responde el back si se autentica el user" );
+            
+            let { userId, name, type, avatar, active } = res.data;
 
-            if (typeof avatar === "string") {
-              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`);
+            if (active === true) { // Si la cuenta está activa
+              if (typeof avatar === "string") {
+                return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`);
+              }
+              // ya le paso info por params de quién estamos hablando
+              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
+
+            } else {
+              setError("Cuenta inactiva, verifiación de email pendiente");
             }
-            // ya le paso info por params de quién estamos hablando
-            return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
           }
           if (typeof res.data === "string") {
             setError("usuario o password incorrecta");
@@ -161,7 +163,7 @@ export default function LoginInit() {
               />
             </div>
 
-            <h3>{error === "" ? null : error}</h3>
+            <p>{error === "" ? null : error}</p>
 
             <input
               className={styles.loginSubmit}

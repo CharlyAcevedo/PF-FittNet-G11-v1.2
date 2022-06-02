@@ -1,6 +1,6 @@
 .nav {
     width: 100%;
-    position: absolute;
+    /* position: absolute; */
     z-index: 100;
     display: flex;
     justify-content: space-between;

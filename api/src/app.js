@@ -6,6 +6,8 @@ const session = require("express-session");
 const passport = require("passport");
 const Strategy = require("passport-local").Strategy;
 const bcrypt = require('bcrypt');
+const nodemailer = require("nodemailer");
+const randomstring = require("randomstring");
 const { findUser } = require("./controlers/users");
 require("dotenv").config();
 const routes = require("./routes/index.js");
@@ -69,6 +71,7 @@ passport.use(
       });
   })
 );
+
 
 passport.serializeUser(function(user, done) {
   done(null, user._id);
