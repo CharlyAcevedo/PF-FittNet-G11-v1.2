@@ -16,8 +16,6 @@ export default function LoginInit() {
 
   const userGoogle = useSelector((state) => state.user);
 
-  // console.log(userGoogle);
-
   const token = localStorage.getItem("token");
 
   const dispatch = useDispatch();
@@ -71,12 +69,6 @@ export default function LoginInit() {
 
     setGoogleUser(userGoogle); // eslint-disable-next-line
   }, [window.google?.accounts]);
-
-  // const handleLogoutGoogle = (e) => {
-  //   e.preventDefault();
-  //   document.getElementById("signInDiv").hidden = false;
-  //   localStorage.removeItem("token");
-  // };
 
   function onSubmit(e) {
     let userLogin;
