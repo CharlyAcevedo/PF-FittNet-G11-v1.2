@@ -1,17 +1,15 @@
 .nav {
     width: 100%;
+    position: absolute;
+    z-index: 100;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* background-color: #e7e7e713; */
     background-color: rgba(49, 49, 49, 0.3);
     backdrop-filter: blur(20px);
-    
-    /* filter: blur(.1px); */
 }
 
 .ul {
-    /* background-color: #fff; */
     margin-top: 1rem;
     display: flex;
     gap: 1.5rem;

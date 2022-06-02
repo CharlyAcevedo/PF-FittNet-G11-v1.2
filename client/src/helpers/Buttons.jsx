@@ -57,3 +57,31 @@ export const ButtonSecondarySimple = (props) => {
     </div>
   );
 };
+
+export const ButtonBack = (props) => {
+  const { onClick, title, padding } = props;
+
+  return (
+    <div
+      onClick={onClick}
+      style={{ padding: padding }}
+      className={styles.btnBack}
+    >
+      {title}
+    </div>
+  );
+};
+
+export const ButtonSecondaryDeslice = (props) => {
+  const { onClick, title, padding } = props;
+
+  return (
+    <div
+      onClick={onClick}
+      style={{ padding: padding }}
+      className={styles.btnDeslice}
+    >
+      <span>{title}</span>
+    </div>
+  );
+};

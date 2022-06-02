@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Logout from "../Logout/Logout";
 import SelecAvatar from "../SelectAvatar/SelectAvatar";
@@ -11,6 +11,7 @@ import { getAllGyms } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import IncomesGraph from "../Graphics/Incomes";
 import Paginated from "../paginated/paginated";
+import { ButtonBack } from "../../helpers/Buttons.jsx";
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
@@ -19,6 +20,8 @@ export default function HomeMain() {
   // "user" con sin avatar o un "partner" o incluso un "admin"
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // dispachar la action ¿pero qué voy a escuchar??? No sé si sea userId
@@ -42,25 +45,10 @@ export default function HomeMain() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "1.5rem",
             alignItems: "center",
           }}
         >
-          <Logout />
-          <a
-            href="/"
-            style={{
-              backgroundColor: "#f5978c",
-              textDecoration: "none",
-              padding: ".8rem 2rem",
-              color: "#141414",
-              fontWeight: "700",
-              cursor: "pointer",
-            }}
-          >
-            Volver
-          </a>
+          <ButtonBack title="Volver" padding=".5rem 2rem" onClick={() => navigate('/')}/>
         </div>
       </div>
     );

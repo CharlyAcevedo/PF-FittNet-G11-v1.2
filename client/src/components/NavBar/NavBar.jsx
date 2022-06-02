@@ -9,7 +9,7 @@ export default function NavBar() {
     <nav className={style.nav}>
       <div onClick={() => navigate("/")}>
         <img
-          src="https://res.cloudinary.com/salta/image/upload/v1653977799/final_logo_ubn1o0.png"
+          src="https://res.cloudinary.com/salta/image/upload/v1654029469/logo-modo-BLANCO_smtgwu.png"
           alt=""
           style={{
             width: "170px",

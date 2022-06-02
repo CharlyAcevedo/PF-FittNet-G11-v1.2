@@ -5,7 +5,7 @@ import LandingInfo from "../components/Landing/LandingInfo"
 export default function Landing() {
 
     return (
-        <div className="main_landing">
+        <div>
             <NavBar />
             <LandingInfo/>
         </div>

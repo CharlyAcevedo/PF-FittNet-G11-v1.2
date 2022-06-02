@@ -31,7 +31,9 @@ export const CardPromoBulk = () => {
     <div className={styles.promoBulk}>
       <h2 className={styles.bulkTitulo}>Pack Pro Bulk</h2>
       <ul className={styles.bulkLista}>
-        <li>Pack Balance Care +</li>
+        <li>
+          <span>&bull;</span>Pack Balance Care +
+        </li>
         <li>
           <span>&bull;</span>Seguimiento personalizado
         </li>
