@@ -22,6 +22,8 @@ export default function NavBarDevelopers() {
                 <a style={{padding: "10px" }} href="/updatepassword/iddelusuario">Actualización de password</a>
                 <a style={{padding: "10px" }} href="/activation/userId/unsereto">Activación de cuenta</a>
                 <a style={{padding: "10px" }} href="/deactivate/userId">Desactivar cuenta</a>
+                <a style={{padding: "10px" }} href="/maps">Mapas</a>
+                <a style={{padding: "10px" }} href="/FormUser">Formulario para usuarios</a>
 
               
             </ul>
