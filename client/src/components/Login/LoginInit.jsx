@@ -16,7 +16,7 @@ export default function LoginInit() {
 
   const userGoogle = useSelector((state) => state.user);
 
-  console.log(userGoogle);
+  // console.log(userGoogle);
 
   const token = localStorage.getItem("token");
 

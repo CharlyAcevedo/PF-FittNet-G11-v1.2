@@ -65,25 +65,25 @@ export default function AllRegister() {
         .post("/api/register", userCreate)
         .then((res) => {
           console.log(res.data, "-> respuesta del post de creación de cuenta");
-
-          // if (res.data._id) {
-          if (typeof res.data === "string") {
+          // El nombre de usuario ya existe o es incorrecto, por favor indique otro username
+          // 
+          if (res.data.created === true) {
             setName("");
             setPassword("");
             setError("");
             setEmail("");
             
-            window.alert(`Su solicitud ha sido recibida y hemos enviado un correo de activación a su email`);
+            window.alert(res.data.message);
             return (window.location = "http://localhost:3000/login");
           }
-          if (res.data) {
+          if (res.data.created === false) {
+            window.alert(res.data.message);
             setName("");
-            setEmail("");
             setPassword("");
-            setError(res.data);
-            console.log(res.data);
-            window.alert(res.data);
+            setError("");
+            setEmail("")
           }
+
         })
         .catch((error) => console.log(error));
     }
