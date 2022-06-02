@@ -5,6 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles/LoginInit.module.css";
 import jwt_decode from "jwt-decode";
 import { getUser } from "../../redux/actions";
+import {
+  BackgroundTwo,
+  BackgroundOne,
+} from "../../helpers/Backround/Background";
+
 
 export default function LoginInit() {
   const [username, setUsername] = useState("");
@@ -176,13 +181,9 @@ export default function LoginInit() {
             {/* <button onClick={(e) => handleLogoutGoogle(e)}>Logout</button> */}
           </form>
         </div>
-        <div className={`${styles.screenBackground}`}>
-          <span className={styles.shape4}></span>
-          <span className={styles.shape3}></span>
-          <span className={styles.shape2}></span>
-          <span className={styles.shape1}></span>
-        </div>
+        <BackgroundTwo />
       </div>
+      <BackgroundOne/>
     </div>
   );
 }
