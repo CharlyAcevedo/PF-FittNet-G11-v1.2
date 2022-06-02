@@ -34,21 +34,21 @@ export default function AllRegister() {
     //Validamos los input antes de realizar el post,
     //se validan los campos completos y caracteristicas puntuales de los mismos.
     if (!name) {
-      return alert("El nombre es requerido");
-    } else if (!regexName.test(name)) {
-      return alert("El nombre es invalido");
-    } else if (!email) {
-      return alert("El Email es requerido");
-    } else if (!regexEmail.test(email)) {
-      return alert("Email invalido");
-    } else if (!password) {
-      return alert("Password requerida");
-    } else if (!regexPassword.test(password)) {
-      return alert(
-        "Contraseña invalida:Minimo 8 caracteres, Maximo 15, Al menos una letra mayuscula, una letra minuscula, un digito, sin espacios en blanco, Al menos un caracter esoecial"
-      );
-    } else if (!type) {
-      return alert("Debes seleccionar el tipo de cliente!");
+    //   return alert("El nombre es requerido");
+    // } else if (!regexName.test(name)) {
+    //   return alert("El nombre es invalido");
+    // } else if (!email) {
+    //   return alert("El Email es requerido");
+    // } else if (!regexEmail.test(email)) {
+    //   return alert("Email invalido");
+    // } else if (!password) {
+    //   return alert("Password requerida");
+    // } else if (!regexPassword.test(password)) {
+    //   return alert(
+    //     "Contraseña invalida:Minimo 8 caracteres, Maximo 15, Al menos una letra mayuscula, una letra minuscula, un digito, sin espacios en blanco, Al menos un caracter esoecial"
+    //   );
+    // } else if (!type) {
+    //   return alert("Debes seleccionar el tipo de cliente!");
     }
     //----------------------
     else {

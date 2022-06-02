@@ -140,7 +140,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
 
   //---- CUIDADO OJO ---- ruta para borrar usuarios
 
-  router.delete('/api/user/delete/:id', isAuthenticated, async (req, res, next) => {
+  router.delete('/user/delete/:id', isAuthenticated, async (req, res, next) => {
     const {id} = req.params;
     const response = deleteUser(id);
     console.log(response)

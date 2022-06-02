@@ -6,22 +6,25 @@ export default function NavBarDevelopers() {
     return (
         <div className="navBarDevelopers">
             <ul className="list-navBar-developers">
-                <a style={{padding: "10px", color: "white"}} href="/">Inicio</a>
-                <a style={{padding: "10px", color: "white" }} href="/legendCe">LegendaCe</a>   
-                <a style={{padding: "10px", color: "white" }} href="/legendUf">LegendaUf</a>
-                <a style={{padding: "10px", color: "white" }} href="/home/user/nacho/eliddelusuario">Select avatar-user sin avatar</a>
-                <a style={{padding: "10px", color: "white" }} href="/home/user/toni/eliddelusuario/unavatar">Home-user con avatar</a>
-                <a style={{padding: "10px", color: "white" }} href="/home/partner/tincho/eliddelusuario">Home-partner</a>
-                <a style={{padding: "10px", color: "white" }} href="/home/admin/lucho/eliddelusuario">Home-admin</a>
-                <a style={{padding: "10px", color: "white" }} href="/detail/gym/6292dae93fc1e9d735aea34c">Detalle de un gym</a>                
-                <a style={{padding: "10px", color: "white" }} href="/profile/user/toni/eliddelusuario">Perfil user</a>    
-                <a style={{padding: "10px", color: "white" }} href="/profile/partner/tincho/eliddelusuario">Perfil partner</a>   
-                <a style={{padding: "10px", color: "white" }} href="/profile/admin/lucho/eliddelusuario">Perfil admin</a>   
-                <a style={{padding: "10px", color: "white" }} href="/userprices">Precios para usuarios</a>  
-                <a style={{padding: "10px", color: "white" }} href="/resetpassword">Reseteo password</a>
-                <a style={{padding: "10px", color: "white" }} href="/updatepassword/iddelusuario">Actualización de password</a>
-                <a style={{padding: "10px", color: "white" }} href="/activation/userId/unsereto">Activación de cuenta</a>
-                <a style={{padding: "10px", color: "white" }} href="/deactivate/userId">Desactivar cuenta</a>
+                <a style={{padding: "10px" }} href="/">Inicio</a>
+                <a style={{padding: "10px" }} href="/legendCe">LegendaCe</a>   
+                <a style={{padding: "10px" }} href="/legendUf">LegendaUf</a>
+                <a style={{padding: "10px" }} href="/home/user/nacho/eliddelusuario">Select avatar-user sin avatar</a>
+                <a style={{padding: "10px" }} href="/home/user/toni/eliddelusuario/unavatar">Home-user con avatar</a>
+                <a style={{padding: "10px" }} href="/home/partner/tincho/eliddelusuario">Home-partner</a>
+                <a style={{padding: "10px" }} href="/home/admin/lucho/eliddelusuario">Home-admin</a>
+                <a style={{padding: "10px" }} href="/detail/gym/6292dae93fc1e9d735aea34c">Detalle de un gym</a>                
+                <a style={{padding: "10px" }} href="/profile/user/toni/eliddelusuario">Perfil user</a>    
+                <a style={{padding: "10px" }} href="/profile/partner/tincho/eliddelusuario">Perfil partner</a>   
+                <a style={{padding: "10px" }} href="/profile/admin/lucho/eliddelusuario">Perfil admin</a>   
+                <a style={{padding: "10px" }} href="/userprices">Precios para usuarios</a>  
+                <a style={{padding: "10px" }} href="/resetpassword">Reseteo password</a>
+                <a style={{padding: "10px" }} href="/updatepassword/iddelusuario">Actualización de password</a>
+                <a style={{padding: "10px" }} href="/activation/userId/unsereto">Activación de cuenta</a>
+                <a style={{padding: "10px" }} href="/deactivate/userId">Desactivar cuenta</a>
+                <a style={{padding: "10px" }} href="/maps">Mapas</a>
+                <a style={{padding: "10px" }} href="/FormUser">Formulario para usuarios</a>            
+
             </ul>
         </div>
     )

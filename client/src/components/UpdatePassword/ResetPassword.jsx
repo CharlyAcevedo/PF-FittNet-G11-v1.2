@@ -140,7 +140,7 @@ export default function ResetPassword() {
                 <br />
                 <h6>erores: {error ? error : null }</h6>
                 <br />
-                <h6>llegó el userId: {userId ? userId : null}</h6>
+                <h6 style={{color: "#fff"}}>llegó el userId: {userId ? userId : null}</h6>
         </div>      
       )
 
