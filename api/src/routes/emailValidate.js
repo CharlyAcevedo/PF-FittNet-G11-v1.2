@@ -44,7 +44,7 @@ router.get('/email/activation/:userId/:secretToken/:userName/', async (req, res,
       <a href="${verifitationLink}">${verifitationLink}</a> ` // html body
       });
       
-      res.send('Send email to verify');  
+      res.json({created: true, message:'Cuenta creada, hemos enviado un email de validación a su correo'});  
      
     }
     

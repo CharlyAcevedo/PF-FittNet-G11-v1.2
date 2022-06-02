@@ -64,7 +64,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
 
       if (promiseAll[0].length !== 0) { // Si el correo ya existe
         
-        return res.send('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
+        return res.json({created: false, message: 'El correo indicado no está disponible, por favor indique otro email'});
 
       } else { // Si no encuentro el correo en bd, creo el usuario con ese email
        
