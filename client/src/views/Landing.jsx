@@ -7,10 +7,7 @@ export default function Landing() {
     return (
         <div>
             <NavBarDevelopers/>
-        <div className="main_landing">
-            <NavBar/>
             <LandingInfo/>
-        </div>
         </div>
     )
 }
