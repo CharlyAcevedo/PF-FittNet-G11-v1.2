@@ -1,6 +1,9 @@
 import React from "react";
 import style from "./styles/NavBar.module.css";
-import { ButtonSimple, ButtonSecondarySimple } from "../../helpers/Buttons.jsx";
+import {
+  ButtonSimple,
+  ButtonSecondarySimple,
+} from "../../helpers/Buttons/Buttons.jsx";
 import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {

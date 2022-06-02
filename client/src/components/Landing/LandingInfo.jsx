@@ -1,11 +1,10 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import strong from "../../asets/images/gym2.jpg";
 import style from "../Landing/styles/Landing.module.css";
 import {
   ButtonPrimary,
   ButtonSecondaryDeslice,
-} from "../../helpers/Buttons.jsx";
+} from "../../helpers/Buttons/Buttons.jsx";
 import {
   CardPromoBalance,
   CardPromoBulk,

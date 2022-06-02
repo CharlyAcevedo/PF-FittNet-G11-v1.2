@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./styles/stylesHelpers.module.css";
+import styles from "./styles/stylesButtons.module.css";
 
 //? Boton primario - es el boton principal con el tamaño normal
 export const ButtonPrimary = (props) => {

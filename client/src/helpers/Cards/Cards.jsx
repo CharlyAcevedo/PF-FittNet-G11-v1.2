@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { postAvatar } from "../redux/actions/index";
+import { postAvatar } from "../../redux/actions/index";
 
-import styles from "./styles/stylesHelpers.module.css";
+import styles from "./styles/stylesCards.module.css";
 
 export const CardAvatares = (props) => {
   const { border, color, boxShadow, image } = props;

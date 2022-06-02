@@ -11,7 +11,7 @@ import { getAllGyms } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import IncomesGraph from "../Graphics/Incomes";
 import Paginated from "../paginated/paginated";
-import { ButtonBack } from "../../helpers/Buttons.jsx";
+import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {

@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAvatars } from "../../redux/actions";
-import { CardAvatares, CardAvatarAdicional } from "../../helpers/Cards.jsx";
-
-import { CardAvatar } from "./CardAvatar.jsx";
+import { CardAvatares, CardAvatarAdicional } from "../../helpers/Cards/Cards.jsx";
 
 import styles from "./styles/avatar.module.css";
 
