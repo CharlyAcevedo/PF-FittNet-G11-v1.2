@@ -1,5 +1,5 @@
 import React from "react";
-import LogoFit from '../../asets/images/logo_fitnet.jpg';
+// import LogoFit from '../../asets/images/logo_fitnet.jpg';
 import styles from './styles/Incomes.module.css'
 import { Bar } from 'react-chartjs-2';
 import {

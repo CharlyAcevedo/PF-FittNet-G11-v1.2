@@ -15,7 +15,7 @@ export default function GymDetail() {
     const dispatch = useDispatch();
 
     useEffect(()=>{
-        dispatch(getGymDetail(userId))
+        dispatch(getGymDetail(userId))// eslint-disable-next-line
     },[userId])
 
     const gymDetail = useSelector((state) => state.gymDetail)

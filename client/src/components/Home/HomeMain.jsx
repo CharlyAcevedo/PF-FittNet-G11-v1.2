@@ -15,7 +15,7 @@ import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
-  let { userId, name, type, avatar } = useParams();
+  let { userId, type, avatar } = useParams();
   // debería llegarme por params si es un
   // "user" con sin avatar o un "partner" o incluso un "admin"
 

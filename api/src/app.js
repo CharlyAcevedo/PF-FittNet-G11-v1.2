@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const session = require("express-session");
 const passport = require("passport");
 const Strategy = require("passport-local").Strategy;
+const bcrypt = require('bcrypt');
 const { findUser } = require("./controlers/users");
 require("dotenv").config();
 const routes = require("./routes/index.js");
@@ -46,12 +47,21 @@ passport.use(
       .then((user) => {
         if (!user) {
           return done(null, false);
+        }        
+        if (user) {
+          // Voy a hacer la comparación y evaluar el resultado
+          bcrypt.compare(password, user.password )          
+          .then((res) => {
+            console.log(res, 'la respuesta de la promesa')
+            if(res === false) { // No hay coincidencia entre las password
+              return done(null, false);
+            }
+            if(res === true) { // Si hay coincidencia entre las password
+              console.log(user, res, ' user en la 54');
+              return done(null, user);
+            }
+          })        
         }
-        if (user.password != password) {
-          return done(null, false);
-        }
-        console.log(user, ' user en la 54');
-        return done(null, user);
       })
       .catch((err) => {
         console.log(err);

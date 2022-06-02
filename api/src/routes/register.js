@@ -3,6 +3,7 @@ const Users = require('../models/User')
 const { findUser, findAllUsers, createUser, deleteUser } = require('../controlers/users')
 const InfoUsers = require('../models/InfoUser');
 const Partner = require('../models/Partner');
+const bcrypt = require('bcrypt');
 
 // const cookieparser = require('cookie-parser');
 const router = Router();
@@ -17,7 +18,11 @@ function isAuthenticated(req, res, next) {
   }
 }
 
+// router.get('/random', (req, res, next) => {
+//   const secretToken = randomsstring.generate();
 
+//   res.status(200).json(secretToken);
+// })
 
 //-------------------------------------------------------------------------------
 // Esta ruta get responde cuando un usuario con sesión activa intenta
@@ -57,9 +62,14 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
         console.log('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
         return res.send('El nombre de usuario ya existe o es incorrecto, por favor indique otro username');
 
-      } else { // Si no el correo en bd, lo creo el usuario
+      } else { // Si no encuentro el correo en bd, creo el usuario con ese email
+        let salt = 8; // número de saltos "niveles de seguridad"
 
-        // Hay que hacer la consulta a la BD de mongose
+        // Acá tengo que hashear la clave que me llega
+        let hashPassword = await bcrypt.hash(password, salt)
+        
+        console.log(hashPassword, ' la clave hasheada')
+        // Store hash in your password DB. (Guardar la clave hasheada)
 
         if (type === 'user') {
           const newUserInfo = new InfoUsers({
@@ -71,7 +81,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
           const newUser = await Users.create({
             userName: username,
             name: name,
-            password: password,
+            password: hashPassword,
             type: type,
             info: newUserInfo._id
           });
@@ -88,7 +98,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
           const newUser = await Users.create({
             userName: username,
             name: name,
-            password: password,
+            password: hashPassword,
             type: type,
             info: newPartnerInfo._id
           });
@@ -99,7 +109,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
           const newUser = await Users.create({
             userName: username,
             name: name,
-            password: password,
+            password: hashPassword,
             type: type,
           });
           res.status(200).json(newUser)

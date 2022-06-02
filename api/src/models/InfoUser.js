@@ -1,22 +1,25 @@
 const mongoose = require('mongoose');
-let regWord = /^[a-zA-Z0-9]{5}[a-zA-Z0-9]*\s*\w*/;
-// let regMail = /^[A-Z0-9a-z._%+-]{2}+@[A-Za-z0-9.-]{2}[A-Za-z0-9.-]*+\\.[A-Za-z]{2,64}/;
+const { regWord, regEmail } = require('../controlers/regExes')
 
 const infoUserSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        validate: {
+            validator: v => regWord.test(v),
+            message: props => `${props.value} is not a valid Name`
+        }
     },
     lastName: {
         type: String,
-        // required: true, //? Comentado por que en el formulario de register todavia no existe este usuario
+        required: false,
     },
     email: {
         type: String,
         required: true,
         lowercase: true,
         validate: {
-            validator: v => regWord.test(v),
+            validator: v => regEmail.test(v),
             message: props => `${props.value} is not a valid email address`
         }
     },
