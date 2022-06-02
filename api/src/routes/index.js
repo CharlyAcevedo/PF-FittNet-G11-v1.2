@@ -1,4 +1,6 @@
 const { Router } = require('express');
+const Users = require('../models/User');
+const Services = require('../models/Service'); // Importar el modelo Services
 const routeLogin = require('./login');
 const routeLogout = require('./logout');
 const routeRegister = require('./register');
@@ -6,8 +8,6 @@ const routeHome = require('./home');
 const routeProfile = require('./profile');
 const routeAvatar = require('./avatar');
 const routeUser = require('./user');
-const run = require('../controlers/test');
-const Users = require('../models/User');
 const routeUpdatePassword = require('./updatePass');
 const routeGyms = require('./gyms');
 const routeActivation = require('./activation');
@@ -85,8 +85,8 @@ router.get('/users', async (req, res) => {
 })
 
 
-router.get('/api', async (req, res) => {
-    const response = await Users.find()
+router.get('/api', async (req, res) => { // Recordar llamar al modelo
+    const response = await Services.find()
     console.log('fue redirigido a barra api')
     res.status(200).send(response)
 });
