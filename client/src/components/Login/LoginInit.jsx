@@ -26,15 +26,14 @@ export default function LoginInit() {
     const userObject = jwt_decode(response.credential);
     if (!token) {
       console.log("ENTRO A GENERAR TOKEN", response.credential);
-      const pruebaGoogle = await axios.post(
+      const googleData = await axios.post(
         `/api/google/auth`,
         {
           tokenId: response.credential,
           data: userObject,
         }
       );
-      const finalizacionData = await pruebaGoogle.data;
-      console.log("ESTA DATA TRAJO", finalizacionData);
+      const finalizacionData = await googleData.data;
       dispatch(getUser(finalizacionData.usuario._id));
       localStorage.setItem("token", response.credential);
       document.getElementById("signInDiv").hidden = true;
@@ -72,6 +71,8 @@ export default function LoginInit() {
     setGoogleUser(userGoogle); // eslint-disable-next-line
   }, [window.google?.accounts]);
 
+
+  //! este es el logout
   // const handleLogoutGoogle = (e) => {
   //   e.preventDefault();
   //   document.getElementById("signInDiv").hidden = false;

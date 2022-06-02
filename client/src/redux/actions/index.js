@@ -111,7 +111,7 @@ export const postAvatar = (id, body) => async dispatch => {
 
 export const getUser = (id) => async dispatch => {
   try {
-    const dataUser = await axios.get(`http://localhost:3001/api/user/profile/${id}`)
+    const dataUser = await axios.get(`/api/user/profile/${id}`)
     console.log(dataUser.data)
     dispatch({
       type: 'GET_USER',
