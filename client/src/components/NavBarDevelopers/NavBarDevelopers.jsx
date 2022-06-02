@@ -4,7 +4,7 @@ export default function NavBarDevelopers() {
     // Si necesitan pasar un id, lo pueden busacar en la db y dejarlo hardcodeado   
     
     return (
-        <div style={{backgroundColor: "antiquewhite" }} className="navBarDevelopers">
+        <div className="navBarDevelopers">
             <ul className="list-navBar-developers">
                 <a style={{padding: "10px" }} href="/">Inicio</a>
                 <a style={{padding: "10px" }} href="/legendCe">LegendaCe</a>   
@@ -23,9 +23,8 @@ export default function NavBarDevelopers() {
                 <a style={{padding: "10px" }} href="/activation/userId/unsereto">Activación de cuenta</a>
                 <a style={{padding: "10px" }} href="/deactivate/userId">Desactivar cuenta</a>
                 <a style={{padding: "10px" }} href="/maps">Mapas</a>
-                <a style={{padding: "10px" }} href="/FormUser">Formulario para usuarios</a>
+                <a style={{padding: "10px" }} href="/FormUser">Formulario para usuarios</a>            
 
-              
             </ul>
         </div>
     )

@@ -1,0 +1,279 @@
+/* AQUI ESTA LA CARD OFICIAL DE LOS AVATARES */
+
+.containerAvatar {
+  width: 100%;
+  padding: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.containerCardAvatar {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.card {
+  width: 280px;
+}
+
+.cardContent {
+  text-align: center;
+  position: relative;
+  padding: 15em 5em;
+  transition: transform 3s;
+  transform-style: preserve-3d;
+}
+
+.card:hover .cardContent {
+  transform: rotateY(0.5turn);
+}
+
+.cardFront,
+.cardBack {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5em 3em;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  display: grid;
+  align-content: center;
+}
+
+.cardFront {
+  background-color: #1a1a1a;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-blend-mode: overlay;
+  font-size: 0.75rem;
+  color: #ff004c;
+}
+
+.cardFront::before {
+  content: "";
+  position: absolute;
+  --spacer: 1em;
+  top: var(--spacer);
+  bottom: var(--spacer);
+  left: var(--spacer);
+  right: var(--spacer);
+  border: 3px solid #ff004c;
+  transform: var(--level-one);
+}
+
+.cardTitle {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-blend-mode: overlay;
+  margin: 0 auto;
+  font-size: 0.75rem;
+  color: #ff004c;
+}
+
+.cardSubtitle {
+  transform: var(--level-two);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 0.75rem;
+  font-weight: var(--fw-bold);
+  opacity: 0.7;
+}
+
+.cardBody {
+  transform: var(--level-two);
+  font-weight: var(fw-normal);
+  font-size: 0.5rem;
+  line-height: 1.6;
+}
+
+.cardBack {
+  transform: rotateY(0.5turn);
+  color: var(--clr);
+  background: #ff004c;
+}
+
+.btnSelectAvatar {
+  background: transparent;
+  border: 1.5px solid #483042;
+  padding: 1rem;
+  font-weight: 700;
+}
+
+.btnSelectAvatar:hover {
+  cursor: pointer;
+  background: #fff;
+  border: none;
+  font-weight: 700;
+  color: #ff004c;
+  transition: all 0.5s ease-in-out;
+}
+
+.listFeaturesAvatar {
+  list-style: circle;
+  font-weight: 600;
+  text-align: left !important;
+  margin: 1rem auto;
+}
+
+@media (max-width: 1600px) {
+  .containerAvatar {
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .containerCardAvatar {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .cardBody {
+    transform: var(--level-two);
+    font-weight: var(fw-normal);
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  .cardTitle {
+    font-size: 1.3rem;
+    font-weight: 700;
+    transform: var(--level-three);
+    order: 2;
+    text-transform: uppercase;
+  }
+
+  .cardBack {
+    transform: rotateY(0.5turn);
+    color: var(--clr);
+    background: #ff004c;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .containerAvatar {
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .containerCardAvatar {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .cardContent {
+    text-align: center;
+    position: relative;
+    padding: 10em 3em;
+    transition: transform 3s;
+    transform-style: preserve-3d;
+  }
+
+  .cardBody {
+    transform: var(--level-two);
+    font-weight: var(fw-normal);
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  .cardTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    transform: var(--level-three);
+    order: 2;
+    text-transform: uppercase;
+  }
+
+  .cardBack {
+    transform: rotateY(0.5turn);
+    color: var(--clr);
+    background: #ff004c;
+    line-height: 100%;
+    /* height: 10px; */
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .containerAvatar {
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .containerCardAvatar {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .card {
+    width: 32%;
+    margin: 0 auto;
+  }
+
+  .cardContent {
+    text-align: center;
+    position: relative;
+    padding: 10em 5em;
+    transition: transform 3s;
+    transform-style: preserve-3d;
+  }
+
+  .cardBody {
+    transform: var(--level-two);
+    font-weight: var(fw-normal);
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  .cardTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    transform: var(--level-three);
+    order: 2;
+    text-transform: uppercase;
+  }
+}
+
+/* AQUI ESTA LA CARD DE AVATARES */
+.containerCardAvatares {
+  width: 220px;
+  height: 225px;
+  border: 1px solid #ff004c;
+  margin: 0 auto;
+  line-height: 225px;
+  text-align: center;
+}
