@@ -6,7 +6,7 @@ const serviceSchema = new mongoose.Schema({
     required: true,
   },
   description: {
-    type: Text,
+    type: String, //Esto estaba como text y producía un error de sintaxis.
     required: true,
   },
   duration: {
