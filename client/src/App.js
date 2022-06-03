@@ -4,11 +4,11 @@ import Landing from "./views/Landing";
 import Home from "./views/Home";
 import Login from "./views/Login";
 import UserRegister from "./views/UserRegister";
-import LegendCe from "./components/LegendCe/LegendCe"
+import LegendCe from "./components/LegendCe/LegendCe";
 import ClientRegister from "./views/ClientRegister";
 import InitRegister from "./views/InitRegister";
 import Profile from "./views/Profile";
-import UserPrices from './components/UserPrices/UserPrices'
+import UserPrices from "./components/UserPrices/UserPrices";
 import GymDetail from "./views/GymDetail";
 import LegendUf from "./components/LegendUf/LegendUf";
 import ResetPassword from "./components/UpdatePassword/ResetPassword";
@@ -16,10 +16,12 @@ import UpdatePasword from "./components/UpdatePassword/UpdatePassword";
 import MapGyms from "./components/MapsAndGeo/MapGyms";
 import Activation from "./components/Activation/Activation";
 import DeactivateAccount from "./components/DeactivateAccount/DeactivateAccount";
-import FormUser from "./components/Forms/FormUser"
+import FormUser from "./components/Forms/FormUser";
 import NavBar from "./components/NavBar/NavBar";
 import NavBarProfile from "./components/NavBarProfile/NavBarProfile";
-
+import { UpdatePartner } from "./components/UpDatePartner/partnert";
+import { UpdateGym } from "./components/UpDatePartner/gym";
+import { Services } from "./components/UpDatePartner/service";
 
 const MainLayoutLanding = () => {
   return (
@@ -27,8 +29,8 @@ const MainLayoutLanding = () => {
       <NavBar />
       <Outlet />
     </div>
-  )
-}
+  );
+};
 
 const MainLayoutUser = () => {
   return (
@@ -36,15 +38,11 @@ const MainLayoutUser = () => {
       <NavBarProfile />
       <Outlet />
     </div>
-  )
-}
-
-
+  );
+};
 
 function App() {
-
-
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   return (
     <div className="App">
@@ -72,9 +70,24 @@ function App() {
         <Route path="/maps" element={<MapGyms />} />
         <Route path="/updatepassword/:userId" element={<UpdatePasword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
-        <Route path="/activation/:userId/:secretToken" element={<Activation />} />
+        <Route
+          path="/activation/:userId/:secretToken"
+          element={<Activation />}
+        />
         <Route path="/deactivate/:userId" element={<DeactivateAccount />} />
         <Route path="/FormUser" element={<FormUser />} />
+        <Route
+          path="/profile/partner/:name/:userId"
+          element={<UpdatePartner />}
+        />
+        <Route
+          path="/profile/partner/:name/:userId/gym"
+          element={<UpdateGym />}
+        />
+        <Route
+          path="/profile/partner/:name/:userId/gym/service"
+          element={<Services />}
+        />
       </Routes>
     </div>
   );
