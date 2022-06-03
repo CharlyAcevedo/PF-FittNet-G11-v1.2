@@ -8,14 +8,17 @@ import {
   BackgroundOne,
 } from "../../helpers/Backround/Background";
 
+const lat = -34.6154611;
+const lng = -58.5733843;
+
 export default function AllRegister() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
   const [geoloc, setGeoloc] = useState({ 
-    lat: 0,
-    lng: 0,
+    lat: lat,
+    lng: lng,
    })
   const [error, setError] = useState("");
 
@@ -40,9 +43,9 @@ export default function AllRegister() {
         return alert("Email invalido");
       } else if (!password) {
         return alert("Password requerida");
-      } else if (!regexPassword.test(password)) {
+      } else if (!regexName.test(password)) {
         return alert(
-          "Contraseña invalida:Minimo 8 caracteres, Maximo 15, Al menos una letra mayuscula, una letra minuscula, un digito, sin espacios en blanco, Al menos un caracter esoecial"
+          "Contraseña invalida:Minimo 6 caracteres, Maximo 15, Al menos una letra mayuscula, una letra minuscula, un número, sin espacios en blanco, Al menos un caracter esoecial"
         );
       } else if (!type) {
         return alert("Debes seleccionar el tipo de cliente!");

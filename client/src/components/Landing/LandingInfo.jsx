@@ -36,11 +36,11 @@ export default function LandingInfo() {
       {
         enableHighAccuracy: true,
       }
-    ); // eslint-disable-next-line
+    ); 
 
     if (token) {
       dispatch(getUserGoogleForToken(token));
-    }
+    }// eslint-disable-next-line
   }, []);
 
   return (

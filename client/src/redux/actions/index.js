@@ -4,7 +4,9 @@ import {
   SET_USER_GEO,
   GET_ALL_USERS,
   POST_USER,
+  PUT_USER_INFO,
   GET_USER,
+  GET_USER_TOKEN_GOOGLE,
   GET_AVATARS,
   POST_AVATAR,
   GET_ALL_PARTNERS,
@@ -174,11 +176,14 @@ export const getUserGoogleForToken = (payload) => async dispatch => {
       token: payload
     })
     dispatch({
-      type: "GET_USER_TOKEN_GOOGLE",
+      type: GET_USER_TOKEN_GOOGLE,
       payload: userGoogle.data.user
     })
   } catch (error) {
-    console.log("error: ", error)
+    dispatch({
+      type: GET_USER_TOKEN_GOOGLE,
+      payload: { error: error.message },
+    });
   }
 }
 
@@ -240,7 +245,7 @@ export const updateUserInfo = (id, body) => async dispatch => {
   try {
     const dataNewUser = await axios.put(`/api/user/update/${id}`, body)
     dispatch({
-      type: "PUT_USERINFO",
+      type: PUT_USER_INFO,
       payload: dataNewUser.data.updUser
     })
   } catch (error) {
