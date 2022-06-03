@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import Logout from "../Logout/Logout";
+// import Logout from "../Logout/Logout";
 import SelecAvatar from "../SelectAvatar/SelectAvatar";
 import GymCards from "../GymCards/GymCards";
 import UserCards from "../UserCards/UserCards";
@@ -22,7 +22,7 @@ export default function HomeMain() {
 
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user);
+  // const user = useSelector((state) => state.user);
 
   const token = localStorage.getItem("token");
 
@@ -31,10 +31,10 @@ export default function HomeMain() {
   useEffect(() => {
     // dispachar la action ¿pero qué voy a escuchar??? No sé si sea userId
     // console.log('sale la action de traer gyms')
-    dispatch(getAllGyms()); // eslint-disable-next-line
+    dispatch(getAllGyms()); 
     if (token) {
       dispatch(getUserGoogleForToken(token));
-    }
+    }// eslint-disable-next-line
   }, [userId]);
 
   // Esto es una vista para un usuario sin avatar
@@ -78,7 +78,7 @@ export default function HomeMain() {
   }
 
   // Esto es una para cliente empresa
-  /* if (type === "partner") {
+  if (type === "partner") {
     return (
       <div>
         <NavBarProfile />
@@ -88,10 +88,11 @@ export default function HomeMain() {
         <h4>Promociones y descuentos</h4>
       </div>
     );
-  } */
+
+  } 
 
   // Esto es una para un administrador de sitio
-  /*  if (type === "admin") {
+  if (type === "admin") {
     return (
       <div>
         <NavBarProfile />
@@ -107,5 +108,5 @@ export default function HomeMain() {
         <h3>Una vista como partner</h3>
       </div>
     );
-  } */
+  } 
 }

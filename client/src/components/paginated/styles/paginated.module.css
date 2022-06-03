@@ -1,8 +1,13 @@
 .cont {
-  color: aliceblue;
-  background-color: aqua;
+  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2);
+  justify-content: space-between;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
 }
-/* 
+
 .labelCurrentPage {
   position: relative;
   float: left;
@@ -19,25 +24,36 @@
   border-width: 2px;
   border-style: inset;
   margin-top: 0.1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .paginatedContainer {
   display: inline-block;
-  background-color: azure;
-  border-radius: 5px;
   height: 4.5vh;
-  padding-top: 0;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
   list-style: none;
-  border-width: 2px;
-  border-style: inset;
-  margin-top: 0.1em;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
 }
+
 
 .btnPaginated {
   float: left;
   text-decoration: none;
+}
+.btnConteinerNumber{
+  padding: 0px 10px 0px 10px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-around;
+  align-items: center;
+}
+.btnPaginatedNumber{
+  padding: 0px 7px 0px 7px;
 }
 
 .btnPrimary:hover {
@@ -61,12 +77,13 @@
 }
 
 .btnPrevNext {
+  margin-left: 1em;
   background: linear-gradient(45deg, #f0e8d7ed 0%, #fffcf5 44%, #f0e8d7ed 100%);
   border-radius: 5px;
   min-width: 1.8em;
   border: none;
   height: 3.2vh;
-  margin: 0 0.1em;
+  margin: 0em 0.5em 0em 0.5em;
   margin-top: 0.2em;
   min-width: 2em;
 }
@@ -102,4 +119,3 @@
     display: none;
   }
 }
- */
