@@ -58,9 +58,9 @@ export default function HomeMain() {
   if (type === "user" && avatar) {
     return (
       <div>
-        <NavBarProfile />
-        <Paginated />
-        <GymCards />
+        <div><NavBarProfile /></div>
+        <div><GymCards /></div>
+        <div ><Paginated /></div>
       </div>
     );
   }
