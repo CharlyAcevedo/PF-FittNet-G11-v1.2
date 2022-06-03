@@ -26,7 +26,7 @@ const addressSchema = new mongoose.Schema({
     },
     zipCode: {
         type: Number,
-    }
+    },
 });
 
 module.exports = mongoose.model('Address', addressSchema);

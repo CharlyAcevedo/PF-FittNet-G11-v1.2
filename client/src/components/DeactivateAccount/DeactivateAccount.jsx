@@ -32,7 +32,7 @@ export default function DeactivateAccount() {
 
             console.log(object, 'lo que sale el get al back');
 
-            axios.put(`/api/deleteuseraccount/`, object)
+            axios.put(`/api/service/deleteuseraccount/`, object)
             .then((response)=> {
                 console.log(response.data)
                 window.alert(response.data)

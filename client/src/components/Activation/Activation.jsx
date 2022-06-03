@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 import { useEffect } from 'react';
 
+
+
 export default function Activation(){
     const { userId, secretToken } = useParams();
 
@@ -26,7 +28,7 @@ export default function Activation(){
             <img src="https://mtracks.azureedge.net/public/images/site/Verify-Email-illo.png" 
             alt="verified email" />
 
-            <a href="http://localhost:3000/login">Iniciar sesión</a>
+            <a href="/login">Iniciar sesión</a>
         </div>
     )
 }

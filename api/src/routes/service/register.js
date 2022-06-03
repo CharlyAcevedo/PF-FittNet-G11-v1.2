@@ -1,8 +1,8 @@
 const { Router } = require('express');
-const Users = require('../models/User')
-const { deleteUser } = require('../controlers/users')
-const InfoUsers = require('../models/InfoUser');
-const Partner = require('../models/Partner');
+const Users = require('../../models/User')
+const { deleteUser } = require('../../controlers/users')
+const InfoUsers = require('../../models/InfoUser');
+const Partner = require('../../models/Partner');
 const bcrypt = require('bcrypt');
 const randomstring = require("randomstring");
 
@@ -12,7 +12,7 @@ const router = Router();
 
 function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    res.redirect('/api/register');
+    res.redirect('/api/service/register');
   } else {
     next();
   }
@@ -22,7 +22,7 @@ function isAuthenticated(req, res, next) {
 
 //-------------------------------------------------------------------------------
 // Esta ruta get responde cuando un usuario con sesión activa intenta
-// hacer un post a /api/register.
+// hacer un post a /api/service/register.
 //-------------------------------------------------------------------------------
 
 router.get('/register', (req, res, next) => {
@@ -37,17 +37,17 @@ router.get('/register', (req, res, next) => {
 router.post('/register', isAuthenticated, async (req, res, next) => {   
   //También debería recibir tipo de usuario "admin", "client" o "partner"
   
-  const { name, username, password, type } = req.body;
+  const { name, username, password, latitude, longitude, type } = req.body;
   // console.log(req.body, 'lo que llega por body')
   
-  if (!name && !username || !password || !type) {
+  if (!name && !username || !password || !latitude || !longitude || !type) {
     return res.send('campos incompletos');
   }
   
   try {
     
     
-    if ( name && username && password && type) {  
+    if ( name && username && password && latitude && longitude && type) {  
       let salt = 8; // número de saltos "niveles de seguridad"
       let newUser;        
       let userId;
@@ -79,6 +79,8 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
             userName: username,
             name: name,
             password: promiseAll[2],
+            latitude: latitude,
+            longitude: longitude,
             secretToken: promiseAll[1],
             active: false,
             type: type,
@@ -98,6 +100,8 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
             userName: username,
             name: name,
             password: promiseAll[2],
+            latitude: latitude,
+            longitude: longitude,
             secretToken: promiseAll[1],
             active: false,
             type: type,
@@ -110,7 +114,9 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
           newUser = await Users.create({
             userName: username,
             name: name,
-            password: promiseAll[2],
+            password: promiseAll[2],            
+            latitude: latitude,
+            longitude: longitude,
             secretToken: promiseAll[1],
             active: false,
             type: type,
@@ -124,7 +130,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
         }
         
         // Mando a la próxima ruta id, secretToken y correo electrónico por params
-        res.redirect(`/api/email/${userId}/${promiseAll[1]}/${newUser.userName}`);     
+        res.redirect(`/api/service/email/${userId}/${promiseAll[1]}/${newUser.userName}`);     
       }
 
     } else {
@@ -137,17 +143,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
     console.log(error)
     res.status(404).send('Error: el registro no fue creado');
   }
-
-  //---- CUIDADO OJO ---- ruta para borrar usuarios
-
-  router.delete('/api/user/delete/:id', isAuthenticated, async (req, res, next) => {
-    const {id} = req.params;
-    const response = deleteUser(id);
-    console.log(response)
-    res.send(response)
-  })
-
-})
+});
 
 
 //-------------------------------------------------------------------------------

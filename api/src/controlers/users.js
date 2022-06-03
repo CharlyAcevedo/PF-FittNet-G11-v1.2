@@ -16,7 +16,10 @@ async function findUser(userName) {
 
 async function findAllUsers() {
     try {
-        const response = await User.find()
+        const response = await User.find({})
+        .populate('avatar')
+        .populate('info')
+        .populate('partner')
         return response
     } catch (error) {
         console.log(error.message)
@@ -29,6 +32,8 @@ async function createUser(newUser) {
         const response = await User.create({
             userName: newUser.username,
             password: newUser.password,
+            latitude: newUser.latitude,
+            longitude: newUser.longitude,
             type: newUser.type,
         })
         return response
@@ -120,16 +125,20 @@ const googleSignIn = async (req, res) => {
 
 const getUser = async (req, res) => {
     const { id } = req.params;
+    console.log(id)
     try {
         const user = await User.findById(id)
-            .populate('avatar', 'avatarName')
+        .populate('avatar')
+        .populate('info')
+        .populate('partner')
+        console.log(user)
         res.json({
             ok: true,
             user
         })
     } catch (error) {
         console.log(error)
-        res.status(500).jso({
+        res.status(500).json({
             ok: false,
             msg: "Unexpected error"
         })

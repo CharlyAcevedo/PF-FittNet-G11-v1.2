@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoDB = require('mongodb')
 
 const gymSchema = new mongoose.Schema({
   name: {
@@ -6,7 +7,7 @@ const gymSchema = new mongoose.Schema({
     required: true,
   },
   price: {
-    type: Number,
+    type: mongoDB.Decimal128,
   },
   raiting: {
     type: Number,
@@ -16,13 +17,15 @@ const gymSchema = new mongoose.Schema({
     type: Array,
     of: String,
   },
-  geolocation: {
-    type: Array,
-    of: Number,
+  latitude: {
+      type: mongoDB.Decimal128,        
   },
+  longitude: {
+      type: mongoDB.Decimal128,
+  },  
   address: {
     type: mongoose.SchemaTypes.ObjectId,
-    ref: "Address", //! address del gimnasio, pero direcciones tanto de gym como de user comun se guardan en la misma coleccion ?
+    ref: "Address",
   },
   services: {
     type: Array,
@@ -59,6 +62,7 @@ const gymSchema = new mongoose.Schema({
   gymActive: {
     type: Boolean,
     required: true,
+    default: true,
   },
 });
 

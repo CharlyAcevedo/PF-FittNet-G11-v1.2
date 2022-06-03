@@ -1,7 +1,8 @@
 const { Router } = require('express');
 const nodemailer = require("nodemailer");
-const USER_ACCOUNT = process.env.USER_ACCOUNT
-const PASS_ACCOUNT = process.env.PASS_ACCOUNT
+const USER_ACCOUNT = process.env.USER_ACCOUNT;
+const PASS_ACCOUNT = process.env.PASS_ACCOUNT;
+const CORS_URL = process.env.CORS_URL || 'http://localhost:3000';
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -32,7 +33,7 @@ router.get('/email/:userId/:secretToken/:userName', async (req, res, next) => {
   // console.log(req.params, 'el userID, el sercretToken y el userName')
   // http://localhost:3000/activation/ -> activación en el front
 
-  let verifitationLink = `http://localhost:3000/activation/${userId}/${secretToken}`
+  let verifitationLink = `${CORS_URL}/activation/${userId}/${secretToken}`
   try {
     await transporter.sendMail({
       from: '"Activación de cuenta" <fittnet.com>', // sender address

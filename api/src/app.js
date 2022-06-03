@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const session = require("express-session");
 const passport = require("passport");
 const Strategy = require("passport-local").Strategy;
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
 const { findUser } = require("./controlers/users");
@@ -13,7 +13,7 @@ require("dotenv").config();
 const routes = require("./routes/index.js");
 const { CORS_URL, SECRET } = process.env || "http://localhost:3000";
 
-require('./db.js');
+require("./db.js");
 
 const server = express();
 
@@ -31,7 +31,7 @@ server.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
     CORS_URL ? CORS_URL : "http://localhost:3000"
-  ); // update to match the domain you will make the request from
+  );
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
@@ -104,7 +104,7 @@ server.use((req, res, next) => {
   next();
 });
 server.get('/login',  (req, res) => {
-    res.send('Email o contraseña incorrecta');
+    res.send('Username o contraseña incorrecta');
 });
 
 

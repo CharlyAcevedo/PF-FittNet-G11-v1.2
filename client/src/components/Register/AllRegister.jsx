@@ -2,27 +2,20 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles/AllRegister.module.css";
+import { regexPassword, regexEmail, regexName } from "../../asets/helpers/regexValidators"
 
 export default function AllRegister() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
+  const [geoloc, setGeoloc] = useState({ 
+    lat: 0,
+    lng: 0,
+   })
   const [error, setError] = useState("");
 
-  //! Regex de validacion
-  const regexPassword =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?#&/|:;,<>+~-])([A-Za-z\d$@$!%*?#&/|:;,<>+~-]|[^ ]){8,15}$/;
-  // Minimo 8 caracteres
-  //Maximo 15 caracteres
-  // Al menos una letra mayúscula
-  //  Al menos una letra minucula
-  //  Al menos un dígito
-  //   No espacios en blanco
-  //   Al menos 1 caracter especial
-  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const regexName = /^[A-Z]+$/i;
-  //--------------------------------------------
+  
 
   function onSubmit(e) {
     let userCreate;
@@ -62,7 +55,7 @@ export default function AllRegister() {
       console.log("está saliendo el post ", userCreate);
 
       axios
-        .post("/api/register", userCreate)
+        .post("/api/service/register", userCreate)
         .then((res) => {
           console.log(res.data, "-> respuesta del post de creación de cuenta");
 

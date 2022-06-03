@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoDB = require('mongodb');
 const { regEmail, regWord } = require('../controlers/regExes');
 
 const userSchema = new mongoose.Schema({
@@ -25,6 +26,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    latitude: {
+        type: mongoDB.Decimal128,        
+    },
+    longitude: {
+        type: mongoDB.Decimal128,
+    },
     active: {
         type: Boolean,
         required: true,
@@ -41,14 +48,14 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Avatar",
-        required: false,
     },
     info: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "InfoUser"
     },
     partner: {
-        type: mongoose.SchemaTypes.ObjectId,
+        type: Array,
+        of: mongoose.SchemaTypes.ObjectId,
         ref: "Partner"
     },
     createdAt: {

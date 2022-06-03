@@ -27,7 +27,7 @@ export default function LoginInit() {
     if (!token) {
       console.log("ENTRO A GENERAR TOKEN", response.credential);
       const pruebaGoogle = await axios.post(
-        `/api/google/auth`,
+        `/api/service/google/auth`,
         {
           tokenId: response.credential,
           data: userObject,
@@ -91,7 +91,7 @@ export default function LoginInit() {
       console.log("está saliendo el post ", userLogin);
 
       axios
-        .post("/api/login", userLogin)
+        .post("/api/service/login", userLogin)
         .then((res) => {
           console.log(res.data, "-> viendo qué respondio el post");
 
