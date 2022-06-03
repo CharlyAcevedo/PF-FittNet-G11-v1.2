@@ -71,7 +71,7 @@ export default function HomeMain() {
     return (
       <div className={style.cont}>
         <NavBarProfile />
-        <GymCards />
+        <GymCards/>
         <Paginated />
       </div>
     );
