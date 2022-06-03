@@ -13,6 +13,7 @@ import {
   SET_CURRENT_PAGE,
   SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT,
+  POST_GYM, POST_SERVICES, POST_PARTNER
 } from "./actionTypes";
 
 //------USER ACTIONS------
@@ -30,8 +31,8 @@ export function setUserGeo(payload) {
         payload: { error: err.message },
       });
     }
-  }
-};
+  };
+}
 
 export function getAllUsers() {
   return async (dispatch) => {
@@ -48,7 +49,7 @@ export function getAllUsers() {
       });
     }
   };
-};
+}
 
 export function postUser(payload) {
   return async (dispatch) => {
@@ -67,36 +68,36 @@ export function postUser(payload) {
   };
 }
 
-export const postAvatar = (id, body) => async dispatch => {
+export const postAvatar = (id, body) => async (dispatch) => {
   try {
-    const dataUdpateAvatar = await axios.put(`/api/user/avatar/${id}`, body)
+    const dataUdpateAvatar = await axios.put(`/api/user/avatar/${id}`, body);
     dispatch({
       type: POST_AVATAR,
-      payload: dataUdpateAvatar.data
-    })
+      payload: dataUdpateAvatar.data,
+    });
   } catch (error) {
     dispatch({
       type: POST_AVATAR,
       payload: { error: error.message },
     });
   }
-}
+};
 
-export const getUser = (id) => async dispatch => {
+export const getUser = (id) => async (dispatch) => {
   try {
-    const dataUser = await axios.get(`/api/user/profile/${id}`)
-    console.log(dataUser.data)
+    const dataUser = await axios.get(`/api/user/profile/${id}`);
+    console.log(dataUser.data);
     dispatch({
       type: GET_USER,
       payload: dataUser.data,
-    })
+    });
   } catch (error) {
     dispatch({
       type: GET_USER,
       payload: { error: error.message },
     });
   }
-}
+};
 
 export const getAvatars = () => async (dispatch) => {
   try {
@@ -113,9 +114,7 @@ export const getAvatars = () => async (dispatch) => {
   }
 };
 
-
 //------PARTNER AND GYMS ACTIONS------
-
 
 export function getAllPartner() {
   return async (dispatch) => {
@@ -124,15 +123,15 @@ export function getAllPartner() {
       dispatch({
         type: GET_ALL_PARTNERS,
         payload: response.data,
-      });  
+      });
     } catch (err) {
       dispatch({
         type: GET_ALL_PARTNERS,
         payload: { error: err.message },
-      });  
-    }  
-  };  
-}  
+      });
+    }
+  };
+}
 
 export function getAllGyms() {
   return async (dispatch) => {
@@ -141,15 +140,15 @@ export function getAllGyms() {
       dispatch({
         type: GET_ALL_GYMS,
         payload: response.data,
-      });  
+      });
     } catch (err) {
       dispatch({
         type: GET_ALL_GYMS,
         payload: { error: err.message },
-      });  
-    }  
-  }  
-}  
+      });
+    }
+  };
+}
 
 export function getGymDetail(id) {
   return async (dispatch) => {
@@ -165,7 +164,7 @@ export function getGymDetail(id) {
         payload: { error: err.message },
       });
     }
-  }
+  };
 }
 
 export const getUserGoogleForToken = (payload) => async dispatch => {
@@ -196,9 +195,9 @@ export function setCurrentPage(payload) {
         type: SET_CURRENT_PAGE,
         payload: { error: error.message },
       });
-    };
+    }
   };
-};
+}
 
 
 
@@ -214,9 +213,9 @@ export function setPageNumber(payload) {
         type: SET_PAGE_NUMBER,
         payload: { error: error.message },
       });
-    };
+    }
   };
-};
+}
 
 export function setCurrentLimit(payload) {
   return (dispatch) => {
@@ -230,8 +229,124 @@ export function setCurrentLimit(payload) {
         type: SET_CURRENT_LIMIT,
         payload: { error: error.message },
       });
-    };
+    }
   };
+}
+
+export function updatePartnerData({
+  name,
+  lastName,
+  email,
+  phone,
+  planType,
+  cbu,
+  profileCategory,
+  userActive,
+  socialMedia,
+  paymentMethods,
+  category,
+  idName,
+  id,
+}) {
+  try {
+    return async function (dispatch) {
+      const result = await axios.post("ruta", {
+        name: name,
+        lastName: lastName,
+        email: email,
+        phone: phone,
+        planType: planType,
+        cbu: cbu,
+        profileCategory: profileCategory,
+        userActive: userActive,
+        socialMedia: socialMedia,
+        paymentMethods: paymentMethods,
+        category: category,
+        idName: idName,
+        id: id,
+      });
+      return dispatch({
+        type: POST_PARTNER,
+        payload: result.data,
+      });
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
+export function createDateGym({
+  name,
+  price,
+  raiting,
+  image,
+  address,
+  services,
+  trainers,
+  logo,
+  phone,
+  email,
+  uEnd,
+  gymActive,
+  idName,
+  id,
+}) {
+  try {
+    return async function (dispatch) {
+      const result = await axios.post("ruta", {
+        name: name,
+        price: price,
+        raiting: raiting,
+        image: image,
+        address: address,
+        services: services,
+        trainers: trainers,
+        logo: logo,
+        phone: phone,
+        email: email,
+        uEnd: uEnd,
+        gymActive: gymActive,
+        idName: idName,
+        id: id,
+      });
+      return dispatch({
+        type: POST_GYM,
+        payload: result.data,
+      });
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
+export function createService({
+  name,
+  description,
+  duration,
+  gyms,
+  uEnd,
+  image,
+  objtrainers,
+}) {
+  try {
+    return async function (dispatch) {
+      const result = await axios.post("ruta", {
+        name: name,
+        description: description,
+        duration: duration,
+        gyms: gyms,
+        uEnd: uEnd,
+        image: image,
+        objtrainers: objtrainers,
+      });
+      return dispatch({
+        type: POST_SERVICES,
+        payload: result.data,
+      });
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 };
 
 //? AQUI VA LA ACTUALIZACION DE LA INFO DEL USUARIO
