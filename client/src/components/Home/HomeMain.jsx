@@ -78,7 +78,7 @@ export default function HomeMain() {
   }
 
   // Esto es una para cliente empresa
-  /* if (type === "partner") {
+  if (type === "partner") {
     return (
       <div>
         <NavBarProfile />
@@ -88,10 +88,10 @@ export default function HomeMain() {
         <h4>Promociones y descuentos</h4>
       </div>
     );
-  } */
+  }
 
   // Esto es una para un administrador de sitio
-  /*  if (type === "admin") {
+   if (type === "admin") {
     return (
       <div>
         <NavBarProfile />
@@ -107,5 +107,5 @@ export default function HomeMain() {
         <h3>Una vista como partner</h3>
       </div>
     );
-  } */
+  }
 }

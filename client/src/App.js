@@ -57,7 +57,7 @@ function App() {
         </Route>
       </Routes>
       <Routes>
-        <Route element={<MainLayoutUser />}>
+        <Route /* element={<MainLayoutUser />} */>
           <Route path="/home/:type/:name/:userId/:avatar" element={<Home />} />
           <Route path="/home/:type/:name/:userId" element={<Home />} />
           <Route path="/detail/gym/:userId" element={<GymDetail />} />

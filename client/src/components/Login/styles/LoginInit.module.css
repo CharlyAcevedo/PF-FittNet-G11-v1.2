@@ -17,7 +17,6 @@
   height: 50px;
 }
 .screen {
-  background: linear-gradient(90deg, var(--color-sec), var(--color-secD3));
   background: rgba(255, 255, 255, 0.2);
   position: relative;
   height: 600px;
