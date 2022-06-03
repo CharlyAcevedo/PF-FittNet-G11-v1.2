@@ -1,37 +1,37 @@
 import React from "react";
-import GymCard from "../GymCard/GymCard";
-import "./styles/GymCards.css";
+import style from "./styles/GymCards.module.css";
 import { useSelector } from "react-redux";
+import GymCard from "../GymCard/GymCard";
 
 export default function GymsCards() {
-  
-    const gyms = useSelector((state) => state.pageToShow);
+  const gyms = useSelector((state) => state.pageToShow);
 
-
-    return (            
-        <div className="main-box-cards">
-            <h2>.</h2>
-            <div className="box-cards">
-                <h5>Aqui puede ver los gimnasios de su preferencia</h5>
-                {gyms.length ? gyms.map(g =>{
-                    return (
-                        <GymCard                        
-                            key= {g._id}
-                            id={g._id}
-                            name = {g.name}
-                            rating = {g.raiting}
-                            price ={g.price}
-                            image = {g.image}                            
-                        />                    
-                    )
-                }): 
-                gyms.length === 0 &&
-                <img id='loading' src="https://www.sanfranciscohm.com/static/img/loading.gif" alt="loading..." /> }
-                
-
-            </div>
-                           
-        </div>         
-    )
-
+  return (
+    <div className={style.mainBoxCards}>
+      <h2>.</h2>
+      <div className={style.boxCards}>
+        <h5>Aqui puede ver los gimnasios de su preferencia</h5>
+        {gyms.length
+          ? gyms.map((g) => {
+              return (
+                <GymCard
+                  key={g._id}
+                  id={g._id}
+                  name={g.name}
+                  rating={g.raiting}
+                  price={g.price}
+                  image={g.image}
+                />
+              );
+            })
+          : gyms.length === 0 && (
+              <img
+                id="loading"
+                src="https://www.sanfranciscohm.com/static/img/loading.gif"
+                alt="loading..."
+              />
+            )}
+      </div>
+    </div>
+  );
 }

@@ -9,7 +9,7 @@ import leftArrows from "../../asets/icons/leftArrows.svg";
 import rightArrows from "../../asets/icons/rightArrows.svg";
 import firstPage from "../../asets/icons/firstPage.svg";
 import lastPage from "../../asets/icons/lastPage.svg";
-import styles from "./styles/paginated.modules.css";
+import style from "./styles/paginated.module.css";
 
 export default function Paginated() {
   const dispatch = useDispatch();
@@ -121,7 +121,7 @@ export default function Paginated() {
   }
 
   return (
-    <div className={styles.cont}>
+    <div className={style.cont}>
       <h1>hola</h1>
       {/* <section className={styles.labelPagOfContainer}>
         <div className={styles.labelCurrentPage}>
