@@ -73,4 +73,9 @@ async function saveGyms(Gym) {
     return "todavia no hay funcion para guardar cambios al gym"
 }
 
+
+
+
+
+
 module.exports = { getAllGyms, postGyms, saveGyms, getGymById, getGymByName }
