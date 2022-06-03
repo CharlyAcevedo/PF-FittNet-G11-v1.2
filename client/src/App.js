@@ -19,9 +19,10 @@ import DeactivateAccount from "./components/DeactivateAccount/DeactivateAccount"
 import FormUser from "./components/Forms/FormUser";
 import NavBar from "./components/NavBar/NavBar";
 import NavBarProfile from "./components/NavBarProfile/NavBarProfile";
-import { UpdatePartner } from "./components/UpDatePartner/partnert";
-import { UpdateGym } from "./components/UpDatePartner/gym";
-import { Services } from "./components/UpDatePartner/service";
+import UpdatePartner from "./components/UpDatePartner/partner";
+import  UpdateGym  from "./components/UpDatePartner/gym";
+import Services  from "./components/UpDatePartner/service";
+
 
 const MainLayoutLanding = () => {
   return (

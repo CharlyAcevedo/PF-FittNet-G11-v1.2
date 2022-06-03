@@ -13,6 +13,7 @@ import {
   SET_CURRENT_PAGE,
   SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT,
+  POST_GYM, POST_SERVICES, POST_PARTNER
 } from "./actionTypes";
 
 //------USER ACTIONS------
@@ -264,7 +265,7 @@ export function updatePartnerData({
         id: id,
       });
       return dispatch({
-        type: POST_USER_CLIENT,
+        type: POST_PARTNER,
         payload: result.data,
       });
     };

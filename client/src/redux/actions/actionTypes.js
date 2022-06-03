@@ -15,6 +15,6 @@ export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const SET_PAGE_NUMBER = "SET_PAGE_NUMBER";
 export const SET_CURRENT_LIMIT = "SET_CURRENT_LIMIT";
 
-export const POST_USER_CLIENT = "POST_USER_CLIENT";
+export const POST_PARTNER = "POST_PARTNER";
 export const POST_GYM = "POST_GYM";
 export const POST_SERVICES = "POST_SERVICES";
