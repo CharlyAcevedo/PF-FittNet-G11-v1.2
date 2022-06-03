@@ -12,9 +12,9 @@ export default function validate(input){
         error.username = 'solo acepta letras'
     } 
 
-    if (!input.avatar){
-        error.avatar = 'un avatar es requerido'
-    }
+    // if (!input.avatar){
+    //     error.avatar = 'un avatar es requerido'
+    // }
 
    if(! /^[a-zA-Z ]*$/.test(input.lastname)){
         error.lastname = 'solo acepta letras'

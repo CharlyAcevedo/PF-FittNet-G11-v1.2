@@ -10,6 +10,10 @@ const infoUserSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid Name`
         }
     },
+    username: {
+        type: String,
+        required: false,
+    },
     lastName: {
         type: String,
         required: false,

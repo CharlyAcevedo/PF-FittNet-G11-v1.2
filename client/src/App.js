@@ -61,6 +61,7 @@ function App() {
           <Route path="/home/:type/:name/:userId" element={<Home />} />
           <Route path="/detail/gym/:userId" element={<GymDetail />} />
           <Route path="/profile/:type/:name/:userId" element={<Profile />} />
+          <Route path="/home/modificacion/:type/:name/:userId" element={<FormUser />} />
         </Route>
       </Routes>
       <Routes>

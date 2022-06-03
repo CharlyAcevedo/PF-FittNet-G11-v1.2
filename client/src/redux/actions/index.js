@@ -167,6 +167,20 @@ export function getGymDetail(id) {
   };
 }
 
+export const getUserGoogleForToken = (payload) => async dispatch => {
+  try {
+    const userGoogle = await axios.post('/api/service/google/auth/profile', {
+      token: payload
+    })
+    dispatch({
+      type: "GET_USER_TOKEN_GOOGLE",
+      payload: userGoogle.data.user
+    })
+  } catch (error) {
+    console.log("error: ", error)
+  }
+}
+
 //---------PAGINATED ACTIONS------------
 
 export function setCurrentPage(payload) {
@@ -185,20 +199,7 @@ export function setCurrentPage(payload) {
   };
 }
 
-export const getUserGoogleForToken = (payload) => async (dispatch) => {
-  try {
-    const userGoogle = await axios.post("/api/user/profile", {
-      token: payload,
-    });
-    // console.log(JSON.stringify(payload))
-    dispatch({
-      type: "GET_USER_TOKEN_GOOGLE",
-      payload: userGoogle.data.user,
-    });
-  } catch (error) {
-    console.log("error: ", error);
-  }
-};
+
 
 export function setPageNumber(payload) {
   return (dispatch) => {
@@ -345,3 +346,20 @@ export function createService({
     console.log(error);
   }
 }
+
+};
+
+//? AQUI VA LA ACTUALIZACION DE LA INFO DEL USUARIO
+
+export const updateUserInfo = (id, body) => async dispatch => {
+  try {
+    const dataNewUser = await axios.put(`/api/user/update/${id}`, body)
+    dispatch({
+      type: "PUT_USERINFO",
+      payload: dataNewUser.data.updUser
+    })
+  } catch (error) {
+    console.log("error: ", error)
+  }
+}
+

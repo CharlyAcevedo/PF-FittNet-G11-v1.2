@@ -98,7 +98,7 @@ export default function LandingInfo() {
           <div className={style.containerBtnPromos}>
             <ButtonPrimary
               title="Conocé nuestras promos"
-              padding="0 4.5rem"
+              padding="0 1rem"
               onClick={() => navigate("/userprices")}
             />
           </div>

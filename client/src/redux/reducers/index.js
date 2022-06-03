@@ -94,6 +94,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         user: payload
       }
+    case "PUT_USERINFO":
+      return {
+        ...state,
+        // user: {...state.user, info: payload}
+      }
     case GET_ALL_GYMS:
       if (payload.error) {
         return {

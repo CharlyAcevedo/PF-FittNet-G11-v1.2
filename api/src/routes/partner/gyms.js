@@ -46,9 +46,11 @@ router.get('/gymbyname', async (req, res) => {
 // Para actualizar un gym
 router.put('/gymupdate', async (req, res) => {
     try {        
-        const response = await saveGyms(req.body);
+        const { id, data } = req.body
+        const response = await saveGyms(id, data);
         res.status(200).send(response);
     } catch (error) {
+      console.error(error)
         res.status(404).send({ error: error.message });
       }
 });

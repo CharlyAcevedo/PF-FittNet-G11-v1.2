@@ -7,6 +7,7 @@ var passport = require("passport");
 // const jwt
 const jwt_decode = require('jwt-decode');
 const bcrypt = require('bcrypt');
+const Address = require('../models/Address');
 
 async function findUser(userName) {
     try {
@@ -21,9 +22,9 @@ async function findUser(userName) {
 async function findAllUsers() {
     try {
         const response = await User.find({})
-        .populate('avatar')
-        .populate('info')
-        .populate('partner')
+            .populate('avatar')
+            .populate('info')
+            .populate('partner')
         return response
     } catch (error) {
         console.log(error.message)
@@ -84,6 +85,7 @@ const getUserGoogleAccount = async (req, res) => {
     try {
         const user = await User.findOne({ userName })
             .populate('avatar', 'avatarName')
+            .populate('info', 'photo')
         res.json({
             ok: true,
             user
@@ -153,9 +155,9 @@ const getUser = async (req, res) => {
     console.log(id)
     try {
         const user = await User.findById(id)
-        .populate('avatar')
-        .populate('info')
-        .populate('partner')
+            .populate('avatar')
+            .populate('info')
+            .populate('partner')
         console.log(user)
         res.json({
             ok: true,
@@ -259,7 +261,50 @@ async function updatePassword(userId, newPassword, password, secretToken) {
     }
 }
 
+const updateUser = async (req, res) => {
+    const { id } = req.params
+    try {
+        const body = req.body
+        const user = await User.findById(id)
+        const addressUser = new Address({
+            street: body.street,
+            floor: body.floor,
+            address: body.address,
+            apartament: body.apartament,
+            neighborhood: body.neighborhood,
+            city: body.city,
+            country: body.country,
+            zipCode: body.zipCode
+        })
+        await addressUser.save()
+        const idAddress = addressUser._id
+        const idInfo = user.info
+        const idAvatar = user.avatar
+        const newInfoUser = {
+            username: body.username,
+            lastName: body.lastname,
+            phone: body.phone,
+            birthday: body.birthday,
+            avatar: idAvatar,
+            address: idAddress,
+            gender: body.gender,
+            photo: body.photo,
+        }
+        const updUser = await InfoUser.findByIdAndUpdate(idInfo, newInfoUser, { new: true })
+        res.status(200).json({
+            ok: true,
+            updUser
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: "no se pudo actualizar el usuario"
+        })
+    }
+}
 
 
 
-module.exports = { findUser, findAllUsers, createUser, deleteUser, updateAvatarForUser, googleSignIn, getUser, isValidObjectId, updatePassword, getUserGoogleAccount }
+
+module.exports = { findUser, findAllUsers, createUser, deleteUser, updateAvatarForUser, googleSignIn, getUser, isValidObjectId, updatePassword, getUserGoogleAccount, updateUser }
