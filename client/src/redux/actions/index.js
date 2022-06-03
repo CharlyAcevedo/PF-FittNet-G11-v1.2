@@ -347,7 +347,7 @@ export function createService({
   }
 }
 
-};
+//};
 
 //? AQUI VA LA ACTUALIZACION DE LA INFO DEL USUARIO
 
