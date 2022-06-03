@@ -15,7 +15,7 @@ import {
 
 export function setUserGeo(payload) {
   return async (dispatch) => {
-    try {      
+    try {
       dispatch({
         type: SET_USER_GEO,
         payload: payload,
@@ -169,6 +169,21 @@ export function setCurrentPage(payload) {
     };
   };
 };
+
+export const getUserGoogleForToken = (payload) => async dispatch => {
+  try {
+    const userGoogle = await axios.post('/api/user/profile', {
+      token: payload
+    })
+    // console.log(JSON.stringify(payload))
+    dispatch({
+      type: "GET_USER_TOKEN_GOOGLE",
+      payload: userGoogle.data.user
+    })
+  } catch (error) {
+    console.log("error: ", error)
+  }
+}
 
 export function setPageNumber(payload) {
   return (dispatch) => {

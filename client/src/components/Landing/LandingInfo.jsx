@@ -8,14 +8,18 @@ import {
   CardPromoBulk,
 } from "./componentsLanding/componentsLanding.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import { setUserGeo } from "../../redux/actions/index";
+import { setUserGeo, getUserGoogleForToken } from "../../redux/actions/index";
 import style from "../Landing/styles/Landing.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function LandingInfo() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
+
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -33,6 +37,14 @@ export default function LandingInfo() {
         enableHighAccuracy: true,
       }
     ); // eslint-disable-next-line
+
+    if (token) {
+      // const tokenPrueba = {
+      //   token: JSON.parse(token)
+      // }
+      console.log("entro a generar el usuario con el dispatch", token);
+      dispatch(getUserGoogleForToken(token));
+    }
   }, []);
 
   return (
@@ -48,9 +60,29 @@ export default function LandingInfo() {
               </h1>
               <br />
               <br />
-              <Link to="/login">
-                <button className={style.btn}>Empezá aquí</button>
-              </Link>
+              {!Object.keys(user).length ? (
+                <Link to="/login">
+                  <button className={style.btn}>Empezá aquí</button>
+                </Link>
+              ) : user.avatar ? (
+                <ButtonSecondaryDeslice
+                  title="Ir a home"
+                  padding="1.1rem 5rem"
+                  onClick={() =>
+                    navigate(
+                      `/home/${user.type}/${user.name}/${user._id}/${user.avatar._id}}`
+                    )
+                  }
+                />
+              ) : (
+                <ButtonSecondaryDeslice
+                  title="Ir a home"
+                  padding="1.1rem 5rem"
+                  onClick={() =>
+                    navigate(`/home/${user.type}/${user.name}/${user._id}`)
+                  }
+                />
+              )}
             </div>
             <div className={`${style.screenBackground}`}>
               <span className={style.shapeTop1}></span>
@@ -93,11 +125,31 @@ export default function LandingInfo() {
           </h1>
           <h1 className={style.texto}>FITTNET</h1>
           <div style={{ marginBottom: "2rem" }}>
-            <ButtonSecondaryDeslice
-              padding="1.5rem 5rem"
-              title="Empeza aqui"
-              onClick={() => navigate("/login")}
-            />
+            {!Object.keys(user).length ? (
+              <ButtonSecondaryDeslice
+                padding="1.5rem 5rem"
+                title="Empeza aqui"
+                onClick={() => navigate("/login")}
+              />
+            ) : user.avatar ? (
+              <ButtonSecondaryDeslice
+                title="Ir a home"
+                padding="1.1rem 5rem"
+                onClick={() =>
+                  navigate(
+                    `/home/${user.type}/${user.name}/${user._id}/${user.avatar._id}}`
+                  )
+                }
+              />
+            ) : (
+              <ButtonSecondaryDeslice
+                title="Ir a home"
+                padding="1.1rem 5rem"
+                onClick={() =>
+                  navigate(`/home/${user.type}/${user.name}/${user._id}`)
+                }
+              />
+            )}
           </div>
         </div>
       </div>

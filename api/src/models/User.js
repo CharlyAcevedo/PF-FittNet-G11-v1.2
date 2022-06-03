@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
     },
     secretToken: {
         type: String,
-        required: true,
+        required: false,
     },      
     type: {
         type: String,

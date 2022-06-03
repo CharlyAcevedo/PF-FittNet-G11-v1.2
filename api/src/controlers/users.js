@@ -4,6 +4,8 @@ const User = require('../models/User');
 const InfoUser = require('../models/InfoUser');
 const ObjectId = require('mongoose').Types.ObjectId;
 var passport = require("passport");
+// const jwt
+const jwt_decode = require('jwt-decode');
 const bcrypt = require('bcrypt');
 
 async function findUser(userName) {
@@ -66,6 +68,27 @@ const updateAvatarForUser = async (req, res) => {
             msg: "No se pudo modificar el usuario"
         })
         console.log("error: ", error)
+    }
+}
+
+const getUserGoogleAccount = async (req, res) => {
+    const { token } = req.body;
+    const usuario = jwt_decode(token)
+    console.log(req.body)
+    const userName = usuario.email
+    try {
+        const user = await User.findOne({ userName })
+            .populate('avatar', 'avatarName')
+        res.json({
+            ok: true,
+            user
+        })
+    } catch (error) {
+        console.log("error: ", error);
+        res.status(500).json({
+            ok: false,
+            msg: "Unexpected errorf"
+        })
     }
 }
 
@@ -164,13 +187,13 @@ async function updatePassword(userId, newPassword, password, secretToken) {
                 if (user) {
                     // Si tengo usuario retorno una nueva promesa
                     return bcrypt.compare(password, user.password)
-                        .then((res) => {                           
+                        .then((res) => {
                             if (res === false) { // No hay coincidencia entre las password
                                 return false;
                             }
                             if (res === true) { // Si hay coincidencia entre las password
                                 // console.log(user, res, ' user en la 54');                                
-                                return  true;
+                                return true;
                             }
                         })
                 }
@@ -187,8 +210,8 @@ async function updatePassword(userId, newPassword, password, secretToken) {
             let salt = 8;
             // Hashear la nueva clave, buscar el user por id y stear la hashpassword
             let newHashPassword = await bcrypt.hash(newPassword, salt);
-            let findAndUpdate = await User.findOneAndUpdate({ _id: userId }, {password: newHashPassword})  
-            
+            let findAndUpdate = await User.findOneAndUpdate({ _id: userId }, { password: newHashPassword })
+
             if (findAndUpdate) {
                 return true;
             } else {
@@ -205,19 +228,19 @@ async function updatePassword(userId, newPassword, password, secretToken) {
         // 1. El usuario intente recuperar una cuenta porque se olvidó el password
         // 2. El usuario quiere actualizar su password y validar el token
         // 3. Setear la nueva password
-        console.log(userId, newPassword,secretToken, '¿Qué pasaaa? 2')
+        console.log(userId, newPassword, secretToken, '¿Qué pasaaa? 2')
         let findUserId = await findUser({ _id: userId })
         console.log(findUserId, '¿Qué pasaaa? 3')
 
         if (!findUserId) return "Usuario no encontrado";
 
         if (findUserId.secretToken !== secretToken) return "Token de recuperación incorrecto";
-        
+
         let salt = 8;
         // Hashear la nueva clave, buscar el user por id y stear la hashpassword
         let newHashPassword = await bcrypt.hash(newPassword, salt);
-        let findAndUpdate = await User.findOneAndUpdate({ _id: userId }, {password: newHashPassword, active: true})  
-        
+        let findAndUpdate = await User.findOneAndUpdate({ _id: userId }, { password: newHashPassword, active: true })
+
         if (findAndUpdate) {
             return true;
         } else {
@@ -230,4 +253,4 @@ async function updatePassword(userId, newPassword, password, secretToken) {
 
 
 
-module.exports = { findUser, findAllUsers, createUser, deleteUser, updateAvatarForUser, googleSignIn, getUser, isValidObjectId, updatePassword }
+module.exports = { findUser, findAllUsers, createUser, deleteUser, updateAvatarForUser, googleSignIn, getUser, isValidObjectId, updatePassword, getUserGoogleAccount }

@@ -5,9 +5,14 @@ import {
   ButtonSecondarySimple,
 } from "../../helpers/Buttons/Buttons.jsx";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function NavBar() {
   const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user);
+
+  console.log(user);
   return (
     <nav className={style.nav}>
       <div onClick={() => navigate("/")}>
@@ -33,11 +38,15 @@ export default function NavBar() {
           title="Beneficios para miembros"
           padding="0 2rem"
         />
-        <ButtonSimple
-          title="Prueba gratis"
-          onClick={() => navigate("/register")}
-          padding="0 2rem"
-        />
+        {Object.keys(user).length ? (
+          <p style={{color: "#fff", fontSize: "1.3rem"}}>{user.name} ya estas registrado!</p>
+        ) : (
+          <ButtonSimple
+            title="Prueba gratis"
+            onClick={() => navigate("/register")}
+            padding="0 2rem"
+          />
+        )}
       </ul>
     </nav>
   );

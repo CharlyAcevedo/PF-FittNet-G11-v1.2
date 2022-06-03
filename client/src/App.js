@@ -18,6 +18,7 @@ import Activation from "./components/Activation/Activation";
 import DeactivateAccount from "./components/DeactivateAccount/DeactivateAccount";
 import FormUser from "./components/Forms/FormUser"
 import NavBar from "./components/NavBar/NavBar";
+import NavBarProfile from "./components/NavBarProfile/NavBarProfile";
 
 
 const MainLayoutLanding = () => {
@@ -29,9 +30,22 @@ const MainLayoutLanding = () => {
   )
 }
 
+const MainLayoutUser = () => {
+  return (
+    <div>
+      <NavBarProfile />
+      <Outlet />
+    </div>
+  )
+}
+
 
 
 function App() {
+
+
+  const token = localStorage.getItem('token');
+
   return (
     <div className="App">
       <Routes>
@@ -43,17 +57,21 @@ function App() {
         </Route>
       </Routes>
       <Routes>
-        <Route path="/home/:type/:name/:userId/:avatar" element={<Home />} />
-        <Route path="/home/:type/:name/:userId" element={<Home />} />
-        <Route path="/detail/gym/:userId" element={<GymDetail />} />
-        <Route path="/profile/:type/:name/:userId" element={<Profile />} />
+        <Route element={<MainLayoutUser />}>
+          <Route path="/home/:type/:name/:userId/:avatar" element={<Home />} />
+          <Route path="/home/:type/:name/:userId" element={<Home />} />
+          <Route path="/detail/gym/:userId" element={<GymDetail />} />
+          <Route path="/profile/:type/:name/:userId" element={<Profile />} />
+        </Route>
+      </Routes>
+      <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<InitRegister />} />
         <Route path="/user_register" element={<UserRegister />} />
         <Route path="/client_register" element={<ClientRegister />} />
-        <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/maps" element={<MapGyms />} />
         <Route path="/updatepassword/:userId" element={<UpdatePasword />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/activation/:userId/:secretToken" element={<Activation />} />
         <Route path="/deactivate/:userId" element={<DeactivateAccount />} />
         <Route path="/FormUser" element={<FormUser />} />
