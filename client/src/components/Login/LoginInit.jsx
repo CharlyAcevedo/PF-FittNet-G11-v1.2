@@ -99,8 +99,17 @@ export default function LoginInit() {
 
       console.log("está saliendo el post ", userLogin);
 
-      axios
-        .post("/api/service/login", userLogin)
+      //axios
+      // axios.post(url[, data[, config]])
+      axios({
+        method: 'post',
+        url: '/api/service/login',
+        data: userLogin,
+        headers: {'X-Requested-With': 'XMLHttpRequest'},
+        withCredentials: true
+      })
+     
+        //.post("/api/service/login", userLogin)
         .then((res) => {
           console.log(res.data, "-> viendo qué respondio el post");
 
@@ -111,6 +120,7 @@ export default function LoginInit() {
 
             if (active === true) { // Si la cuenta está activa
               if (typeof avatar === "string") {
+                localStorage.setItem("userId", userId)
                 return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`);
               }
               // ya le paso info por params de quién estamos hablando

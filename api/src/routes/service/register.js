@@ -11,6 +11,10 @@ const router = Router();
 
 
 function isAuthenticated(req, res, next) {
+  console.log(req.session, ' esto es req.session register isAuthenticated');
+  console.log(req.user, ' esto es req.user register isAuthenticated');
+  console.log(req.cookies,' esto es req.cookies register isAuthenticated' )
+  console.log(req.signedCookies,' esto es req.signedCookies register isAuthenticated' )
   if (req.isAuthenticated()) {
     res.redirect('/api/service/register');
   } else {
@@ -130,7 +134,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
         }
         
         // Mando a la próxima ruta id, secretToken y correo electrónico por params
-        res.redirect(`/api/service/email/activation${userId}/${promiseAll[1]}/${newUser.userName}`);     
+        res.redirect(`/api/service/email/activation/${userId}/${promiseAll[1]}/${newUser.userName}`);     
       }
 
     } else {

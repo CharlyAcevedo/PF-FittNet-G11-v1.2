@@ -28,7 +28,7 @@ const router = Router();
 //-------------------------------------------------------------------------------
 
 router.get('/email/activation/:userId/:secretToken/:userName/', async (req, res, next) => {
-  let { userId, secretToken, userName, typeOperation } = req.params;
+  let { userId, secretToken, userName } = req.params;
   // Recordar que userName es un email
   // console.log(req.params, 'el userID, el sercretToken y el userName')
   // http://localhost:3000/activation/ -> activación en el front
