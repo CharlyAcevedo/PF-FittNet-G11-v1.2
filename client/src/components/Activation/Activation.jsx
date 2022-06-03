@@ -13,7 +13,7 @@ export default function Activation(){
         console.log('se ejecuta el useEffect');
         if (userId.length > 9 && secretToken.length > 5 ) {
             console.log('sale el get al back');
-            axios.get(`/api/activation/${userId}/${secretToken}`)
+            axios.get(`/api/service/activation/${userId}/${secretToken}`)
             .then((response)=> {console.log(response.data)})
             .catch((error)=> {console.lgo(error)})
         }

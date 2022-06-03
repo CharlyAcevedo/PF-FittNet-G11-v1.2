@@ -134,7 +134,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
         }
         
         // Mando a la próxima ruta id, secretToken y correo electrónico por params
-        res.redirect(`/api/service/email/activation${userId}/${promiseAll[1]}/${newUser.userName}`);     
+        res.redirect(`/api/service/email/activation/${userId}/${promiseAll[1]}/${newUser.userName}`);     
       }
 
     } else {
