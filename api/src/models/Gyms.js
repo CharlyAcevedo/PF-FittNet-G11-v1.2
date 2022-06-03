@@ -30,7 +30,7 @@ const gymSchema = new mongoose.Schema({
   services: {
     type: Array,
     of: mongoose.SchemaTypes.ObjectId,
-    ref: "Service",
+    ref: "Services",
   },
   trainers: {
     type: Array,

@@ -62,6 +62,7 @@ function App() {
           <Route path="/home/:type/:name/:userId" element={<Home />} />
           <Route path="/detail/gym/:userId" element={<GymDetail />} />
           <Route path="/profile/:type/:name/:userId" element={<Profile />} />
+          <Route path="/home/modificacion/:type/:name/:userId" element={<FormUser />} />
         </Route>
       </Routes>
       <Routes>
@@ -74,7 +75,6 @@ function App() {
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/activation/:userId/:secretToken" element={<Activation />} />
         <Route path="/deactivate/:userId" element={<DeactivateAccount />} />
-        <Route path="/FormUser" element={<FormUser />} />
       </Routes>
     </div>
   );

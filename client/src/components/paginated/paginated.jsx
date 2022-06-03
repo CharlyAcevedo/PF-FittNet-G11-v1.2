@@ -122,11 +122,11 @@ export default function Paginated() {
 
   return (
     <div className={style.cont}>
-
       {/* Bloque de info de pag */}
       <section className={style.labelPagOfContainer}>
         <div className={style.labelCurrentPage}>
           Pag: <div className={style.currentPageInput}>{currentPage}</div>
+
         </div>
         <div className={style.labelCurrentPage}>
           Of: <div className={style.currentPageInput}>{totalPages}</div>
@@ -193,6 +193,7 @@ export default function Paginated() {
           </select>
         </label>
       </section>
+
     </div>
   );
 }
