@@ -120,7 +120,7 @@ export const getAvatars = () => async (dispatch) => {
 export function getAllPartner() {
   return async (dispatch) => {
     try {
-      const response = await axios.get("/api/partner/all");
+      const response = await axios.get("/api/partner/allgyms");
       dispatch({
         type: GET_ALL_PARTNERS,
         payload: response.data,
@@ -137,7 +137,7 @@ export function getAllPartner() {
 export function getAllGyms() {
   return async (dispatch) => {
     try {
-      const response = await axios.get("/api/partner/gym/all");
+      const response = await axios.get("/api/partner/gyms/allgyms");
       dispatch({
         type: GET_ALL_GYMS,
         payload: response.data,
