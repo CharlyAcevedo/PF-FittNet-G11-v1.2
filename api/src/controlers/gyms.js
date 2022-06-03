@@ -93,4 +93,9 @@ async function saveGyms(id, data) {
     return response
 }
 
+
+
+
+
+
 module.exports = { getAllGyms, postGyms, saveGyms, getGymById, getGymByName }

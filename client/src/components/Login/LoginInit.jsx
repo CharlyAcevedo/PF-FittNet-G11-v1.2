@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles/LoginInit.module.css";
 import jwt_decode from "jwt-decode";
-import { getUser } from "../../redux/actions";
+import { getUser, getUserGoogleForToken } from "../../redux/actions";
 import {
   BackgroundTwo,
   BackgroundOne,
@@ -20,8 +20,6 @@ export default function LoginInit() {
   const navigate = useNavigate();
 
   const userGoogle = useSelector((state) => state.user);
-
-  // console.log(userGoogle);
 
   const token = localStorage.getItem("token");
 
@@ -50,7 +48,22 @@ export default function LoginInit() {
         return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
       }
     } else {
-      console.log("estas autenticado actualmente no vas a poder acceder");
+      console.log("estas autenticado actualmente");
+      // const googleData = await axios.post(
+      //   `/api/google/auth`,
+      //   {
+      //     tokenId: response.credential,
+      //     data: userObject,
+      //   }
+      // );
+      // const finalizacionData = await googleData.data;
+      // dispatch(getUser(finalizacionData.usuario._id));
+      // const { avatar } = finalizacionData.usuario;
+      // if (!avatar) {
+      //   return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
+      // } else {
+      //   return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
+      // }
       navigate("/");
     }
   };
@@ -71,18 +84,8 @@ export default function LoginInit() {
       }
     );
 
-    window.google?.accounts.id.prompt();
-
-    setGoogleUser(userGoogle); // eslint-disable-next-line
   }, [window.google?.accounts]);
 
-
-  //! este es el logout
-  // const handleLogoutGoogle = (e) => {
-  //   e.preventDefault();
-  //   document.getElementById("signInDiv").hidden = false;
-  //   localStorage.removeItem("token");
-  // };
 
   function onSubmit(e) {
     let userLogin;

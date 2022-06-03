@@ -13,8 +13,8 @@ import {
   POST_AVATAR,
 } from "../actions/actionTypes";
 
-const lat =-34.6154611;
-const lng =-58.5733843;
+const lat = -34.6154611;
+const lng = -58.5733843;
 
 const initialState = {
   users: [],
@@ -82,11 +82,23 @@ export default function rootReducer(state = initialState, { type, payload }) {
           errors: payload.error,
         };
       }
+
       return {
         ...state,
         partners: payload,
         partnersToShow: payload,
       };
+    case "GET_USER_TOKEN_GOOGLE":
+      console.log(payload)
+      return {
+        ...state,
+        user: payload
+      }
+    case "PUT_USERINFO":
+      return {
+        ...state,
+        // user: {...state.user, info: payload}
+      }
     case GET_ALL_GYMS:
       if (payload.error) {
         return {

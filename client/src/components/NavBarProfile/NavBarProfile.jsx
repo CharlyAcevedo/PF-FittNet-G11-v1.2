@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Logout from "../Logout/Logout";
 import style from './style/NavBarProfile.module.css';
 
@@ -22,6 +22,9 @@ export default function NavBarProfile() {
                  </div>
                 <div className={style.itemsNavBarProfile}>
                     <a href="/">Ir a inicio</a>                            
+                </div>
+                <div>
+                    <a href={`/home/modificacion/${type}/${name}/${userId}`}>Modificar usuario</a>
                 </div>
                 <div className={style.itemsNavBarProfile}>
                     <Logout/>
