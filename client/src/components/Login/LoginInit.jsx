@@ -30,7 +30,7 @@ export default function LoginInit() {
     if (!token) {
       console.log("ENTRO A GENERAR TOKEN", response.credential);
       const googleData = await axios.post(
-        `/api/google/auth`,
+        `/api/service/google/auth`,
         {
           tokenId: response.credential,
           data: userObject,
@@ -48,23 +48,23 @@ export default function LoginInit() {
         return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
       }
     } else {
-      console.log("estas autenticado actualmente no vas a poder acceder");
-      const googleData = await axios.post(
-        `/api/google/auth`,
-        {
-          tokenId: response.credential,
-          data: userObject,
-        }
-      );
-      const finalizacionData = await googleData.data;
-      dispatch(getUser(finalizacionData.usuario._id));
-      const { avatar } = finalizacionData.usuario;
-      if (!avatar) {
-        return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
-      } else {
-        return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
-      }
-      // navigate("/");
+      console.log("estas autenticado actualmente");
+      // const googleData = await axios.post(
+      //   `/api/google/auth`,
+      //   {
+      //     tokenId: response.credential,
+      //     data: userObject,
+      //   }
+      // );
+      // const finalizacionData = await googleData.data;
+      // dispatch(getUser(finalizacionData.usuario._id));
+      // const { avatar } = finalizacionData.usuario;
+      // if (!avatar) {
+      //   return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
+      // } else {
+      //   return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
+      // }
+      navigate("/");
     }
   };
 
@@ -84,15 +84,8 @@ export default function LoginInit() {
       }
     );
 
-    // window.google?.accounts.id.prompt();
-
-    // if(token) {
-    //   dispatch(getUserGoogleForToken(token)) 
-    // }
   }, [window.google?.accounts]);
 
-
-  console.log(userGoogle);
 
   function onSubmit(e) {
     let userLogin;
@@ -107,7 +100,7 @@ export default function LoginInit() {
       console.log("está saliendo el post ", userLogin);
 
       axios
-        .post("/api/login", userLogin)
+        .post("/api/service/login", userLogin)
         .then((res) => {
           console.log(res.data, "-> viendo qué respondio el post");
 

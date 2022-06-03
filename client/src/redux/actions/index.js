@@ -1,17 +1,21 @@
 import axios from "axios";
 
 import {
+  SET_USER_GEO,
   GET_ALL_USERS,
-  GET_ALL_PARTNERS,
   POST_USER,
+  GET_USER,
   GET_AVATARS,
+  POST_AVATAR,
+  GET_ALL_PARTNERS,
+  GET_ALL_GYMS,
+  GET_GYM_DETAIL,
   SET_CURRENT_PAGE,
   SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT,
-  GET_ALL_GYMS,
-  GET_GYM_DETAIL,
-  SET_USER_GEO,
 } from "./actionTypes";
+
+//------USER ACTIONS------
 
 export function setUserGeo(payload) {
   return async (dispatch) => {
@@ -32,7 +36,7 @@ export function setUserGeo(payload) {
 export function getAllUsers() {
   return async (dispatch) => {
     try {
-      const response = await axios.get("/users");
+      const response = await axios.get("/api/user/all");
       dispatch({
         type: GET_ALL_USERS,
         payload: response.data,
@@ -49,7 +53,7 @@ export function getAllUsers() {
 export function postUser(payload) {
   return async (dispatch) => {
     try {
-      const response = await axios.post("/api/users", payload);
+      const response = await axios.post("/api/service/register", payload);
       dispatch({
         type: POST_USER,
         payload: response.data,
@@ -61,51 +65,20 @@ export function postUser(payload) {
       });
     }
   };
-}
-
-export function getAllPartner() {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get("/partner");
-      dispatch({
-        type: GET_ALL_PARTNERS,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: GET_ALL_PARTNERS,
-        payload: { error: err.message },
-      });
-    }
-  };
-}
-
-export function getAllGyms() {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get("/api/allgyms");
-      dispatch({
-        type: GET_ALL_GYMS,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: GET_ALL_GYMS,
-        payload: { error: err.message },
-      });
-    }
-  }
 }
 
 export const postAvatar = (id, body) => async dispatch => {
   try {
     const dataUdpateAvatar = await axios.put(`/api/user/avatar/${id}`, body)
     dispatch({
-      type: 'POST_AVATAR',
+      type: POST_AVATAR,
       payload: dataUdpateAvatar.data
     })
   } catch (error) {
-    console.log("error: ", error)
+    dispatch({
+      type: POST_AVATAR,
+      payload: { error: error.message },
+    });
   }
 }
 
@@ -114,34 +87,20 @@ export const getUser = (id) => async dispatch => {
     const dataUser = await axios.get(`/api/user/profile/${id}`)
     console.log(dataUser.data)
     dispatch({
-      type: 'GET_USER',
+      type: GET_USER,
       payload: dataUser.data,
     })
   } catch (error) {
-    console.log("error", error)
-  }
-}
-
-export function getGymDetail(id) {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get(`/api/gymbyid/${id}`);
-      dispatch({
-        type: GET_GYM_DETAIL,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: GET_GYM_DETAIL,
-        payload: { error: err.message },
-      });
-    }
+    dispatch({
+      type: GET_USER,
+      payload: { error: error.message },
+    });
   }
 }
 
 export const getAvatars = () => async (dispatch) => {
   try {
-    const dataAvatar = await axios.get(`/api/avatar`);
+    const dataAvatar = await axios.get(`/api/user/avatar`);
     dispatch({
       type: GET_AVATARS,
       payload: dataAvatar.data,
@@ -153,6 +112,63 @@ export const getAvatars = () => async (dispatch) => {
     });
   }
 };
+
+
+//------PARTNER AND GYMS ACTIONS------
+
+
+export function getAllPartner() {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/partner/all");
+      dispatch({
+        type: GET_ALL_PARTNERS,
+        payload: response.data,
+      });  
+    } catch (err) {
+      dispatch({
+        type: GET_ALL_PARTNERS,
+        payload: { error: err.message },
+      });  
+    }  
+  };  
+}  
+
+export function getAllGyms() {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/partner/gym/all");
+      dispatch({
+        type: GET_ALL_GYMS,
+        payload: response.data,
+      });  
+    } catch (err) {
+      dispatch({
+        type: GET_ALL_GYMS,
+        payload: { error: err.message },
+      });  
+    }  
+  }  
+}  
+
+export function getGymDetail(id) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`/api/partner/gymbyid/${id}`);
+      dispatch({
+        type: GET_GYM_DETAIL,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_GYM_DETAIL,
+        payload: { error: err.message },
+      });
+    }
+  }
+}
+
+//---------PAGINATED ACTIONS------------
 
 export function setCurrentPage(payload) {
   return (dispatch) => {

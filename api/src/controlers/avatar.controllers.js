@@ -13,7 +13,6 @@ const getAvatar = async (req, res) => {
     }
 }
 
-
 const createAvatar = async (req, res) => {
     try {
         const newAvatar = new Avatar(req.body);
@@ -30,8 +29,6 @@ const createAvatar = async (req, res) => {
         })
     }
 }
-
-// const selectAvatarUser = async ()
 
 
 module.exports = { getAvatar, createAvatar }

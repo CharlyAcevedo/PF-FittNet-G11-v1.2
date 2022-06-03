@@ -1,7 +1,7 @@
 const { Router } = require('express');
-const Users = require('../models/User')
+const Users = require('../../models/User')
 const bcrypt = require('bcrypt');
-const { isValidObjectId } = require('../controlers/users')
+const { isValidObjectId } = require('../../controlers/users')
 
 
 const router = Router();

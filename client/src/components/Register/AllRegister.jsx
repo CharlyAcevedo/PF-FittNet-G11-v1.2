@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles/AllRegister.module.css";
+import { regexPassword, regexEmail, regexName } from "../../asets/helpers/regexValidators"
 import {
   BackgroundTwo,
   BackgroundOne,
@@ -12,21 +13,13 @@ export default function AllRegister() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
+  const [geoloc, setGeoloc] = useState({ 
+    lat: 0,
+    lng: 0,
+   })
   const [error, setError] = useState("");
 
-  //! Regex de validacion
-  const regexPassword =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?#&/|:;,<>+~-])([A-Za-z\d$@$!%*?#&/|:;,<>+~-]|[^ ]){8,15}$/;
-  // Minimo 8 caracteres
-  //Maximo 15 caracteres
-  // Al menos una letra mayúscula
-  //  Al menos una letra minucula
-  //  Al menos un dígito
-  //   No espacios en blanco
-  //   Al menos 1 caracter especial
-  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const regexName = /^[A-Z]+$/i;
-  //--------------------------------------------
+  
 
   function onSubmit(e) {
     let userCreate;
@@ -38,21 +31,21 @@ export default function AllRegister() {
     //Validamos los input antes de realizar el post,
     //se validan los campos completos y caracteristicas puntuales de los mismos.
     if (!name) {
-      //   return alert("El nombre es requerido");
-      // } else if (!regexName.test(name)) {
-      //   return alert("El nombre es invalido");
-      // } else if (!email) {
-      //   return alert("El Email es requerido");
-      // } else if (!regexEmail.test(email)) {
-      //   return alert("Email invalido");
-      // } else if (!password) {
-      //   return alert("Password requerida");
-      // } else if (!regexPassword.test(password)) {
-      //   return alert(
-      //     "Contraseña invalida:Minimo 8 caracteres, Maximo 15, Al menos una letra mayuscula, una letra minuscula, un digito, sin espacios en blanco, Al menos un caracter esoecial"
-      //   );
-      // } else if (!type) {
-      //   return alert("Debes seleccionar el tipo de cliente!");
+        return alert("El nombre es requerido");
+      } else if (!regexName.test(name)) {
+        return alert("El nombre es invalido");
+      } else if (!email) {
+        return alert("El Email es requerido");
+      } else if (!regexEmail.test(email)) {
+        return alert("Email invalido");
+      } else if (!password) {
+        return alert("Password requerida");
+      } else if (!regexPassword.test(password)) {
+        return alert(
+          "Contraseña invalida:Minimo 8 caracteres, Maximo 15, Al menos una letra mayuscula, una letra minuscula, un digito, sin espacios en blanco, Al menos un caracter esoecial"
+        );
+      } else if (!type) {
+        return alert("Debes seleccionar el tipo de cliente!");
     }
     //----------------------
     else {
@@ -60,13 +53,15 @@ export default function AllRegister() {
         name: name,
         username: email,
         password: password,
+        latitude: geoloc.lat,
+        longitude: geoloc.lng,
         type: type,
       };
 
       console.log("está saliendo el post ", userCreate);
 
       axios
-        .post("/api/register", userCreate)
+        .post("/api/service/register", userCreate)
         .then((res) => {
           console.log(res.data, "-> respuesta del post de creación de cuenta");
           // El nombre de usuario ya existe o es incorrecto, por favor indique otro username

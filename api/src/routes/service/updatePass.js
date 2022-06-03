@@ -1,6 +1,6 @@
 const { Router } = require('express');
-const Users = require('../models/User')
-const { findUser, updatePassword } = require('../controlers/users');
+const Users = require('../../models/User')
+const { findUser, updatePassword } = require('../../controlers/users');
 // const cookieparser = require('cookie-parser');
 const router = Router();
 

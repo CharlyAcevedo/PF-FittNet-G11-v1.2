@@ -7,12 +7,12 @@ import GymCards from "../GymCards/GymCards";
 import UserCards from "../UserCards/UserCards";
 import NavBarProfile from "../NavBarProfile/NavBarProfile";
 import PartnerCards from "../PartnerCards/PartnerCards";
-import { getAllGyms } from "../../redux/actions";
-import { useDispatch } from "react-redux";
+import { getAllGyms, getUserGoogleForToken } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 import IncomesGraph from "../Graphics/Incomes";
 import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
-import style from "./styles/homeMain.module.css"
+import style from "./styles/homeMain.module.css";
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
@@ -22,12 +22,19 @@ export default function HomeMain() {
 
   const dispatch = useDispatch();
 
+  const user = useSelector((state) => state.user);
+
+  const token = localStorage.getItem("token");
+
   const navigate = useNavigate();
 
   useEffect(() => {
     // dispachar la action ¿pero qué voy a escuchar??? No sé si sea userId
     // console.log('sale la action de traer gyms')
     dispatch(getAllGyms()); // eslint-disable-next-line
+    if (token) {
+      dispatch(getUserGoogleForToken(token));
+    }
   }, [userId]);
 
   // Esto es una vista para un usuario sin avatar
@@ -49,7 +56,11 @@ export default function HomeMain() {
             alignItems: "center",
           }}
         >
-          <ButtonBack title="Volver" padding=".5rem 2rem" onClick={() => navigate('/')}/>
+          <ButtonBack
+            title="Volver"
+            padding=".5rem 2rem"
+            onClick={() => navigate("/")}
+          />
         </div>
       </div>
     );
@@ -60,8 +71,8 @@ export default function HomeMain() {
     return (
       <div className={style.cont}>
         <NavBarProfile />
-        <GymCards/>
-        <Paginated/>
+        <GymCards />
+        <Paginated />
       </div>
     );
   }
@@ -80,7 +91,7 @@ export default function HomeMain() {
   } */
 
   // Esto es una para un administrador de sitio
- /*  if (type === "admin") {
+  /*  if (type === "admin") {
     return (
       <div>
         <NavBarProfile />

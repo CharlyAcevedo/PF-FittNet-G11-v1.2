@@ -39,10 +39,6 @@ export default function LandingInfo() {
     ); // eslint-disable-next-line
 
     if (token) {
-      // const tokenPrueba = {
-      //   token: JSON.parse(token)
-      // }
-      console.log("entro a generar el usuario con el dispatch", token);
       dispatch(getUserGoogleForToken(token));
     }
   }, []);

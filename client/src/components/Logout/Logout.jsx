@@ -5,7 +5,7 @@ export default function Logout() {
     e.preventDefault();
 
     axios
-      .post("http://localhost:3001/api/logout")
+      .post("/api/services/logout")
       .then((res) => {
         if (res) {
           console.log(res.data, "-> respuesta del post de logout");

@@ -8,18 +8,18 @@ const router = Router();
 router.post(
   "/login",
   passport.authenticate("local", { 
-    failureRedirect: "/api/login" 
+    failureRedirect: "/api/service/login" 
   }),
   function (req, res) {
    // console.log(req.session, " esto es req.session 120");
    console.log(req.user, ' esto es req.user 121');
     
-   let { _id, name, type, avatar, active } = req.user;
+   let { id, name, type, avatar, active } = req.user;
    // console.log(req.user, 'todo lo que puede responder el back')
 
    // res.cookie('userId', id);
 
-   res.json({ login: true, userId: _id, name, type, avatar, active });
+   res.json({ login: true, userId: id, name, type, avatar, active });
  
   }
 );

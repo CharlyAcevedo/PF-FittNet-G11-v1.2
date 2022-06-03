@@ -8,6 +8,9 @@ import {
   GET_ALL_GYMS,
   GET_GYM_DETAIL,
   SET_USER_GEO,
+  POST_USER_GOOGLE,
+  GET_USER,
+  POST_AVATAR,
 } from "../actions/actionTypes";
 
 const lat = -34.6154611;
@@ -17,11 +20,16 @@ const initialState = {
   users: [],
   user: {},
   usersToShow: [],
-  userDetail: {},
-  currentGeo: {
+  currentUserDetails: {
+    name: "",
+    userName: "",
+    password: "",
+    type: "",
+    currentGeo: {
     latitude: lat,
     longitude: lng
   },
+  },  
   currentGymCreated: {},
   gyms: [],
   gymsToShow: [],
@@ -47,10 +55,13 @@ export default function rootReducer(state = initialState, { type, payload }) {
       }
       return {
         ...state,
-        currentGeo: {
-          latitude: payload.latitude ? payload.latitude : lat,
-          longitude: payload.longitude ? payload.longitude : lng
-        }
+        currentUserDetails: {
+          ...state.currentUserDetails,
+          currentGeo: {
+            latitude: payload.latitude ? payload.latitude : lat,
+            longitude: payload.longitude ? payload.longitude : lng,
+          },
+        },
       };
     case GET_ALL_USERS:
       if (payload.error) {
@@ -97,18 +108,18 @@ export default function rootReducer(state = initialState, { type, payload }) {
         gymsToShow: payload,
         pageToShow: newPage1,
       };
-    case 'POST_USER_GOOGLE':
-      console.log(payload)
+    case POST_USER_GOOGLE:
+      console.log(payload);
       return {
         ...state,
-        user: payload
-      }
-    case 'GET_USER':
-      console.log(payload)
+        user: payload,
+      };
+    case GET_USER:
+      console.log(payload);
       return {
         ...state,
-        user: payload
-      }
+        user: payload,
+      };
     case GET_GYM_DETAIL:
       if (payload.error) {
         return {
@@ -120,11 +131,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         gymDetail: payload,
       };
-    case 'POST_AVATAR':
+    case POST_AVATAR:
       return {
         ...state,
-        user: payload
-      }
+        user: payload,
+      };
     case GET_AVATARS:
       if (payload.error) {
         return {

@@ -5,7 +5,7 @@ const {
   saveGyms,
   getGymById,
   getGymByName
-} = require("../controlers/gyms");
+} = require("../../controlers/gyms");
 
 const router = Router();
 

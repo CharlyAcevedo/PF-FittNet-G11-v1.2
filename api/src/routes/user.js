@@ -5,7 +5,7 @@ const { updateAvatarForUser, googleSignIn, getUser, getUserGoogleAccount } = req
 router.put('/user/avatar/:id', updateAvatarForUser);
 router.post('/google/auth', googleSignIn);
 router.get('/user/profile/:id', getUser);
-router.post('/user/profile', getUserGoogleAccount);
+router.get('/user/profile', getUserGoogleAccount);
 
 
 module.exports = router;
