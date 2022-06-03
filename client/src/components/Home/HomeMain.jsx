@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import IncomesGraph from "../Graphics/Incomes";
 import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
+import style from "./styles/homeMain.module.css"
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
@@ -57,16 +58,16 @@ export default function HomeMain() {
   // Esto es una vista para un usuario con avatar
   if (type === "user" && avatar) {
     return (
-      <div>
+      <div className={style.cont}>
         <NavBarProfile />
-        <Paginated />
-        <GymCards />
+        <GymCards/>
+        <Paginated/>
       </div>
     );
   }
 
   // Esto es una para cliente empresa
-  if (type === "partner") {
+  /* if (type === "partner") {
     return (
       <div>
         <NavBarProfile />
@@ -76,10 +77,10 @@ export default function HomeMain() {
         <h4>Promociones y descuentos</h4>
       </div>
     );
-  }
+  } */
 
   // Esto es una para un administrador de sitio
-  if (type === "admin") {
+ /*  if (type === "admin") {
     return (
       <div>
         <NavBarProfile />
@@ -95,5 +96,5 @@ export default function HomeMain() {
         <h3>Una vista como partner</h3>
       </div>
     );
-  }
+  } */
 }

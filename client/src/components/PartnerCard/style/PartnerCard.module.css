@@ -2,7 +2,7 @@
     padding: 0px;
 } */
 
-.box-single-card-2 {
+.boxSingleCard2 {
     border: 2px solid #fe09d9;
     top: 0px;
     background-color: #FFE35E;
@@ -23,7 +23,7 @@
     align-items: center;
     justify-content: center;
 }
-.image-card-2 {
+.imageCard2 {
     position: absolute;
     bottom: 0;
     left: 3px;
@@ -35,7 +35,7 @@
     min-height: 95%;
     max-height: 98%;
 }
-.box-card-2 {
+.boxCard2 {
     padding: 0px;
     border: 0px;
     margin: 0px;
@@ -48,7 +48,5 @@
     max-width: 100%;
     min-height: 50%;
     max-height: 50%;
-
-   
 
 }

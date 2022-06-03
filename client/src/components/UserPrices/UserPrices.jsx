@@ -1,6 +1,6 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import style from "./styles/UserPrices.module.css";
 import NavBar from "../NavBar/NavBar";
 

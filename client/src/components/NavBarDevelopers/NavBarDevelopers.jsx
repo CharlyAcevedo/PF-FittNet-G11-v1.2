@@ -4,8 +4,8 @@ export default function NavBarDevelopers() {
     // Si necesitan pasar un id, lo pueden busacar en la db y dejarlo hardcodeado   
     
     return (
-        <div className="navBarDevelopers">
-            <ul className="list-navBar-developers">
+        <div>
+            <ul>
                 <a style={{padding: "10px" }} href="/">Inicio</a>
                 <a style={{padding: "10px" }} href="/legendCe">LegendaCe</a>   
                 <a style={{padding: "10px" }} href="/legendUf">LegendaUf</a>

@@ -1,0 +1,105 @@
+.cont {
+  color: aliceblue;
+  background-color: aqua;
+}
+/* 
+.labelCurrentPage {
+  position: relative;
+  float: left;
+}
+
+.currentPageInput {
+  background-color: azure;
+  position: relative;
+  float: right;
+  width: 2em;
+  height: 3.5vh;
+  line-height: 3vh;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: inset;
+  margin-top: 0.1em;
+}
+
+.paginatedContainer {
+  display: inline-block;
+  background-color: azure;
+  border-radius: 5px;
+  height: 4.5vh;
+  padding-top: 0;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  list-style: none;
+  border-width: 2px;
+  border-style: inset;
+  margin-top: 0.1em;
+}
+
+.btnPaginated {
+  float: left;
+  text-decoration: none;
+}
+
+.btnPrimary:hover {
+  background: linear-gradient(
+    120deg,
+    #f0e8d7ed 0%,
+    #fffcf5 44%,
+    #f0e8d7ed 100%
+  );
+  box-shadow: 1px 1px 1px #41381c;
+}
+
+.btnPrimaryActive {
+  background: linear-gradient(60deg, #f0e8d7ed 0%, #f3e7cb 44%, #f0e8d7ed 100%);
+  box-shadow: 2px 2px 2px #41381c;
+  border-radius: 5px;
+  min-width: 1.8em;
+  border: none;
+  height: 3.2vh;
+  margin: 0 0.2em;
+}
+
+.btnPrevNext {
+  background: linear-gradient(45deg, #f0e8d7ed 0%, #fffcf5 44%, #f0e8d7ed 100%);
+  border-radius: 5px;
+  min-width: 1.8em;
+  border: none;
+  height: 3.2vh;
+  margin: 0 0.1em;
+  margin-top: 0.2em;
+  min-width: 2em;
+}
+
+.selectPage {
+  border: none;
+  margin-top: 0.2em;
+  height: 3.5vh;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: inset;
+}
+
+@media (max-width: 700px) {
+  .btnNumber {
+    background: linear-gradient(
+      45deg,
+      #f0e8d7ed 0%,
+      #fffcf5 44%,
+      #f0e8d7ed 100%
+    );
+    border-radius: 5px;
+    min-width: 1.8em;
+    border: none;
+    height: 3.2vh;
+    margin: 0 0.1em;
+    display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .toShow_selector {
+    display: none;
+  }
+}
+ */
