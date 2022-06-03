@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage, setPageNumber, setCurrentLimit } from '../../redux/actions/index'
-import leftArrows from '../../asets/icons/leftArrows.svg';
-import rightArrows from '../../asets/icons/rightArrows.svg';
-import firstPage from '../../asets/icons/firstPage.svg';
-import lastPage from '../../asets/icons/lastPage.svg';
-import './styles/paginated.css'
-
+import {
+  setCurrentPage,
+  setPageNumber,
+  setCurrentLimit,
+} from "../../redux/actions/index";
+import leftArrows from "../../asets/icons/leftArrows.svg";
+import rightArrows from "../../asets/icons/rightArrows.svg";
+import firstPage from "../../asets/icons/firstPage.svg";
+import lastPage from "../../asets/icons/lastPage.svg";
+import style from "./styles/paginated.module.css";
 
 export default function Paginated() {
-
   const dispatch = useDispatch();
 
   const defaultRecipesXPage = useSelector((state) => state.currentLimit);
 
   const gymsToShow = useSelector((state) => state.gymsToShow);
-  const currentPage = useSelector((state) => state.currentPage)
+  const currentPage = useSelector((state) => state.currentPage);
 
   const [recipesXPage, setRecipesXPage] = useState(defaultRecipesXPage);
 
@@ -28,19 +30,19 @@ export default function Paginated() {
     const payload = {
       currentPage: currentPage,
       offset: offset,
-      limit: limit
-    }
-    dispatch(setCurrentPage(payload))// eslint-disable-next-line
-  },[])
+      limit: limit,
+    };
+    dispatch(setCurrentPage(payload)); // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     const payload = {
       currentPage: currentPage,
       offset: offset,
-      limit: limit
-    }
-    dispatch(setCurrentPage(payload))
-  },[dispatch, offset, limit, currentPage])
+      limit: limit,
+    };
+    dispatch(setCurrentPage(payload));
+  }, [dispatch, offset, limit, currentPage]);
 
   const defaultButtonsPerPage = 6;
   const halfPages = Math.ceil(defaultButtonsPerPage / 2);
@@ -73,7 +75,7 @@ export default function Paginated() {
       return totalPages - defaultButtonsPerPage + 1;
     }
   })();
-  
+
   const pages = [];
   for (let i = initButton; i <= maxButtons; i++) {
     pages.push(i);
@@ -83,66 +85,68 @@ export default function Paginated() {
     const payload = {
       currentPage: pageNumber,
       offset: 0,
-      limit: recipesXPage
-    }
+      limit: recipesXPage,
+    };
     dispatch(setCurrentPage(payload));
   };
 
   const nextPage = () => {
-    if(currentPage === totalPages) return
+    if (currentPage === totalPages) return;
     if (currentPage < gymsToShow.length) {
       dispatch(setPageNumber(currentPage + 1));
     }
   };
   const prevPage = () => {
-    if(currentPage === 1) return
+    if (currentPage === 1) return;
     if (currentPage !== 1) {
       dispatch(setPageNumber(currentPage - 1));
     }
   };
 
   const handlelastPage = () => {
-    if(currentPage === totalPages) return
+    if (currentPage === totalPages) return;
     dispatch(setPageNumber(totalPages));
   };
 
   const handleFirstPage = () => {
-    if(currentPage === 1) return
+    if (currentPage === 1) return;
     dispatch(setPageNumber(1));
   };
 
-
   function handlePageSelect(e) {
     e.preventDefault();
-    dispatch(setPageNumber(1))
-    dispatch(setCurrentLimit(e.target.value))
+    dispatch(setPageNumber(1));
+    dispatch(setCurrentLimit(e.target.value));
     setRecipesXPage(e.target.value);
   }
 
   return (
-    <div className="general_container">
-      <section className="label_pagOf_container">
-        <div className="label_current_page">
-          Pag: <div className="current_page_input">{currentPage}</div>
+    <div className={style.cont}>
+      <h1>hola</h1>
+      {/* <section className={styles.labelPagOfContainer}>
+        <div className={styles.labelCurrentPage}>
+          Pag: <div className={styles.currentPageInput}>{currentPage}</div>
         </div>
-        <div className="label_current_page">
-          Of: <div className="current_page_input">{totalPages}</div>
+        <div className={styles.labelCurrentPage}>
+          Of: <div className={styles.currentPageInput}>{totalPages}</div>
         </div>
       </section>
-      <ul className="paginated_container">
-      <li className="btn_paginated btn_pn_container" onClick={() => handleFirstPage()}>
-          <button className="btn_primary btn_prev_next"><img src={firstPage} alt='last Page'/></button>
-          </li>
-        <li className="btn_paginated btn_pn_container" onClick={() => prevPage()}>
-          <button className="btn_primary btn_prev_next"><img src={leftArrows} alt='previous' /></button>
+      <ul className={styles.paginatedContainer}>
+        <li className={styles.btnPaginated} onClick={() => handleFirstPage()}>
+          <button className={styles.btnPrevNext}>
+            <img src={firstPage} alt="last Page" />
+          </button>
+        </li>
+        <li className={styles.btnPaginated} onClick={() => prevPage()}>
+          <button className={styles.btnPrevNext}>
+            <img src={leftArrows} alt="previous" />
+          </button>
         </li>
         {pages ? (
           pages.map((page) => (
-            <li className="btn_paginated btn_main_paginated" key={page}>
+            <li className={styles.btnPaginated} key={page}>
               <button
-                className={
-                  currentPage === page ? "btn_primary_active btn_number" : "btn_primary btn_number"
-                }
+                className={styles.btnNumber}
                 onClick={() => pagination(page)}
                 value={page}
               >
@@ -153,18 +157,22 @@ export default function Paginated() {
         ) : (
           <li></li>
         )}
-        <li className="btn_paginated btn_pn_container" onClick={() => nextPage()}>
-          <button className="btn_primary btn_prev_next"><img src={rightArrows} alt='next'/></button>
+        <li className={styles.btnPaginated} onClick={() => nextPage()}>
+          <button className={styles.btnPrevNext}>
+            <img src={rightArrows} alt="next" />
+          </button>
         </li>
-        <li className="btn_paginated btn_pn_container" onClick={() => handlelastPage()}>
-          <button className="btn_primary btn_prev_next"><img src={lastPage} alt='last Page'/></button>
-          </li>
+        <li className={styles.btnPaginated} onClick={() => handlelastPage()}>
+          <button className={styles.btnPrevNext}>
+            <img src={lastPage} alt="last Page" />
+          </button>
+        </li>
       </ul>
-      <section className="toShow_selector">
-        <label className="select_page_label">
+      <section className={styles.toShowSelector}>
+        <label className={styles.selectLageLabel}>
           Pages to show:{" "}
           <select
-            className="select_page"
+            className={styles.selectPage}
             value={recipesXPage}
             onChange={(e) => handlePageSelect(e)}
           >
@@ -177,7 +185,7 @@ export default function Paginated() {
             <option value="12">12</option>
           </select>
         </label>
-      </section>
+      </section> */}
     </div>
   );
 }

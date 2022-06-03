@@ -4,7 +4,7 @@ import HomeMain from "../components/Home/HomeMain";
 export default function Home() {
 
     return (
-        <div className="main_home_view">            
+        <div>            
             <HomeMain/>
         </div>
     )

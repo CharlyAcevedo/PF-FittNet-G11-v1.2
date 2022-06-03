@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles/AllRegister.module.css";
 import { regexPassword, regexEmail, regexName } from "../../asets/helpers/regexValidators"
+import {
+  BackgroundTwo,
+  BackgroundOne,
+} from "../../helpers/Backround/Background";
 
 export default function AllRegister() {
   const [name, setName] = useState("");
@@ -27,21 +31,21 @@ export default function AllRegister() {
     //Validamos los input antes de realizar el post,
     //se validan los campos completos y caracteristicas puntuales de los mismos.
     if (!name) {
-      return alert("El nombre es requerido");
-    } else if (!regexName.test(name)) {
-      return alert("El nombre es invalido");
-    } else if (!email) {
-      return alert("El Email es requerido");
-    } else if (!regexEmail.test(email)) {
-      return alert("Email invalido");
-    } else if (!password) {
-      return alert("Password requerida");
-    } else if (!regexPassword.test(password)) {
-      return alert(
-        "Contraseña invalida:Minimo 8 caracteres, Maximo 15, Al menos una letra mayuscula, una letra minuscula, un digito, sin espacios en blanco, Al menos un caracter esoecial"
-      );
-    } else if (!type) {
-      return alert("Debes seleccionar el tipo de cliente!");
+        return alert("El nombre es requerido");
+      } else if (!regexName.test(name)) {
+        return alert("El nombre es invalido");
+      } else if (!email) {
+        return alert("El Email es requerido");
+      } else if (!regexEmail.test(email)) {
+        return alert("Email invalido");
+      } else if (!password) {
+        return alert("Password requerida");
+      } else if (!regexPassword.test(password)) {
+        return alert(
+          "Contraseña invalida:Minimo 8 caracteres, Maximo 15, Al menos una letra mayuscula, una letra minuscula, un digito, sin espacios en blanco, Al menos un caracter esoecial"
+        );
+      } else if (!type) {
+        return alert("Debes seleccionar el tipo de cliente!");
     }
     //----------------------
     else {
@@ -49,6 +53,8 @@ export default function AllRegister() {
         name: name,
         username: email,
         password: password,
+        latitude: geoloc.lat,
+        longitude: geoloc.lng,
         type: type,
       };
 
@@ -58,24 +64,23 @@ export default function AllRegister() {
         .post("/api/service/register", userCreate)
         .then((res) => {
           console.log(res.data, "-> respuesta del post de creación de cuenta");
-
-          // if (res.data._id) {
-          if (typeof res.data === "string") {
+          // El nombre de usuario ya existe o es incorrecto, por favor indique otro username
+          //
+          if (res.data.created === true) {
             setName("");
             setPassword("");
             setError("");
             setEmail("");
-            
-            window.alert(`Su solicitud ha sido recibida y hemos enviado un correo de activación a su email`);
+
+            window.alert(res.data.message);
             return (window.location = "http://localhost:3000/login");
           }
-          if (res.data) {
+          if (res.data.created === false) {
+            window.alert(res.data.message);
             setName("");
-            setEmail("");
             setPassword("");
-            setError(res.data);
-            console.log(res.data);
-            window.alert(res.data);
+            setError("");
+            setEmail("");
           }
         })
         .catch((error) => console.log(error));
@@ -165,14 +170,9 @@ export default function AllRegister() {
             <div></div>
           </form>
         </div>
-        {/* screen background */}
-        <div className={`${styles.screenBackground}`}>
-          <span className={styles.shape4}></span>
-          <span className={styles.shape3}></span>
-          <span className={styles.shape2}></span>
-          <span className={styles.shape1}></span>
-        </div>
+        <BackgroundTwo />
       </div>
+      <BackgroundOne/>
     </div>
   );
 }

@@ -50,8 +50,8 @@ export default function IncomesGraph(){
       };
 
     return (
-        <div className={styles.main_container}>
-            <div className={styles.graph_container}>
+        <div className={styles.mainContainer}>
+            <div className={styles.graphContainer}>
             <h2>Grafica por Ingresos</h2>
             <Bar  data={data} options={options}/>
             </div>

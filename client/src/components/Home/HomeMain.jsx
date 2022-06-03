@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Logout from "../Logout/Logout";
 import SelecAvatar from "../SelectAvatar/SelectAvatar";
@@ -11,6 +11,8 @@ import { getAllGyms } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import IncomesGraph from "../Graphics/Incomes";
 import Paginated from "../paginated/paginated";
+import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
+import style from "./styles/homeMain.module.css"
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
@@ -19,6 +21,8 @@ export default function HomeMain() {
   // "user" con sin avatar o un "partner" o incluso un "admin"
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // dispachar la action ¿pero qué voy a escuchar??? No sé si sea userId
@@ -39,9 +43,13 @@ export default function HomeMain() {
         }}
       >
         <SelecAvatar />
-        <div style={{ display: "flex", flexDirection: "row", gap: "1.5rem" }}>
-          <Logout />
-          <a href="/">Volver</a>
+        <div
+          style={{
+            display: "grid",
+            alignItems: "center",
+          }}
+        >
+          <ButtonBack title="Volver" padding=".5rem 2rem" onClick={() => navigate('/')}/>
         </div>
       </div>
     );
@@ -50,16 +58,16 @@ export default function HomeMain() {
   // Esto es una vista para un usuario con avatar
   if (type === "user" && avatar) {
     return (
-      <div>
+      <div className={style.cont}>
         <NavBarProfile />
-        <Paginated />
-        <GymCards />
+        <GymCards/>
+        <Paginated/>
       </div>
     );
   }
 
   // Esto es una para cliente empresa
-  if (type === "partner") {
+  /* if (type === "partner") {
     return (
       <div>
         <NavBarProfile />
@@ -69,10 +77,10 @@ export default function HomeMain() {
         <h4>Promociones y descuentos</h4>
       </div>
     );
-  }
+  } */
 
   // Esto es una para un administrador de sitio
-  if (type === "admin") {
+ /*  if (type === "admin") {
     return (
       <div>
         <NavBarProfile />
@@ -88,5 +96,5 @@ export default function HomeMain() {
         <h3>Una vista como partner</h3>
       </div>
     );
-  }
+  } */
 }

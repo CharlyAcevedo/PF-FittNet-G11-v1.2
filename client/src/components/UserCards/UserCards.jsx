@@ -1,5 +1,6 @@
 import React from "react";
 import UserCard from "../UserCard/UserCard";
+import styles from "./style/UserCards.module.css"
 
 export default function UserCards() {
     var users = [
@@ -25,8 +26,8 @@ export default function UserCards() {
 
     return (
 
-        <div className="main-box-cards-2">
-            <div className="box-cards-2">
+        <div className={styles.mainBoxCards2}>
+            <div className={styles.boxCards2}>
                 <h2>Nuestros Clientes</h2>
                 {users.length ? users.map(g =>{
                     return (

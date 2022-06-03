@@ -1,6 +1,6 @@
 import React from "react";
 import PartnerCard from "../PartnerCard/PartnerCard";
-import './style/PartnerCards.css'
+import styles from './style/PartnerCards.module.css'
 
 
 export default function PartnerCards() {
@@ -18,8 +18,8 @@ export default function PartnerCards() {
 
     return (
 
-        <div className="main-box-cards-2">
-            <div className="box-cards-2">
+        <div className={styles.mainBoxCards2}>
+            <div className={styles.boxCards2}>
                 <h2>Nuestros Socios Comerciales</h2>
                 {partners.length ? partners.map(g =>{
                     return (

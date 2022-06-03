@@ -30,12 +30,12 @@ export default function GymDetail() {
         return (
             <div>
                 <h3>Vista detalle del gym</h3>
-                <div className="box-single-card">
+                <div>
                     <h2>{gymDetail.name}</h2>           
-                    <div className="box-card">
+                    <div>
                         <h4>☆ {gymDetail.raiting}</h4>
                         <h3>$ {gymDetail.price}</h3>                
-                        <img className="image-card" src={gymDetail.image} alt="logo" />
+                        <img src={gymDetail.image} alt="logo" />
                     </div>                
                 </div>
                 <button onClick={() => navigate(-1)}>Go back</button>
