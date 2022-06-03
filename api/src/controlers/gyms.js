@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const Gims = require('../models/Gyms');
 const Address = require('../models/Address');
+const Service = require('../models/Service');
 
 async function getAllGyms() {
     try {
         const response = await Gims.find({})
             .populate('address')
+            .populate('services')
         return response
     } catch (error) {
         console.log(error.message)
@@ -17,6 +19,7 @@ async function getGymById(id) {
     try {
         const response = await Gims.findById({ _id: id })
             .populate('address')
+            .populate('services')
         return response
     } catch (error) {
         console.log(error.message)
@@ -53,6 +56,8 @@ async function postGyms(gym) {
             price: gym.price,
             raiting: gym.raiting,
             image: gym.image,
+            latitude: gym.latitude,
+            longitude: gym.longitude,
             address: addressId,
             services: gym.services,
             trainers: gym.trainers,
@@ -69,8 +74,23 @@ async function postGyms(gym) {
     }
 }
 
-async function saveGyms(Gym) {
-    return "todavia no hay funcion para guardar cambios al gym"
+async function saveGyms(id, data) {
+
+    let newServices = await data.map(s => {
+        let sToPush = Service.findById({ _id: s })
+        return sToPush
+    })
+    let gymToUpdate = await Gims.updateOne({ 
+        _id: id 
+    },{
+        services: data,
+    });
+    let response = await Gims.findById({
+        _id: id,
+    })
+    .populate('address')
+    .populate('services')
+    return response
 }
 
 module.exports = { getAllGyms, postGyms, saveGyms, getGymById, getGymByName }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./styles/stylesButtons.module.css";
 
 //? Boton primario - es el boton principal con el tamaño normal

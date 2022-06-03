@@ -122,8 +122,8 @@ export default function Paginated() {
 
   return (
     <div className={style.cont}>
-      <h1>hola</h1>
-      {/* <section className={styles.labelPagOfContainer}>
+      <h1>Aca va el paginado</h1>
+       {/* <section className={styles.labelPagOfContainer}>
         <div className={styles.labelCurrentPage}>
           Pag: <div className={styles.currentPageInput}>{currentPage}</div>
         </div>
@@ -185,7 +185,7 @@ export default function Paginated() {
             <option value="12">12</option>
           </select>
         </label>
-      </section> */}
+      </section>  */}
     </div>
   );
 }
