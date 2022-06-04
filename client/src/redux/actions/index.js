@@ -154,9 +154,44 @@ export function getAllPartner() {
         type: GET_ALL_PARTNERS,
         payload: { error: err.message },
       });
-    };
+    }
   };
-};
+}
+
+export function getAllGyms() {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/partner/gyms/allgyms");
+      dispatch({
+        type: GET_ALL_GYMS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_ALL_GYMS,
+        payload: { error: err.message },
+      });
+    }
+  };
+}
+
+export function getGymDetail(id) {
+  return async (dispatch) => {
+    try {
+      // http://localhost:3001/api/partner/gyms/gymbyid/6292d5cb463de6e77bd44b50
+      const response = await axios.get(`/api/partner/gyms/gymbyid/${id}`);
+      dispatch({
+        type: GET_GYM_DETAIL,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_GYM_DETAIL,
+        payload: { error: err.message },
+      });
+    }
+  };
+}
 
 
 export function updatePartnerData({
@@ -209,41 +244,6 @@ export function getPartnerDetails() {
 };
 
 //------GYMS ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a gimnasios)
-
-export function getAllGyms() {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get("/api/partner/gyms/allgyms");
-      dispatch({
-        type: GET_ALL_GYMS,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: GET_ALL_GYMS,
-        payload: { error: err.message },
-      });
-    };
-  };
-};
-
-export function getGymDetail(id) {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get(`/api/partner/gymbyid/${id}`);
-      dispatch({
-        type: GET_GYM_DETAIL,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: GET_GYM_DETAIL,
-        payload: { error: err.message },
-      });
-    };
-  };
-};
-
 
 export function createGym({
   name,
