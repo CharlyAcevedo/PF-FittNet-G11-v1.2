@@ -1,3 +1,4 @@
+import { latBA, lngBA } from "../../asets/helpers/goeDefaults";
 import {
   GET_ALL_USERS,
   GET_ALL_PARTNERS,
@@ -15,9 +16,6 @@ import {
   PUT_USER_INFO,
 } from "../actions/actionTypes";
 
-const lat = -34.6154611;
-const lng = -58.5733843;
-
 const initialState = {
   users: [],
   user: {},
@@ -28,8 +26,8 @@ const initialState = {
     password: "",
     type: "",
     currentGeo: {
-      latitude: lat,
-      longitude: lng,
+      latitude: latBA,
+      longitude: lngBA,
     },
   },
   currentGymCreated: {},
@@ -59,8 +57,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
         currentUserDetails: {
           ...state.currentUserDetails,
           currentGeo: {
-            latitude: payload.latitude ? payload.latitude : lat,
-            longitude: payload.longitude ? payload.longitude : lng,
+            latitude: payload.latitude ? payload.latitude : latBA,
+            longitude: payload.longitude ? payload.longitude : lngBA,
           },
         },
       };

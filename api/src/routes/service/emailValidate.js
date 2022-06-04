@@ -15,6 +15,7 @@ const transporter = nodemailer.createTransport({
     tls: {
       rejectUnauthorized: false
     }
+
 });
 transporter.verify(()=>{
   console.log('Ready for send emails')

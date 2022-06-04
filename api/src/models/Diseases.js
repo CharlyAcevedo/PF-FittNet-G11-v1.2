@@ -6,8 +6,16 @@ const diseaseSchema = new mongoose.Schema({
         required: true,
     },
     trainlimits: {
-        type: Array,
-        //array de strings con los limitantes de entrenamiento o riesgos para entrenar
+        type: String,
+    },
+    considerations: {
+        type: String,        
+    },
+    emergenciCallTo: {
+        type: String,
+    },
+    emergenciPhone: {
+        type: Number,
     }
 })
 

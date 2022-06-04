@@ -1,4 +1,6 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserGeo } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles/AllRegister.module.css";
@@ -8,19 +10,45 @@ import {
   BackgroundOne,
 } from "../../helpers/Backround/Background";
 
-const lat = -34.6154611;
-const lng = -58.5733843;
+
 
 export default function AllRegister() {
+
+  const dispatch = useDispatch();
+  const geolocation = useSelector((state) => state.currentUserDetails.currentGeo)
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
   const [geoloc, setGeoloc] = useState({ 
-    lat: lat,
-    lng: lng,
+    lat: geolocation.latitude,
+    lng: geolocation.longitude,
    })
-  const [error, setError] = useState("");
+  const [error, setError] = useState("Mensaje de error");
+  const [disableSubmit, setDisableSubmit] = useState(true)
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        const payload = {
+          latitud: position.coords.latitude,
+          longitud: position.coords.longitude,
+        };
+        dispatch(setUserGeo(payload));
+        setGeoloc({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        })
+      },
+      function (error) {
+        console.log(error);
+      },
+      {
+        enableHighAccuracy: true,
+      }
+    ); // eslint-disable-next-line
+  }, []);
 
 
 
@@ -30,7 +58,6 @@ export default function AllRegister() {
 
     console.log("está saliendo el post ", userCreate);
 
-    e.preventDefault();
 
     //---------------------------------------------------------------------
     // La validación de los campos la hace la función validadora 
@@ -148,7 +175,7 @@ export default function AllRegister() {
                 name="name"
                 value={name}
                 className={styles.loginInput}
-                placeholder="Nombre"
+                placeholder="Escriba su Nombre..."
                 required
                 onChange={(e) => onChangeName(e)}
                 onClick={(e)=> onChangeName(e)}
@@ -160,7 +187,7 @@ export default function AllRegister() {
                 value={email}
                 name="email"
                 className={styles.loginInput}
-                placeholder="Email"
+                placeholder="Escriba un e-mail valido..."
                 required
                 onChange={(e) => onChangeEmail(e)}
               />
@@ -197,6 +224,7 @@ export default function AllRegister() {
               className={styles.loginSubmit}
               type="submit"
               value="Registrarse"
+              disabled={disableSubmit}
               onClick={(e) => onSubmit(e)}
             />
             <p>{error ? error : null}</p>

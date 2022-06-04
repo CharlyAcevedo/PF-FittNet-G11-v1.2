@@ -1,4 +1,7 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { getUserGoogleForToken } from "../../redux/actions/index";
 import {
   ButtonPrimary,
   ButtonSecondaryDeslice,
@@ -7,10 +10,7 @@ import {
   CardPromoBalance,
   CardPromoBulk,
 } from "./componentsLanding/componentsLanding.jsx";
-import { Link, useNavigate } from "react-router-dom";
-import { setUserGeo, getUserGoogleForToken } from "../../redux/actions/index";
 import style from "../Landing/styles/Landing.module.css";
-import { useDispatch, useSelector } from "react-redux";
 
 export default function LandingInfo() {
   const navigate = useNavigate();
@@ -22,22 +22,6 @@ export default function LandingInfo() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        const payload = {
-          latitud: position.coords.latitude,
-          longitud: position.coords.longitude,
-        };
-        dispatch(setUserGeo(payload));
-      },
-      function (error) {
-        console.log(error);
-      },
-      {
-        enableHighAccuracy: true,
-      }
-    ); 
-
     if (token) {
       dispatch(getUserGoogleForToken(token));
     }// eslint-disable-next-line
