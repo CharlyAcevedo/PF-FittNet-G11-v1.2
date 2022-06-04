@@ -1,9 +1,10 @@
 .mainBoxCards {
     /* margin-top: 5rem; */
-    border: 2px solid #FEAA09;
+    background-color: aqua;
     height: auto;
     width: 100%;
     text-decoration: none;
+    padding: 20px;
 }
 
 .boxCards {
@@ -13,4 +14,5 @@
     padding-bottom: 60px;
     padding-top: 40px;
     text-decoration: none;
+    padding: 20px;
 }
