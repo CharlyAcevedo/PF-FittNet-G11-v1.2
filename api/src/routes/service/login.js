@@ -12,18 +12,24 @@ router.post(
   }),
   function (req, res) {
    // console.log(req.session, " esto es req.session 120");
-   console.log(req.user, ' esto es req.user 121');
+   // console.log(req.user, ' esto es req.user 121');
     
-   let { id, name, type, avatar, active } = req.user;
-   // console.log(req.user, 'todo lo que puede responder el back')
-
-   // res.cookie('userId', id);
-
-   res.json({ login: true, userId: id, name, type, avatar, active });
- 
+   res.redirect('/api/service/authenticated');
+   
   }
-);
+  );
+  
+  router.get('/authenticated',  (req, res) => {
+    console.log(req.session, ' esto es req.session autenticado');
+    console.log(req.user, ' esto es req.user autenticado');
+    console.log(req.cookies,' esto es req.cookies autenticado');
+    console.log(req.signedCookies,' esto es req.signedCookies autenticado');
 
+    let { _id, name, type, avatar, active } = req.user;
+ 
+    res.json({ login: true, userId: _id, name, type, avatar, active })
+
+});
 
 router.get('/login',  (req, res) => {
     res.send('Email o contraseña incorrecta');

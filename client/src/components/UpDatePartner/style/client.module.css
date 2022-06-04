@@ -1,0 +1,18 @@
+.danger {
+    color: red;
+    font-size: 13px;
+}
+
+.inputdanger {
+    border: 2px solid red;
+}
+
+.div {
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    left: 50%;
+    top: 15%;
+    margin-top: -100px;
+    margin-left: -150px;
+}
