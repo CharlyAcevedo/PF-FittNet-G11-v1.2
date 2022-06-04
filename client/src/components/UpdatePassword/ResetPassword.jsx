@@ -55,7 +55,7 @@ export default function ResetPassword() {
         let object = { userName: userName }
         setValidation("Simulo el cambio del estado")
         console.log('envío el objeto al back la solicitud al back para enviar el correo electrónico');
-        axios.get('/api/updatepassword', { params: object } )
+       axios.get('/api/service/updatepassword', { params: object } )
         .then((response)=>{setUserId(response.data)})
         .catch((error)=>{console.log(error)})
     }
