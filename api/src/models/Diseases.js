@@ -5,18 +5,12 @@ const diseaseSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    trainlimits: {
+    trainlimits: { //limitantes de entrenamiento
         type: String,
     },
-    considerations: {
+    considerations: { //consideraciones especiales
         type: String,        
     },
-    emergenciCallTo: {
-        type: String,
-    },
-    emergenciPhone: {
-        type: Number,
-    }
 })
 
 module.exports = mongoose.model('Diseases', diseaseSchema)

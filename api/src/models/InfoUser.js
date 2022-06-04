@@ -10,10 +10,6 @@ const infoUserSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid Name`
         }
     },
-    username: {
-        type: String,
-        required: false,
-    },
     lastName: {
         type: String,
         required: false,
@@ -43,6 +39,12 @@ const infoUserSchema = new mongoose.Schema({
         type: Array,
         of:  mongoose.SchemaTypes.ObjectId,
         ref: "Diseases"
+    },
+    emergenciCallTo: { //contacto de emergencias
+        type: String,
+    },
+    emergenciPhone: { //numero para emergencias
+        type: Number,
     },
     address: {
         type: mongoose.SchemaTypes.ObjectId,
