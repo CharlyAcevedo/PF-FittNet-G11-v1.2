@@ -11,6 +11,8 @@ import {
   POST_USER_GOOGLE,
   GET_USER,
   POST_AVATAR,
+  GET_USER_TOKEN_GOOGLE,
+  PUT_USER_INFO,
 } from "../actions/actionTypes";
 
 const lat = -34.6154611;
@@ -26,10 +28,10 @@ const initialState = {
     password: "",
     type: "",
     currentGeo: {
-    latitude: lat,
-    longitude: lng
+      latitude: lat,
+      longitude: lng,
+    },
   },
-  },  
   currentGymCreated: {},
   gyms: [],
   gymsToShow: [],
@@ -42,7 +44,6 @@ const initialState = {
   currentPage: 1,
   errors: "",
 };
-
 
 export default function rootReducer(state = initialState, { type, payload }) {
   switch (type) {
@@ -82,23 +83,33 @@ export default function rootReducer(state = initialState, { type, payload }) {
           errors: payload.error,
         };
       }
-
       return {
         ...state,
         partners: payload,
         partnersToShow: payload,
       };
-    case "GET_USER_TOKEN_GOOGLE":
-      console.log(payload)
+    case GET_USER_TOKEN_GOOGLE:
+      if (payload.error) {
+        return {
+          ...state,
+          errors: payload.error,
+        };
+      }
       return {
         ...state,
-        user: payload
+        user: payload,
+      };
+    case PUT_USER_INFO:
+      if (payload.error) {
+        return {
+          ...state,
+          errors: payload.error,
+        };
       }
-    case "PUT_USERINFO":
       return {
         ...state,
         // user: {...state.user, info: payload}
-      }
+      };
     case GET_ALL_GYMS:
       if (payload.error) {
         return {
@@ -126,7 +137,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
         user: payload,
       };
     case GET_GYM_DETAIL:
-      if (payload.error) {
+      console.log(payload, 'gym detail' )
+      if (payload.error) {        
         return {
           ...state,
           errors: payload.error,

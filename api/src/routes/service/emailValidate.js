@@ -11,6 +11,9 @@ const transporter = nodemailer.createTransport({
     auth: {
         user: USER_ACCOUNT,
         pass: PASS_ACCOUNT
+    },
+    tls: {
+      rejectUnauthorized: false
     }
 });
 transporter.verify(()=>{
@@ -58,7 +61,7 @@ router.get('/email/activation/:userId/:secretToken/:userName/', async (req, res,
 router.get('/email/recovey/:userId/:secretToken/:userName', async (req, res, next) => {
   let { userId, secretToken, userName} = req.params;
   // Recordar que userName es un email
-  // console.log(req.params, 'el userID, el sercretToken y el userName')
+  console.log(req.params, 'el userID, el sercretToken y el userName')
   // http://localhost:3000/activation/ -> activación en el front
 
   // let verifitationLink = `http://localhost:3000/activation/${userId}/${secretToken}`

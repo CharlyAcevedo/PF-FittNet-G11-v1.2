@@ -1,8 +1,10 @@
-export const SET_USER_GEO = "SET_USER_GEO";
-export const GET_ALL_USERS = "GET_ALL_USERS";
-export const POST_USER = "POST_USER";
-export const GET_USER = "GET_USER";
-export const POST_USER_GOOGLE = "POST_USER_GOOGLE";
+export const SET_USER_GEO = 'SET_USER_GEO';
+export const GET_ALL_USERS = 'GET_ALL_USERS';
+export const POST_USER = 'POST_USER';
+export const GET_USER = 'GET_USER';
+export const POST_USER_GOOGLE = 'POST_USER_GOOGLE';
+export const GET_USER_TOKEN_GOOGLE = 'GET_USER_TOKEN_GOOGLE';
+export const PUT_USER_INFO = 'PUT_USER_INFO';
 
 export const GET_AVATARS = "GET_AVATARS";
 export const POST_AVATAR = "POST_AVATAR";

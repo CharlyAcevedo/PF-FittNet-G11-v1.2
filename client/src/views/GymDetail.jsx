@@ -31,10 +31,10 @@ export default function GymDetail() {
             <div>
                 <h3>Vista detalle del gym</h3>
                 <div>
-                    <h2>{gymDetail.name}</h2>           
+                    <h2>{}</h2>           
                     <div>
-                        <h4>☆ {gymDetail.raiting}</h4>
-                        <h3>$ {gymDetail.price}</h3>                
+                        <h4>☆ {}</h4>
+                        <h3>$ {}</h3>                
                         <img src={gymDetail.image} alt="logo" />
                     </div>                
                 </div>

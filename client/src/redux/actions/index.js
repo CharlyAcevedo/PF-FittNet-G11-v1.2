@@ -4,7 +4,9 @@ import {
   SET_USER_GEO,
   GET_ALL_USERS,
   POST_USER,
+  PUT_USER_INFO,
   GET_USER,
+  GET_USER_TOKEN_GOOGLE,
   GET_AVATARS,
   POST_AVATAR,
   GET_ALL_PARTNERS,
@@ -153,7 +155,8 @@ export function getAllGyms() {
 export function getGymDetail(id) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`/api/partner/gymbyid/${id}`);
+      // http://localhost:3001/api/partner/gyms/gymbyid/6292d5cb463de6e77bd44b50
+      const response = await axios.get(`/api/partner/gyms/gymbyid/${id}`);
       dispatch({
         type: GET_GYM_DETAIL,
         payload: response.data,
@@ -173,11 +176,14 @@ export const getUserGoogleForToken = (payload) => async dispatch => {
       token: payload
     })
     dispatch({
-      type: "GET_USER_TOKEN_GOOGLE",
+      type: GET_USER_TOKEN_GOOGLE,
       payload: userGoogle.data.user
     })
   } catch (error) {
-    console.log("error: ", error)
+    dispatch({
+      type: GET_USER_TOKEN_GOOGLE,
+      payload: { error: error.message },
+    });
   }
 }
 
@@ -347,7 +353,6 @@ export function createService({
   }
 }
 
-//};
 
 //? AQUI VA LA ACTUALIZACION DE LA INFO DEL USUARIO
 
@@ -355,7 +360,7 @@ export const updateUserInfo = (id, body) => async dispatch => {
   try {
     const dataNewUser = await axios.put(`/api/user/update/${id}`, body)
     dispatch({
-      type: "PUT_USERINFO",
+      type: PUT_USER_INFO,
       payload: dataNewUser.data.updUser
     })
   } catch (error) {

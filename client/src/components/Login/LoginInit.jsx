@@ -98,9 +98,7 @@ export default function LoginInit() {
       userLogin = { username: username, password: password };
 
       console.log("está saliendo el post ", userLogin);
-
-      //axios
-      // axios.post(url[, data[, config]])
+      
       axios({
         method: 'post',
         url: '/api/service/login',
@@ -109,7 +107,6 @@ export default function LoginInit() {
         withCredentials: true
       })
      
-        //.post("/api/service/login", userLogin)
         .then((res) => {
           console.log(res.data, "-> viendo qué respondio el post");
 
@@ -137,8 +134,12 @@ export default function LoginInit() {
           }
         })
         .catch((error) => console.log(error));
+
     }
+    if (!username && password) {setError("No olvide introducir su email");}
+    if (username && !password) {setError("No olvide introducir su contraseña");}
   }
+
 
   return (
     <div className={styles.container}>
@@ -180,18 +181,15 @@ export default function LoginInit() {
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
-            </div>
-
-            <p>{error === "" ? null : error}</p>
-
+            </div>           
             <input
               className={styles.loginSubmit}
               type="submit"
               value="Ingresar"
               onClick={(e) => onSubmit(e)}
             />
-            <div id="signInDiv" style={{ paddingTop: "1.5rem" }}></div>
-            {/* <button onClick={(e) => handleLogoutGoogle(e)}>Logout</button> */}
+            <div id="signInDiv" style={{ paddingTop: "1.5rem" }}></div>          
+            <p>{error === "" ? null : error}</p>
           </form>
         </div>
         <BackgroundTwo />
