@@ -193,60 +193,6 @@ export function getGymDetail(id) {
   };
 }
 
-export const getUserGoogleForToken = (payload) => async dispatch => {
-  try {
-    const userGoogle = await axios.post('/api/service/google/auth/profile', {
-      token: payload
-    })
-    dispatch({
-      type: GET_USER_TOKEN_GOOGLE,
-      payload: userGoogle.data.user
-    })
-  } catch (error) {
-    dispatch({
-      type: GET_USER_TOKEN_GOOGLE,
-      payload: { error: error.message },
-    });
-  }
-}
-
-//---------PAGINATED ACTIONS------------
-
-export function setCurrentPage(payload) {
-  return (dispatch) => {
-    try {
-      dispatch({
-        type: SET_CURRENT_PAGE,
-        payload: payload,
-      });
-    } catch (error) {
-      dispatch({
-        type: SET_CURRENT_PAGE,
-        payload: { error: error.message },
-      });
-    }
-  };
-}
-
-
-
-export function setPageNumber(payload) {
-  return (dispatch) => {
-    try {
-      dispatch({
-        type: SET_PAGE_NUMBER,
-        payload: payload,
-      });
-    } catch (error) {
-      dispatch({
-        type: SET_PAGE_NUMBER,
-        payload: { error: error.message },
-      });
-    }
-  };
-};
-
-
 export function updatePartnerData({
   name,
   lastName,
@@ -297,41 +243,6 @@ export function getPartnerDetails() {
 };
 
 //------GYMS ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a gimnasios)
-
-export function getAllGyms() {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get("/api/partner/gyms/allgyms");
-      dispatch({
-        type: GET_ALL_GYMS,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: GET_ALL_GYMS,
-        payload: { error: err.message },
-      });
-    };
-  };
-};
-
-export function getGymDetail(id) {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get(`/api/partner/gymbyid/${id}`);
-      dispatch({
-        type: GET_GYM_DETAIL,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: GET_GYM_DETAIL,
-        payload: { error: err.message },
-      });
-    };
-  };
-};
-
 
 export function createGym({
   name,
