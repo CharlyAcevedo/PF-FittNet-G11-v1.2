@@ -135,7 +135,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
         user: payload,
       };
     case GET_GYM_DETAIL:
-      if (payload.error) {
+      console.log(payload, 'gym detail' )
+      if (payload.error) {        
         return {
           ...state,
           errors: payload.error,

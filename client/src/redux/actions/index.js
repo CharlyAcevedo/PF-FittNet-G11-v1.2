@@ -154,7 +154,95 @@ export function getAllPartner() {
         type: GET_ALL_PARTNERS,
         payload: { error: err.message },
       });
-    };
+    }
+  };
+}
+
+export function getAllGyms() {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/partner/gyms/allgyms");
+      dispatch({
+        type: GET_ALL_GYMS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_ALL_GYMS,
+        payload: { error: err.message },
+      });
+    }
+  };
+}
+
+export function getGymDetail(id) {
+  return async (dispatch) => {
+    try {
+      // http://localhost:3001/api/partner/gyms/gymbyid/6292d5cb463de6e77bd44b50
+      const response = await axios.get(`/api/partner/gyms/gymbyid/${id}`);
+      dispatch({
+        type: GET_GYM_DETAIL,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_GYM_DETAIL,
+        payload: { error: err.message },
+      });
+    }
+  };
+}
+
+export const getUserGoogleForToken = (payload) => async dispatch => {
+  try {
+    const userGoogle = await axios.post('/api/service/google/auth/profile', {
+      token: payload
+    })
+    dispatch({
+      type: GET_USER_TOKEN_GOOGLE,
+      payload: userGoogle.data.user
+    })
+  } catch (error) {
+    dispatch({
+      type: GET_USER_TOKEN_GOOGLE,
+      payload: { error: error.message },
+    });
+  }
+}
+
+//---------PAGINATED ACTIONS------------
+
+export function setCurrentPage(payload) {
+  return (dispatch) => {
+    try {
+      dispatch({
+        type: SET_CURRENT_PAGE,
+        payload: payload,
+      });
+    } catch (error) {
+      dispatch({
+        type: SET_CURRENT_PAGE,
+        payload: { error: error.message },
+      });
+    }
+  };
+}
+
+
+
+export function setPageNumber(payload) {
+  return (dispatch) => {
+    try {
+      dispatch({
+        type: SET_PAGE_NUMBER,
+        payload: payload,
+      });
+    } catch (error) {
+      dispatch({
+        type: SET_PAGE_NUMBER,
+        payload: { error: error.message },
+      });
+    }
   };
 };
 
@@ -346,8 +434,6 @@ export function setCurrentPage(payload) {
   };
 }
 
-
-
 export function setPageNumber(payload) {
   return (dispatch) => {
     try {
@@ -380,9 +466,6 @@ export function setCurrentLimit(payload) {
   };
 }
 
-
-
-// };
 
 //? AQUI VA LA ACTUALIZACION DE LA INFO DEL USUARIO
 
