@@ -191,6 +191,7 @@ export default function LoginInit() {
             <div id="signInDiv" style={{ paddingTop: "1.5rem" }}></div>          
             <p>{error === "" ? null : error}</p>
           </form>
+          <a href="/resetpassword" style={{padding: "1.5rem", color: "#fff" }}>Olvidé mi contraseña</a>
         </div>
         <BackgroundTwo />
       </div>
