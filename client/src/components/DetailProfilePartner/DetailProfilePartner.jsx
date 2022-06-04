@@ -17,7 +17,7 @@ export default function DetailProfilePartner() {
     return (
         
         <div>
-            <NavBarProfile/> 
+            {/* <NavBarProfile/>  */}
             <p>Id: {id}, name: {name} </p>
             <p>Typo: {type}</p>
             <br />
@@ -36,15 +36,16 @@ export default function DetailProfilePartner() {
             <br />
             <p>Siguitene 2</p>
             <br />
-            <p>Siguitene 3</p>
+            <a style={{color: "#fff"}} href={`/home/modificacion/${type}/${name}/${userId}`}>Editar mi perfil</a>
             <br />
-            <p>Siguitene 4</p>
             <br />
-            <a href={`/updatepassword/${userId}`}>Cambiar mi contraseña</a>
+            <a style={{color: "#fff"}} href={`/updatepassword/${userId}`}>Cambiar mi contraseña</a>
+            <br />
             <br /> 
-            <a href={`/deactivate/${userId}`}>Borra mi cuenta</a>
+            <a style={{color: "#fff"}} href={`/deactivate/${userId}`}>Borra mi cuenta</a>
             <br />
-            <a href='/'>Volver</a>
+            <br />
+            <a style={{color: "#fff"}} href='/'>Volver</a>
         </div>
         
 
