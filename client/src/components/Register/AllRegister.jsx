@@ -65,7 +65,7 @@ export default function AllRegister() {
     // y no tengo errores(seteados por la función validadora), entonces 
     // creo el objeto y hago el post al back.
     //--------------------------------------------------------------------
-    if (!error && name && password && type) {
+    if (error === "" && name && password && type) {
       userCreate = {
         name: name,
         username: email,
