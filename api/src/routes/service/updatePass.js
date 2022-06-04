@@ -75,7 +75,7 @@ router.get('/updatepassword', async (req, res, next) => {
 
     // debo enviar el correo electrónico con el secret    
     // router.get('/email/:userId/:secretToken/:userName',
-    res.redirect(`/api/service/email/recovey/${user._id}/${user.secretToken}/${userName}`);
+    res.redirect(`/api/email/recovey/${user._id}/${user.secretToken}/${userName}`);
  
 
 })

@@ -42,7 +42,7 @@ export default function UpdatePasword () {
             // Enviar formulario luego de esta línea
             console.log(formUpdate, "se envía el formulario")
 
-            axios.post('/api/service/updatepassword', formUpdate )
+            axios.post('/api/updatepassword', formUpdate )
             .then((response)=>{
               console.log(response.data)              
               window.alert(response.data)
