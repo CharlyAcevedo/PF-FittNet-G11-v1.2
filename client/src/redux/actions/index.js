@@ -193,6 +193,7 @@ export function getGymDetail(id) {
   };
 }
 
+
 export function updatePartnerData({
   name,
   lastName,
@@ -345,6 +346,8 @@ export function setCurrentPage(payload) {
   };
 }
 
+
+
 export function setPageNumber(payload) {
   return (dispatch) => {
     try {
@@ -377,6 +380,9 @@ export function setCurrentLimit(payload) {
   };
 }
 
+
+
+// };
 
 //? AQUI VA LA ACTUALIZACION DE LA INFO DEL USUARIO
 
