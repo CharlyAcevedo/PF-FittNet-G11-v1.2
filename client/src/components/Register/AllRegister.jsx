@@ -233,7 +233,8 @@ export default function AllRegister() {
             />
             <br />
             <br />
-            <h5 className={error ? styles.alerText : null}>{error ? error : null}</h5>
+            {/* <h5 className={error ? styles.alerText : null}>{error ? error : null}</h5> */}
+            <p>{error ? error : null}</p>
             <div></div>
           </form>
         </div>
