@@ -38,14 +38,15 @@ const infoUserSchema = new mongoose.Schema({
     },
     photo: {
         type: String,
-    },  
+    },
+    diseases: {
+        type: Array,
+        of:  mongoose.SchemaTypes.ObjectId,
+        ref: "Diseases"
+    },
     address: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Address"
-    },
-    avatar: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: "Avatar"
     },
     createdAt: {
         type: Date,

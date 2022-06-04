@@ -10,8 +10,11 @@ const transporter = nodemailer.createTransport({
     secure: true,
     auth: {
         user: USER_ACCOUNT,
-        pass: PASS_ACCOUNT
-    }
+        pass: PASS_ACCOUNT,
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
 });
 transporter.verify(()=>{
   console.log('Ready for send emails')
