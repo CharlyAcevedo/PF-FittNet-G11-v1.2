@@ -70,7 +70,6 @@ export default function HomeMain() {
   if (type === "user" && avatar) {
     return (
       <div className={style.cont}>
-        <NavBarProfile />
         <GymCards/>
         <Paginated />
       </div>
