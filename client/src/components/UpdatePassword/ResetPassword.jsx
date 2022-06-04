@@ -41,7 +41,7 @@ export default function ResetPassword() {
 
   const [userName, setuserName] = useState("");
   const [secretToken, setSecretToken] = useState("");
-  const [validation, setValidation] = useState(""); // La tengo si el usuario confima el
+  const [validation, setValidation] = useState(false); // La tengo si el usuario confima el
   // electrónico que le vamos a enviar a su casilla de correo
   const [userId, setUserId] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -53,10 +53,15 @@ export default function ResetPassword() {
     e.preventDefault();
     if(!error && userName && !newPassword && !copyNewPassword) {
         let object = { userName: userName }
-        setValidation("Simulo el cambio del estado")
         console.log('envío el objeto al back la solicitud al back para enviar el correo electrónico');
-       axios.get('/api/service/updatepassword', { params: object } )
-        .then((response)=>{setUserId(response.data)})
+        axios.get('/api/service/updatepassword', { params: object } )
+        .then((response)=> {
+          if(response.data.message) {
+            return window.alert(response.data.message)
+          }
+          setUserId(response.data);
+          setValidation(true);
+        })
         .catch((error)=>{console.log(error)})
     }
   }
@@ -89,7 +94,7 @@ export default function ResetPassword() {
     }
   }
 
-  if (validation === "") {
+  if (validation === false) {
     return (
       <div>
           <form >
@@ -107,7 +112,7 @@ export default function ResetPassword() {
     )
   }
 
-  if (validation !== "") {
+  if (validation === true) {
     return (
         <div>
             <form >
