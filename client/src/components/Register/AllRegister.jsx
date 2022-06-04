@@ -50,22 +50,36 @@ export default function AllRegister() {
     ); // eslint-disable-next-line
   }, []);
 
-
-
+  
 
   function onSubmit(e) {
     let userCreate;
 
     console.log("está saliendo el post ", userCreate);
 
-
-    //---------------------------------------------------------------------
-    // La validación de los campos la hace la función validadora 
-    // llamada desde cada input. Luego si tengo todos los campos completos 
-    // y no tengo errores(seteados por la función validadora), entonces 
-    // creo el objeto y hago el post al back.
-    //--------------------------------------------------------------------
-    if (!error && name && password && type) {
+    e.preventDefault();
+    //------------------------
+    //Validamos los input antes de realizar el post,
+    //se validan los campos completos y caracteristicas puntuales de los mismos.
+    if (!name) {
+        return alert("El nombre es requerido");
+      } else if (!regexName.test(name)) {
+        return alert("El nombre es invalido");
+      } else if (!email) {
+        return alert("El Email es requerido");
+      } else if (!regexEmail.test(email)) {
+        return alert("Email invalido");
+      } else if (!password) {
+        return alert("Password requerida");
+      } else if (!regexPassword.test(password)) {
+        return alert(
+          "Contraseña invalida:Minimo 6 caracteres, Maximo 15, Al menos una letra mayuscula, una letra minuscula, un número, sin espacios en blanco, Al menos un caracter esoecial"
+        );
+      } else if (!type) {
+        return alert("Debes seleccionar el tipo de cliente!");
+    }
+    //----------------------
+    else {
       userCreate = {
         name: name,
         username: email,
@@ -104,49 +118,6 @@ export default function AllRegister() {
     }
   }
 
-  function onChangeName (e) {
-    setName(e.target.value); 
-    if (name.length < 3 ) {
-      setError("El nombre es requerido");
-    } else if (!regexName.test(name)) {
-      setError("El nombre debe contener letras");
-    } else {
-      setError("");
-    }
-  }
-
-  function onChangeEmail(e) {
-    setEmail(e.target.value);
-    if (email.length < 3) {
-      setError("El Email es requerido");
-
-    } else if (!regexEmail.test(email)) {
-      setError("Email invalido");
-    } else {
-      setError("");
-    }
-  }
-
-  function onChangePassword (e) {
-    setPassword(e.target.value);    
-    if (password.length < 2) {
-      setError("Necesita introducir una contraseña");
-    } else if (password.length < 3) { 
-      setError("La constraseña debe tener un mínimo de tres caracteres");
-    } else {
-      setError("Recuerde seleccionar el tipo de usuario");
-    }
-  }
-
-  function onChangeType (e) {
-    setType(e.target.value);    
-
-    setError("");
-    
-  }
-
-
-
   return (
     <div className={styles.container}>
       <div className={styles.screen}>
@@ -177,8 +148,7 @@ export default function AllRegister() {
                 className={styles.loginInput}
                 placeholder="Escriba su Nombre..."
                 required
-                onChange={(e) => onChangeName(e)}
-                onClick={(e)=> onChangeName(e)}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className={styles.loginField}>
@@ -189,7 +159,7 @@ export default function AllRegister() {
                 className={styles.loginInput}
                 placeholder="Escriba un e-mail valido..."
                 required
-                onChange={(e) => onChangeEmail(e)}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className={styles.loginRield}>
@@ -200,17 +170,17 @@ export default function AllRegister() {
                 className={styles.loginInput}
                 placeholder="Contraseña"
                 required
-                onChange={(e) => onChangePassword(e)}
-                onClick={(e)=> onChangePassword(e)}
+                onChange={(e) => setPassword(e.target.value)}
               />
-            </div>           
+            </div>
+            <br />           
             <div className={styles.loginRield}>
               <select
                 name="select"
                 onChange={(e) =>
                   e.target.value === "Tipo de cliente"
                     ? null
-                    : onChangeType(e)
+                    : setType(e.target.value)
                 }
               >
                 <option value="Tipo de cliente">Tipo de cliente</option>
@@ -227,7 +197,9 @@ export default function AllRegister() {
               disabled={disableSubmit}
               onClick={(e) => onSubmit(e)}
             />
-            <p>{error ? error : null}</p>
+            <br />
+            <br />
+            <h5 className={error ? styles.alerText : null}>{error ? error : null}</h5>
             <div></div>
           </form>
         </div>
