@@ -19,7 +19,6 @@ export default function DetailProfileUser() {
     return (
         
         <div>
-            <NavBarProfile/> 
             <p>Id: {userId}, name: {name} </p>
             <p>Typo: {type}</p>
             <br />
@@ -45,6 +44,7 @@ export default function DetailProfileUser() {
             <a href={`/updatepassword/${userId}`}>Cambiar mi contraseña</a>
             <br /> 
             <a href={`/deactivate/${userId}`}>Borra mi cuenta</a>
+            <a href={`/home/modificacion/${type}/${name}/${userId}`}>Modificar usuario</a>
             <br />
             <a href='/'>Volver</a>
         </div>
