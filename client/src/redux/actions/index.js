@@ -15,10 +15,12 @@ import {
   SET_CURRENT_PAGE,
   SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT,
-  POST_GYM, POST_SERVICES, POST_PARTNER
+  POST_GYM, 
+  POST_SERVICES, 
+  POST_PARTNER,
 } from "./actionTypes";
 
-//------USER ACTIONS------
+//------USER SERVICE ACTIONS------(favor de poner todas las aciones referentes a service en general todos los usuarios aqui)
 
 export function setUserGeo(payload) {
   return async (dispatch) => {
@@ -32,57 +34,8 @@ export function setUserGeo(payload) {
         type: SET_USER_GEO,
         payload: { error: err.message },
       });
-    }
+    };
   };
-}
-
-export function getAllUsers() {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get("/api/user/all");
-      dispatch({
-        type: GET_ALL_USERS,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: GET_ALL_USERS,
-        payload: { error: err.message },
-      });
-    }
-  };
-}
-
-export function postUser(payload) {
-  return async (dispatch) => {
-    try {
-      const response = await axios.post("/api/service/register", payload);
-      dispatch({
-        type: POST_USER,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: POST_USER,
-        payload: { error: err.message },
-      });
-    }
-  };
-}
-
-export const postAvatar = (id, body) => async (dispatch) => {
-  try {
-    const dataUdpateAvatar = await axios.put(`/api/user/avatar/${id}`, body);
-    dispatch({
-      type: POST_AVATAR,
-      payload: dataUdpateAvatar.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: POST_AVATAR,
-      payload: { error: error.message },
-    });
-  }
 };
 
 export const getUser = (id) => async (dispatch) => {
@@ -98,8 +51,78 @@ export const getUser = (id) => async (dispatch) => {
       type: GET_USER,
       payload: { error: error.message },
     });
-  }
+  };
 };
+
+export function getAllUsers() {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/user/all");
+      dispatch({
+        type: GET_ALL_USERS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_ALL_USERS,
+        payload: { error: err.message },
+      });
+    };
+  };
+};
+
+export function postUser(payload) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post("/api/service/register", payload);
+      dispatch({
+        type: POST_USER,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: POST_USER,
+        payload: { error: err.message },
+      });
+    };
+  };
+};
+
+export const getUserGoogleForToken = (payload) => async dispatch => {
+  try {
+    const userGoogle = await axios.post('/api/service/google/auth/profile', {
+      token: payload
+    })
+    dispatch({
+      type: GET_USER_TOKEN_GOOGLE,
+      payload: userGoogle.data.user
+    })
+  } catch (error) {
+    dispatch({
+      type: GET_USER_TOKEN_GOOGLE,
+      payload: { error: error.message },
+    });
+  };
+};
+
+
+//------AVATARS ACTIONS------(Favor de poner aqui todas las aciones referentes a los avatares)
+
+export const postAvatar = (id, body) => async (dispatch) => {
+  try {
+    const dataUdpateAvatar = await axios.put(`/api/user/avatar/${id}`, body);
+    dispatch({
+      type: POST_AVATAR,
+      payload: dataUdpateAvatar.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: POST_AVATAR,
+      payload: { error: error.message },
+    });
+  };
+};
+
 
 export const getAvatars = () => async (dispatch) => {
   try {
@@ -113,10 +136,10 @@ export const getAvatars = () => async (dispatch) => {
       type: GET_AVATARS,
       payload: { error: error.message },
     });
-  }
+  };
 };
 
-//------PARTNER AND GYMS ACTIONS------
+//------PARTNER ACTIONS------(Favor de poner aqui todas las aciones para partners)
 
 export function getAllPartner() {
   return async (dispatch) => {
@@ -221,23 +244,8 @@ export function setPageNumber(payload) {
       });
     }
   };
-}
+};
 
-export function setCurrentLimit(payload) {
-  return (dispatch) => {
-    try {
-      dispatch({
-        type: SET_CURRENT_LIMIT,
-        payload: payload,
-      });
-    } catch (error) {
-      dispatch({
-        type: SET_CURRENT_LIMIT,
-        payload: { error: error.message },
-      });
-    }
-  };
-}
 
 export function updatePartnerData({
   name,
@@ -254,8 +262,8 @@ export function updatePartnerData({
   idName,
   id,
 }) {
-  try {
-    return async function (dispatch) {
+  return async (dispatch) => {
+    try {
       const result = await axios.post("ruta", {
         name: name,
         lastName: lastName,
@@ -275,12 +283,57 @@ export function updatePartnerData({
         type: POST_PARTNER,
         payload: result.data,
       });
+    } catch  (error) {
+      dispatch({
+        type: POST_PARTNER,
+        payload: { error: error.message },
+      });
     };
-  } catch (error) {
-    console.log(error);
-  }
-}
-export function createDateGym({
+  };
+};
+
+export function getPartnerDetails() {
+
+};
+
+//------GYMS ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a gimnasios)
+
+export function getAllGyms() {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/partner/gyms/allgyms");
+      dispatch({
+        type: GET_ALL_GYMS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_ALL_GYMS,
+        payload: { error: err.message },
+      });
+    };
+  };
+};
+
+export function getGymDetail(id) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`/api/partner/gymbyid/${id}`);
+      dispatch({
+        type: GET_GYM_DETAIL,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_GYM_DETAIL,
+        payload: { error: err.message },
+      });
+    };
+  };
+};
+
+
+export function createGym({
   name,
   price,
   raiting,
@@ -296,8 +349,8 @@ export function createDateGym({
   idName,
   id,
 }) {
-  try {
-    return async function (dispatch) {
+  return async (dispatch) => {
+    try {
       const result = await axios.post("ruta", {
         name: name,
         price: price,
@@ -318,11 +371,17 @@ export function createDateGym({
         type: POST_GYM,
         payload: result.data,
       });
-    };
-  } catch (error) {
-    console.log(error);
-  }
+    } catch (error) {
+      dispatch({
+        type: POST_GYM,
+        payload: { error: error.message },
+      });
+    }
+  };
 }
+
+//------SERVICE ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a servicios)
+
 export function createService({
   name,
   description,
@@ -332,8 +391,9 @@ export function createService({
   image,
   objtrainers,
 }) {
+  return async (dispatch) => { 
   try {
-    return async function (dispatch) {
+    
       const result = await axios.post("ruta", {
         name: name,
         description: description,
@@ -347,10 +407,63 @@ export function createService({
         type: POST_SERVICES,
         payload: result.data,
       });
-    };
+   
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: POST_SERVICES,
+      payload: { error: error.message },
+    });
   }
+} }
+
+//---------PAGINATED ACTIONS------------
+
+export function setCurrentPage(payload) {
+  return (dispatch) => {
+    try {
+      dispatch({
+        type: SET_CURRENT_PAGE,
+        payload: payload,
+      });
+    } catch (error) {
+      dispatch({
+        type: SET_CURRENT_PAGE,
+        payload: { error: error.message },
+      });
+    }
+  };
+}
+
+export function setPageNumber(payload) {
+  return (dispatch) => {
+    try {
+      dispatch({
+        type: SET_PAGE_NUMBER,
+        payload: payload,
+      });
+    } catch (error) {
+      dispatch({
+        type: SET_PAGE_NUMBER,
+        payload: { error: error.message },
+      });
+    }
+  };
+}
+
+export function setCurrentLimit(payload) {
+  return (dispatch) => {
+    try {
+      dispatch({
+        type: SET_CURRENT_LIMIT,
+        payload: payload,
+      });
+    } catch (error) {
+      dispatch({
+        type: SET_CURRENT_LIMIT,
+        payload: { error: error.message },
+      });
+    }
+  };
 }
 
 
