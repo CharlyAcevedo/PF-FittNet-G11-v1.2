@@ -6,34 +6,36 @@ import styles from "./styles/form.module.css";
 import { updateUserInfo } from "../../redux/actions/index";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import MapUser from "../MapsAndGeo/MapUser";
 
 export default function FormUser() {
   const navigate = useNavigate();
 
   const { userId } = useParams();
 
-  const user = useSelector((state) => state.user);
-
-  console.log(user);
+  const user = useSelector((state) => state.currentUserDetails);
 
   const dispatch = useDispatch();
 
+
+
   const [input, setInput] = useState({
-    username: "",
+    name: user.name,
+    username: user.username,
     // avatar: "",
-    lastname: "",
-    phone: "",
-    birthday: "",
-    gender: "",
-    photo: "",
-    street: "",
-    floor: "",
-    address: "",
-    apartment: "",
-    neighborhood: "",
-    city: "",
-    country: "",
-    zipCode: "",
+    lastname: user.lastname,
+    phone: user.phone,
+    birthday: user.birthday,
+    gender: user.gender,
+    photo: user.photo,
+    street: user.street,
+    floor: user.floor,
+    address: user.address,
+    apartment: user.apartment,
+    neighborhood: user.neighborhood,
+    city: user.city,
+    country: user.country,
+    zipCode: user.zipCode,
   });
 
   const [error, setError] = useState({});
@@ -115,8 +117,6 @@ export default function FormUser() {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(input);
-    //dispatch(accion(input))
-    //alert('')
     console.log("entro aqui");
     dispatch(updateUserInfo(userId, input));
     // setInput({
@@ -149,8 +149,11 @@ export default function FormUser() {
 
   return (
     <div>
+      <h1>Datos del Usuario</h1>
+    <p>Aqui puedes completar los datos de tu información personal, esta información es muy importante para nosotros 
+      <br/>tanto como lo es para tí, es por eso que la tratarémos con la mayor confidencialidad y discreción, 
+      <br/>puedes consultar nuestro anuncio de privacidad aqui</p>
       <form>
-        <h1>FORM USER</h1>
         <div>
           {/* <label>NAME: </label>
                     <input  type= "text" name= "name" onChange= {(e)=>handleOnChange(e)}/>
@@ -243,9 +246,9 @@ export default function FormUser() {
           </div>
           <div>
             {!input.photo ? (
-              <img src={avatar} width="200px" />
+              <img src={avatar} width="200px" alt="avatar"/>
             ) : (
-              <img src={input.photo} width="200px" />
+              <img src={input.photo} width="200px" alt="tu foto" />
             )}
             {input.photo && (
               <button type="button" onClick={() => handleDelete()}>
@@ -254,6 +257,9 @@ export default function FormUser() {
             )}
           </div>
           <div>
+            <section>
+              <MapUser />
+            </section>
             <label>ADDRESS: </label>
 
             <input

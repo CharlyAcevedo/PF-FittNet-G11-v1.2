@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./style/client.module.css";
 import { gymValidate } from "./controlers/validaciones";
 import { useNavigate } from "react-router-dom";
-import { createDateGym } from "../../redux/actions";
+import { createGym } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -16,7 +16,7 @@ export default function UpdateGym() {
     price: "",
     raiting: "",
     image: [],
-    address: "",
+    address: "", 
     services: [],
     trainers: [],
     logo: "",
@@ -142,7 +142,7 @@ export default function UpdateGym() {
     ) {
       return alert("Todos los campos deben estar completos!");
     } else {
-      dispatch(createDateGym(input));
+      dispatch(createGym(input));
       alert("Gym Registrado!");
       setInput({
         ...input,
