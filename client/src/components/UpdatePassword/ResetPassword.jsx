@@ -72,7 +72,7 @@ export default function ResetPassword() {
                 secretToken: secretToken
             }
             console.log(form, "Tengo que enviar el formulario al back para el cambio de clave")
-            axios.post('/api/updatepassword', form )
+            axios.post('/api/service/updatepassword', form )
             .then((response)=>{
               console.log(response.data)
               window.alert(response.data)
