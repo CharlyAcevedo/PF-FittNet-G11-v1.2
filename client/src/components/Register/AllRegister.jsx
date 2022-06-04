@@ -25,8 +25,8 @@ export default function AllRegister() {
     lat: geolocation.latitude,
     lng: geolocation.longitude,
    })
-  const [error, setError] = useState("Mensaje de error");
-  const [disableSubmit, setDisableSubmit] = useState(true)
+  const [error, setError] = useState("");
+  // const [disableSubmit, setDisableSubmit] = useState(true)
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -53,6 +53,7 @@ export default function AllRegister() {
   
 
   function onSubmit(e) {
+    e.preventDefault();
     let userCreate;
 
     console.log("está saliendo el post ", userCreate);
@@ -63,7 +64,7 @@ export default function AllRegister() {
     // y no tengo errores(seteados por la función validadora), entonces 
     // creo el objeto y hago el post al back.
     //--------------------------------------------------------------------
-    if (error === "" && name && password && type) {
+    if (error === "" && name && email && password && type) {
 
       userCreate = {
         name: name,
@@ -101,7 +102,52 @@ export default function AllRegister() {
         })
         .catch((error) => console.log(error));
     }
+    if (!name || !email || !password || !type) {
+      window.alert('Por favor complete todos los campos')
+    }
   }
+
+  function onChangeName (e) {
+    setName(e.target.value); 
+    if (name.length < 3 ) {
+      setError("El nombre es requerido");
+    } else if (!regexName.test(name)) {
+      setError("El nombre debe contener letras");
+    } else {
+      setError("");
+    }
+  }
+
+  function onChangeEmail(e) {
+    setEmail(e.target.value);
+    if (email.length < 3) {
+      setError("El Email es requerido");
+
+    } else if (!regexEmail.test(email)) {
+      setError("Email invalido");
+    } else {
+      setError("");
+    }
+  }
+
+  function onChangePassword (e) {
+    setPassword(e.target.value);    
+    if (password.length < 2) {
+      setError("Necesita introducir una contraseña");
+    } else if (password.length < 3) { 
+      setError("La constraseña debe tener un mínimo de tres caracteres");
+    } else {
+      setError("Recuerde seleccionar el tipo de usuario");
+    }
+  }
+
+  function onChangeType (e) {
+    setType(e.target.value);    
+
+    setError("");
+
+  }
+
 
   return (
     <div className={styles.container}>
@@ -133,7 +179,8 @@ export default function AllRegister() {
                 className={styles.loginInput}
                 placeholder="Escriba su Nombre..."
                 required
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => onChangeName(e)}
+                onClick={(e)=> onChangeName(e)}
               />
             </div>
             <div className={styles.loginField}>
@@ -144,7 +191,8 @@ export default function AllRegister() {
                 className={styles.loginInput}
                 placeholder="Escriba un e-mail valido..."
                 required
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => onChangeEmail(e)}
+                onClick={(e) => onChangeEmail(e)}
               />
             </div>
             <div className={styles.loginRield}>
@@ -155,7 +203,8 @@ export default function AllRegister() {
                 className={styles.loginInput}
                 placeholder="Contraseña"
                 required
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => onChangePassword(e)}
+                onClick={(e)=> onChangePassword(e)}
               />
             </div>
             <br />           
@@ -165,7 +214,7 @@ export default function AllRegister() {
                 onChange={(e) =>
                   e.target.value === "Tipo de cliente"
                     ? null
-                    : setType(e.target.value)
+                    : onChangeType(e)
                 }
               >
                 <option value="Tipo de cliente">Tipo de cliente</option>
@@ -179,7 +228,7 @@ export default function AllRegister() {
               className={styles.loginSubmit}
               type="submit"
               value="Registrarse"
-              disabled={disableSubmit}
+              // disabled={disableSubmit}
               onClick={(e) => onSubmit(e)}
             />
             <br />
