@@ -18,6 +18,10 @@ import {
   POST_GYM, 
   POST_SERVICES, 
   POST_PARTNER,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  ADJUST_QTY,
+  LOAD_CURRENT_ITEM,
 } from "./actionTypes";
 
 //------USER SERVICE ACTIONS------(favor de poner todas las aciones referentes a service en general todos los usuarios aqui)
@@ -38,21 +42,12 @@ export function setUserGeo(payload) {
   };
 };
 
-export const getUser = (id) => async (dispatch) => {
-  try {
-    const dataUser = await axios.get(`/api/user/profile/${id}`);
-    console.log(dataUser.data);
-    dispatch({
-      type: GET_USER,
-      payload: dataUser.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: GET_USER,
-      payload: { error: error.message },
-    });
-  };
-};
+export function getUser (data) {
+  return async (dispatch) => { {
+      dispatch({ type: GET_USER, payload: data })
+    };
+  }
+}
 
 export function getAllUsers() {
   return async (dispatch) => {
@@ -395,6 +390,41 @@ export const updateUserInfo = (id, body) => async dispatch => {
     })
   } catch (error) {
     console.log("error: ", error)
+  }
+}
+
+// CARRITO DE COMPRAS USUARIO FINAL
+
+export function addToCart(itemID){
+  //console.log('llega id?', itemID)
+    return (dispatch) => {
+      try {
+        dispatch({
+          type: ADD_TO_CART,
+          payload: {
+            id: itemID,
+          }
+        });
+      } catch (error) {console.log(error)}
+}
+};
+export const removeFromCart = (itemID) => {
+  return (dispatch) => {
+    try {
+      dispatch({
+        type: REMOVE_FROM_CART,
+        payload: {
+          id: itemID
+        }
+      });
+    } catch (error) {console.log(error)}
+}
+};
+
+export const postCart = (body) =>{
+  return (dispatch) =>{
+    const post = axios.post('/api/shopcart', body)
+    return post
   }
 }
 

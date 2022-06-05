@@ -187,11 +187,15 @@ const googleSignIn = async (req, res) => {
         } else {
             usuario = usuarioDb;
         }
-        await usuario.save();
+        let newUser = await usuario.save();
+        // console.log (newUser, 'nuevo usuario Google')
+        let userId = newUser._id;
+
         res.json({
             ok: true,
             usuario,
-            googleToken
+            googleToken,
+            userId           
         })
     } catch (error) {
         console.log("error: ", error);

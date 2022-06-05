@@ -12,7 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 import IncomesGraph from "../Graphics/Incomes";
 import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
-import style from "./styles/homeMain.module.css";
+import styles from "./styles/homeMain.module.css";
+import GeneralActions from "../PartnerHomeComponents/GeneralActions";
+import Sarch from "../Search/Search";
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
@@ -69,8 +71,8 @@ export default function HomeMain() {
   // Esto es una vista para un usuario con avatar
   if (type === "user" && avatar) {
     return (
-      <div className={style.cont}>
-        {/* <NavBarProfile /> */}
+      <div className={styles.cont}>
+        <Sarch/>       
         <GymCards/>
         <Paginated />
       </div>
