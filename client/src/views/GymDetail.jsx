@@ -20,6 +20,9 @@ export default function GymDetail() {
 
     const gymDetail = useSelector((state) => state.gymDetail)
 
+    let usuarioId = localStorage.getItem('userId')
+    // id de usuario que está en la app
+    console.log(usuarioId, 'id de usuario que está en la app')
 
     if (!gymDetail.name) {
         return (
@@ -29,6 +32,7 @@ export default function GymDetail() {
     } else {
         return (
             <div>
+                <h4 style={{color: "#fff"}}>Id del usuario que navega: {usuarioId ? usuarioId: null}</h4>
                 <h3>Vista detalle del gym</h3>
                 <div>
                     <h2></h2>           

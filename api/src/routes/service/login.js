@@ -20,14 +20,17 @@ router.post(
   );
   
   router.get('/authenticated',  (req, res) => {
-    console.log(req.session, ' esto es req.session autenticado');
+    // console.log(req.session, ' esto es req.session autenticado');
+   
+   
     console.log(req.user, ' esto es req.user autenticado');
-    console.log(req.cookies,' esto es req.cookies autenticado');
-    console.log(req.signedCookies,' esto es req.signedCookies autenticado');
+    // console.log(req.cookies,' esto es req.cookies autenticado');
+    // console.log(req.signedCookies,' esto es req.signedCookies autenticado');
 
-    let { _id, name, type, avatar, active } = req.user;
+    let { _id, name, type, avatar, active, latitude, longitude } = req.user;
  
-    res.json({ login: true, userId: _id, name, type, avatar, active })
+    res.json({ login: true, userId: _id, name, type, avatar, 
+               active, latitude, longitude })
 
 });
 

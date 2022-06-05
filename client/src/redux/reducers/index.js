@@ -20,6 +20,7 @@ const initialState = {
   users: [],
   user: {},
   usersToShow: [],
+  currentUserDetails2:{},
   currentUserDetails: {
     name: "",
     userName: "",
@@ -129,8 +130,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         user: payload,
       };
     case GET_USER:
-      console.log(payload);
-      return {
+        return {
         ...state,
         user: payload,
       };

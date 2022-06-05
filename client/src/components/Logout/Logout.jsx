@@ -15,6 +15,8 @@ export default function Logout() {
       if (res) {
         console.log(res.data, "-> respuesta del post de logout");
         localStorage.removeItem("token");
+        localStorage.removeItem('userId');
+        
         return (window.location = "http://localhost:3000/");
       }
     })
