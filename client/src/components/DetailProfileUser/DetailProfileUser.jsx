@@ -6,7 +6,9 @@ export default function DetailProfileUser() {
   let { userId, name, type, avatar } = useParams();
   // console.log(userId, name, type, avatar, ' los params')
 
+
   // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
+
   // si le llega este id (de la fomra que lo espera) y si el usuario tiene una
   // sesión iniciada.
 

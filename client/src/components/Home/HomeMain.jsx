@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 // import Logout from "../Logout/Logout";
@@ -7,15 +7,12 @@ import GymCards from "../GymCards/GymCards";
 import UserCards from "../UserCards/UserCards";
 import NavBarProfile from "../NavBarProfile/NavBarProfile";
 import PartnerCards from "../PartnerCards/PartnerCards";
-import Advertising from "../PartnerHomeComponents/Advertising";
 import { getAllGyms, getUserGoogleForToken } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import IncomesGraph from "../Graphics/Incomes";
-import ClientsGraph from "../Graphics/GraphClient";
 import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
-import styles from "./styles/homeMain.module.css";
-import GeneralActions from "../PartnerHomeComponents/GeneralActions";
+import style from "./styles/homeMain.module.css";
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
@@ -31,16 +28,14 @@ export default function HomeMain() {
 
   const navigate = useNavigate();
 
-  const instantCallback = useCallback(dispatch, [dispatch]);
-
   useEffect(() => {
     // dispachar la action ¿pero qué voy a escuchar??? No sé si sea userId
     // console.log('sale la action de traer gyms')
     dispatch(getAllGyms()); 
     if (token) {
-      instantCallback(getUserGoogleForToken(token));
+      dispatch(getUserGoogleForToken(token));
     }// eslint-disable-next-line
-  }, [userId, instantCallback]);
+  }, [userId]);
 
   // Esto es una vista para un usuario sin avatar
   if (type === "user" && !avatar) {
@@ -74,7 +69,7 @@ export default function HomeMain() {
   // Esto es una vista para un usuario con avatar
   if (type === "user" && avatar) {
     return (
-      <div className={styles.cont}>
+      <div className={style.cont}>
         {/* <NavBarProfile /> */}
         <GymCards/>
         <Paginated />
@@ -85,19 +80,12 @@ export default function HomeMain() {
   // Esto es una para cliente empresa
   if (type === "partner") {
     return (
-      <div className={styles.mainContainer}>
-        <div className={styles.advertising}>
-          <Advertising/>
-        </div>
-        <div className={styles.generalActions}>
-          <GeneralActions/>
-        </div>
-        <div className={styles.infoClients}>
-          <ClientsGraph />
-        </div>
-        <div className={styles.infoFinantial}>
-          <IncomesGraph/>
-        </div>
+      <div>
+        {/* <NavBarProfile /> */}
+        <h3>Qué más quiero ver como Ciente Empresa cuando llego a home???</h3>
+        <IncomesGraph />
+        <UserCards />
+        <h4>Promociones y descuentos</h4>
       </div>
     );
 

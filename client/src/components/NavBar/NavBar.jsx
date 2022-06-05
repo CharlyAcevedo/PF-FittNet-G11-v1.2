@@ -12,7 +12,6 @@ export default function NavBar() {
 
   const user = useSelector((state) => state.user);
 
-  console.log(user);
   return (
     <nav className={style.nav}>
       <div onClick={() => navigate("/")}>

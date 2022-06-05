@@ -48,7 +48,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div>
       <Routes>
         <Route element={<MainLayoutLanding />}>
           <Route path="/" element={<Landing />} />
