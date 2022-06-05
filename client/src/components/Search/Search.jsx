@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import OrderBy from '../OrderBy/OrderBy';
 
 export default function Sarch () {
     const [ search, setSearch ] = useState('');
@@ -70,10 +70,9 @@ export default function Sarch () {
                 <form onFocus={()=>focusSearch()} onBlur={()=>focusSearch()} id = "search-nano-nano">
                     <input id='input-search-nano' type="text" onChange={(e) => onInputChange(e)} 
                     value= {search} autoComplete='off' spellCheck="false" role="combobox"
-                    placeholder='Escriba aquí para buscar'
+                    placeholder='Escriba aquí... ' style={{fontSize: "18px"}}
                     />                   
-                </form> 
-                   
+                </form>                   
             </div>
 
             <div id = "div-list-nano" >
@@ -81,31 +80,18 @@ export default function Sarch () {
                 { focus && searchResult ? searchResult.map ((g) => {
                     return (
                         <Link to = {`/detail/gym/${g.id}`} key={g.id} >                           
-                            <li style={{color: "#fff", paddingBottom:"5px", paddingTop: "5px"}} >{g.name}</li>
+                            <li style={{color: "#fff", paddingBottom:"7px", paddingTop: "7px",
+                            fontSize: "16px" }} >{g.name}</li>
                         </Link>    
                     )
                 }) : <div id='id-nano'></div>}
                 </ul>
+            </div>
+            <div>
+                <OrderBy/>
             </div>
         </div>
     )
 
 }
 
-// /detail/gym/6292dae93fc1e9d735aea34c
-{/* <div class="combo-wrap">
-<input type="text" id="jokes" role="combobox" 
-aria-controls="joketypes" aria-autocomplete="list" 
-aria-expanded="false" data-active-option="item1" 
-aria-activedescendant="" onChange={(e)=> onInputChange(e)}
-/>
-<span aria-hidden="true" data-trigger="multiselect"></span>
-<ul id="joketypes" role="listbox" aria-label="Jokes"
-style={{color: "#fff"}}>
-  <li class="active" role="option" id="item1">Puns</li>
-  <li class="option" role="option" id="item2">Riddles</li>
-  <li class="option" role="option" id="item3">Observations</li>
-  <li class="option" role="option" id="item4">Knock-knock</li>
-  <li class="option" role="option" id="item5">One liners</li>
-</ul>
-</div> */}

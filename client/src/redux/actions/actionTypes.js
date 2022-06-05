@@ -27,3 +27,6 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const ADJUST_QTY= 'ADJUST_QTY';
 export const LOAD_CURRENT_ITEM = 'LOAD_CURRENT_ITEM';
 
+export const SORT_BY_NAME = 'SORT_BY_NAME'; // para hacer un ordenamiento alfabético de a-z o z-a
+export const SORT_BY_SCORE = 'SORT_BY_SCORE'; // para hacer un ordemiento por puentuación de mayor a menor o viceversa
+
