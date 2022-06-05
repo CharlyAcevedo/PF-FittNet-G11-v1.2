@@ -14,3 +14,9 @@ export const GET_GYM_DETAIL = 'GET_GYM_DETAIL';
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 export const SET_PAGE_NUMBER = 'SET_PAGE_NUMBER';
 export const SET_CURRENT_LIMIT = 'SET_CURRENT_LIMIT';
+
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const ADJUST_QTY= 'ADJUST_QTY';
+export const LOAD_CURRENT_ITEM = 'LOAD_CURRENT_ITEM';
+

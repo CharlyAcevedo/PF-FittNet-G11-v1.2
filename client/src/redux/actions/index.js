@@ -13,6 +13,10 @@ import {
   SET_CURRENT_PAGE,
   SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  ADJUST_QTY,
+  LOAD_CURRENT_ITEM,
 } from "./actionTypes";
 
 //------USER ACTIONS------
@@ -154,7 +158,8 @@ export function getAllGyms() {
 export function getGymDetail(id) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`/api/partner/gymbyid/${id}`);
+      //http://localhost:3001/api/partner/gyms/gymbyid/6292d5cb463de6e77bd44b50
+      const response = await axios.get(`/api/partner/gyms/gymbyid/${id}`);
       dispatch({
         type: GET_GYM_DETAIL,
         payload: response.data,
@@ -245,6 +250,41 @@ export const updateUserInfo = (id, body) => async dispatch => {
     })
   } catch (error) {
     console.log("error: ", error)
+  }
+}
+
+// CARRITO DE COMPRAS USUARIO FINAL
+
+export function addToCart(itemID){
+  //console.log('llega id?', itemID)
+    return (dispatch) => {
+      try {
+        dispatch({
+          type: ADD_TO_CART,
+          payload: {
+            id: itemID,
+          }
+        });
+      } catch (error) {console.log(error)}
+}
+};
+export const removeFromCart = (itemID) => {
+  return (dispatch) => {
+    try {
+      dispatch({
+        type: REMOVE_FROM_CART,
+        payload: {
+          id: itemID
+        }
+      });
+    } catch (error) {console.log(error)}
+}
+};
+
+export const postCart = (body) =>{
+  return (dispatch) =>{
+    const post = axios.post('/api/shopcart', body)
+    return post
   }
 }
 

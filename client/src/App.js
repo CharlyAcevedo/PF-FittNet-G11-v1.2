@@ -9,7 +9,7 @@ import ClientRegister from "./views/ClientRegister";
 import InitRegister from "./views/InitRegister";
 import Profile from "./views/Profile";
 import UserPrices from './components/UserPrices/UserPrices'
-import GymDetail from "./views/GymDetail";
+import GymDetail from "./views/GymDetail/GymDetail";
 import LegendUf from "./components/LegendUf/LegendUf";
 import ResetPassword from "./components/UpdatePassword/ResetPassword";
 import UpdatePasword from "./components/UpdatePassword/UpdatePassword";
@@ -19,6 +19,7 @@ import DeactivateAccount from "./components/DeactivateAccount/DeactivateAccount"
 import FormUser from "./components/Forms/FormUser"
 import NavBar from "./components/NavBar/NavBar";
 import NavBarProfile from "./components/NavBarProfile/NavBarProfile";
+
 
 
 const MainLayoutLanding = () => {
@@ -63,6 +64,8 @@ function App() {
           <Route path="/detail/gym/:userId" element={<GymDetail />} />
           <Route path="/profile/:type/:name/:userId" element={<Profile />} />
           <Route path="/home/modificacion/:type/:name/:userId" element={<FormUser />} />
+          {/* <Route path="/api/partner/gyms/gymbyid/:id" element={<GymDetail />} /> */}
+          
         </Route>
       </Routes>
       <Routes>

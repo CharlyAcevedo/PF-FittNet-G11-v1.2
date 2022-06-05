@@ -1,3 +1,4 @@
+import { Action } from "history";
 import {
   GET_ALL_USERS,
   GET_ALL_PARTNERS,
@@ -11,6 +12,10 @@ import {
   POST_USER_GOOGLE,
   GET_USER,
   POST_AVATAR,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  ADJUST_QTY,
+  LOAD_CURRENT_ITEM,
 } from "../actions/actionTypes";
 
 const lat = -34.6154611;
@@ -41,6 +46,8 @@ const initialState = {
   currentLimit: 9,
   currentPage: 1,
   errors: "",
+  products: [],
+  cart: [],
 };
 
 
@@ -135,6 +142,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         gymDetail: payload,
+        products: payload.services
       };
     case POST_AVATAR:
       return {
@@ -187,6 +195,25 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         currentLimit: payload,
       };
+      case ADD_TO_CART:
+        const item = state.products.find(prod => prod._id === payload.id) //la clase q me matche con el id
+        const inCart = state.cart.find(item => item.id === payload.id) 
+        //console.log(item)
+        return{
+          ...state,
+          cart: inCart ? 
+          state.cart.map(item =>
+            item.id === payload.id
+            ? {...item, qty: item.qty + 1} 
+            : item
+            ) 
+            : [...state.cart, {...item, qty: 1}]
+        };
+      case REMOVE_FROM_CART:
+        return{
+          ...state,
+          cart: state.cart.filter(item => item._id !== payload.id)
+        };
     default:
       return state;
   }
