@@ -11,7 +11,7 @@ import Profile from "./views/Profile";
 //import UserPrices from "./components/UserPrices/UserPrices";
 //import GymDetail from "./views/GymDetail";
 import UserPrices from './components/UserPrices/UserPrices'
-import GymDetail from "./views/GymDetail/GymDetail";
+import GymDetail from "./components/GymDetail/GymDetail";
 import LegendUf from "./components/LegendUf/LegendUf";
 import ResetPassword from "./components/UpdatePassword/ResetPassword";
 import UpdatePasword from "./components/UpdatePassword/UpdatePassword";

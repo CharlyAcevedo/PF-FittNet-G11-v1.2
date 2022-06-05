@@ -9,7 +9,9 @@ const getShopCart = async (req, res) => {
             {$lookup: {from: 'gyms', localField:'gyms', foreignField: '_id', as: 'gyms' }}, 
             {$unwind: {path: '$gyms', preserveNullAndEmptyArrays: true}},
             
-
+            {$lookup: {from: 'user', localField:'user', foreignField: '_id', as: 'user' }}, 
+            {$unwind: {path: '$user', preserveNullAndEmptyArrays: true}},
+            
             {$lookup: {from: 'services', localField:'services', foreignField: '_id', as: 'services' }}, 
             {$unwind: {path: '$services', preserveNullAndEmptyArrays: true}},
             {$project: {user: 1, gyms: 1, services: 1}}])
@@ -22,12 +24,14 @@ const getShopCart = async (req, res) => {
 }
 
 const postCart = async (req, res) => {
-    const {gyms, services} = req.body
+    const {gym, services, user} = req.body
     try {
-        const newShopCart = ShopCart.create({
-            gyms: gyms,
-            services: services
+        const newShopCart = await ShopCart.create({
+            gyms: gym,
+            services: services,
+            user: user
         })
+        console.log(gym)        
         res.send(newShopCart)
     } catch (error) {
         console.log(error.message)

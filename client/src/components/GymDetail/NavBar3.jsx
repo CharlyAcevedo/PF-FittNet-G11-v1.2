@@ -5,17 +5,16 @@ import {postCart} from '../../redux/actions/index'
 
 
 
-export function NavBar3 ({id}){
-    // console.log(id)
+export function NavBar3 ({id, usuarioId}){    
     const dispatch = useDispatch();
-    const cart = useSelector((state) => state.cart)
+    const cart = useSelector((state) => state.cart)    
     const [cartCount, setCartCount] = useState(0)
     const [totalPrice, setTotalPrice] = useState(0)
     const [totalItems, setTotalItems] = useState(0)
     const [body, setBody] = useState({
         gym: [],
         services: [],
-        // user: {}
+        user: ''
     })
 
     useEffect(() => {
@@ -36,26 +35,26 @@ export function NavBar3 ({id}){
         setTotalPrice(price)
         setTotalItems(items)
         setBody({
-            gym: [id],
+            gym: id,
             services: [...cart],
+            user: usuarioId
         })
-        console.log(body)
+        console.log(cart)
+        console.log(id)
        }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems])
        
 
       
        
        function handleSubmit(){
-           dispatch(postCart(body))
-           console.log(body)
+           dispatch(postCart(body))           
        }
 
 
 
     return (
         <nav>
-        <div>
-            {console.log(cart)}
+        <div>            
             {cart.map(e => {
                 return (
                     <div>
