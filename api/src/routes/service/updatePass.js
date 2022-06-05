@@ -69,13 +69,16 @@ router.get('/updatepassword', async (req, res, next) => {
     let { userName } = req.query;
     // console.log('está entrando al get de update password', req.query)
     let user = await findUser({userName:userName})
-    
+    // console.log(user)
+    if (user === null) {
+        return res.send({message: 'Usuario no encontrado'});
+    }
     // let secretToken = user.secretToken
     // console.log(user, secretToken, 'si encuentro el user y el token')
 
     // debo enviar el correo electrónico con el secret    
     // router.get('/email/:userId/:secretToken/:userName',
-    res.redirect(`/api/email/recovey/${user._id}/${user.secretToken}/${userName}`);
+    res.redirect(`/api/service/email/recovey/${user._id}/${user.secretToken}/${userName}`);
  
 
 })
