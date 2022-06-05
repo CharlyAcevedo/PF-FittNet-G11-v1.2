@@ -16,6 +16,7 @@ import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
 import styles from "./styles/homeMain.module.css";
 import GeneralActions from "../PartnerHomeComponents/GeneralActions";
+import Sarch from "../Search/Search";
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
@@ -73,7 +74,7 @@ export default function HomeMain() {
   if (type === "user" && avatar) {
     return (
       <div className={styles.cont}>
-        {/* <NavBarProfile /> */}
+        <Sarch/>       
         <GymCards/>
         <Paginated />
       </div>
