@@ -1,0 +1,69 @@
+.mainContainerGA{
+    display: grid;
+    grid-gap: .5em;
+    grid-template-columns: 100%;
+    grid-template-rows: 8% 92%;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.pictureContainerGA{
+    display: grid;
+    grid-column-gap: 1em;
+    grid-row-gap: .5em;
+    margin-bottom: 1em;
+    grid-template-columns: 48% 48%;
+    background-color: linear-gradient(180deg, #2e3b3bed 0%, #747373 44%, #2e3b3bed 100%);
+}
+
+.firstDiv{
+    width: 100%;
+    height: 100%;
+    background: url('../../../asets/images/gymmachines.png') no-repeat center center;
+    background-size: cover;
+    margin-left: .5em;
+    border: 5px inset #747373;
+}
+
+.secondDiv{
+    display: grid;
+    grid-gap: .4em;
+    grid-template-columns: 49% 49%;
+    grid-template-rows: 23% 23% 23% 23%;
+    padding: .5em;
+    width: 100%;
+    height: 100%;
+    background: url('../../../asets/images/equipo-entrena2.jpg') no-repeat center center;
+    background-size: cover;
+    border: 5px inset #747373;
+}
+
+.firstDivTxt{
+    width: 100%;
+    height: 100%;
+    padding-top: 4em;
+    color: rgb(42, 32, 78);
+    font-weight: 600;
+    font-size: 2.6vh;
+    text-shadow: 1px 1px 1px #2e3b3bed;
+    justify-self: center;
+    background-color: #4e5972ad;
+}
+
+.btnAction{
+    background: rgb(255, 39, 103, 0.650);
+    background-color: linear-gradient(90deg, rgb(255, 39, 103, 0.650) 0%, rgba(226, 189, 200, 0.65) 44%,rgb(255, 39, 103, 0.650) 100%);;
+    border-radius: 10px;
+    color: #110d22;
+    font-weight: 600;
+    font-size: 2.6vh;
+    text-shadow: 1px 1px 1px #2e3b3bed;
+}
+
+.btnAction:hover{
+    background: rgba(202, 102, 132, 0.65);
+    background-color: linear-gradient(180deg, rgb(255, 39, 103, 0.650) 0%, rgba(226, 189, 200, 0.65) 44%,rgb(255, 39, 103, 0.650) 100%);;
+    color: #2d215f;
+    box-shadow: 2px 2px 2px #2d215f;
+}

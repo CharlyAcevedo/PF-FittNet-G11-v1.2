@@ -10,6 +10,10 @@
   text-decoration: none;
   z-index: 10;
 }
+a{
+    text-decoration: none;
+    color: #abaf9a;
+}
 
 .navBarProfile {
   width: 90%;
