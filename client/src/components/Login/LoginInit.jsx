@@ -90,7 +90,7 @@ export default function LoginInit() {
   function onSubmit(e) {
     let userLogin;
 
-    console.log("está saliendo el post ", userLogin);
+    console.log("se está intentando hacer el post");
 
     e.preventDefault();
 
@@ -138,6 +138,8 @@ export default function LoginInit() {
         })
         .catch((error) => console.log(error));
     }
+    if (!username && password) {setError("No olvide introducir su email");}
+    if (username && !password) {setError("No olvide introducir su contraseña");}
   }
 
   return (
@@ -181,9 +183,6 @@ export default function LoginInit() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-
-            <p>{error === "" ? null : error}</p>
-
             <input
               className={styles.loginSubmit}
               type="submit"
@@ -192,6 +191,7 @@ export default function LoginInit() {
             />
             <div id="signInDiv" style={{ paddingTop: "1.5rem" }}></div>
             {/* <button onClick={(e) => handleLogoutGoogle(e)}>Logout</button> */}
+            <p>{error === "" ? null : error}</p>
           </form>
           <a href="/resetpassword" style={{padding: "1.5rem", color: "#fff" }}>Olvidé mi contraseña</a>
         </div>

@@ -1,16 +1,18 @@
 .mainBoxCards {
-    /* margin-top: 5rem; */
-    border: 2px solid #FEAA09;
+    margin-top: 2.5rem;
     height: auto;
     width: 100%;
     text-decoration: none;
+    padding: 20px;
 }
 
 .boxCards {
-    background:rgb(148, 153, 51);
     width: auto;
+    color: #fff;
+    font-size: 1.2rem;
     height: auto;
     padding-bottom: 60px;
     padding-top: 40px;
     text-decoration: none;
+    padding: 20px;
 }

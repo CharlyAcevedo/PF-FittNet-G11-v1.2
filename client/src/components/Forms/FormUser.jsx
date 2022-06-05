@@ -135,8 +135,8 @@ export default function FormUser() {
     //   country: "",
     //   zipCode: "",
     // });
-    alert("se modifico el usuario");
-    navigate("/home");
+    // alert("se modifico el usuario");
+    navigate("/");
     //history.push('/home')
   }
 
