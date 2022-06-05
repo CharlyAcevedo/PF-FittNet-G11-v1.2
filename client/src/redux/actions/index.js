@@ -38,21 +38,12 @@ export function setUserGeo(payload) {
   };
 };
 
-export const getUser = (id) => async (dispatch) => {
-  try {
-    const dataUser = await axios.get(`/api/user/profile/${id}`);
-    console.log(dataUser.data);
-    dispatch({
-      type: GET_USER,
-      payload: dataUser.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: GET_USER,
-      payload: { error: error.message },
-    });
-  };
-};
+export function getUser (data) {
+  return async (dispatch) => { {
+      dispatch({ type: GET_USER, payload: data })
+    };
+  }
+}
 
 export function getAllUsers() {
   return async (dispatch) => {
