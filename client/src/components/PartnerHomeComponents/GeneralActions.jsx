@@ -1,7 +1,11 @@
 import React from 'react'
 import styles from "./styles/GeneralActions.module.css";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function GeneralActions() {
+  let { userId, name, type } = useParams();
+  const navigate = useNavigate();
+
   return (
     <div className={styles.mainContainerGA}>
         <h3>Mi panel de control Fittnet</h3>
@@ -10,7 +14,7 @@ export default function GeneralActions() {
             <div className={styles.firstDivTxt}>Descubre todo lo que puedes hacer como socio Fittnet</div>
             </div>
             <div className={styles.secondDiv}>
-                <button className={styles.btnAction}>Editar mi Perfil</button>
+                <button className={styles.btnAction} onClick={() => navigate(`/profile/${type}/${name}/${userId}`)}>Editar mi Perfil</button>
                 <button className={styles.btnAction}>Agregar un Gimnasio</button>
                 <button className={styles.btnAction}>Editar mis Gimnasios</button>
                 <button className={styles.btnAction}>Ver a mis clientes</button>
