@@ -22,3 +22,8 @@ export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"; //setea el estado general "p
 export const SET_PAGE_NUMBER = "SET_PAGE_NUMBER"; //setea el estado general "numero de pagina" para paginado
 export const SET_CURRENT_LIMIT = "SET_CURRENT_LIMIT"; //setea el estado general "limite por pagina" para paginado
 
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const ADJUST_QTY= 'ADJUST_QTY';
+export const LOAD_CURRENT_ITEM = 'LOAD_CURRENT_ITEM';
+

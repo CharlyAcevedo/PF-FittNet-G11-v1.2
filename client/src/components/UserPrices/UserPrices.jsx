@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Table from "react-bootstrap/Table";
-
+import { useDispatch, useSelector } from "react-redux";
 import style from "./styles/UserPrices.module.css";
 import NavBar from "../NavBar/NavBar";
+import { getAllGyms } from "../../redux/actions";
+import { Link } from "react-router-dom";
 
 export default function UserPrices() {
+  const gyms = useSelector((state) => state.gyms);
+  const dispatch = useDispatch();
+  
   const planes = [
     {
       planName: "Inicial",
@@ -95,6 +100,11 @@ export default function UserPrices() {
     },
   ];
 
+
+  useEffect(() =>{
+    dispatch(getAllGyms())
+  },[])
+
   return (
     <div className={style.pricesTableContainer}>
       <h1 style={{ color: "#fff", textAlign: "center" }}>
@@ -172,14 +182,22 @@ export default function UserPrices() {
       </Table>
 
       <Table responsive="md" className={style.classesTableContainer}>
-        <div className={style.expand}>Pesas y maquinas</div>
-        <div className={style.expand}>Crossfit</div>
-        <div className={style.expand}>Dance</div>
-        <div className={style.expand}>Kick boxing/Box</div>
-        <div className={style.expand}>Clases de gimnasia</div>
-        <div className={style.expand}>Spinning</div>
-        <div className={style.expand}>Yoga</div>
-        <div className={style.expand}>Pilates</div>
+        {gyms.map((g) => {
+          return(
+          <div value={g.id} className={style.expand}>
+            {/* {console.log(gyms)} */}
+            {g.name}
+            {/* {console.log(g.services)} */}
+            <select>
+            <option value='select' hidden selected> Ver clases... </option>
+            {g.services.map((s) => {
+              // {console.log(s.name)}
+              return(
+               <option key={s.name} value={s._id}>{s.name}   ${s.price}</option>
+              ) 
+            })}</select>
+            </div>
+         )})} 
       </Table>
     </div>
   );

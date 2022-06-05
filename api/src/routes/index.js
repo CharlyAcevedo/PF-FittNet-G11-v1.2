@@ -4,6 +4,7 @@ const routeUser = require('./user/index')
 const routeService = require('./service/index')
 const routePartner = require('./partner/index')
 const routeAdmin = require('./admin/index')
+const routeShopCart = require ('./user/shopCart')
 
 const router = Router();
 
@@ -19,6 +20,7 @@ router.use('/api/user', routeUser);
 router.use('/api/service', routeService);
 router.use('/api/partner', routePartner);
 router.use('/api/admin', routeAdmin);
+router.use('/api/shopcart', routeShopCart);
 
 
 module.exports = router;
