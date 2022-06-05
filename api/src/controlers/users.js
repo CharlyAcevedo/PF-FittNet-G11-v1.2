@@ -195,7 +195,7 @@ const googleSignIn = async (req, res) => {
             ok: true,
             usuario,
             googleToken,
-            userId           
+            userId
         })
     } catch (error) {
         console.log("error: ", error);
@@ -322,18 +322,41 @@ const updateUser = async (req, res) => {
     try {
         const body = req.body
         const user = await User.findById(id)
-        const addressUser = new Address({
-            street: body.street,
-            floor: body.floor,
-            address: body.address,
-            apartament: body.apartament,
-            neighborhood: body.neighborhood,
-            city: body.city,
-            country: body.country,
-            zipCode: body.zipCode
-        })
-        await addressUser.save()
-        const idAddress = addressUser._id
+
+        //? hay que condicionar para que el address no se duplique
+        //? preguntar si existe ya en mi base de datos un address con ese id
+        const userInfo = await InfoUser.findById(user.info)
+
+        const address = await Address.findById(userInfo.address)
+
+        let idAddress;
+        if (!address) {
+            const addressUser = new Address({
+                street: body.street,
+                floor: body.floor,
+                address: body.address,
+                apartament: body.apartament,
+                neighborhood: body.neighborhood,
+                city: body.city,
+                country: body.country,
+                zipCode: body.zipCode
+            })
+            await addressUser.save()
+            idAddress = addressUser._id
+        } else {
+            const addressUser = new Address({
+                street: body.street,
+                floor: body.floor,
+                address: body.address,
+                apartament: body.apartament,
+                neighborhood: body.neighborhood,
+                city: body.city,
+                country: body.country,
+                zipCode: body.zipCode
+            })
+            await Address.findByIdAndUpdate(address._id, addressUser, { new: true })
+            idAddress = address._id;
+        }
         const idInfo = user.info
         const idAvatar = user.avatar
         const newInfoUser = {
