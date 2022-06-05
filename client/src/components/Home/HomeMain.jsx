@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 // import Logout from "../Logout/Logout";
@@ -28,14 +28,16 @@ export default function HomeMain() {
 
   const navigate = useNavigate();
 
+  const instantCallback = useCallback(dispatch, [dispatch]);
+
   useEffect(() => {
     // dispachar la action ¿pero qué voy a escuchar??? No sé si sea userId
     // console.log('sale la action de traer gyms')
     dispatch(getAllGyms()); 
     if (token) {
-      dispatch(getUserGoogleForToken(token));
+      instantCallback(getUserGoogleForToken(token));
     }// eslint-disable-next-line
-  }, [userId]);
+  }, [userId, instantCallback]);
 
   // Esto es una vista para un usuario sin avatar
   if (type === "user" && !avatar) {

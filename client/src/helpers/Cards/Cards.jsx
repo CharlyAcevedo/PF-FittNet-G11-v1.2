@@ -10,13 +10,10 @@ export const CardAvatares = (props) => {
 
   const estiloPruebaImage = {
     backgroundImage: `url(${image})`,
-    // width: "120px",
-    // height: "120px",
   };
 
   return (
     <div className={styles.containerCardAvatares}>
-      {/* <img src={image} alt="alt-foto" style={{width: "155px", height: "120px"}}/> */}
       <div style={estiloPruebaImage}></div>
       <span style={{}}></span>
     </div>

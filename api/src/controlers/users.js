@@ -83,13 +83,65 @@ const getUserGoogleAccount = async (req, res) => {
     console.log(req.body)
     const userName = usuario.email
     try {
-        const user = await User.findOne({ userName })
-            .populate('avatar', 'avatarName')
-            .populate('info', 'photo')
-        res.json({
+        const user = await User.aggregate([
+            { $match: { userName: userName } },
+            {
+                $lookup: {
+                    from: "avatars",
+                    localField: "avatar",
+                    foreignField: "_id",
+                    as: "avatar"
+                }
+            },
+            {
+                $unwind: {
+                    path: '$avatar',
+                    preserveNullAndEmptyArrays: false
+                }
+            },
+            // {
+            //     $lookup: {
+            //         from: "infoUsers",
+            //         localField: "info",
+            //         foreignField: "_id",
+            //         as: "infoUsers"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: '$infoUser',
+            //         preserveNullAndEmptyArrays: true
+            //     }
+            // },
+            {
+                $project: {
+                    name: 1,
+                    userName: 1,
+                    // latitude: 0,
+                    // longitude: 0,
+                    active: 1,
+                    secretToken: 1,
+                    type: 1,
+                    avatar: {
+                        _id: 1,
+                        avatarName: 1,
+                    },
+                    info: 1
+                }
+            }
+        ]);
+        console.log(user)
+        return res.status(200).json({
             ok: true,
-            user
+            user: user[0]
         })
+        // const user = await User.findOne({ userName })
+        //     .populate('avatar', 'avatarName')
+        //     .populate('info', 'photo')
+        // res.json({
+        //     ok: true,
+        //     user
+        // })
     } catch (error) {
         console.log("error: ", error);
         res.status(500).json({

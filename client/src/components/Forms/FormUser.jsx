@@ -18,6 +18,9 @@ export default function FormUser() {
   const dispatch = useDispatch();
 
 
+  // const validador = (a) => {
+  //   user ? a : ""
+  // }`
 
   const [input, setInput] = useState({
     name: user.name,

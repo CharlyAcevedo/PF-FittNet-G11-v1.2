@@ -85,3 +85,10 @@ export const ButtonSecondaryDeslice = (props) => {
     </div>
   );
 };
+
+// export const LinkPrimaryDeslice = (props) => {
+//   const { onClick } = props;
+//   return (
+
+//   )
+// }

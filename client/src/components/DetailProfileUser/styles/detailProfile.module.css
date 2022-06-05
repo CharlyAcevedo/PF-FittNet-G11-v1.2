@@ -1,0 +1,92 @@
+.containerPerfilUser {
+  width: 90%;
+  margin: 1rem auto;
+}
+
+.headerProfile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  border-bottom: 1px solid var(--color-prim);
+  padding-bottom: 1rem;
+}
+
+.usuarioId {
+  background-color: rgb(212, 212, 212);
+  padding: 0.4rem 1rem;
+  border-radius: 0.6rem;
+}
+
+.headerProfile div span {
+  font-weight: 600;
+}
+
+.nameProfile {
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.typeUser {
+  color: #fff;
+  border: 1px solid var(--color-prim);
+  padding: 0.2rem 1rem;
+  border-radius: 0.4rem;
+  align-self: center;
+  font-weight: 600;
+}
+
+.etiquetasProfile {
+  display: inline-flex;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  gap: 2rem;
+}
+
+.etiquetasProfile a {
+  text-decoration: none;
+  position: relative;
+}
+
+.etiquetasProfile a::before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 10%;
+  opacity: 0;
+  border-bottom: 2px solid var(--color-prim);
+  transition: 0.5s all;
+}
+.etiquetasProfile a:hover::before {
+  opacity: 1;
+  width: 100%;
+}
+
+.containerAlert {
+  border: 1px solid var(--color-prim);
+  padding: 0.7rem;
+  width: 50%;
+  border-radius: 0.5rem;
+  color: #fff;
+}
+
+.containerAlert h3 {
+  text-align: center;
+  padding-bottom: 0.4rem;
+}
+
+.containerAlert p {
+  text-align: center;
+  padding-bottom: 0.4rem;
+}
+
+.containerCarritoCompras {
+    margin-top: 1rem;
+}
+
+.containerCarritoCompras h3 {
+  position: relative;
+  color: #fff;
+}
