@@ -8,8 +8,10 @@ import LegendCe from "./components/LegendCe/LegendCe";
 import ClientRegister from "./views/ClientRegister";
 import InitRegister from "./views/InitRegister";
 import Profile from "./views/Profile";
-import UserPrices from "./components/UserPrices/UserPrices";
-import GymDetail from "./views/GymDetail";
+//import UserPrices from "./components/UserPrices/UserPrices";
+//import GymDetail from "./views/GymDetail";
+import UserPrices from './components/UserPrices/UserPrices'
+import GymDetail from "./views/GymDetail/GymDetail";
 import LegendUf from "./components/LegendUf/LegendUf";
 import ResetPassword from "./components/UpdatePassword/ResetPassword";
 import UpdatePasword from "./components/UpdatePassword/UpdatePassword";
@@ -22,6 +24,7 @@ import NavBarProfile from "./components/NavBarProfile/NavBarProfile";
 import UpdatePartner from "./components/UpDatePartner/partner";
 import  UpdateGym  from "./components/UpDatePartner/gym";
 import Services  from "./components/UpDatePartner/service";
+
 
 
 const MainLayoutLanding = () => {
@@ -62,6 +65,8 @@ function App() {
           <Route path="/detail/gym/:userId" element={<GymDetail />} />
           <Route path="/profile/:type/:name/:userId" element={<Profile />} />
           <Route path="/home/modificacion/:type/:name/:userId" element={<FormUser />} />
+          {/* <Route path="/api/partner/gyms/gymbyid/:id" element={<GymDetail />} /> */}
+          
         </Route>
       </Routes>
       <Routes>
