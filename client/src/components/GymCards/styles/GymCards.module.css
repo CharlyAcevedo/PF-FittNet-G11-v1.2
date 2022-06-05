@@ -1,6 +1,5 @@
 .mainBoxCards {
-    /* margin-top: 5rem; */
-    background-color: aqua;
+    margin-top: 2.5rem;
     height: auto;
     width: 100%;
     text-decoration: none;
@@ -8,8 +7,9 @@
 }
 
 .boxCards {
-    background:rgb(148, 153, 51);
     width: auto;
+    color: #fff;
+    font-size: 1.2rem;
     height: auto;
     padding-bottom: 60px;
     padding-top: 40px;

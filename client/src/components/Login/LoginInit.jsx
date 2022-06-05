@@ -193,6 +193,7 @@ export default function LoginInit() {
             <div id="signInDiv" style={{ paddingTop: "1.5rem" }}></div>
             {/* <button onClick={(e) => handleLogoutGoogle(e)}>Logout</button> */}
           </form>
+          <a href="/resetpassword" style={{padding: "1.5rem", color: "#fff" }}>Olvidé mi contraseña</a>
         </div>
         <BackgroundTwo />
       </div>

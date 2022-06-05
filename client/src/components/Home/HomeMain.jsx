@@ -81,7 +81,7 @@ export default function HomeMain() {
   if (type === "partner") {
     return (
       <div>
-        <NavBarProfile />
+        {/* <NavBarProfile /> */}
         <h3>Qué más quiero ver como Ciente Empresa cuando llego a home???</h3>
         <IncomesGraph />
         <UserCards />
@@ -95,7 +95,7 @@ export default function HomeMain() {
   if (type === "admin") {
     return (
       <div>
-        <NavBarProfile />
+        {/* <NavBarProfile /> */}
         <h3>Qué más quiere ver un usuario Admin en su home???</h3>
         <PartnerCards />
         <UserCards />
