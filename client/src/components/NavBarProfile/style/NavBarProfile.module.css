@@ -1,13 +1,17 @@
 .boxNavBarProfile {
     margin: auto;
     width: 100%;
-    height: 5.5vh;
-    background: #fcfcfc;
-    background: linear-gradient(180deg, #f0e8d7ed 0%, #fffcf5 44%, #f0e8d7ed 100%);
-    border: 2px solid #f0e8d7ed;
+    height: 6vh;
+    background: #383838ed;
+    background: linear-gradient(180deg, #383838ed 0%, #747373 44%, #383838ed 100%);
+    border: 2px solid #383838ed;
     text-decoration: none;
     margin-bottom: 0;
     z-index: 10;
+}
+a{
+    text-decoration: none;
+    color: #abaf9a;
 }
 
 .listNavBar{
@@ -31,8 +35,11 @@
     justify-content:center;
     cursor: pointer;
     text-decoration: none;
-    /* border: 1px solid #D05353; */
-    color: #707D28;
+    border: 2px solid #383838ed;
+    line-height: 4.5vh;
+    color: #abaf9a;
+    border-style: outset;
+    /* text-shadow: 1px 1px #f3fdc6; */
 } 
 .nameProfile {
     cursor: default;    
