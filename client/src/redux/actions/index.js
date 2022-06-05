@@ -1,27 +1,10 @@
 import axios from "axios";
 
 import {
-  SET_USER_GEO,
-  GET_ALL_USERS,
-  POST_USER,
-  PUT_USER_INFO,
-  GET_USER,
-  GET_USER_TOKEN_GOOGLE,
-  GET_AVATARS,
-  POST_AVATAR,
-  GET_ALL_PARTNERS,
-  GET_ALL_GYMS,
-  GET_GYM_DETAIL,
-  SET_CURRENT_PAGE,
-  SET_PAGE_NUMBER,
-  SET_CURRENT_LIMIT,
-  POST_GYM, 
-  POST_SERVICES, 
-  POST_PARTNER,
-  ADD_TO_CART,
-  REMOVE_FROM_CART,
-  ADJUST_QTY,
-  LOAD_CURRENT_ITEM,
+  SET_USER_GEO, GET_ALL_USERS, POST_USER, PUT_USER_INFO, GET_USER, GET_USER_TOKEN_GOOGLE,
+  GET_AVATARS, POST_AVATAR, GET_ALL_PARTNERS, GET_ALL_GYMS, GET_GYM_DETAIL, SET_CURRENT_PAGE,
+  SET_PAGE_NUMBER, SET_CURRENT_LIMIT, POST_GYM, POST_SERVICES, POST_PARTNER, ADD_TO_CART,
+  REMOVE_FROM_CART, ADJUST_QTY, LOAD_CURRENT_ITEM, SORT_BY_NAME, SORT_BY_SCORE,
 } from "./actionTypes";
 
 //------USER SERVICE ACTIONS------(favor de poner todas las aciones referentes a service en general todos los usuarios aqui)
@@ -428,3 +411,16 @@ export const postCart = (body) =>{
   }
 }
 
+
+//-------- ORDENAMIENTO POR PUNTUACIÓN Y ORDEN ALFABÉTICO ---------------------------
+export function sortByName(order) {
+  return {
+    type: SORT_BY_NAME, payload: order
+  }
+}
+
+export function sortByScore(order) {  
+  return {
+      type: SORT_BY_SCORE, payload: order
+  }
+}
