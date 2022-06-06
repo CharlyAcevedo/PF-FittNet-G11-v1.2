@@ -22,7 +22,7 @@ import FormUser from "./components/Forms/FormUser";
 import NavBar from "./components/NavBar/NavBar";
 import NavBarProfile from "./components/NavBarProfile/NavBarProfile";
 import UpdatePartner from "./components/UpDatePartner/partner";
-import  UpdateGym  from "./components/UpDatePartner/gym";
+import UpdateGym  from "./components/UpDatePartner/gym";
 import Services  from "./components/UpDatePartner/service";
 import StripeCart from "./components/StripeCart/StripeCart";
 
@@ -47,7 +47,7 @@ const MainLayoutUser = () => {
 };
 
 function App() {
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
 
   return (
     <div className="App">

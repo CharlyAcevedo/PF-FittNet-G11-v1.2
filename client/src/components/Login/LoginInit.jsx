@@ -88,8 +88,9 @@ export default function LoginInit() {
         shape: "circle",
       }
     );
+  });
 
-  }, [window.google?.accounts]);
+  // }, [window.google?.accounts]);
 
 
   async function onSubmit(e) {
