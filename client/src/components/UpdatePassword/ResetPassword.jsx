@@ -63,6 +63,8 @@ export default function ResetPassword() {
           setValidation(true);
         })
         .catch((error)=>{console.log(error)})
+    } else {
+      setError("Campos incompletos")
     }
   }
 

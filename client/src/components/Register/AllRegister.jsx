@@ -4,7 +4,7 @@ import { setUserGeo } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles/AllRegister.module.css";
-import { regexPassword, regexEmail, regexName } from "../../asets/helpers/regexValidators"
+import { regexEmail, regexName } from "../../asets/helpers/regexValidators"
 import {
   BackgroundTwo,
   BackgroundOne,
