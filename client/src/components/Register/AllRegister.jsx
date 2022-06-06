@@ -4,27 +4,31 @@ import { setUserGeo } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles/AllRegister.module.css";
-import { regexPassword, regexEmail, regexName } from "../../asets/helpers/regexValidators"
+import {
+  regexPassword,
+  regexEmail,
+  regexName,
+} from "../../asets/helpers/regexValidators";
 import {
   BackgroundTwo,
   BackgroundOne,
 } from "../../helpers/Backround/Background";
-
-
+import { SweetAlrt } from "../../asets/helpers/sweetalert";
 
 export default function AllRegister() {
-
   const dispatch = useDispatch();
-  const geolocation = useSelector((state) => state.currentUserDetails.currentGeo)
+  const geolocation = useSelector(
+    (state) => state.currentUserDetails.currentGeo
+  );
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
-  const [geoloc, setGeoloc] = useState({ 
+  const [geoloc, setGeoloc] = useState({
     lat: geolocation.latitude,
     lng: geolocation.longitude,
-   })
+  });
   const [error, setError] = useState("");
   // const [disableSubmit, setDisableSubmit] = useState(true)
 
@@ -39,7 +43,7 @@ export default function AllRegister() {
         setGeoloc({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
-        })
+        });
       },
       function (error) {
         console.log(error);
@@ -50,8 +54,6 @@ export default function AllRegister() {
     ); // eslint-disable-next-line
   }, []);
 
-  
-
   function onSubmit(e) {
     e.preventDefault();
     let userCreate;
@@ -59,13 +61,12 @@ export default function AllRegister() {
     console.log("está saliendo el post ", userCreate);
 
     //---------------------------------------------------------------------
-    // La validación de los campos la hace la función validadora 
-    // llamada desde cada input. Luego si tengo todos los campos completos 
-    // y no tengo errores(seteados por la función validadora), entonces 
+    // La validación de los campos la hace la función validadora
+    // llamada desde cada input. Luego si tengo todos los campos completos
+    // y no tengo errores(seteados por la función validadora), entonces
     // creo el objeto y hago el post al back.
     //--------------------------------------------------------------------
     if (error === "" && name && email && password && type) {
-
       userCreate = {
         name: name,
         username: email,
@@ -88,12 +89,13 @@ export default function AllRegister() {
             setPassword("");
             setError("");
             setEmail("");
-
-            window.alert(res.data.message);
+            SweetAlrt("Exito!", res.data.message, "success", true);
+            // window.alert(res.data.message);
             return (window.location = "http://localhost:3000/login");
           }
           if (res.data.created === false) {
-            window.alert(res.data.message);
+            // window.alert(res.data.message);
+            SweetAlrt("Atencion!", res.data.message, "warning", true, true);
             setName("");
             setPassword("");
             setError("");
@@ -103,13 +105,20 @@ export default function AllRegister() {
         .catch((error) => console.log(error));
     }
     if (!name || !email || !password || !type) {
-      window.alert('Por favor complete todos los campos')
+      SweetAlrt(
+        "Error",
+        "Por favor complete todos los campos",
+        "warning",
+        true,
+        true
+      );
+      // window.alert('Por favor complete todos los campos')
     }
   }
 
-  function onChangeName (e) {
-    setName(e.target.value); 
-    if (name.length < 3 ) {
+  function onChangeName(e) {
+    setName(e.target.value);
+    if (name.length < 3) {
       setError("El nombre es requerido");
     } else if (!regexName.test(name)) {
       setError("El nombre debe contener letras");
@@ -122,7 +131,6 @@ export default function AllRegister() {
     setEmail(e.target.value);
     if (email.length < 3) {
       setError("El Email es requerido");
-
     } else if (!regexEmail.test(email)) {
       setError("Email invalido");
     } else {
@@ -130,24 +138,22 @@ export default function AllRegister() {
     }
   }
 
-  function onChangePassword (e) {
-    setPassword(e.target.value);    
+  function onChangePassword(e) {
+    setPassword(e.target.value);
     if (password.length < 2) {
       setError("Necesita introducir una contraseña");
-    } else if (password.length < 3) { 
+    } else if (password.length < 3) {
       setError("La constraseña debe tener un mínimo de tres caracteres");
     } else {
       setError("Recuerde seleccionar el tipo de usuario");
     }
   }
 
-  function onChangeType (e) {
-    setType(e.target.value);    
+  function onChangeType(e) {
+    setType(e.target.value);
 
     setError("");
-
   }
-
 
   return (
     <div className={styles.container}>
@@ -180,7 +186,7 @@ export default function AllRegister() {
                 placeholder="Escriba su Nombre..."
                 required
                 onChange={(e) => onChangeName(e)}
-                onClick={(e)=> onChangeName(e)}
+                onClick={(e) => onChangeName(e)}
               />
             </div>
             <div className={styles.loginField}>
@@ -204,17 +210,15 @@ export default function AllRegister() {
                 placeholder="Contraseña"
                 required
                 onChange={(e) => onChangePassword(e)}
-                onClick={(e)=> onChangePassword(e)}
+                onClick={(e) => onChangePassword(e)}
               />
             </div>
-            <br />           
+            <br />
             <div className={styles.loginRield}>
               <select
                 name="select"
                 onChange={(e) =>
-                  e.target.value === "Tipo de cliente"
-                    ? null
-                    : onChangeType(e)
+                  e.target.value === "Tipo de cliente" ? null : onChangeType(e)
                 }
               >
                 <option value="Tipo de cliente">Tipo de cliente</option>
@@ -240,7 +244,7 @@ export default function AllRegister() {
         </div>
         <BackgroundTwo />
       </div>
-      <BackgroundOne/>
+      <BackgroundOne />
     </div>
   );
 }
