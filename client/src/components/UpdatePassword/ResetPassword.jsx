@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from 'axios';
+import { SweetAlrt } from "../../asets/helpers/sweetalert";
 
 // Esta es la ruta del back que podemos usar
 // router.post('/updatepassword', async (req, res, next) => {
@@ -57,7 +58,8 @@ export default function ResetPassword() {
         axios.get('/api/service/updatepassword', { params: object } )
         .then((response)=> {
           if(response.data.message) {
-            return window.alert(response.data.message)
+            return SweetAlrt("Atencion", response.data.message, "warning", true,true)
+            // return window.alert(response.data.message)
           }
           setUserId(response.data);
           setValidation(true);
@@ -82,7 +84,8 @@ export default function ResetPassword() {
             axios.post('/api/service/updatepassword', form )
             .then((response)=>{
               console.log(response.data)
-              window.alert(response.data)
+              // window.alert(response.data)
+             SweetAlrt("Exito", response.data, "info",true)
               return (window.location = "http://localhost:3000/login");
             })
             .catch((error)=>{console.log(error)})
@@ -92,7 +95,8 @@ export default function ResetPassword() {
            
         }
     } else {
-        window.alert("No puede enviar la solicitud, por favor verifique los valores de los campos requeridos")
+      SweetAlrt("Atencion!", "No puede envar al solicitud, por favor verigique los valores de los campos requeridos","warning",true,true)
+        // window.alert("No puede enviar la solicitud, por favor verifique los valores de los campos requeridos")
     }
   }
 

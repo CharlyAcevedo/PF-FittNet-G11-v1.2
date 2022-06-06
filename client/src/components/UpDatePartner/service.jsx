@@ -4,6 +4,7 @@ import { serviceValidate } from "./controlers/validaciones";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createService } from "../../redux/actions";
+import { SweetAlrt } from "../../asets/helpers/sweetalert";
 
 export default function Services() {
   const dispatch = useDispatch();
@@ -84,10 +85,12 @@ export default function Services() {
       !input.description ||
       !input.objTraining
     ) {
-      return alert("Todos los campos deben estar completos!");
+      return SweetAlrt("Error","Todos los campos deben estar completos", "error",true)
+      // return alert("Todos los campos deben estar completos!");
     } else {
       dispatch(createService(input));
-      alert("Service creado!");
+      SweetAlrt("Exito!", "servicio creado","success",true)
+      // alert("Service creado!");
       setInput({
         ...input,
         name: "",
