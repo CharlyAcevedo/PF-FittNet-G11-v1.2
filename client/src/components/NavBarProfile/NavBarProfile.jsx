@@ -1,13 +1,26 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import Logout from "../Logout/Logout";
+import { getUserGoogleForToken } from "../../redux/actions/index";
 import style from "./style/NavBarProfile.module.css";
 
 export default function NavBarProfile() {
   let { userId, name, type, avatar } = useParams();
 
-
   const token = localStorage.getItem("token");
+
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(token) {
+      dispatch(getUserGoogleForToken(token))
+    }
+  }, []);
+
+  console.log(user)
 
   return (
     <div className={style.boxNavBarProfile}>

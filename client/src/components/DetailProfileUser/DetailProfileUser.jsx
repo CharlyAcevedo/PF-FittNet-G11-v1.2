@@ -1,10 +1,21 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles/detailProfile.module.css";
 
 export default function DetailProfileUser() {
-  let { userId, name, type, avatar } = useParams();
+  let { userId } = useParams();
   // console.log(userId, name, type, avatar, ' los params')
+
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user)
+
+
+  const {name, userName, type, avatar} = user
+
+  const avatarId = avatar?._id
+
 
 
   // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
@@ -14,6 +25,8 @@ export default function DetailProfileUser() {
 
   // Queda pendiente dispachar una acción para cargar en el estado global
   // la info del usuario en un objeto. Ejeplo --> State.detailUser = {}
+
+  // console.log(avatar)
 
   return (
     <div style={{ width: "100%" }}>
@@ -26,7 +39,7 @@ export default function DetailProfileUser() {
             Bienvenido a tu perfil - {name}
           </span>
           <div className={styles.typeUser}>
-            <p>Tipo usuario : {type.toUpperCase()}</p>
+            <p>Tipo usuario : {type?.toUpperCase()}</p>
           </div>
         </div>
 
@@ -43,9 +56,9 @@ export default function DetailProfileUser() {
           <a style={{ color: "#fff" }} href={`/deactivate/${userId}`}>
             Borra mi cuenta
           </a>
-          <a style={{ color: "#fff" }} href="/">
+          <span style={{ color: "#fff", cursor: "pointer" }} onClick={() => navigate(`/home/${type}/${name}/${userId}/${avatarId}`)}>
             Volver
-          </a>
+          </span>
         </div>
         <div className={styles.containerAlert}>
           <h3>Esta vista corresponde a un cliente final o "user"</h3>

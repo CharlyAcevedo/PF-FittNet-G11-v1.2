@@ -44,12 +44,14 @@
   gap: 2rem;
 }
 
-.etiquetasProfile a {
+.etiquetasProfile a,
+.etiquetasProfile span {
   text-decoration: none;
   position: relative;
 }
 
-.etiquetasProfile a::before {
+.etiquetasProfile a::before,
+.etiquetasProfile span::before {
   content: "";
   position: absolute;
   bottom: -5px;
@@ -59,7 +61,8 @@
   border-bottom: 2px solid var(--color-prim);
   transition: 0.5s all;
 }
-.etiquetasProfile a:hover::before {
+.etiquetasProfile a:hover::before,
+.etiquetasProfile span:hover::before {
   opacity: 1;
   width: 100%;
 }
@@ -83,7 +86,7 @@
 }
 
 .containerCarritoCompras {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .containerCarritoCompras h3 {

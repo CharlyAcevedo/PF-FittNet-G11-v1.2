@@ -99,20 +99,33 @@ const getUserGoogleAccount = async (req, res) => {
                     preserveNullAndEmptyArrays: false
                 }
             },
-            // {
-            //     $lookup: {
-            //         from: "infoUsers",
-            //         localField: "info",
-            //         foreignField: "_id",
-            //         as: "infoUsers"
-            //     }
-            // },
-            // {
-            //     $unwind: {
-            //         path: '$infoUser',
-            //         preserveNullAndEmptyArrays: true
-            //     }
-            // },
+            {
+                $lookup: {
+                    from: "infousers",
+                    localField: "info",
+                    foreignField: "_id",
+                    as: "info"
+                }
+            },
+            {
+                $unwind: {
+                    path: '$info',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $lookup: {
+                    from: "addresses",
+                    localField: "info.address",
+                    foreignField: "_id",
+                    as: "info.address"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.address",
+                }
+            },
             {
                 $project: {
                     name: 1,
@@ -126,7 +139,16 @@ const getUserGoogleAccount = async (req, res) => {
                         _id: 1,
                         avatarName: 1,
                     },
-                    info: 1
+                    info: {
+                        _id: 1,
+                        name: 1,
+                        lastName: 1,
+                        photo: 1,
+                        birthday: 1,
+                        phone: 1,
+                        username: 1,
+                        address: 1
+                    }
                 }
             }
         ]);
@@ -325,12 +347,33 @@ const updateUser = async (req, res) => {
 
         //? hay que condicionar para que el address no se duplique
         //? preguntar si existe ya en mi base de datos un address con ese id
-        const userInfo = await InfoUser.findById(user.info)
+        const idInfo = user.info
+        const userInfo = await InfoUser.findById(idInfo)
 
         const address = await Address.findById(userInfo.address)
 
+        console.log("este es mi info del usuario: ", userInfo)
+
+        console.log("este es mi address", address)
+
         let idAddress;
-        if (!address) {
+
+        if (address) {
+            console.log("entro a actualizar el address")
+            const infoAddress = {
+                street: body.street,
+                floor: body.floor,
+                address: body.address,
+                apartament: body.apartament,
+                neighborhood: body.neighborhood,
+                city: body.city,
+                country: body.country,
+                zipCode: body.zipCode
+            }
+            await Address.findByIdAndUpdate(userInfo.address, infoAddress, { new: true })
+            idAddress = userInfo.address
+        } else {
+            console.log("no existe un address actualmente en tu info del usuario, ACTUALIZALA")
             const addressUser = new Address({
                 street: body.street,
                 floor: body.floor,
@@ -343,21 +386,7 @@ const updateUser = async (req, res) => {
             })
             await addressUser.save()
             idAddress = addressUser._id
-        } else {
-            const addressUser = new Address({
-                street: body.street,
-                floor: body.floor,
-                address: body.address,
-                apartament: body.apartament,
-                neighborhood: body.neighborhood,
-                city: body.city,
-                country: body.country,
-                zipCode: body.zipCode
-            })
-            await Address.findByIdAndUpdate(address._id, addressUser, { new: true })
-            idAddress = address._id;
         }
-        const idInfo = user.info
         const idAvatar = user.avatar
         const newInfoUser = {
             username: body.username,
