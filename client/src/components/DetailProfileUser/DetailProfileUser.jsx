@@ -1,9 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import NavBarProfile from "../NavBarProfile/NavBarProfile";
+
 
 export default function DetailProfileUser() {
-    let { userId , name, type, avatar } = useParams();
+    let { userId , name, type } = useParams();
     // console.log(userId, name, type, avatar, ' los params')
 
     // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
