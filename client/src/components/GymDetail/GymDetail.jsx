@@ -5,8 +5,8 @@ import { useDispatch } from "react-redux";
 import { addToCart, getGymDetail } from "../../redux/actions";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { NavBar3 } from "../GymDetail/NavBar3";
-import CartItem from "../../components/CartItem/CartItem";
+import { NavBar3 } from "./NavBar3";
+import CartItem from "../CartItem/CartItem";
 
 
 
@@ -48,7 +48,7 @@ export default function GymDetail() {
                     <img src={gymDetail.image[1]} alt="logo" />
                 </div>
                 <div>
-                <NavBar3 id={gymDetail._id}/>
+                <NavBar3 id={[gymDetail]} usuarioId={usuarioId}/>
                 </div>
                 <div>
                     {gymDetail.services.map(e => {

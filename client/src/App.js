@@ -11,7 +11,7 @@ import Profile from "./views/Profile";
 //import UserPrices from "./components/UserPrices/UserPrices";
 //import GymDetail from "./views/GymDetail";
 import UserPrices from './components/UserPrices/UserPrices'
-import GymDetail from "./views/GymDetail/GymDetail";
+import GymDetail from "./components/GymDetail/GymDetail";
 import LegendUf from "./components/LegendUf/LegendUf";
 import ResetPassword from "./components/UpdatePassword/ResetPassword";
 import UpdatePasword from "./components/UpdatePassword/UpdatePassword";
@@ -24,6 +24,7 @@ import NavBarProfile from "./components/NavBarProfile/NavBarProfile";
 import UpdatePartner from "./components/UpDatePartner/partner";
 import  UpdateGym  from "./components/UpDatePartner/gym";
 import Services  from "./components/UpDatePartner/service";
+import StripeCart from "./components/StripeCart/StripeCart";
 
 
 
@@ -94,6 +95,10 @@ function App() {
         <Route
           path="/profile/partner/:name/:userId/gym/service"
           element={<Services />}
+        />
+        <Route
+          path="/stripe"
+          element={<StripeCart />}
         />
       </Routes>
     </div>
