@@ -4,11 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import style from "./styles/UserPrices.module.css";
 import { getAllGyms } from "../../redux/actions";
 
-
 export default function UserPrices() {
   const gyms = useSelector((state) => state.gyms);
   const dispatch = useDispatch();
-  
+
   const planes = [
     {
       planName: "Inicial",
@@ -99,10 +98,11 @@ export default function UserPrices() {
   //   },
   // ];
 
-
-  useEffect(() =>{
-    dispatch(getAllGyms())
-  })
+  useEffect(() => {
+    if (!gyms) {
+      dispatch(getAllGyms());
+    }
+  });
 
   return (
     <div className={style.pricesTableContainer}>
@@ -115,7 +115,12 @@ export default function UserPrices() {
           <tr>
             <th></th>
             {planes.map((a) => (
-              <th style={{color: "var(--color-prim)", fontSize: "1.4rem"}} key={a}>{a.planName}</th>
+              <th
+                style={{ color: "var(--color-prim)", fontSize: "1.4rem" }}
+                key={a}
+              >
+                {a.planName}
+              </th>
             ))}
           </tr>
           <tr>
@@ -127,9 +132,7 @@ export default function UserPrices() {
         </thead>
         <tbody>
           <tr>
-            <td>
-              Cuota mensual
-            </td>
+            <td>Cuota mensual</td>
             {planes.map((b) => (
               <td key={b}>{b.planPrice}</td>
             ))}
@@ -182,21 +185,28 @@ export default function UserPrices() {
 
       <Table responsive="md" className={style.classesTableContainer}>
         {gyms.map((g) => {
-          return(
-          <div value={g.id} className={style.expand} key={g}>
-            {/* {console.log(gyms)} */}
-            {g.name}
-            {/* {console.log(g.services)} */}
-            <select>
-            <option value='select' hidden selected> Ver clases... </option>
-            {g.services.map((s) => {
-              // {console.log(s.name)}
-              return(
-               <option key={s.name} value={s._id}>{s.name}   ${s.price}</option>
-              ) 
-            })}</select>
+          return (
+            <div value={g.id} className={style.expand} key={g}>
+              {/* {console.log(gyms)} */}
+              {g.name}
+              {/* {console.log(g.services)} */}
+              <select>
+                <option value="select" hidden selected>
+                  {" "}
+                  Ver clases...{" "}
+                </option>
+                {g.services.map((s) => {
+                  // {console.log(s.name)}
+                  return (
+                    <option key={s.name} value={s._id}>
+                      {s.name} ${s.price}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
-         )})} 
+          );
+        })}
       </Table>
     </div>
   );
