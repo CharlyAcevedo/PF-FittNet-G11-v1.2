@@ -119,16 +119,18 @@ export default function LoginInit() {
           console.log(login, " lo que responde el back si se autentica el user" );
           
           let { userId, name, type, avatar, active } = login;
-
-          if (active === true) { // Si la cuenta está activa
-            if (typeof avatar === "string") {
           
+          if (active === true) { // Si la cuenta está activa
+            if (login.avatar._id ) {
+              console.log(login, ' el user')
+              
               localStorage.setItem("userId", userId)
               localStorage.setItem("name", name)
               localStorage.setItem("type", type)
-              localStorage.setItem("avatar", avatar)
-            
-              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`);
+              localStorage.setItem("avatar", avatar._id)
+              
+              let avatarId = avatar._id;
+              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatarId}`);
             }
             // ya le paso info por params de quién estamos hablando
             return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
