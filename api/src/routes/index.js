@@ -11,7 +11,7 @@ const router = Router();
 
 router.get('/', async (req, res) => {
     try {
-        res.status(200).send("Esta es la api Fittnet, usted no esta logeado por eso fue redirigido aqui")
+        res.status(200).send("Esta es la api Fittnet")
     } catch (error) {
         res.status(error.status).json({error: error.message})
     }

@@ -146,11 +146,6 @@ export default function FormUser() {
       </p>
       <form>
         <div>
-          {/* <label>NAME: </label>
-                    <input  type= "text" name= "name" onChange= {(e)=>handleOnChange(e)}/>
-                    {error.name&& (
-                        <p  className={styles.parrafo} >{error.name}</p>
-                    )}  */}
           <label>USERNAME: </label>
           <input
             className={error.username ? styles.inputError : styles.input}
