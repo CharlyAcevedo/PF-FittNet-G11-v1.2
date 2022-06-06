@@ -62,7 +62,7 @@ export default function UpdatePasword () {
 
         }
     } else {
-      SweetAlrt("Atencion","Verigique los datos del formulario","error",true)
+      SweetAlrt("Atencion","Verifique los datos del formulario","error",true)
       // window.alert("Verifique los datos del formulario");
     }    
 
