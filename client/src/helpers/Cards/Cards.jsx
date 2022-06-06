@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { postAvatar } from "../../redux/actions/index";
+import { ButtonDetailGym } from "../Buttons/Buttons.jsx";
 
 import styles from "./styles/stylesCards.module.css";
 
@@ -16,6 +17,92 @@ export const CardAvatares = (props) => {
     <div className={styles.containerCardAvatares}>
       <div style={estiloPruebaImage}></div>
       <span style={{}}></span>
+    </div>
+  );
+};
+
+export const CardGymsAdicional = (props) => {
+  const { image, title, click } = props;
+
+  const estiloImagenFondo = {
+    backgroundImage: `url(${image})`,
+  };
+
+  return (
+    <div className={styles.box}>
+      <div className={styles.drop} style={estiloImagenFondo}>
+        <div className={styles.dropDetail}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              borderBottom: "1px solid #fff",
+            }}
+          >
+            <h3
+              style={{
+                color: "#f1f1f1",
+                fontSize: "1.6rem",
+                padding: ".1rem 1rem",
+              }}
+            >
+              {title}{" "}
+            </h3>
+            <span
+              style={{
+                color: "#c2c2c2",
+                fontSize: "1.4rem",
+                fontWeight: "700",
+                marginRight: "1rem",
+              }}
+            >
+              4.8
+            </span>
+          </div>
+          <h3>$ 99.99</h3>
+        </div>
+      </div>
+      <div className={`${styles.activator} ${styles.northwest}`}></div>
+      <div className={`${styles.activator} ${styles.north}`}></div>
+      <div className={`${styles.activator} ${styles.northeast}`}></div>
+      <div className={`${styles.activator} ${styles.east}`}>EEEEEEEE</div>
+      <div className={`${styles.activator} ${styles.southeast}`}></div>
+      <div className={`${styles.activator} ${styles.south}`}></div>
+      <div className={`${styles.activator} ${styles.southwest}`}></div>
+      <div className={`${styles.activator} ${styles.west}`}></div>
+      <div className={`${styles.overlay} ${styles.northwest}`}>
+          <div onClick={() => console.log("enia y enita")}>VER DETALLE</div>
+          {/* <ButtonDetailGym title="VER DETALLE" onClick={click} /> */}
+      </div>
+      <div className={`${styles.overlay} ${styles.north}`}>
+          <div onClick={() => console.log("enia y enita")}>VER DETALLE</div>
+          {/* <ButtonDetailGym title="VER DETALLE" onClick={click} /> */}
+      </div>
+      <div className={`${styles.overlay} ${styles.northeast}`}>
+          <div onClick={() => console.log("enia y enita")}>VER DETALLE</div>
+          {/* <ButtonDetailGym title="VER DETALLE" onClick={click} /> */}
+      </div>
+      <div className={`${styles.overlay} ${styles.east}`}>
+          <div onClick={() => console.log("enia y enita")}>VER DETALLE</div>
+          {/* <ButtonDetailGym title="VER DETALLE" onClick={click} /> */}
+      </div>
+      <div className={`${styles.overlay} ${styles.southeast}`}>
+          <div onClick={() => console.log("enia y enita")}>VER DETALLE</div>
+          {/* <ButtonDetailGym title="VER DETALLE" onClick={click} /> */}
+      </div>
+      <div className={`${styles.overlay} ${styles.south}`}>
+          <div onClick={() => console.log("enia y enita")}>VER DETALLE</div>
+          {/* <ButtonDetailGym title="VER DETALLE" onClick={click} /> */}
+      </div>
+      <div className={`${styles.overlay} ${styles.southwest}`}>
+          <div onClick={() => console.log("enia y enita")}>VER DETALLE</div>
+          {/* <ButtonDetailGym title="VER DETALLE" onClick={click} /> */}
+      </div>
+      <div className={`${styles.overlay} ${styles.west}`}>
+          <div onClick={() => console.log("enia y enita")}>VER DETALLE</div>
+          {/* <ButtonDetailGym title="VER DETALLE" onClick={click} /> */}
+      </div>
     </div>
   );
 };

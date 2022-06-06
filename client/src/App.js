@@ -24,6 +24,7 @@ import NavBarProfile from "./components/NavBarProfile/NavBarProfile";
 import UpdatePartner from "./components/UpDatePartner/partner";
 import UpdateGym from "./components/UpDatePartner/gym";
 import Services from "./components/UpDatePartner/service";
+import StripeCart from "./components/StripeCart/StripeCart";
 
 
 
@@ -68,7 +69,7 @@ function App() {
           <Route path="/profile/:type/:name/:userId" element={<Profile />} />
           <Route path="/home/modificacion/:type/:name/:userId" element={<FormUser />} />
           {/* <Route path="/api/partner/gyms/gymbyid/:id" element={<GymDetail />} /> */}
-          
+
         </Route>
       </Routes>
       <Routes>
@@ -96,6 +97,10 @@ function App() {
         <Route
           path="/profile/partner/:name/:userId/gym/service"
           element={<Services />}
+        />
+        <Route
+          path="/stripe"
+          element={<StripeCart />}
         />
       </Routes>
     </div>

@@ -9,14 +9,22 @@ export default function DetailProfileUser() {
 
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.user)
+  const user = useSelector((state) => state.user);
 
+  const { name, userName, type, avatar, info } = user;
 
-  const {name, userName, type, avatar} = user
+  // const { photo ,birthday, username, address } = info;
 
-  const avatarId = avatar?._id
+  // const { street, floor, neighborhood, city, country, zipCode } = address;
 
+  //info.address.street
+  //info.address.floor
+  //info.address.neighborhood
+  //info.address.city
+  //info.address.country
+  //info.address.zipCode
 
+  const avatarId = avatar?._id;
 
   // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
 
@@ -31,50 +39,136 @@ export default function DetailProfileUser() {
   return (
     <div style={{ width: "100%" }}>
       <div className={styles.containerPerfilUser}>
-        <div className={styles.headerProfile}>
-          <div className={styles.usuarioId}>
-            Id: <span>{userId}</span>
+        <div className={styles.containerPhotoPerfil}>
+          <img
+            src={info?.photo}
+            alt="mi foto"
+            style={{ width: "90%", height: "300px", borderRadius: ".6rem" }}
+          />
+        </div>
+        <div className={styles.infoPerfilUser}>
+          <div className={styles.headerPerfilUser}>
+            <div
+              style={{ display: "flex", alignItems: "center", gap: "1.1rem" }}
+            >
+              <div>
+                <h3 style={{ color: "#fff" }}>Marcelo Copa</h3>
+                <p
+                  style={{
+                    color: "var(--color-prim)",
+                    border: "1px solid var(--color-prim)",
+                    textAlign: "center",
+                    padding: ".2rem",
+                    marginTop: ".2rem",
+                    borderRadius: ".6rem",
+                  }}
+                >
+                  User
+                </p>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: ".4rem",
+                  color: "#8a8a8a",
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                  <path d="M384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192H384z" />
+                </svg>
+                <p>Salta, AR</p>
+              </div>
+            </div>
+            <div
+              style={{
+                fontWeight: "500",
+                color: "#494949",
+                backgroundColor: "#d6d6d6",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                textAlign: "center",
+                paddingLeft: "1rem",
+                paddingRight: "1rem",
+                borderRadius: ".4rem",
+              }}
+            >
+              <p>
+                Id: <span style={{ fontWeight: "700" }}>{userId}</span>
+              </p>
+            </div>
           </div>
-          <span className={styles.nameProfile}>
-            Bienvenido a tu perfil - {name}
-          </span>
-          <div className={styles.typeUser}>
-            <p>Tipo usuario : {type?.toUpperCase()}</p>
+          <div className={styles.etiquetasProfile}>
+            <a
+              style={{ color: "#fff" }}
+              href={`/home/modificacion/${type}/${name}/${userId}`}
+            >
+              Editar mi perfil
+            </a>
+            <a style={{ color: "#fff" }} href={`/updatepassword/${userId}`}>
+              Cambiar mi contraseña
+            </a>
+            <a style={{ color: "#fff" }} href={`/deactivate/${userId}`}>
+              Borra mi cuenta
+            </a>
+            <span
+              style={{ color: "#fff", cursor: "pointer" }}
+              onClick={() =>
+                navigate(`/home/${type}/${name}/${userId}/${avatarId}`)
+              }
+            >
+              Volver
+            </span>
+          </div>
+          <div className={styles.infoContactUser}>
+            <h4 style={{ fontWeight: "700", color: "#cecece" }}>
+              Informacion de contacto
+            </h4>
+            <div className={styles.contactUser}>
+              <p>
+                Phone:{" "}
+                <span style={{ color: "var(--color-prim)" }}>
+                  {info?.phone}
+                </span>
+              </p>
+              <p>
+                Address:{" "}
+                <span style={{ color: "var(--color-prim)" }}>
+                  Direccion 14, Salta AR - 4400
+                </span>
+              </p>
+              <p>
+                Email:{" "}
+                <span style={{ color: "var(--color-prim)" }}>{userName}</span>
+              </p>
+            </div>
+          </div>
+          <div className={styles.othersInfo}>
+            <h4 style={{ fontWeight: "700", color: "#cecece" }}>
+              Otra informacion
+            </h4>
+            <div className={styles.others}>
+              <p>
+                Fecha de nacimiento:{" "}
+                <span style={{ color: "var(--color-prim)" }}>
+                  {info?.birthday.substring(0, 10)}
+                </span>
+              </p>
+              <p>
+                Genero:{" "}
+                <span style={{ color: "var(--color-prim)" }}>Masculino</span>
+              </p>
+            </div>
           </div>
         </div>
-
-        <div className={styles.etiquetasProfile}>
-          <a
-            style={{ color: "#fff" }}
-            href={`/home/modificacion/${type}/${name}/${userId}`}
-          >
-            Editar mi perfil
-          </a>
-          <a style={{ color: "#fff" }} href={`/updatepassword/${userId}`}>
-            Cambiar mi contraseña
-          </a>
-          <a style={{ color: "#fff" }} href={`/deactivate/${userId}`}>
-            Borra mi cuenta
-          </a>
-          <span style={{ color: "#fff", cursor: "pointer" }} onClick={() => navigate(`/home/${type}/${name}/${userId}/${avatarId}`)}>
-            Volver
-          </span>
-        </div>
-        <div className={styles.containerAlert}>
-          <h3>Esta vista corresponde a un cliente final o "user"</h3>
-          <p>Hay que solicitar info para cada una de estás vistas</p>
-        </div>
-        <div className={styles.containerCarritoCompras}>
-          <h3>Carrito de compras</h3>
-          <p>Mi carrito</p>
-        </div>
-        <h3>Historial de compras</h3>
+        {/* <h3>Historial de compras</h3>
         <p>Mis compras</p>
         <h3>Detalles del perfil</h3>
         <p>Name: {name}</p>
         <p>Tipo de plan: </p>
         <p>Siguitene 2</p>
-        <p>Siguitene 3</p>
+        <p>Siguitene 3</p> */}
       </div>
     </div>
   );

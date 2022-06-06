@@ -1,24 +1,10 @@
 import { latBA, lngBA } from "../../asets/helpers/goeDefaults";
 import { Action } from "history";
 import {
-  GET_ALL_USERS,
-  GET_ALL_PARTNERS,
-  GET_AVATARS,
-  SET_CURRENT_PAGE,
-  SET_PAGE_NUMBER,
-  SET_CURRENT_LIMIT,
-  GET_ALL_GYMS,
-  GET_GYM_DETAIL,
-  SET_USER_GEO,
-  POST_USER_GOOGLE,
-  GET_USER,
-  POST_AVATAR,
-  GET_USER_TOKEN_GOOGLE,
-  PUT_USER_INFO,
-  ADD_TO_CART,
-  REMOVE_FROM_CART,
-  ADJUST_QTY,
-  LOAD_CURRENT_ITEM,
+  GET_ALL_USERS, GET_ALL_PARTNERS, GET_AVATARS, SET_CURRENT_PAGE, SET_PAGE_NUMBER,
+  SET_CURRENT_LIMIT, GET_ALL_GYMS, GET_GYM_DETAIL, SET_USER_GEO, POST_USER_GOOGLE,
+  GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, ADD_TO_CART, REMOVE_FROM_CART,
+  ADJUST_QTY, LOAD_CURRENT_ITEM, SORT_BY_NAME, SORT_BY_SCORE,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -223,6 +209,38 @@ export default function rootReducer(state = initialState, { type, payload }) {
           ...state,
           cart: state.cart.filter(item => item._id !== payload.id)
         };
+      case SORT_BY_NAME:       
+        let orderedGymsName = state.gymsToShow.length ? [...state.gymsToShow] : [...state.gyms];
+        orderedGymsName = orderedGymsName.sort((a,b) => {
+          if (a.name < b.name ) {
+            return payload === 'Orden ZA' ? -1 : 1
+          }
+          if (a.name > b.name ) {
+            return payload === 'Orden ZA' ? 1 : -1
+          }
+          return 0;
+        })
+        return {
+          ...state,
+          pageToShow: orderedGymsName
+        }
+        
+      case SORT_BY_SCORE:
+        let orderedGymsScore = state.gymsToShow.length ? [...state.gymsToShow] : [...state.gyms];            
+        orderedGymsScore = orderedGymsScore.sort((a,b) => {
+          if (a.raiting < b.raiting ) {
+            return payload === "Descendente" ? -1 : 1
+          }
+          if (a.raiting > b.raiting ) {
+            return payload === "Descendente" ? 1 : -1
+          }
+          return 0;
+        })  
+        return {
+          ...state,
+          pageToShow: orderedGymsScore
+        }
+
     default:
       return state;
   }

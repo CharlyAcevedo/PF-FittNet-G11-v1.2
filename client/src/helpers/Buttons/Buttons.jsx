@@ -86,6 +86,16 @@ export const ButtonSecondaryDeslice = (props) => {
   );
 };
 
+export const ButtonDetailGym = (props) => {
+  const {onClick, title, padding } = props;
+
+  return (
+    <div onClick={onClick} style={{padding: padding}} className={styles.btnDetailGym}>
+      {title}
+    </div>
+  )
+}
+
 // export const LinkPrimaryDeslice = (props) => {
 //   const { onClick } = props;
 //   return (

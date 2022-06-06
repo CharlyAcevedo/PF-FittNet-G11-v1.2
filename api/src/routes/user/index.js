@@ -2,12 +2,10 @@ const router = require("express").Router();
 const routerAvatar = require("./avatar");
 const routerProfile = require("./profile");
 const routerAll = require('./all')
-const routerUser = require('./user')
 
 router.use("/avatar", routerAvatar); 
 router.use("/profile", routerProfile);
 router.use('/all', routerAll)
-router.use('/', routerUser)
 
 router.get("/", async (req, res) => {
   try {
