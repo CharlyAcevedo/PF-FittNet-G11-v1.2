@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Logout from "../Logout/Logout";
 import style from "./style/NavBarProfile.module.css";
 

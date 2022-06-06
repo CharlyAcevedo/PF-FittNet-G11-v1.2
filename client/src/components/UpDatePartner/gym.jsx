@@ -68,25 +68,27 @@ export default function UpdateGym() {
   }
 
   //!------------------SERVICES---------------
-  function handleChangeServices(e) {
-    setInput(() => {
-      const newServices = {
-        ...input,
-        services: input.services.includes(e.target.value)
-          ? [...input.services]
-          : [...input.services, e.target.value],
-      };
-      return newServices;
-    });
-  }
+  // function handleChangeServices(e) {
+  //   setInput(() => {
+  //     const newServices = {
+  //       ...input,
+  //       services: input.services.includes(e.target.value)
+  //         ? [...input.services]
+  //         : [...input.services, e.target.value],
+  //     };
+  //     return newServices;
+  //   });
+  // }
+  
   //!deleted services
-  function handleDelete(e) {
-    setInput({
-      ...input,
-      services: input.services.filter((el) => el !== e.target.value),
-    });
-    console.log("ESTO ES DELET", e);
-  }
+
+  // function handleDelete(e) {
+  //   setInput({
+  //     ...input,
+  //     services: input.services.filter((el) => el !== e.target.value),
+  //   });
+  //   console.log("ESTO ES DELET", e);
+  // }
 
   //!-------------------Trainers-----------------------------
   function handleChangeTrainers(e) {

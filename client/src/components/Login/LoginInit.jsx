@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles/LoginInit.module.css";
 import jwt_decode from "jwt-decode";
-import { getUser, getUserGoogleForToken } from "../../redux/actions";
 import {
   BackgroundTwo,
   BackgroundOne,
@@ -14,18 +14,18 @@ import {
 export default function LoginInit() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [googleUser, setGoogleUser] = useState({});
+  // const [googleUser, setGoogleUser] = useState({});
   const [error, setError] = useState("");
   
  
   const navigate = useNavigate();
 
-  const userGoogle = useSelector((state) => state.user);
+  // const userGoogle = useSelector((state) => state.user);
 
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleCallbackGoogle = async (response) => {
     const userObject = jwt_decode(response.credential);
@@ -45,7 +45,7 @@ export default function LoginInit() {
       localStorage.setItem('userId',finalizacionData.userId)
       
       document.getElementById("signInDiv").hidden = true;
-      console.log(googleUser);
+      // console.log(googleUser);
       const { avatar } = finalizacionData.usuario;
       if (!avatar) {
         return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);

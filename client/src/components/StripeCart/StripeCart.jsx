@@ -32,7 +32,8 @@ const CheckoutForm = () => {
         })
         if (!error) {
             const { id } = paymentMethod;                     
-            const response = await axios.post('/api/checkout', {
+            await axios.post('/api/checkout', {
+            //const response = await axios.post('/api/checkout', {
                 id,
                 amount: totalPrice*100,                
             }).data

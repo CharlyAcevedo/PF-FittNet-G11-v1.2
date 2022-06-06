@@ -59,7 +59,7 @@ export default function UpdatePasword () {
 
         }
     } else {
-        window.alert("Verifique los datos del formulario");
+        setError("Verifique los datos del formulario");
     }    
 
   }
