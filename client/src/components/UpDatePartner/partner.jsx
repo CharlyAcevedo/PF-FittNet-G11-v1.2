@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { updatePartnerData } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { SweetAlrt } from "../../asets/helpers/sweetalert";
 
 export default function UpdatePartner() {
   const dispatch = useDispatch();
@@ -138,10 +139,12 @@ export default function UpdatePartner() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!input.name || !input.phone || !input.lastName || !input.email) {
-      return alert("Todos los campos deben estar completos!");
+     return SweetAlrt("Atencion!","Todos os campos deben estar completos","warning",true)
+      // return alert("Todos los campos deben estar completos!");
     } else {
       dispatch(updatePartnerData(input));
-      alert("Perfil creado!");
+      SweetAlrt("Exito!", "Perfil Creado", "success", true)
+      // alert("Perfil creado!");
       setInput({
         ...input,
         name: "",

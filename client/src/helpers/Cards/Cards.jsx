@@ -6,7 +6,8 @@ import { postAvatar } from "../../redux/actions/index";
 import styles from "./styles/stylesCards.module.css";
 
 export const CardAvatares = (props) => {
-  const { border, color, boxShadow, image } = props;
+  const { image } = props;
+  // const { border, color, boxShadow, image } = props;
 
   const estiloPruebaImage = {
     backgroundImage: `url(${image})`,
@@ -78,6 +79,16 @@ export const CardAvatarAdicional = (props) => {
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+export const CardIcons = (props) => {
+  const { img, num} = props;
+  return (
+    <div className={styles.cardIcons}>
+      <img src={img} alt="" />
+      <p>{num}</p>
     </div>
   );
 };

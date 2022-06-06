@@ -47,23 +47,3 @@ export default function NavBarDevelopers() {
         </div>
     )
 }
-{/* <Routes>
-    <Route path="/" element={<Landing />} />
-    <Route path="/home/:type/:name/:userId/:avatar" element={<Home />} />
-    <Route path="/home/:type/:name/:userId" element={<Home />} />
-    <Route path="/detail/gym/:userId" element={<GymDetail />} />
-    <Route path="/legendCe" element={<LegendCe />} />
-    <Route path="/profile/:type/:name/:userId" element={<Profile />} />    
-    <Route path="/login" element={<Login />} />
-    <Route path="/register" element={<InitRegister />} />    
-    <Route path="/legendUf" element={<LegendUf />} />
-    <Route path="/userprices" element={<UserPrices />} />    
-    <Route path="/resetpassword" element={<ResetPassword />} />
-    <Route path="/updatepassword" element={<UpdatePasword />} />
-    
-
-
-    Rutas que no se están usando
-    <Route path="/user_register" element={<UserRegister />} />    
-    <Route path="/client_register" element={<ClientRegister />} />
-</Routes> */}
