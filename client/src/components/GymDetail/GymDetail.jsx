@@ -27,7 +27,7 @@ export default function GymDetail() {
     
     let usuarioId = localStorage.getItem('userId')
     // id de usuario que está en la app
-    console.log(usuarioId, 'id de usuario que está en la app')
+    // console.log(gymDetail, 'id de usuario que está en la app')
 
 
     if (!gymDetail.name) {
@@ -53,8 +53,8 @@ export default function GymDetail() {
                 <div>
                     {gymDetail.services.map(e => {
                         return (
-                            <div> 
-                            <CartItem id={e._id} name={e.name} price={e.price} description={e.description} duration={e.duration} />                            <br></br>
+                            <div  key={e._id}> 
+                            <CartItem id={e._id} key={e._id} name={e.name} price={e.price} description={e.description} duration={e.duration} />                            <br></br>
                             </div>
                         )
                     })}
