@@ -41,13 +41,7 @@ const updateAvatarForUser = async (req, res) => {
             id,
             req.body,
             { new: true }
-        )
-        // const idForInfo = UserUpdateAvatar.info
-        // const UserInfoUpdateAvatar = await User.findByIdAndUpdate(
-        //     idForInfo,
-        //     req.body,
-        //     { new: true }
-        // )
+        )       
         res.status(200).json({
             ok: true,
             msg: "Usuario modificado correctamente",

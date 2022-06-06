@@ -1,6 +1,5 @@
 import React from "react";
 import img from "../../asets/images/benefits(uf).jpg";
-import logo from "../../asets/images/logoPF.jpg";
 import style from "../LegendUf/style/LegendUf.module.css";
 import { ButtonSecondaryDeslice } from "../../helpers/Buttons/Buttons.jsx";
 import { useNavigate } from "react-router-dom";

@@ -1,10 +1,10 @@
 import { latBA, lngBA } from "../../asets/helpers/goeDefaults";
-import { Action } from "history";
+
 import {
   GET_ALL_USERS, GET_ALL_PARTNERS, GET_AVATARS, SET_CURRENT_PAGE, SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT, GET_ALL_GYMS, GET_GYM_DETAIL, SET_USER_GEO, POST_USER_GOOGLE,
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, ADD_TO_CART, REMOVE_FROM_CART,
-  ADJUST_QTY, LOAD_CURRENT_ITEM, SORT_BY_NAME, SORT_BY_SCORE,
+  SORT_BY_NAME, SORT_BY_SCORE,
 } from "../actions/actionTypes";
 
 const initialState = {

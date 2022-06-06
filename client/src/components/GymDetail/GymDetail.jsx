@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addToCart, getGymDetail } from "../../redux/actions";
+import { getGymDetail } from "../../redux/actions";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { NavBar3 } from "./NavBar3";
@@ -54,7 +54,7 @@ export default function GymDetail() {
           <CardIcons img={map} num="1.4 Km" />
           <CardIcons img={actividades} num={gymDetail.services.length} />
         </div>
-        
+   
         {/* Bloque de info del carrito */}
         <div>
           <NavBar3 id={[gymDetail]} usuarioId={usuarioId} />
@@ -84,5 +84,4 @@ export default function GymDetail() {
   }
 }
 
-//http://localhost:3000/detail/gym/6292dae93fc1e9d735aea34c
-//
+

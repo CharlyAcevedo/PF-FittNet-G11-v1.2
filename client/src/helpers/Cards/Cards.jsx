@@ -6,7 +6,8 @@ import { postAvatar } from "../../redux/actions/index";
 import styles from "./styles/stylesCards.module.css";
 
 export const CardAvatares = (props) => {
-  const { border, color, boxShadow, image } = props;
+  const { image } = props;
+  // const { border, color, boxShadow, image } = props;
 
   const estiloPruebaImage = {
     backgroundImage: `url(${image})`,

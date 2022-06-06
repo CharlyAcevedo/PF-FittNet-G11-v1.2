@@ -25,7 +25,8 @@ export function NavBar3 ({id, usuarioId}){
          count += item.qty
      })
      setCartCount(count)
-    }, [cart, cartCount])
+    }, [cart, cartCount, id, usuarioId])
+    //   }, [cart, cartCount])
 
     useEffect(() => {
         let items = 0
@@ -41,16 +42,17 @@ export function NavBar3 ({id, usuarioId}){
             services: [...cart],
             user: usuarioId
         })
+    // }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems])
         
-       }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems])
+    }, [ cart, totalPrice, totalItems, id, usuarioId])
        
 
       
        
-       function handleSubmit(){
-           dispatch(postCart(body))
-           navigate('/stripe')           
-       }
+    function handleSubmit(){
+        dispatch(postCart(body))
+        navigate('/stripe')           
+    }
 
 
 
