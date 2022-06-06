@@ -6,11 +6,9 @@ import SelecAvatar from "../SelectAvatar/SelectAvatar";
 import GymCards from "../GymCards/GymCards";
 import UserCards from "../UserCards/UserCards";
 import PartnerCards from "../PartnerCards/PartnerCards";
-import Advertising from "../PartnerHomeComponents/Advertising";
 import { getAllGyms, getUserGoogleForToken } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import IncomesGraph from "../Graphics/Incomes";
-import ClientsGraph from "../Graphics/GraphClient";
 import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
 import styles from "./styles/homeMain.module.css";
@@ -83,19 +81,12 @@ export default function HomeMain() {
   // Esto es una para cliente empresa
   if (type === "partner") {
     return (
-      <div className={styles.mainContainer}>
-        <div className={styles.advertising}>
-          <Advertising/>
-        </div>
-        <div className={styles.generalActions}>
-          <GeneralActions/>
-        </div>
-        <div className={styles.infoClients}>
-          <ClientsGraph />
-        </div>
-        <div className={styles.infoFinantial}>
-          <IncomesGraph/>
-        </div>
+      <div>
+        {/* <NavBarProfile /> */}
+        <h3>Qué más quiero ver como Ciente Empresa cuando llego a home???</h3>
+        <IncomesGraph />
+        <UserCards />
+        <h4>Promociones y descuentos</h4>
       </div>
     );
 

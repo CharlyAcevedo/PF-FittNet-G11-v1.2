@@ -207,9 +207,8 @@ export default function UpdatePartner() {
   //PARA EVITAR PISAR ESTILOS DE ERRORES.
 
   return (
-    <div className={styles.div}>
-      <h1>Cliente EMPRESA</h1>
-      <h3>Formulario:</h3>
+    <div className={styles.editPartnerMainContainer}>
+      <h3>Editar Mi Perfil</h3>
       <span>
         Los campos marcados con <strong>*</strong> deben ser completados
       </span>

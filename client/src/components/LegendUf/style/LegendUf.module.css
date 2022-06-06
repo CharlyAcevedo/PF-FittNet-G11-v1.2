@@ -1,6 +1,7 @@
 .containerFullLegend {
     width: 90%;
     margin: 0 auto;
+    height: 90vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -14,11 +15,6 @@
   border-radius: 10px;
 }
 
-.containLegend {
-  width: 500px;
-  margin-left: 750px;
-  /* position: relative; */
-}
 .containLegend h3 {
   color: rgb(14, 14, 43);
   margin-top: -420px;

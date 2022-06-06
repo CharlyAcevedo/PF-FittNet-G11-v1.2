@@ -12,9 +12,9 @@ const Address = require('../models/Address');
 async function findUser(userName) {
     try {
         const response = await User.findOne(userName)
-        .populate('avatar')
-        .populate('info')
-        .populate('partner')
+            .populate('avatar')
+            .populate('info')
+            .populate('partner')
         return response
     } catch (error) {
         console.log(error.message)
@@ -79,7 +79,7 @@ const updateUser = async (req, res) => {
             idAddress = addressUser._id
         } else {
             let updatedAddress = await Address.findByIdAndUpdate(idAddress, newAddressUser, { new: true })
-        }        
+        }
         const idInfo = user.info
         const idAvatar = user.avatar
         const newInfoUser = {
@@ -122,13 +122,87 @@ const getUserGoogleAccount = async (req, res) => {
     console.log(req.body)
     const userName = usuario.email
     try {
-        const user = await User.findOne({ userName })
-            .populate('avatar', 'avatarName')
-            .populate('info', 'photo')
-        res.json({
+        const user = await User.aggregate([
+            { $match: { userName: userName } },
+            {
+                $lookup: {
+                    from: "avatars",
+                    localField: "avatar",
+                    foreignField: "_id",
+                    as: "avatar"
+                }
+            },
+            {
+                $unwind: {
+                    path: '$avatar',
+                    preserveNullAndEmptyArrays: false
+                }
+            },
+            {
+                $lookup: {
+                    from: "infousers",
+                    localField: "info",
+                    foreignField: "_id",
+                    as: "info"
+                }
+            },
+            {
+                $unwind: {
+                    path: '$info',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $lookup: {
+                    from: "addresses",
+                    localField: "info.address",
+                    foreignField: "_id",
+                    as: "info.address"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.address",
+                }
+            },
+            {
+                $project: {
+                    name: 1,
+                    userName: 1,
+                    // latitude: 0,
+                    // longitude: 0,
+                    active: 1,
+                    secretToken: 1,
+                    type: 1,
+                    avatar: {
+                        _id: 1,
+                        avatarName: 1,
+                    },
+                    info: {
+                        _id: 1,
+                        name: 1,
+                        lastName: 1,
+                        photo: 1,
+                        birthday: 1,
+                        phone: 1,
+                        username: 1,
+                        address: 1
+                    }
+                }
+            }
+        ]);
+        console.log(user)
+        return res.status(200).json({
             ok: true,
-            user
+            user: user[0]
         })
+        // const user = await User.findOne({ userName })
+        //     .populate('avatar', 'avatarName')
+        //     .populate('info', 'photo')
+        // res.json({
+        //     ok: true,
+        //     user
+        // })
     } catch (error) {
         console.log("error: ", error);
         res.status(500).json({
@@ -175,6 +249,7 @@ const googleSignIn = async (req, res) => {
             usuario,
             googleToken,
             user           
+
         })
     } catch (error) {
         console.log("error: ", error);
@@ -275,14 +350,15 @@ async function updatePassword(userId, newPassword, password, secretToken) {
 }
 
 
+
 module.exports = {
-  findUser,
-  findAllUsers,
-  getUser,
-  deleteUser,
-  updateUser,
-  updatePassword,
-  googleSignIn,
-  isValidObjectId,
-  getUserGoogleAccount,
+    findUser,
+    findAllUsers,
+    getUser,
+    deleteUser,
+    updateUser,
+    updatePassword,
+    googleSignIn,
+    isValidObjectId,
+    getUserGoogleAccount,
 };

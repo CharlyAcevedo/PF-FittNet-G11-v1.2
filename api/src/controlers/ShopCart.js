@@ -23,7 +23,7 @@ const getShopCart = async (req, res) => {
 }
 
 const postCart = async (req, res) => {
-    const {gym, services, user} = req.body
+    const { gym, services, user } = req.body
     try {
         const newShopCart = await ShopCart.create({
             gyms: gym,
@@ -37,4 +37,4 @@ const postCart = async (req, res) => {
     }
 }
 
-module.exports = {getShopCart, postCart}
+module.exports = { getShopCart, postCart }
