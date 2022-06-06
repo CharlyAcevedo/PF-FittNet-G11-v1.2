@@ -11,7 +11,6 @@ const initialState = {
   users: [],
   user: {},
   usersToShow: [],
-  currentUserDetails2:{},
   currentUserDetails: {
     name: "",
     userName: "",

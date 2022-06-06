@@ -184,7 +184,7 @@ export default function UserPrices() {
       <Table responsive="md" className={style.classesTableContainer}>
         {gyms.map((g) => {
           return(
-          <div value={g.id} className={style.expand}>
+          <div value={g.id} className={style.expand} key={g}>
             {/* {console.log(gyms)} */}
             {g.name}
             {/* {console.log(g.services)} */}
