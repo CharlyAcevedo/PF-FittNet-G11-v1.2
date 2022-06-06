@@ -6,8 +6,7 @@ import { addToCart, removeFromCart } from '../../redux/actions'
 export default function CartItem({id, name, price, description, duration}){
     const dispatch = useDispatch();
 
-    function handleClick(id){
-        console.log(id)
+    function handleClick(id){        
         dispatch(addToCart(id))
     }
 

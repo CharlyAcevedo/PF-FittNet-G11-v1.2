@@ -14,8 +14,7 @@ const getShopCart = async (req, res) => {
             
             {$lookup: {from: 'services', localField:'services', foreignField: '_id', as: 'services' }}, 
             {$unwind: {path: '$services', preserveNullAndEmptyArrays: true}},
-            {$project: {user: 1, gyms: 1, services: 1}}])
-            console.log(response)
+            {$project: {user: 1, gyms: 1, services: 1}}])            
         res.send(response)
     } catch (error) {
         console.log(error.message)
@@ -30,8 +29,7 @@ const postCart = async (req, res) => {
             gyms: gym,
             services: services,
             user: user
-        })
-        console.log(gym)        
+        })            
         res.send(newShopCart)
     } catch (error) {
         console.log(error.message)

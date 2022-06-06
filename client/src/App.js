@@ -24,6 +24,7 @@ import NavBarProfile from "./components/NavBarProfile/NavBarProfile";
 import UpdatePartner from "./components/UpDatePartner/partner";
 import  UpdateGym  from "./components/UpDatePartner/gym";
 import Services  from "./components/UpDatePartner/service";
+import StripeCart from "./components/StripeCart/StripeCart";
 
 
 
@@ -94,6 +95,10 @@ function App() {
         <Route
           path="/profile/partner/:name/:userId/gym/service"
           element={<Services />}
+        />
+        <Route
+          path="/stripe"
+          element={<StripeCart />}
         />
       </Routes>
     </div>

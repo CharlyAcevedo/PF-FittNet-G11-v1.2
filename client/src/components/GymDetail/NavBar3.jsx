@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {postCart} from '../../redux/actions/index'
 
 
@@ -7,6 +8,7 @@ import {postCart} from '../../redux/actions/index'
 
 export function NavBar3 ({id, usuarioId}){    
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const cart = useSelector((state) => state.cart)    
     const [cartCount, setCartCount] = useState(0)
     const [totalPrice, setTotalPrice] = useState(0)
@@ -39,15 +41,15 @@ export function NavBar3 ({id, usuarioId}){
             services: [...cart],
             user: usuarioId
         })
-        console.log(cart)
-        console.log(id)
+        
        }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems])
        
 
       
        
        function handleSubmit(){
-           dispatch(postCart(body))           
+           dispatch(postCart(body))
+           navigate('/stripe')           
        }
 
 
