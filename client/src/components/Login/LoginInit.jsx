@@ -123,6 +123,9 @@ export default function LoginInit() {
             if (typeof avatar === "string") {
           
               localStorage.setItem("userId", userId)
+              localStorage.setItem("name", name)
+              localStorage.setItem("type", type)
+              localStorage.setItem("avatar", avatar)
             
               return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`);
             }
