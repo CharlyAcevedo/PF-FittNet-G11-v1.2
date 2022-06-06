@@ -20,12 +20,12 @@ export default function LegendUf() {
           física de alta calidad, al mismo tiempo brindarte una manera fácil y
           segura de organizar tu agenda de actividades y tus objetivos de manera
           personalizada!
-          <br />
-          <br />
+          <br key="br1"/>
+          <br key="br2"/>
           En un solo lugar, podrás ver todas las posibilidades y elegir el
           gimnasio que mejor se adapte a tu perfil deportivo y ubicación!
-          <br></br>
-          <br></br>
+          <br key="br3"/>
+          <br key="br4"/>
           Podrás elegir inscribirte de forma mensual o tambien optar por tomar
           clases individuales, abonando de forma segura y sin moverte de tu
           casa!
