@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addToCart, getGymDetail } from "../../redux/actions";
+import { getGymDetail } from "../../redux/actions";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { NavBar3 } from "./NavBar3";
@@ -27,7 +27,7 @@ export default function GymDetail() {
     
     let usuarioId = localStorage.getItem('userId')
     // id de usuario que está en la app
-    console.log(usuarioId, 'id de usuario que está en la app')
+    // console.log(gymDetail, 'id de usuario que está en la app')
 
 
     if (!gymDetail.name) {
@@ -42,7 +42,7 @@ export default function GymDetail() {
                 <h2>{gymDetail.name}</h2>
                 <h3> ☆ {gymDetail.raiting}</h3>
                 <h3> $ {gymDetail.price.$numberDecimal}</h3>
-                <h3 id={gymDetail._id} ></h3> 
+                {/* <h3 id={gymDetail._id} ></h3>  */}
                 {/* <h3>{console.log(gymDetail._id)}</h3> */}
                 <div>                        
                     <img src={gymDetail.image[1]} alt="logo" />
@@ -53,8 +53,8 @@ export default function GymDetail() {
                 <div>
                     {gymDetail.services.map(e => {
                         return (
-                            <div> 
-                            <CartItem id={e._id} name={e.name} price={e.price} description={e.description} duration={e.duration} />                            <br></br>
+                            <div  key={e._id}> 
+                            <CartItem id={e._id} key={e._id} name={e.name} price={e.price} description={e.description} duration={e.duration} />                            <br></br>
                             </div>
                         )
                     })}

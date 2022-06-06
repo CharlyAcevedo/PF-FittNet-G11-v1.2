@@ -277,3 +277,25 @@
   line-height: 225px;
   text-align: center;
 }
+
+/* AQUI ESTA LA CARDS DE ICONOS */
+.cardIcons {
+  width: 190px;
+  height: 254px;
+  border-radius: 30px;
+  background: #212121;
+  box-shadow: 15px 15px 30px rgb(25 25 25), -15px -15px 30px rgb(60 60 60);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.cardIcons img {
+  width: 77%;
+  color: #fff;
+}
+.cardIcons p {
+  font-size: 30px;
+  font-weight: 50;
+  color: #fff;
+}
