@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Logout from "../Logout/Logout";
 import { getUserGoogleForToken } from "../../redux/actions/index";
 import style from "./style/NavBarProfile.module.css";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function NavBarProfile() {
   let { userId, name, type, avatar } = useParams();

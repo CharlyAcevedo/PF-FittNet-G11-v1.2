@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { createGym } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { SweetAlrt } from "../../asets/helpers/sweetalert";
 
 export default function UpdateGym() {
   const dispatch = useDispatch();
@@ -68,25 +69,27 @@ export default function UpdateGym() {
   }
 
   //!------------------SERVICES---------------
-  function handleChangeServices(e) {
-    setInput(() => {
-      const newServices = {
-        ...input,
-        services: input.services.includes(e.target.value)
-          ? [...input.services]
-          : [...input.services, e.target.value],
-      };
-      return newServices;
-    });
-  }
+  // function handleChangeServices(e) {
+  //   setInput(() => {
+  //     const newServices = {
+  //       ...input,
+  //       services: input.services.includes(e.target.value)
+  //         ? [...input.services]
+  //         : [...input.services, e.target.value],
+  //     };
+  //     return newServices;
+  //   });
+  // }
+  
   //!deleted services
-  function handleDelete(e) {
-    setInput({
-      ...input,
-      services: input.services.filter((el) => el !== e.target.value),
-    });
-    console.log("ESTO ES DELET", e);
-  }
+
+  // function handleDelete(e) {
+  //   setInput({
+  //     ...input,
+  //     services: input.services.filter((el) => el !== e.target.value),
+  //   });
+  //   console.log("ESTO ES DELET", e);
+  // }
 
   //!-------------------Trainers-----------------------------
   function handleChangeTrainers(e) {
@@ -140,10 +143,12 @@ export default function UpdateGym() {
       !input.services ||
       !input.email
     ) {
-      return alert("Todos los campos deben estar completos!");
+      return SweetAlrt("Error", "Todos los campos deben estar completos","error",true)
+      // return alert("Todos los campos deben estar completos!");
     } else {
       dispatch(createGym(input));
-      alert("Gym Registrado!");
+     SweetAlrt("Exito!","Gym Registrado","success",true)
+      // alert("Gym Registrado!");
       setInput({
         ...input,
         name: "",
@@ -185,7 +190,7 @@ export default function UpdateGym() {
   //PARA EVITAR PISAR ESTILOS DE ERRORES.
 
   return (
-    <div className={styles.div}>
+    <div className={styles.editPartnerMainContainer}>
       <h1>FORMULARIO GYM</h1>
       <span>
         Los campos marcados con <strong>*</strong> deben ser completados

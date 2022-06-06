@@ -2,9 +2,8 @@ import React, { useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./styles/UserPrices.module.css";
-import NavBar from "../NavBar/NavBar";
 import { getAllGyms } from "../../redux/actions";
-import { Link } from "react-router-dom";
+
 
 export default function UserPrices() {
   const gyms = useSelector((state) => state.gyms);
@@ -49,61 +48,61 @@ export default function UserPrices() {
     },
   ];
 
-  const classes = [
-    {
-      classesName: "Pesas y máquinas",
-      classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
-      classesDuration: "duracion estimada 1:15 hrs.",
-      classesPrice: "$300 por sesion",
-    },
-    {
-      classesName: "Crossfit",
-      classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
-      classesDuration: "duracion estimada 1:15 hrs.",
-      classesPrice: "$300 por sesion",
-    },
-    {
-      classesName: "Dance",
-      classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
-      classesDuration: "duracion estimada 1:15 hrs.",
-      classesPrice: "$300 por sesion",
-    },
-    {
-      classesName: "Kick boxing/Box",
-      classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
-      classesDuration: "duracion es   timada 1:15 hrs.",
-      classesPrice: "$300 por sesion",
-    },
-    {
-      classesName: "Clases de gimnasia",
-      classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
-      classesDuration: "duracion estimada 1:15 hrs.",
-      classesPrice: "$300 por sesion",
-    },
-    {
-      classesName: "Spinning",
-      classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
-      classesDuration: "duracion estimada 1:15 hrs.",
-      classesPrice: "$300 por sesion",
-    },
-    {
-      classesName: "Yoga",
-      classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
-      classesDuration: "duracion estimada 1:15 hrs.",
-      classesPrice: "$300 por sesion",
-    },
-    {
-      classesName: "Pilates",
-      classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
-      classesDuration: "duracion estimada 1:15 hrs.",
-      classesPrice: "$300 por sesion",
-    },
-  ];
+  // const classes = [
+  //   {
+  //     classesName: "Pesas y máquinas",
+  //     classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
+  //     classesDuration: "duracion estimada 1:15 hrs.",
+  //     classesPrice: "$300 por sesion",
+  //   },
+  //   {
+  //     classesName: "Crossfit",
+  //     classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
+  //     classesDuration: "duracion estimada 1:15 hrs.",
+  //     classesPrice: "$300 por sesion",
+  //   },
+  //   {
+  //     classesName: "Dance",
+  //     classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
+  //     classesDuration: "duracion estimada 1:15 hrs.",
+  //     classesPrice: "$300 por sesion",
+  //   },
+  //   {
+  //     classesName: "Kick boxing/Box",
+  //     classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
+  //     classesDuration: "duracion es   timada 1:15 hrs.",
+  //     classesPrice: "$300 por sesion",
+  //   },
+  //   {
+  //     classesName: "Clases de gimnasia",
+  //     classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
+  //     classesDuration: "duracion estimada 1:15 hrs.",
+  //     classesPrice: "$300 por sesion",
+  //   },
+  //   {
+  //     classesName: "Spinning",
+  //     classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
+  //     classesDuration: "duracion estimada 1:15 hrs.",
+  //     classesPrice: "$300 por sesion",
+  //   },
+  //   {
+  //     classesName: "Yoga",
+  //     classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
+  //     classesDuration: "duracion estimada 1:15 hrs.",
+  //     classesPrice: "$300 por sesion",
+  //   },
+  //   {
+  //     classesName: "Pilates",
+  //     classesDetails: "Entrenamiento con rutina para levantamiento de pesas.",
+  //     classesDuration: "duracion estimada 1:15 hrs.",
+  //     classesPrice: "$300 por sesion",
+  //   },
+  // ];
 
 
   useEffect(() =>{
     dispatch(getAllGyms())
-  },[])
+  })
 
   return (
     <div className={style.pricesTableContainer}>
@@ -184,7 +183,7 @@ export default function UserPrices() {
       <Table responsive="md" className={style.classesTableContainer}>
         {gyms.map((g) => {
           return(
-          <div value={g.id} className={style.expand}>
+          <div value={g.id} className={style.expand} key={g}>
             {/* {console.log(gyms)} */}
             {g.name}
             {/* {console.log(g.services)} */}

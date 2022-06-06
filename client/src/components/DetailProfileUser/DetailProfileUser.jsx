@@ -13,28 +13,7 @@ export default function DetailProfileUser() {
 
   const { name, userName, type, avatar, info } = user;
 
-  // const { photo ,birthday, username, address } = info;
-
-  // const { street, floor, neighborhood, city, country, zipCode } = address;
-
-  //info.address.street
-  //info.address.floor
-  //info.address.neighborhood
-  //info.address.city
-  //info.address.country
-  //info.address.zipCode
-
   const avatarId = avatar?._id;
-
-  // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
-
-  // si le llega este id (de la fomra que lo espera) y si el usuario tiene una
-  // sesión iniciada.
-
-  // Queda pendiente dispachar una acción para cargar en el estado global
-  // la info del usuario en un objeto. Ejeplo --> State.detailUser = {}
-
-  // console.log(avatar)
 
   return (
     <div style={{ width: "100%" }}>

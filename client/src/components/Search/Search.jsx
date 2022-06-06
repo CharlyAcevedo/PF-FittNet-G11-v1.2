@@ -69,7 +69,7 @@ export default function Sarch () {
             <div id = "div-search-nano">               
                 <form onFocus={()=>focusSearch()} onBlur={()=>focusSearch()} id = "search-nano-nano">
                     <input id='input-search-nano' type="text" onChange={(e) => onInputChange(e)} 
-                    value= {search} autoComplete='off' spellCheck="false" role="combobox"
+                    value= {search} autoComplete='off' spellCheck="false"
                     placeholder='Escriba aquí... ' style={{fontSize: "18px"}}
                     />                   
                 </form>                   
