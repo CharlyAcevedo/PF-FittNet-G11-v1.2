@@ -81,3 +81,13 @@ export const CardAvatarAdicional = (props) => {
     </div>
   );
 };
+
+export const CardIcons = (props) => {
+  const { img, num} = props;
+  return (
+    <div className={styles.cardIcons}>
+      <img src={img} alt="" />
+      <p>{num}</p>
+    </div>
+  );
+};
