@@ -5,6 +5,7 @@ import style from "./styles/UserPrices.module.css";
 import { getAllGyms } from "../../redux/actions";
 
 export default function UserPrices() {
+  
   const gyms = useSelector((state) => state.gyms);
   const dispatch = useDispatch();
 
@@ -99,9 +100,9 @@ export default function UserPrices() {
   // ];
 
   useEffect(() => {
-    if (!gyms) {
+    // if (!gyms) {
       dispatch(getAllGyms());
-    }
+    // }
   });
 
   return (

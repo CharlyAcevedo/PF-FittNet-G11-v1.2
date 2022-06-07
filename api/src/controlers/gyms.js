@@ -94,6 +94,10 @@ async function saveGyms(id, data) {
 }
 
 
+//! FUNCIONES DE PRUEBAS
+
+
+
 
 
 
