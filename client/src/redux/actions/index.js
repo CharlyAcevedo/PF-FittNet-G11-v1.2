@@ -18,6 +18,7 @@ import {
   POST_GYM, 
   POST_SERVICES, 
   POST_PARTNER,
+  GET_ATTRIBUTE_DESEASE,
 } from "./actionTypes";
 
 //------USER SERVICE ACTIONS------(favor de poner todas las aciones referentes a service en general todos los usuarios aqui)
@@ -398,3 +399,24 @@ export const updateUserInfo = (id, body) => async dispatch => {
   }
 }
 
+
+
+//////////// ACA VA LO RELACIONADO CON LAS ENFERMEDADES (modelo Diseases)
+
+export function getAttributeDesease(){
+  return async (dispatch) => {
+
+    try {
+      var json = await axios.get("/api/user/all/deseasesMap",{
+
+      });
+      return dispatch({
+          type: GET_ATTRIBUTE_DESEASE,
+          payload: json.data
+      })
+    } catch (error) {
+      console.log("error: ", error)
+    }
+      
+  }
+}

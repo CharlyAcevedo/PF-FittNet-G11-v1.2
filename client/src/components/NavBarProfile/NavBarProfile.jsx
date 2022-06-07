@@ -2,6 +2,7 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import Logout from "../Logout/Logout";
 import style from './style/NavBarProfile.module.css';
+import FormUser from "../Forms/FormUser";
 
 export default function NavBarProfile() {
     let { userId , name, type, avatar } = useParams();
@@ -28,6 +29,9 @@ export default function NavBarProfile() {
                 </div> */}
                 <div className={style.itemsNavBarProfile}>
                     <Logout/>
+                </div> 
+                <div className={style.itemsNavBarProfile}>
+                    <Link to={`/home/${type}/${name}/${userId}/${avatar}/FormUser`}>modificar informacion</Link>
                 </div>                
             </ul>
         </div>

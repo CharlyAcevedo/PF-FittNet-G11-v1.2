@@ -14,6 +14,7 @@ import {
   POST_AVATAR,
   GET_USER_TOKEN_GOOGLE,
   PUT_USER_INFO,
+  GET_ATTRIBUTE_DESEASE
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -41,6 +42,7 @@ const initialState = {
   currentLimit: 9,
   currentPage: 1,
   errors: "",
+  deseaseAttribute:[],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -192,10 +194,16 @@ export default function rootReducer(state = initialState, { type, payload }) {
           errors: payload.error,
         };
       }
+    
       return {
         ...state,
         currentLimit: payload,
       };
+    case GET_ATTRIBUTE_DESEASE:
+      return{
+         ...state, 
+         deseaseAttribute: payload,
+      }
     default:
       return state;
   }

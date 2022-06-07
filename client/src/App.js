@@ -77,7 +77,7 @@ function App() {
           element={<Activation />}
         />
         <Route path="/deactivate/:userId" element={<DeactivateAccount />} />
-        <Route path="/FormUser" element={<FormUser />} />
+        <Route path="/home/:type/:name/:userId/:avatar/FormUser" element={<FormUser />} />
         <Route
           path="/profile/partner/:name/:userId"
           element={<UpdatePartner />}

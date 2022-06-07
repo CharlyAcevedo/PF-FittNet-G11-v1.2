@@ -6,7 +6,7 @@ export default function validate(input){
         error.name = 'solo acepta letras'
     } */
 
-    if (input.username.length > 15){
+    if (input.username?.length > 15){
         error.username = 'superaste el maximo de caracteres'
     }else if(! /^[a-zA-Z ]*$/.test(input.username)){
         error.username = 'solo acepta letras'
@@ -33,13 +33,13 @@ export default function validate(input){
     }
 
     if(!/^([0-9])*$/.test(input.street)){
-        error.street = 'solo acepta letras'
+        error.street = 'solo acepta numeros'
     }else if(input.street.length > 10){
         error.street = "superaste el maximo de caracteres"
     }
 
     if(!/^([0-9])*$/.test(input.floor)){
-        error.floor = 'solo acepta letras'
+        error.floor = 'solo acepta numeros'
     }else if(input.floor.length > 10){
         error.floor = "superaste el maximo de caracteres"
     }
@@ -80,6 +80,10 @@ export default function validate(input){
     }else if(input.zipCode.length > 10){
         error.zipCode = "superaste el maximo de caracteres"
     }
+
+    
+
+   
     /* if (!input.photo){
         error.photo = 'una foto es requerida'
     }else if(! /^[a-zA-Z ]*$/.test(input.photo)){
