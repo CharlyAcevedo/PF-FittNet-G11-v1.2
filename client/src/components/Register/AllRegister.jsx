@@ -72,6 +72,7 @@ export default function AllRegister() {
         type: type,
       };
 
+      SweetAlrt("Estamos procesando su solicitud!")
       console.log("está saliendo el post ", userCreate);
 
       axios
