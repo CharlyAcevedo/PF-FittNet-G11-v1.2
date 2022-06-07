@@ -194,6 +194,10 @@ const getUserGoogleAccount = async (req, res) => {
                 }
             }
         ]);
+<<<<<<< HEAD
+=======
+        // console.log(user)
+>>>>>>> bc4fe3490467d4239a3e79ca0308c3ca37495494
         return res.status(200).json({
             ok: true,
             user: user[0]

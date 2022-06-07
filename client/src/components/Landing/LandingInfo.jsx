@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserGoogleForToken } from "../../redux/actions/index";
@@ -10,7 +10,7 @@ import {
   CardPromoBalance,
   CardPromoBulk,
 } from "./componentsLanding/componentsLanding.jsx";
-import { CardGymsAdicional } from "../../helpers/Cards/Cards.jsx";
+// import { CardGymsAdicional } from "../../helpers/Cards/Cards.jsx";
 import style from "../Landing/styles/Landing.module.css";
 
 export default function LandingInfo() {
@@ -37,42 +37,6 @@ export default function LandingInfo() {
       dispatch(getUserGoogleForToken(token));
     } // eslint-disable-next-line
   }, []);
-
-  const [desea, setDesea] = useState({
-    desease: "",
-    trainlimits: "",
-    considerations: "",
-  });
-
-  const [input, setInput] = useState({
-    name: "",
-    firstName: "",
-    lastName: "",
-    gender: "",
-    desease: [],
-  });
-
-  const handel = (e) => {
-    e.preventDefault();
-
-    setDesea({
-      ...desea,
-      [e.target.name]: e.target.value,
-    });
-
-    setInput({
-      ...input,
-      desease: [...input.desease, desea],
-    });
-
-    setDesea({
-      desease: "",
-      trainlimits: "",
-      considerations: "",
-    });
-  };
-
-  const handelSubmit = (e) => {};
 
   return (
     // <div>

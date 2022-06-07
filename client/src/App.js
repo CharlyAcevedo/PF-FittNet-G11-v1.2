@@ -22,8 +22,8 @@ import FormUser from "./components/Forms/FormUser";
 import NavBar from "./components/NavBar/NavBar";
 import NavBarProfile from "./components/NavBarProfile/NavBarProfile";
 import UpdatePartner from "./components/UpDatePartner/partner";
-import UpdateGym  from "./components/UpDatePartner/gym";
-import Services  from "./components/UpDatePartner/service";
+import UpdateGym from "./components/UpDatePartner/gym";
+import Services from "./components/UpDatePartner/service";
 import StripeCart from "./components/StripeCart/StripeCart";
 
 
@@ -67,7 +67,8 @@ function App() {
           <Route path="/home/:type/:name/:userId" element={<Home />} />
           <Route path="/detail/gym/:userId" element={<GymDetail />} />
           <Route path="/profile/:type/:name/:userId" element={<Profile />} />
-          <Route path="/home/modificacion/:type/:name/:userId" element={<FormUser />} />
+          {/* <Route path="/home/modificacion/:type/:name/:userId" element={<FormUser />} /> */}
+          <Route path="/home/:type/:name/:userId/:avatar/FormUser" element={<FormUser />} />
           {/* <Route path="/api/partner/gyms/gymbyid/:id" element={<GymDetail />} /> */}
 
         </Route>
@@ -85,7 +86,8 @@ function App() {
           element={<Activation />}
         />
         <Route path="/deactivate/:userId" element={<DeactivateAccount />} />
-        <Route path="/FormUser" element={<FormUser />} />
+
+        <Route path="/stripe" element={<StripeCart />} />
         <Route
           path="/profile/partner/:name/:userId"
           element={<UpdatePartner />}

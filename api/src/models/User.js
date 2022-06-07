@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const mongoDB = require('mongodb');
-const { regEmail, regWord } = require('../controlers/regExes');
+const { regEmail, regWord } = require('../controlers/regExes')
+
 
 const userSchema = new mongoose.Schema({
     name:{
