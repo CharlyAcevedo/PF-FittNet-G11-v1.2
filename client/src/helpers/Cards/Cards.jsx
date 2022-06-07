@@ -30,6 +30,13 @@ export const CardAvatarAdicional = (props) => { // El id del avatar llega por pr
     const avatar = { avatar: idAvatar };
 
     let avatarSelect = await postAvatar(userId, avatar)
+    
+    // Hay que avaluar la respuesta y retornar un swit altert
+    // console.log(avatarSelect, 'Respuesta a avatarSelect')
+
+    if (avatarSelect.data.ok === false) { // Si el userId es invalido
+      return window.alert(avatarSelect.data.msg)
+    }
 
     let avatarId = avatarSelect ? avatarSelect.data.UserUpdateAvatar.avatar : null;
 
@@ -39,6 +46,7 @@ export const CardAvatarAdicional = (props) => { // El id del avatar llega por pr
 
     navigate(`/home/${typeuser}/${nameUser}/${userId}/${avatarId}`);
   };
+
 
   async function postAvatar (userId, avatar) {
     try {
