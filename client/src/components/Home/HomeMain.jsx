@@ -26,6 +26,7 @@ export default function HomeMain() {
   const dispatch = useDispatch();
 
   // const user = useSelector((state) => state.user);
+  const avatarLS = localStorage.getItem("avatar")
 
   const token = localStorage.getItem("token");
 
@@ -41,7 +42,7 @@ export default function HomeMain() {
   }, [userId]);
 
   // Esto es una vista para un usuario sin avatar
-  if (type === "user" && !avatar) {
+  if (type === "user" && !avatar && !avatarLS) {
     return (
       <div
         style={{
@@ -70,7 +71,7 @@ export default function HomeMain() {
   }
 
   // Esto es una vista para un usuario con avatar
-  if (type === "user" && avatar) {
+  if (type === "user" && avatar || avatarLS) {
     return (
       <div className={styles.cont}>
         <Sarch/>       

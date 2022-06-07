@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { NavBar3 } from "./NavBar3";
 import CartItem from "../CartItem/CartItem";
-
+import { clearGymDetail } from "../../redux/actions";
 import style from "./styles/style.module.css";
 import user from "../../asets/icons/users.svg";
 import actividades from "../../asets/icons/trending-up.svg";
@@ -25,6 +25,13 @@ export default function GymDetail() {
   useEffect(() => {
     dispatch(getGymDetail(userId)); // eslint-disable-next-line
   }, [userId]);
+
+  // This is equivalent to ComponentWillUnmount.
+  // Que se ejecute cuando se desmonte gymDetail y limpie su estado en el reducer
+  useEffect(()=>{
+    return () => dispatch(clearGymDetail())
+  },[gymDetail])
+
 
   const gymDetail = useSelector((state) => state.gymDetail);
 

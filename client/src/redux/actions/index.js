@@ -1,10 +1,12 @@
 import axios from "axios";
 
 import {
+
   SET_USER_GEO, GET_ALL_USERS, POST_USER, PUT_USER_INFO, GET_USER, GET_USER_TOKEN_GOOGLE,
   GET_AVATARS, GET_ALL_PARTNERS, GET_ALL_GYMS, GET_GYM_DETAIL, SET_CURRENT_PAGE,
   SET_PAGE_NUMBER, SET_CURRENT_LIMIT, POST_GYM, POST_SERVICES, POST_PARTNER, ADD_TO_CART,
-  REMOVE_FROM_CART, SORT_BY_NAME, SORT_BY_SCORE,
+  REMOVE_FROM_CART, SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE,
+
 } from "./actionTypes";
 
 //------USER SERVICE ACTIONS------(favor de poner todas las aciones referentes a service en general todos los usuarios aqui)
@@ -375,6 +377,7 @@ export const updateUserInfo = (id, body) => async dispatch => {
   }
 }
 
+
 // CARRITO DE COMPRAS USUARIO FINAL
 
 export function addToCart(itemID){
@@ -421,5 +424,35 @@ export function sortByName(order) {
 export function sortByScore(order) {  
   return {
       type: SORT_BY_SCORE, payload: order
+  }
+}
+
+//-------- ESTA ACCIÓN LIMPIA EL ESTADO DE GYM DETAIL ---------------------------------
+
+
+export function clearGymDetail() {  
+  return {
+      type: CLEAR_GYM_DETAIL, payload: {}
+
+
+
+//////////// ACA VA LO RELACIONADO CON LAS ENFERMEDADES (modelo Diseases)
+
+export function getAttributeDesease(){
+  return async (dispatch) => {
+
+    try {
+      var json = await axios.get("/api/user/all/deseasesMap",{
+
+      });
+      return dispatch({
+          type: GET_ATTRIBUTE_DESEASE,
+          payload: json.data
+      })
+    } catch (error) {
+      console.log("error: ", error)
+    }
+      
+
   }
 }
