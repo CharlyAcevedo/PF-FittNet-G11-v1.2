@@ -10,7 +10,7 @@ import {
   CardPromoBalance,
   CardPromoBulk,
 } from "./componentsLanding/componentsLanding.jsx";
-import { CardGymsAdicional } from "../../helpers/Cards/Cards.jsx";
+// import { CardGymsAdicional } from "../../helpers/Cards/Cards.jsx";
 import style from "../Landing/styles/Landing.module.css";
 
 export default function LandingInfo() {
