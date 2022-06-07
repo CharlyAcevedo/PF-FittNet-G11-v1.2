@@ -80,18 +80,38 @@ async function saveGyms(id, data) {
         let sToPush = Service.findById({ _id: s })
         return sToPush
     })
-    let gymToUpdate = await Gims.updateOne({ 
-        _id: id 
-    },{
+    let gymToUpdate = await Gims.updateOne({
+        _id: id
+    }, {
         services: data,
     });
     let response = await Gims.findById({
         _id: id,
     })
-    .populate('address')
-    .populate('services')
+        .populate('address')
+        .populate('services')
     return response
 }
+
+
+// //! FUNCIONES DE PRUEBAS
+
+// const postGyms2 = async (req, res) => {
+//     try {
+//         const newGym = await Gims.aggregate([
+//             { $addFields: {
+
+//             }}
+//         ])
+//     } catch (error) {
+//         console.log(error)
+//         res.status(500).json({
+//             ok: false,
+//             msg: "error no se pudo crear correctamente el gimnasio"
+//         })
+//     }
+// }
+
 
 
 

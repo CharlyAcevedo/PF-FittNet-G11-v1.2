@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
+import { SweetAlrt } from "../../asets/helpers/sweetalert";
 
 // Esta es la ruta del back que podemos usar
 // router.post('/updatepassword', async (req, res, next) => {
@@ -23,7 +24,7 @@ export default function UpdatePasword () {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [copyNewPassword, setCopyNewPassword] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
 
 
 
@@ -32,7 +33,8 @@ export default function UpdatePasword () {
 
   function onSubmit (e) {
     e.preventDefault()
-    if ( userId && password && newPassword && copyNewPassword && !error) {
+    if ( userId && password && newPassword && copyNewPassword ) {
+    // if ( userId && password && newPassword && copyNewPassword && !error) {
         if (newPassword === copyNewPassword && newPassword !== password ) {
             let formUpdate = {
                 userId: userId,
@@ -42,10 +44,11 @@ export default function UpdatePasword () {
             // Enviar formulario luego de esta línea
             console.log(formUpdate, "se envía el formulario")
 
-            axios.post('/api/updatepassword', formUpdate )
+            axios.post('/api/service/updatepassword', formUpdate )
             .then((response)=>{
               console.log(response.data)              
-              window.alert(response.data)
+              // window.alert(response.data)
+              SweetAlrt("Exito!",response.data, "success",true )
               return (window.location = "http://localhost:3000/login");
             })
             .catch((error)=>{console.log(error)})
@@ -55,11 +58,15 @@ export default function UpdatePasword () {
             // window.alert('Contraseña actualizada')
             // return (window.location = "http://localhost:3000/login");
         } else {
-            window.alert("Verifique los datos del formulario");
+          SweetAlrt("Atencion","Verifique los datos del formulario","warning",true )
+            // window.alert("Verifique los datos del formulario");
 
         }
     } else {
-        window.alert("Verifique los datos del formulario");
+      SweetAlrt("Atencion","Verigique los datos del formulario","error",true)
+      // window.alert("Verifique los datos del formulario");
+        //setError("Verifique los datos del formulario");
+
     }    
 
   }
@@ -87,7 +94,7 @@ export default function UpdatePasword () {
         name='copyNnewPassword' placeholder='New password' required 
         onChange = {(e) => setCopyNewPassword(e.target.value)}/>
 
-        <h6>{error ? error : null }</h6>        
+        {/* <h6>{error ? error : null }</h6>         */}
 
         <input type='submit' value='Confirmar'  onClick={(e)=>onSubmit(e)} />
 

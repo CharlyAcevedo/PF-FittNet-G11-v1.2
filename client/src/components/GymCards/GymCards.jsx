@@ -7,10 +7,8 @@ export default function GymsCards() {
   const gyms = useSelector((state) => state.pageToShow);
 
   return (
-    <div className={style.mainBoxCards}>
-      <h2>.</h2>
-      <div className={style.boxCards}>
-        <h5>Aqui puede ver los gimnasios de su preferencia</h5>
+    <div className={style.mainBoxCards}>      
+      <div className={style.boxCards}>    
         {gyms.length
           ? gyms.map((g) => {
               return (

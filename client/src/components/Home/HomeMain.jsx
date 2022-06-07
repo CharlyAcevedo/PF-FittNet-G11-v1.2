@@ -5,14 +5,15 @@ import { useEffect } from "react";
 import SelecAvatar from "../SelectAvatar/SelectAvatar";
 import GymCards from "../GymCards/GymCards";
 import UserCards from "../UserCards/UserCards";
-import NavBarProfile from "../NavBarProfile/NavBarProfile";
 import PartnerCards from "../PartnerCards/PartnerCards";
 import { getAllGyms, getUserGoogleForToken } from "../../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import IncomesGraph from "../Graphics/Incomes";
 import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
-import style from "./styles/homeMain.module.css";
+import styles from "./styles/homeMain.module.css";
+import GeneralActions from "../PartnerHomeComponents/GeneralActions";
+import Sarch from "../Search/Search";
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
@@ -23,6 +24,7 @@ export default function HomeMain() {
   const dispatch = useDispatch();
 
   // const user = useSelector((state) => state.user);
+  const avatarLS = localStorage.getItem("avatar")
 
   const token = localStorage.getItem("token");
 
@@ -38,7 +40,7 @@ export default function HomeMain() {
   }, [userId]);
 
   // Esto es una vista para un usuario sin avatar
-  if (type === "user" && !avatar) {
+  if (type === "user" && !avatar && !avatarLS) {
     return (
       <div
         style={{
@@ -67,10 +69,10 @@ export default function HomeMain() {
   }
 
   // Esto es una vista para un usuario con avatar
-  if (type === "user" && avatar) {
+  if (type === "user" && avatar || avatarLS) {
     return (
-      <div className={style.cont}>
-        {/* <NavBarProfile /> */}
+      <div className={styles.cont}>
+        <Sarch/>       
         <GymCards/>
         <Paginated />
       </div>
@@ -88,7 +90,6 @@ export default function HomeMain() {
         <h4>Promociones y descuentos</h4>
       </div>
     );
-
   } 
 
   // Esto es una para un administrador de sitio

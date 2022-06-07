@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import validate from "./validation";
 import avatar from "../../asets/icons/avatar.jpg";
 import styles from "./styles/form.module.css";
@@ -18,6 +18,13 @@ export default function FormUser() {
   const user = useSelector((state) => state.currentUserDetails);
   console.log("user", user)
   const dispatch = useDispatch();
+
+
+  // const validador = (a) => {
+  //   user ? a : ""
+  // }`
+
+  
 
   useEffect(()=> {
     dispatch(getAttributeDesease())
@@ -64,9 +71,11 @@ export default function FormUser() {
     zipCode: user.zipCode, */
   });
 
+
   const [error, setError] = useState({});
 
   function handleOnChange(e) {
+
     /* let concatDesease = "";
     if(e.target.name = "inpDesease"){
       concatDesease = [...concatDesease + e.target.value ]
@@ -82,6 +91,7 @@ export default function FormUser() {
     if(e.target.name !== "inpDesease" && e.target.name !== "but"){
       setInput({
         ...input,
+
         [e.target.name]: e.target.value,
       }); 
       setError(
@@ -297,8 +307,8 @@ export default function FormUser() {
     //   country: "",
     //   zipCode: "",
     // });
-    alert("se modifico el usuario");
-    navigate("/home");
+    // alert("se modifico el usuario");
+    navigate("/");
     //history.push('/home')
   }
 
@@ -319,16 +329,13 @@ export default function FormUser() {
   return (
     <div>
       <h1>Datos del Usuario</h1>
+
       <p>Aqui puedes completar los datos de tu información personal, esta información es muy importante para nosotros
         <br />tanto como lo es para tí, es por eso que la tratarémos con la mayor confidencialidad y discreción,
         <br />puedes consultar nuestro anuncio de privacidad aqui</p>
+
       <form>
         <div>
-          {/* <label>NAME: </label>
-                    <input  type= "text" name= "name" onChange= {(e)=>handleOnChange(e)}/>
-                    {error.name&& (
-                        <p  className={styles.parrafo} >{error.name}</p>
-                    )}  */}
           <label>USERNAME: </label>
           <input
             className={error.username ? styles.inputError : styles.input}

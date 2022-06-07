@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles/LoginInit.module.css";
 import jwt_decode from "jwt-decode";
-import { getUser, getUserGoogleForToken } from "../../redux/actions";
 import {
   BackgroundTwo,
   BackgroundOne,
@@ -14,20 +14,26 @@ import {
 export default function LoginInit() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [googleUser, setGoogleUser] = useState({});
+  // const [googleUser, setGoogleUser] = useState({});
   const [error, setError] = useState("");
-
+  
+ 
   const navigate = useNavigate();
 
-  const userGoogle = useSelector((state) => state.user);
+  // const userGoogle = useSelector((state) => state.user);
 
   const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  
+    
+      
 
-  const dispatch = useDispatch();
+
+  // const dispatch = useDispatch();
 
   const handleCallbackGoogle = async (response) => {
     const userObject = jwt_decode(response.credential);
-    if (!token) {
+    if (!token || !userId) {
       console.log("ENTRO A GENERAR TOKEN", response.credential);
       const googleData = await axios.post(
         `/api/service/google/auth`,
@@ -37,11 +43,23 @@ export default function LoginInit() {
         }
       );
       const finalizacionData = await googleData.data;
-      dispatch(getUser(finalizacionData.usuario._id));
-      localStorage.setItem("token", response.credential);
+      // dispatch(getUser(finalizacionData.usuario._id));
+      localStorage.setItem("token", response.credential);      
       document.getElementById("signInDiv").hidden = true;
-      console.log(googleUser);
+      localStorage.setItem('userId',finalizacionData.user.userId)
+      localStorage.setItem('type',finalizacionData.user.type)   
+      localStorage.setItem('avatar',finalizacionData.user.avatar)
+      localStorage.setItem('name', finalizacionData.usuario.name)
+      // localStorage.setItem('latitude',finalizacionData.user.latitude.$numberDecimal)  
+      // localStorage.setItem('longitude',finalizacionData.user.longitude.$numberDecimal)       
+
+      // localStorage.setItem("type", type)
+      // localStorage.setItem("avatar", avatar._id)
+      // console.log(finalizacionData, ' finalización data')
+     
       const { avatar } = finalizacionData.usuario;
+      
+      // console.log(finalizacionData.usuario);
       if (!avatar) {
         return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
       } else {
@@ -83,14 +101,15 @@ export default function LoginInit() {
         shape: "circle",
       }
     );
+  });
 
-  }, [window.google?.accounts]);
+  // }, [window.google?.accounts]);
 
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     let userLogin;
 
-    console.log("está saliendo el post ", userLogin);
+    console.log("se está intentando hacer el post");
 
     e.preventDefault();
 
@@ -99,45 +118,60 @@ export default function LoginInit() {
 
       console.log("está saliendo el post ", userLogin);
 
-      //axios
-      // axios.post(url[, data[, config]])
-      axios({
-        method: 'post',
-        url: '/api/service/login',
-        data: userLogin,
-        headers: {'X-Requested-With': 'XMLHttpRequest'},
-        withCredentials: true
-      })
-     
-        //.post("/api/service/login", userLogin)
-        .then((res) => {
-          console.log(res.data, "-> viendo qué respondio el post");
+      const login = await axios({
+          method: 'post',
+          url: '/api/service/login',
+          data: userLogin,
+          headers: {'X-Requested-With': 'XMLHttpRequest'},
+          withCredentials: true
+        })  
+        .then((res) => { return res.data })
+        .catch((error) => console.log(error))
+          
+        if (login.login) {
+          console.log(login, " lo que responde el back si se autentica el user" );
+          
+          let { userId, name, type, avatar, active, latitude, longitude } = login;
+          
+          if (active === true) { // Si la cuenta está activa
+            if (!login.avatar ) {
+              localStorage.setItem("userId", userId)
+              localStorage.setItem("name", name)
+              localStorage.setItem("type", type)         
+              localStorage.setItem("latitude", latitude.$numberDecimal)
+              localStorage.setItem("longitude", longitude.$numberDecimal)
 
-          if (res.data.login) {
-            console.log(res.data, " lo que responde el back si se autentica el user" );
-            
-            let { userId, name, type, avatar, active } = res.data;
-
-            if (active === true) { // Si la cuenta está activa
-              if (typeof avatar === "string") {
-                localStorage.setItem("userId", userId)
-                return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`);
-              }
-              // ya le paso info por params de quién estamos hablando
               return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
-
-            } else {
-              setError("Cuenta inactiva, verifiación de email pendiente");
             }
+            if (login.avatar._id ) {
+              console.log(login, ' el user')
+              
+              localStorage.setItem("userId", userId)
+              localStorage.setItem("name", name)
+              localStorage.setItem("type", type)
+              localStorage.setItem("avatar", avatar._id)
+              localStorage.setItem("latitude", latitude.$numberDecimal)
+              localStorage.setItem("longitude", longitude.$numberDecimal)             
+              
+              let avatarId = avatar._id;
+              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatarId}`);
+            }
+            // ya le paso info por params de quién estamos hablando
+          
+          } else {
+            setError("Cuenta inactiva, verifiación de email pendiente");
           }
-          if (typeof res.data === "string") {
-            setError("usuario o password incorrecta");
-            setPassword("");
-            setUsername("");
-          }
-        })
-        .catch((error) => console.log(error));
+        }
+        if (typeof login === "string") {
+          setError("usuario o password incorrecta");
+          setPassword("");
+          setUsername("");
+        }
+      
+      
     }
+    if (!username && password) {setError("No olvide introducir su email");}
+    if (username && !password) {setError("No olvide introducir su contraseña");}
   }
 
   return (
@@ -181,9 +215,6 @@ export default function LoginInit() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-
-            <p>{error === "" ? null : error}</p>
-
             <input
               className={styles.loginSubmit}
               type="submit"
@@ -192,6 +223,7 @@ export default function LoginInit() {
             />
             <div id="signInDiv" style={{ paddingTop: "1.5rem" }}></div>
             {/* <button onClick={(e) => handleLogoutGoogle(e)}>Logout</button> */}
+            <p>{error === "" ? null : error}</p>
           </form>
           <a href="/resetpassword" style={{padding: "1.5rem", color: "#fff" }}>Olvidé mi contraseña</a>
         </div>

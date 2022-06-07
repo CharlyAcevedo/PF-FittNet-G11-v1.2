@@ -34,8 +34,8 @@ const gymSchema = new mongoose.Schema({
   },
   trainers: {
     type: Array,
-    of: mongoose.SchemaTypes.ObjectId,
-    ref: "Users",
+    of: String,
+    // ref: "Users",
   },
   logo: {
     type: String,

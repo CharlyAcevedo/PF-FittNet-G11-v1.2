@@ -1,8 +1,9 @@
 const router = require("express").Router();
 
-const { getUser } = require("../../controlers/users");
+const { getUser, deleteUser, updateUser } = require("../../controlers/users");
 
 router.get("/:id", getUser);
+router.put('/update/:id', updateUser);
 
 //---- CUIDADO OJO ---- ruta para borrar usuarios
 

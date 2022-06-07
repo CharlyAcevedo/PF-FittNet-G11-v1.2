@@ -12,6 +12,9 @@ const Address = require('../models/Address');
 async function findUser(userName) {
     try {
         const response = await User.findOne(userName)
+            .populate('avatar')
+            .populate('info')
+            .populate('partner')
         return response
     } catch (error) {
         console.log(error.message)
@@ -32,69 +35,73 @@ async function findAllUsers() {
     }
 }
 
-async function createUser(newUser) {
-    try {
-        const response = await User.create({
-            userName: newUser.username,
-            password: newUser.password,
-            latitude: newUser.latitude,
-            longitude: newUser.longitude,
-            type: newUser.type,
-        })
-        return response
-    } catch (error) {
-        console.log(error.message)
-        return error.message
-    }
-}
-
-const updateAvatarForUser = async (req, res) => {
+const getUser = async (req, res) => {
     const { id } = req.params;
+    console.log(id)
     try {
-        const UserUpdateAvatar = await User.findByIdAndUpdate(
-            id,
-            req.body,
-            { new: true }
-        )
-        const idForInfo = UserUpdateAvatar.info
-        const UserInfoUpdateAvatar = await InfoUser.findByIdAndUpdate(
-            idForInfo,
-            req.body,
-            { new: true }
-        )
-        res.status(200).json({
-            ok: true,
-            msg: "Usuario modificado correctamente",
-            UserUpdateAvatar,
-            UserInfoUpdateAvatar
-        })
-    } catch (error) {
-        res.status(500).json({
-            ok: false,
-            msg: "No se pudo modificar el usuario"
-        })
-        console.log("error: ", error)
-    }
-}
-
-const getUserGoogleAccount = async (req, res) => {
-    const { token } = req.body;
-    const usuario = jwt_decode(token)
-    console.log(req.body)
-    const userName = usuario.email
-    try {
-        const user = await User.findOne({ userName })
-            .populate('avatar', 'avatarName')
-            .populate('info', 'photo')
+        const user = await User.findById(id)
+            .populate('avatar')
+            .populate('info')
+            .populate('partner')
+        console.log(user)
         res.json({
             ok: true,
             user
         })
     } catch (error) {
-        console.log("error: ", error);
+        console.log(error)
         res.status(500).json({
             ok: false,
-            msg: "Unexpected errorf"
+            msg: "Unexpected error"
+        })
+    }
+}
+
+const updateUser = async (req, res) => {
+    const { id } = req.params
+    try {
+        const body = req.body
+        const newAddressUser = {
+            street: body.street,
+            floor: body.floor,
+            address: body.address,
+            apartament: body.apartament,
+            neighborhood: body.neighborhood,
+            city: body.city,
+            country: body.country,
+            zipCode: body.zipCode
+        }
+        const user = await User.findById(id)
+        const idAddress = user.address ? user.address : null;
+        if (idAddress === null) {
+            const addressUser = new Address(newAddressUser)
+            await addressUser.save()
+            idAddress = addressUser._id
+        } else {
+            let updatedAddress = await Address.findByIdAndUpdate(idAddress, newAddressUser, { new: true })
+        }
+        const idInfo = user.info
+        const idAvatar = user.avatar
+        const newInfoUser = {
+            username: body.username,
+            lastName: body.lastname,
+            phone: body.phone,
+            birthday: body.birthday,
+            avatar: idAvatar,
+            address: idAddress,
+            gender: body.gender,
+            photo: body.photo,
+        }
+        const updUser = await InfoUser.findByIdAndUpdate(idInfo, newInfoUser, { new: true })
+        res.status(200).json({
+            ok: true,
+            updUser
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: "no se pudo actualizar el usuario"
         })
     }
 }
@@ -106,6 +113,105 @@ async function deleteUser(id) {
     } catch (error) {
         console.log(error.message)
         return error.message
+    }
+}
+
+const getUserGoogleAccount = async (req, res) => {
+    const { token } = req.body;
+    const usuario = jwt_decode(token)
+    console.log(req.body)
+    const userName = usuario.email
+    try {
+        const user = await User.aggregate([
+            { $match: { userName: userName } },
+            {
+                $lookup: {
+                    from: "avatars",
+                    localField: "avatar",
+                    foreignField: "_id", 
+                    as: "avatar"
+                }
+            },
+            {
+                $unwind: {
+                    path: '$avatar',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $lookup: {
+                    from: "infousers",
+                    localField: "info",
+                    foreignField: "_id",
+                    as: "info"
+                }
+            },
+            {
+                $unwind: {
+                    path: '$info',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $lookup: {
+                    from: "addresses",
+                    localField: "info.address",
+                    foreignField: "_id",
+                    as: "info.address"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.address",
+                }
+            },
+            {
+                $project: {
+                    name: 1, //! 1 -> mostrar - 0 -> 0
+                    userName: 1,
+                    // latitude: 0,
+                    // longitude: 0,
+                    active: 1,
+                    secretToken: 1,
+                    type: 1,
+                    avatar: {
+                        _id: 1,
+                        avatarName: 1,
+                    },
+                    info: {
+                        _id: 1,
+                        name: 1,
+                        lastName: 1,
+                        photo: 1,
+                        birthday: 1,
+                        phone: 1,
+                        username: 1,
+                        address: {
+                            _id: 1,
+                            street: 1,
+                        }
+                    }
+                }
+            }
+        ]);
+        // console.log(user)
+        return res.status(200).json({
+            ok: true,
+            user: user[0]
+        })
+        // const user = await User.findOne({ userName })
+        //     .populate('avatar', 'avatarName')
+        //     .populate('info', 'photo')
+        // res.json({
+        //     ok: true,
+        //     user
+        // })
+    } catch (error) {
+        console.log("error: ", error);
+        res.status(500).json({
+            ok: false,
+            msg: "Unexpected errorf"
+        })
     }
 }
 
@@ -130,44 +236,30 @@ const googleSignIn = async (req, res) => {
                 userName: userName,
                 password: "0xoaudfj203ru09dsfu2390fdsfc90sdf2dfs",
                 type: "user",
+                active: true,
                 info: infoId
             });
         } else {
             usuario = usuarioDb;
         }
-        await usuario.save();
+        let newUser = await usuario.save();
+        // console.log (newUser, 'nuevo usuario Google')
+        let user = {userId: newUser._id, avatar: newUser.avatar, type: newUser.type,
+                    latitude: newUser.latitude, longitude: newUser.longitude};
+        
+
         res.json({
             ok: true,
             usuario,
-            googleToken
+            googleToken,
+            user           
+
         })
     } catch (error) {
         console.log("error: ", error);
         res.status(500).json({
             ok: false,
             msg: "No se pudo crear el usuario"
-        })
-    }
-}
-
-const getUser = async (req, res) => {
-    const { id } = req.params;
-    console.log(id)
-    try {
-        const user = await User.findById(id)
-            .populate('avatar')
-            .populate('info')
-            .populate('partner')
-        console.log(user)
-        res.json({
-            ok: true,
-            user
-        })
-    } catch (error) {
-        console.log(error)
-        res.status(500).json({
-            ok: false,
-            msg: "Unexpected error"
         })
     }
 }
@@ -261,50 +353,16 @@ async function updatePassword(userId, newPassword, password, secretToken) {
     }
 }
 
-const updateUser = async (req, res) => {
-    const { id } = req.params
-    try {
-        const body = req.body
-        const user = await User.findById(id)
-        const addressUser = new Address({
-            street: body.street,
-            floor: body.floor,
-            address: body.address,
-            apartament: body.apartament,
-            neighborhood: body.neighborhood,
-            city: body.city,
-            country: body.country,
-            zipCode: body.zipCode
-        })
-        await addressUser.save()
-        const idAddress = addressUser._id
-        const idInfo = user.info
-        const idAvatar = user.avatar
-        const newInfoUser = {
-            username: body.username,
-            lastName: body.lastname,
-            phone: body.phone,
-            birthday: body.birthday,
-            avatar: idAvatar,
-            address: idAddress,
-            gender: body.gender,
-            photo: body.photo,
-        }
-        const updUser = await InfoUser.findByIdAndUpdate(idInfo, newInfoUser, { new: true })
-        res.status(200).json({
-            ok: true,
-            updUser
-        })
-    } catch (error) {
-        console.log(error)
-        res.status(500).json({
-            ok: false,
-            msg: "no se pudo actualizar el usuario"
-        })
-    }
-}
 
 
-
-
-module.exports = { findUser, findAllUsers, createUser, deleteUser, updateAvatarForUser, googleSignIn, getUser, isValidObjectId, updatePassword, getUserGoogleAccount, updateUser }
+module.exports = {
+    findUser,
+    findAllUsers,
+    getUser,
+    deleteUser,
+    updateUser,
+    updatePassword,
+    googleSignIn,
+    isValidObjectId,
+    getUserGoogleAccount,
+};

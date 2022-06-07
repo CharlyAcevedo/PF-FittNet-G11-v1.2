@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
     active: {
         type: Boolean,
         required: true,
-        default: false,
+       
     },
     secretToken: {
         type: String,
