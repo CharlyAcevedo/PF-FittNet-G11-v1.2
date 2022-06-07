@@ -39,10 +39,48 @@ const getUser = async (req, res) => {
     const { id } = req.params;
     console.log(id)
     try {
-        const user = await User.findById(id)
-            .populate('avatar')
-            .populate('info')
-            .populate('partner')
+        // const user = await User.findById(id)
+        //     .populate('avatar')
+        //     .populate('info')
+        //     .populate('info.address')
+        //     .populate('partner')
+        const user = await User.aggregate([
+            {
+                $match: { _id: ObjectId(id)}
+            },
+            {
+                $lookup: {
+                    from: "avatars",
+                    localField: "avatar",
+                    foreignField: "_id", 
+                    as: "avatar"
+                }
+            },
+            {
+                $lookup: {
+                    from: "infousers",
+                    localField: "info",
+                    foreignField: "_id",
+                    as: "info"
+                },                
+            },
+            {
+                $lookup: {
+                    from: "addresses",
+                    localField: "info.address",
+                    foreignField: "_id",
+                    as: "address"
+                }
+            },
+            {
+                $lookup: {
+                    from: "partners",
+                    localField: "partner",
+                    foreignField: "_id",
+                    as: "partner"
+                }
+            },
+        ])
         console.log(user)
         res.json({
             ok: true,

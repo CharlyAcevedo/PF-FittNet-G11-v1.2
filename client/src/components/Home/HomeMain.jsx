@@ -14,6 +14,8 @@ import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
 import styles from "./styles/homeMain.module.css";
 import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
+import Advertising from "../PartnerHomeComponents/Advertising";
+import ClientsGraph from "../Graphics/GraphClient"
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
@@ -81,12 +83,19 @@ export default function HomeMain() {
   // Esto es una para cliente empresa
   if (type === "partner") {
     return (
-      <div>
-        {/* <NavBarProfile /> */}
-        <h3>Qué más quiero ver como Ciente Empresa cuando llego a home???</h3>
-        <IncomesGraph />
-        <UserCards />
-        <h4>Promociones y descuentos</h4>
+      <div className={styles.mainContainer}>
+        <div className={styles.advertising}>
+          <Advertising/>
+        </div>
+        <div className={styles.generalActions}>
+          <GeneralActions/>
+        </div>
+        <div className={styles.infoClients}>
+          <ClientsGraph />
+        </div>
+        <div className={styles.infoFinantial}>
+          <IncomesGraph/>
+        </div>
       </div>
     );
   } 
