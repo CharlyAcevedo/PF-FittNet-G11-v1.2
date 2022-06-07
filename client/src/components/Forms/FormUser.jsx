@@ -132,6 +132,14 @@ export default function FormUser() {
     });
   }
 
+  const handleEnfermedades = (e) => {
+    e.preventDefault();
+
+    const miInput = document.getElementById('enfer')
+    const mi = miInput.value;
+    console.log("este es mi value: ", mi)
+  }
+
   return (
     <div>
       <h1>Datos del Usuario</h1>
@@ -242,6 +250,7 @@ export default function FormUser() {
               </button>
             )}
           </div>
+         
           <div>
             <section>
               <MapUser />

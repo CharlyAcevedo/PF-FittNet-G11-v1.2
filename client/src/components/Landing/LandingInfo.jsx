@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserGoogleForToken } from "../../redux/actions/index";
@@ -38,6 +38,42 @@ export default function LandingInfo() {
     } // eslint-disable-next-line
   }, []);
 
+  const [desea, setDesea] = useState({
+    desease: "",
+    trainlimits: "",
+    considerations: "",
+  });
+
+  const [input, setInput] = useState({
+    name: "",
+    firstName: "",
+    lastName: "",
+    gender: "",
+    desease: [],
+  });
+
+  const handel = (e) => {
+    e.preventDefault();
+
+    setDesea({
+      ...desea,
+      [e.target.name]: e.target.value,
+    });
+
+    setInput({
+      ...input,
+      desease: [...input.desease, desea],
+    });
+
+    setDesea({
+      desease: "",
+      trainlimits: "",
+      considerations: "",
+    });
+  };
+
+  const handelSubmit = (e) => {};
+
   return (
     // <div>
     <div className={style.container}>
@@ -60,18 +96,14 @@ export default function LandingInfo() {
                   title="Ir a home"
                   padding="1.1rem 5rem"
                   onClick={() =>
-                    navigate(
-                      `/home/${type}/${name}/${idUser}/${avatar}}`
-                    )
+                    navigate(`/home/${type}/${name}/${idUser}/${avatar}}`)
                   }
                 />
               ) : (
                 <ButtonSecondaryDeslice
                   title="Ir a home"
                   padding="1.1rem 5rem"
-                  onClick={() =>
-                    navigate(`/home/${type}/${name}/${idUser}`)
-                  }
+                  onClick={() => navigate(`/home/${type}/${name}/${idUser}`)}
                 />
               )}
             </div>
@@ -127,9 +159,7 @@ export default function LandingInfo() {
                 title="Ir a home"
                 padding="1.1rem 5rem"
                 onClick={() =>
-                  navigate(
-                    `/home/${type}/${name}/${idUser}/${avatar}}`
-                  )
+                  navigate(`/home/${type}/${name}/${idUser}/${avatar}}`)
                 }
               />
             ) : (
