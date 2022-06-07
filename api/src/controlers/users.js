@@ -194,7 +194,7 @@ const getUserGoogleAccount = async (req, res) => {
                 }
             }
         ]);
-        console.log(user)
+        // console.log(user)
         return res.status(200).json({
             ok: true,
             user: user[0]
