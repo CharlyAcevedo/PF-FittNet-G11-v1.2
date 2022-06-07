@@ -89,7 +89,6 @@ export default function HomeMain() {
         <h4>Promociones y descuentos</h4>
       </div>
     );
-
   } 
 
   // Esto es una para un administrador de sitio

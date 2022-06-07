@@ -10,6 +10,16 @@ export default function LegendUf() {
 
   const user = useSelector((state) => state.user);
 
+  const token = localStorage.getItem("token");
+
+  const name = localStorage.getItem("name");
+
+  const type = localStorage.getItem("type");
+
+  const idUser = localStorage.getItem("userId");
+
+  const avatar = localStorage.getItem("avatar");
+
   return (
     <div className={style.containerFullLegend}>
       <div className={style.img}>
@@ -22,25 +32,23 @@ export default function LegendUf() {
           física de alta calidad, al mismo tiempo brindarte una manera fácil y
           segura de organizar tu agenda de actividades y tus objetivos de manera
           personalizada!
-          <br key="br1"/>
-          <br key="br2"/>
+          <br key="br1" />
+          <br key="br2" />
           En un solo lugar, podrás ver todas las posibilidades y elegir el
           gimnasio que mejor se adapte a tu perfil deportivo y ubicación!
-          <br key="br3"/>
-          <br key="br4"/>
+          <br key="br3" />
+          <br key="br4" />
           Podrás elegir inscribirte de forma mensual o tambien optar por tomar
           clases individuales, abonando de forma segura y sin moverte de tu
           casa!
         </h3>
         <h2 style={{ color: "var(--color-prim)", marginTop: "1.5rem" }}>
-          {
-            !user
+          {!idUser
             ? "Que esperas para formar parte de la evolucion del mundo deportivo ?"
-            : "Ya formas parte de la evolucion deportiva!"
-          }
+            : "Ya formas parte de la evolucion deportiva!"}
         </h2>
         <div style={{ marginTop: "2rem" }}>
-          {!user ? (
+          {!idUser ? (
             <ButtonSecondaryDeslice
               title="Registrate"
               padding=".7rem 4rem"
@@ -50,7 +58,9 @@ export default function LegendUf() {
             <ButtonSecondaryDeslice
               title="Ir a Home"
               padding=".7rem 4rem"
-              onClick={() => navigate(`/home/${user.type}/${user.name}/${user._id}/${user.avatar._id}}`)}
+              onClick={() =>
+                navigate(`/home/${type}/${name}/${idUser}/${avatar}}`)
+              }
             />
           )}
         </div>

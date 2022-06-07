@@ -12,6 +12,14 @@ export default function NavBar() {
 
   const user = useSelector((state) => state.user);
 
+  const token = localStorage.getItem("token");
+
+  const name = localStorage.getItem("name");
+
+  const type = localStorage.getItem("type");
+
+  const idUser = localStorage.getItem("userId");
+
   return (
     <nav className={style.nav}>
       <div onClick={() => navigate("/")}>
@@ -37,8 +45,8 @@ export default function NavBar() {
           title="Beneficios para miembros"
           padding="0 2rem"
         />
-        {Object.keys(user).length ? (
-          <p style={{color: "#fff", fontSize: "1.3rem"}}>{user.name} ya estas registrado!</p>
+        {idUser ? (
+          <p style={{color: "#fff", fontSize: "1.3rem"}}>{name} ya estas registrado!</p>
         ) : (
           <ButtonSimple
             title="Prueba gratis"

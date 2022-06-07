@@ -22,6 +22,16 @@ export default function LandingInfo() {
 
   const token = localStorage.getItem("token");
 
+  const name = localStorage.getItem("name");
+
+  const type = localStorage.getItem("type");
+
+  const idUser = localStorage.getItem("userId");
+
+  const avatar = localStorage.getItem("avatar");
+
+  // const idUser = localStorage.getItem("userId")
+
   useEffect(() => {
     if (token) {
       dispatch(getUserGoogleForToken(token));
@@ -41,17 +51,17 @@ export default function LandingInfo() {
               </h1>
               <br />
               <br />
-              {!Object.keys(user).length ? (
+              {!idUser ? (
                 <Link to="/login">
                   <button className={style.btn}>Empezá aquí</button>
                 </Link>
-              ) : user.avatar ? (
+              ) : avatar ? (
                 <ButtonSecondaryDeslice
                   title="Ir a home"
                   padding="1.1rem 5rem"
                   onClick={() =>
                     navigate(
-                      `/home/${user.type}/${user.name}/${user._id}/${user.avatar._id}}`
+                      `/home/${type}/${name}/${idUser}/${avatar}}`
                     )
                   }
                 />
@@ -60,7 +70,7 @@ export default function LandingInfo() {
                   title="Ir a home"
                   padding="1.1rem 5rem"
                   onClick={() =>
-                    navigate(`/home/${user.type}/${user.name}/${user._id}`)
+                    navigate(`/home/${type}/${name}/${idUser}`)
                   }
                 />
               )}
@@ -106,7 +116,7 @@ export default function LandingInfo() {
           </h1>
           <h1 className={style.texto}>FITTNET</h1>
           <div style={{ marginBottom: "2rem" }}>
-            {!Object.keys(user).length ? (
+            {!idUser ? (
               <ButtonSecondaryDeslice
                 padding="1.5rem 5rem"
                 title="Empeza aqui"
@@ -118,7 +128,7 @@ export default function LandingInfo() {
                 padding="1.1rem 5rem"
                 onClick={() =>
                   navigate(
-                    `/home/${user.type}/${user.name}/${user._id}/${user.avatar._id}}`
+                    `/home/${type}/${name}/${idUser}/${avatar}}`
                   )
                 }
               />
@@ -126,9 +136,7 @@ export default function LandingInfo() {
               <ButtonSecondaryDeslice
                 title="Ir a home"
                 padding="1.1rem 5rem"
-                onClick={() =>
-                  navigate(`/home/${user.type}/${user.name}/${user._id}`)
-                }
+                onClick={() => navigate(`/home/${type}/${name}/${idUser}`)}
               />
             )}
           </div>
