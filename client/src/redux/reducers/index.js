@@ -4,7 +4,7 @@ import {
   GET_ALL_USERS, GET_ALL_PARTNERS, GET_AVATARS, SET_CURRENT_PAGE, SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT, GET_ALL_GYMS, GET_GYM_DETAIL, SET_USER_GEO, POST_USER_GOOGLE,
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, ADD_TO_CART, REMOVE_FROM_CART,
-  SORT_BY_NAME, SORT_BY_SCORE,
+  SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -238,6 +238,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
         return {
           ...state,
           pageToShow: orderedGymsScore
+        }
+      case CLEAR_GYM_DETAIL:
+        return {
+          ...state,
+          gymDetail: payload
         }
 
     default:
