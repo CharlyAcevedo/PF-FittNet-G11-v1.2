@@ -4,6 +4,8 @@ import Logout from "../Logout/Logout";
 import { getUserGoogleForToken } from "../../redux/actions/index";
 import style from "./style/NavBarProfile.module.css";
 import { useDispatch, useSelector } from "react-redux";
+import FormUser from "../Forms/FormUser";
+
 
 export default function NavBarProfile() {
   let { userId, name, type, avatar } = useParams();
@@ -79,6 +81,9 @@ export default function NavBarProfile() {
                 </div>
                 <div className={style.itemsNavBarProfile}>
                     <Logout/>
+                </div> 
+                <div className={style.itemsNavBarProfile}>
+                    <Link to={`/home/${type}/${name}/${userId}/${avatar}/FormUser`}>modificar informacion</Link>
                 </div>                
             </ul> */}
     </div>

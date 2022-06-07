@@ -1,10 +1,12 @@
 import { latBA, lngBA } from "../../asets/helpers/goeDefaults";
 
 import {
+
   GET_ALL_USERS, GET_ALL_PARTNERS, GET_AVATARS, SET_CURRENT_PAGE, SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT, GET_ALL_GYMS, GET_GYM_DETAIL, SET_USER_GEO, POST_USER_GOOGLE,
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, ADD_TO_CART, REMOVE_FROM_CART,
-  SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL,
+  SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE,
+
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -34,6 +36,8 @@ const initialState = {
   errors: "",
   products: [],
   cart: [],
+  deseaseAttribute:[],
+
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -185,10 +189,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
           errors: payload.error,
         };
       }
+    
       return {
         ...state,
         currentLimit: payload,
       };
+
       case ADD_TO_CART:
         const item = state.products.find(prod => prod._id === payload.id) //la clase q me matche con el id
         const inCart = state.cart.find(item => item.id === payload.id) 
@@ -244,6 +250,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
           ...state,
           gymDetail: payload
         }
+    case GET_ATTRIBUTE_DESEASE:
+      return{
+         ...state, 
+         deseaseAttribute: payload,
+      }
 
     default:
       return state;

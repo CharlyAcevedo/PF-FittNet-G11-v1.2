@@ -85,8 +85,22 @@ function App() {
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/activation/:userId/:secretToken" element={<Activation />} />
         <Route path="/deactivate/:userId" element={<DeactivateAccount />} />
-        <Route path="/FormUser" element={<FormUser />} />
+
         <Route path="/stripe" element={<StripeCart />} />
+        <Route path="/home/:type/:name/:userId/:avatar/FormUser" element={<FormUser />} />
+        <Route
+          path="/profile/partner/:name/:userId"
+          element={<UpdatePartner />}
+        />
+        <Route
+          path="/profile/partner/:name/:userId/gym"
+          element={<UpdateGym />}
+        />
+        <Route
+          path="/profile/partner/:name/:userId/gym/service"
+          element={<Services />}
+        />
+
       </Routes>
     </div>
   );
