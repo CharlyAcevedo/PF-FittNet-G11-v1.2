@@ -1,0 +1,47 @@
+.mainContainer{
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.graphContainer{
+    margin: auto;
+    width: 78%;
+    /* height: 30vh; */
+    text-align: center;
+    z-index: 10;        
+}
+
+.doubleContainer{
+    margin: 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.graphIncomes{
+    width: 80%;
+    height: 50%;
+}
+
+.doubleGraph{
+    width: 45%;
+}
+
+.btnDetails{
+    background-color: rgba(172, 61, 71, 0.671);
+    padding: .2em .2em;
+    border: 2px outset rgba(172, 61, 71, 0.671);
+    border-radius: 10px;
+}
+
+.btnDetails:hover{
+    color: aliceblue;
+    background-color: rgba(175, 45, 56, 0.671);
+    padding: .2em .2em;
+}
+
+.btnDetails:active{
+    color: aliceblue;
+    border: 2px inset rgba(177, 48, 59, 0.671);
+}
