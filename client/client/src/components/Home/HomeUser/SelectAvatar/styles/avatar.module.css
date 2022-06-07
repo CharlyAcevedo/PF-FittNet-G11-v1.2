@@ -1,0 +1,15 @@
+
+.containerAvatar {
+  width: 100%;
+  padding: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.containerCardAvatar {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}

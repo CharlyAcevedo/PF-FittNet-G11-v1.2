@@ -1,0 +1,74 @@
+.containerFullLegend {
+    width: 90%;
+    margin: 0 auto;
+    height: 90vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+}
+
+
+.img img {
+  margin-top: 70px;
+  width: 600px;
+  border-radius: 10px;
+}
+
+.containLegend h3 {
+  color: rgb(14, 14, 43);
+  margin-top: -420px;
+  text-align: left;
+  font-family: Verdana, Geneva, Tahoma, monospace;
+  font-style: italic;
+  font-size: large;
+  font-weight: 900px;
+}
+.containLegend h2 {
+  color: #fff7f5;
+  text-align: center;
+  background-color: rgba(72, 48, 66, 1);
+  border-radius: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-style: normal;
+  font-size: large;
+}
+.btn {
+  width: 150px;
+  height: 40px;
+  background-color: #f5978c;
+  border-radius: 5px;
+  border: 1px solid rgba(72, 48, 66, 1);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 700;
+  color: rgb(14, 14, 43);
+  cursor: pointer;
+  box-shadow: 0.1em 0.1em gray;
+  margin-left: 170px;
+}
+.btn:hover {
+  transform: scale(1.1);
+  border: 0;
+  box-shadow: 0.1em 0.1em #f5978c;
+}
+
+/* .imagenLegendUf {
+  background-image: url("https://www.entrenamiento.com/wp-content/uploads/2018/01/zapatillas-gimnasio.jpg");
+  background-size: cover;
+  margin: 0 auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 650px;
+  height: 500px;
+  line-height: 500px;
+  position: relative;
+}
+
+.cuadroLegendUf {
+  width: 80%;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 360px;
+  right: 65px;
+  border: 1px solid #f5978c;
+} */
