@@ -108,7 +108,7 @@ export default function Services() {
   const gimnasios = ["Pesao Gym", "Olimpo", "FittNet", "Gym Henrys"];
 
   return (
-    <div className={styles.editPartnerMainContainer}>
+    <div className={styles.div}>
       <h1>FORMULARIO DE SERVICIOS</h1>
       <form onSubmit={handleSubmit}>
         <div>
