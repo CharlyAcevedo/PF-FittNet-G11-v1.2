@@ -434,7 +434,8 @@ export function clearGymDetail() {
   return {
       type: CLEAR_GYM_DETAIL, payload: {}
 
-
+  }
+}
 
 //////////// ACA VA LO RELACIONADO CON LAS ENFERMEDADES (modelo Diseases)
 

@@ -71,7 +71,17 @@ export default function HomeMain() {
   }
 
   // Esto es una vista para un usuario con avatar
-  if (type === "user" && avatar || avatarLS) {
+  if (type === "user" && avatar) {
+    return (
+      <div className={styles.cont}>
+        <Sarch/>       
+        <GymCards/>
+        <Paginated />
+      </div>
+    );
+  };
+
+  if (type === "user" && avatarLS) {
     return (
       <div className={styles.cont}>
         <Sarch/>       
