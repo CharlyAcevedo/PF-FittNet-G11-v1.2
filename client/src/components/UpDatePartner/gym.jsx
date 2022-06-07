@@ -28,6 +28,7 @@ export default function UpdateGym() {
     idName: "",
     id: "",
   });
+  
   const [error, setError] = useState({});
 
   //!----------------HANDLECHANGE-----------------------
@@ -92,6 +93,7 @@ export default function UpdateGym() {
   // }
 
   //!-------------------Trainers-----------------------------
+
   function handleChangeTrainers(e) {
     setInput(() => {
       const newTrainers = {
