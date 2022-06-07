@@ -10,6 +10,7 @@ import {
   CardPromoBalance,
   CardPromoBulk,
 } from "./componentsLanding/componentsLanding.jsx";
+import { CardGymsAdicional } from "../../helpers/Cards/Cards.jsx";
 import style from "../Landing/styles/Landing.module.css";
 
 export default function LandingInfo() {
@@ -24,7 +25,7 @@ export default function LandingInfo() {
   useEffect(() => {
     if (token) {
       dispatch(getUserGoogleForToken(token));
-    }// eslint-disable-next-line
+    } // eslint-disable-next-line
   }, []);
 
   return (

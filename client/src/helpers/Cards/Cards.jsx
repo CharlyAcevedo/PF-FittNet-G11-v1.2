@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+
 import styles from "./styles/stylesCards.module.css";
 
 export const CardAvatares = (props) => {
@@ -9,12 +10,10 @@ export const CardAvatares = (props) => {
 
   const estiloPruebaImage = {
     backgroundImage: `url(${image})`,
-
   };
 
   return (
     <div className={styles.containerCardAvatares}>
-      {/* <img src={image} alt="alt-foto" style={{width: "155px", height: "120px"}}/> */}
       <div style={estiloPruebaImage}></div>
       <span style={{}}></span>
     </div>

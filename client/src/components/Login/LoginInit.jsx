@@ -149,8 +149,8 @@ export default function LoginInit() {
               localStorage.setItem("name", name)
               localStorage.setItem("type", type)
               localStorage.setItem("avatar", avatar._id)
-              localStorage.setItem("latitude", latitude)
-              localStorage.setItem("longitude", longitude)             
+              localStorage.setItem("latitude", latitude.$numberDecimal)
+              localStorage.setItem("longitude", longitude.$numberDecimal)             
               
               let avatarId = avatar._id;
               return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatarId}`);

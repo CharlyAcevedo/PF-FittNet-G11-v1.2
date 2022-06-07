@@ -17,37 +17,22 @@ export default function FormUser() {
 
   const dispatch = useDispatch();
 
+  // const validador = (a) => {
+  //   user ? a : ""
+  // }`
 
-
-  const [input, setInput] = useState({
-    name: user.name,
-    username: user.username,
-    // avatar: "",
-    lastname: user.lastname,
-    phone: user.phone,
-    birthday: user.birthday,
-    gender: user.gender,
-    photo: user.photo,
-    street: user.street,
-    floor: user.floor,
-    address: user.address,
-    apartment: user.apartment,
-    neighborhood: user.neighborhood,
-    city: user.city,
-    country: user.country,
-    zipCode: user.zipCode,
-  });
+  const [input, setInput] = useState({});
 
   const [error, setError] = useState({});
 
   function handleOnChange(e) {
     setInput({
-      ...input,
+      // ...input,
       [e.target.name]: e.target.value,
     });
     setError(
       validate({
-        ...input,
+        // ...input,
         [e.target.name]: e.target.value,
       })
     );
@@ -150,16 +135,17 @@ export default function FormUser() {
   return (
     <div>
       <h1>Datos del Usuario</h1>
-    <p>Aqui puedes completar los datos de tu información personal, esta información es muy importante para nosotros 
-      <br/>tanto como lo es para tí, es por eso que la tratarémos con la mayor confidencialidad y discreción, 
-      <br/>puedes consultar nuestro anuncio de privacidad aqui</p>
+      <p>
+        Aqui puedes completar los datos de tu información personal, esta
+        información es muy importante para nosotros
+        <br />
+        tanto como lo es para tí, es por eso que la tratarémos con la mayor
+        confidencialidad y discreción,
+        <br />
+        puedes consultar nuestro anuncio de privacidad aqui
+      </p>
       <form>
         <div>
-          {/* <label>NAME: </label>
-                    <input  type= "text" name= "name" onChange= {(e)=>handleOnChange(e)}/>
-                    {error.name&& (
-                        <p  className={styles.parrafo} >{error.name}</p>
-                    )}  */}
           <label>USERNAME: </label>
           <input
             className={error.username ? styles.inputError : styles.input}
@@ -246,7 +232,7 @@ export default function FormUser() {
           </div>
           <div>
             {!input.photo ? (
-              <img src={avatar} width="200px" alt="avatar"/>
+              <img src={avatar} width="200px" alt="avatar" />
             ) : (
               <img src={input.photo} width="200px" alt="tu foto" />
             )}
