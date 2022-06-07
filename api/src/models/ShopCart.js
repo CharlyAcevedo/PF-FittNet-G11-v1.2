@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const mongoDB = require('mongodb')
+const mongoDB = require('mongodb');
+
 const shopCartSchema = new mongoose.Schema({
     user: {
         type: mongoose.SchemaTypes.ObjectId,

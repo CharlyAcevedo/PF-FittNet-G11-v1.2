@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoDB = require('mongodb');
 
 const serviceSchema = new mongoose.Schema({
   name: {
@@ -6,31 +7,22 @@ const serviceSchema = new mongoose.Schema({
     required: true,
   },
   description: {
-    type: String, //Esto estaba como text y producía un error de sintaxis.
+    type: String, 
     required: true,
   },
   duration: {
     type: Number,
     required: true,
   },
-  gyms: {
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: "Gym",
-  },
-  uEnd: {
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: "User",
+  price: {
+    type: mongoDB.Decimal128,
+    required: true,
   },
   photo: {
     type: String,
-    required: true,
   },
-  objTrining: {
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: "TrainObjectives",
-  },
-  coach: {
-    //Se deja pendiente para evaluar su uso
+  profileCategory: {
+    type: Array, //debe contener las caracteristicas asociadas de los avatares con el perfil del gym
   },
 });
 

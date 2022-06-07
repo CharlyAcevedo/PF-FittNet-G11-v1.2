@@ -97,7 +97,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
           const newPartnerInfo = new Partner({
             name: name,
             email: username,
-            userActive: true
+            userActive: true,
           })
           await newPartnerInfo.save();
           newUser = await Users.create({
@@ -109,7 +109,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
             secretToken: promiseAll[1],
             active: false,
             type: type,
-            info: newPartnerInfo._id
+            partner: newPartnerInfo._id
           });
           
         }

@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import validate from "./validation";
 import avatar from "../../asets/icons/avatar.jpg";
 import styles from "./styles/form.module.css";
