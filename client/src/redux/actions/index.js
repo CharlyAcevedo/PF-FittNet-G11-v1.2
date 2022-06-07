@@ -2,7 +2,7 @@ import axios from "axios";
 
 import {
   SET_USER_GEO, GET_ALL_USERS, POST_USER, PUT_USER_INFO, GET_USER, GET_USER_TOKEN_GOOGLE,
-  GET_AVATARS, POST_AVATAR, GET_ALL_PARTNERS, GET_ALL_GYMS, GET_GYM_DETAIL, SET_CURRENT_PAGE,
+  GET_AVATARS, GET_ALL_PARTNERS, GET_ALL_GYMS, GET_GYM_DETAIL, SET_CURRENT_PAGE,
   SET_PAGE_NUMBER, SET_CURRENT_LIMIT, POST_GYM, POST_SERVICES, POST_PARTNER, ADD_TO_CART,
   REMOVE_FROM_CART, SORT_BY_NAME, SORT_BY_SCORE,
 } from "./actionTypes";
@@ -85,20 +85,20 @@ export const getUserGoogleForToken = (payload) => async dispatch => {
 
 //------AVATARS ACTIONS------(Favor de poner aqui todas las aciones referentes a los avatares)
 
-export const postAvatar = (id, body) => async (dispatch) => {
-  try {
-    const dataUdpateAvatar = await axios.put(`/api/user/avatar/${id}`, body);
-    dispatch({
-      type: POST_AVATAR,
-      payload: dataUdpateAvatar.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: POST_AVATAR,
-      payload: { error: error.message },
-    });
-  };
-};
+// export const postAvatar = (id, body) => async (dispatch) => {
+//   try {
+//     const dataUdpateAvatar = await axios.put(`/api/user/avatar/${id}`, body);
+//     dispatch({
+//       type: POST_AVATAR,
+//       payload: dataUdpateAvatar.data,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: POST_AVATAR,
+//       payload: { error: error.message },
+//     });
+//   };
+// };
 
 
 export const getAvatars = () => async (dispatch) => {
