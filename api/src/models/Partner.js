@@ -36,10 +36,6 @@ const partnerSchema = new mongoose.Schema({
   profileCategory: {
     type: Array, //debe contener las caracteristicas asociadas de los avatares con el perfil del gym
   },
-  userActive: {
-    type: Boolean,
-    required: true,
-  },
   socialNetworks: {
     type: Array,
     of: mongoose.SchemaTypes.ObjectId,
