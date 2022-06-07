@@ -49,8 +49,9 @@ export default function LoginInit() {
       localStorage.setItem('userId',finalizacionData.user.userId)
       localStorage.setItem('type',finalizacionData.user.type)   
       localStorage.setItem('avatar',finalizacionData.user.avatar)
-      localStorage.setItem('latitude',finalizacionData.user.latitude.$numberDecimal)  
-      localStorage.setItem('longitude',finalizacionData.user.longitude.$numberDecimal)       
+      localStorage.setItem('name', finalizacionData.usuario.name)
+      // localStorage.setItem('latitude',finalizacionData.user.latitude.$numberDecimal)  
+      // localStorage.setItem('longitude',finalizacionData.user.longitude.$numberDecimal)       
 
       // localStorage.setItem("type", type)
       // localStorage.setItem("avatar", avatar._id)

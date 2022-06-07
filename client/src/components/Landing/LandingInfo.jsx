@@ -28,7 +28,7 @@ export default function LandingInfo() {
 
   const idUser = localStorage.getItem("userId");
 
-  // const avatar = localStorage.getItem("avatar");
+  const avatar = localStorage.getItem("avatar");
 
   // const idUser = localStorage.getItem("userId")
 
@@ -55,13 +55,13 @@ export default function LandingInfo() {
                 <Link to="/login">
                   <button className={style.btn}>Empezá aquí</button>
                 </Link>
-              ) : user.avatar ? (
+              ) : avatar ? (
                 <ButtonSecondaryDeslice
                   title="Ir a home"
                   padding="1.1rem 5rem"
                   onClick={() =>
                     navigate(
-                      `/home/${user.type}/${user.name}/${user._id}/${user.avatar._id}}`
+                      `/home/${type}/${name}/${idUser}/${avatar}}`
                     )
                   }
                 />
@@ -70,7 +70,7 @@ export default function LandingInfo() {
                   title="Ir a home"
                   padding="1.1rem 5rem"
                   onClick={() =>
-                    navigate(`/home/${user.type}/${user.name}/${user._id}`)
+                    navigate(`/home/${type}/${name}/${idUser}`)
                   }
                 />
               )}
@@ -128,7 +128,7 @@ export default function LandingInfo() {
                 padding="1.1rem 5rem"
                 onClick={() =>
                   navigate(
-                    `/home/${type}/${name}/${idUser}/${user.avatar._id}}`
+                    `/home/${type}/${name}/${idUser}/${avatar}}`
                   )
                 }
               />
@@ -136,9 +136,7 @@ export default function LandingInfo() {
               <ButtonSecondaryDeslice
                 title="Ir a home"
                 padding="1.1rem 5rem"
-                onClick={() =>
-                  navigate(`/home/${type}/${name}/${idUser}`)
-                }
+                onClick={() => navigate(`/home/${type}/${name}/${idUser}`)}
               />
             )}
           </div>
