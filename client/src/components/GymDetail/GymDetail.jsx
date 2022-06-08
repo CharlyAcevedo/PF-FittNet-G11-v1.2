@@ -72,6 +72,7 @@ export default function GymDetail() {
           {gymDetail.services.map((e) => {
             return (
               <div key={e._id}>
+                  {console.log(gymDetail)}
                 <CartItem
                   id={e._id}
                   key={e._id}
