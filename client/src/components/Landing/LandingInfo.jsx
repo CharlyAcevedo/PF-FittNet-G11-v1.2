@@ -60,18 +60,14 @@ export default function LandingInfo() {
                   title="Ir a home"
                   padding="1.1rem 5rem"
                   onClick={() =>
-                    navigate(
-                      `/home/${type}/${name}/${idUser}/${avatar}}`
-                    )
+                    navigate(`/home/${type}/${name}/${idUser}/${avatar}}`)
                   }
                 />
               ) : (
                 <ButtonSecondaryDeslice
                   title="Ir a home"
                   padding="1.1rem 5rem"
-                  onClick={() =>
-                    navigate(`/home/${type}/${name}/${idUser}`)
-                  }
+                  onClick={() => navigate(`/home/${type}/${name}/${idUser}`)}
                 />
               )}
             </div>
@@ -127,9 +123,7 @@ export default function LandingInfo() {
                 title="Ir a home"
                 padding="1.1rem 5rem"
                 onClick={() =>
-                  navigate(
-                    `/home/${type}/${name}/${idUser}/${avatar}}`
-                  )
+                  navigate(`/home/${type}/${name}/${idUser}/${avatar}}`)
                 }
               />
             ) : (

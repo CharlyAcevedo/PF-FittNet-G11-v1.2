@@ -59,6 +59,10 @@ const userSchema = new mongoose.Schema({
         of: mongoose.SchemaTypes.ObjectId,
         ref: "Partner"
     },
+    favourite: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "gyms"
+    },
     createdAt: {
         type: Date,
         required: true,

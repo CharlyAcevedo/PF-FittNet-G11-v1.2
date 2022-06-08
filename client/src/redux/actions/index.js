@@ -6,6 +6,7 @@ import {
   GET_AVATARS, GET_ALL_PARTNERS, GET_ALL_GYMS, GET_GYM_DETAIL, SET_CURRENT_PAGE,
   SET_PAGE_NUMBER, SET_CURRENT_LIMIT, POST_GYM, POST_SERVICES, POST_PARTNER, ADD_TO_CART,
   REMOVE_FROM_CART, SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE,
+  PUT_FAVOURITE
 
 } from "./actionTypes";
 
@@ -27,9 +28,9 @@ export function setUserGeo(payload) {
   };
 };
 
-export function getUser (data) {
-  return (dispatch) => { 
-    dispatch({ type: GET_USER, payload: data })    
+export function getUser(data) {
+  return (dispatch) => {
+    dispatch({ type: GET_USER, payload: data })
   }
 }
 
@@ -83,7 +84,6 @@ export const getUserGoogleForToken = (payload) => async dispatch => {
     });
   };
 };
-
 
 //------AVATARS ACTIONS------(Favor de poner aqui todas las aciones referentes a los avatares)
 
@@ -209,7 +209,7 @@ export function updatePartnerData({
         type: POST_PARTNER,
         payload: result.data,
       });
-    } catch  (error) {
+    } catch (error) {
       dispatch({
         type: POST_PARTNER,
         payload: { error: error.message },
@@ -282,9 +282,9 @@ export function createService({
   image,
   objtrainers,
 }) {
-  return async (dispatch) => { 
-  try {
-    
+  return async (dispatch) => {
+    try {
+
       const result = await axios.post("ruta", {
         name: name,
         description: description,
@@ -298,14 +298,15 @@ export function createService({
         type: POST_SERVICES,
         payload: result.data,
       });
-   
-  } catch (error) {
-    dispatch({
-      type: POST_SERVICES,
-      payload: { error: error.message },
-    });
+
+    } catch (error) {
+      dispatch({
+        type: POST_SERVICES,
+        payload: { error: error.message },
+      });
+    }
   }
-} }
+}
 
 //---------PAGINATED ACTIONS------------
 
@@ -367,7 +368,10 @@ export function setCurrentLimit(payload) {
 
 export const updateUserInfo = (id, body) => async dispatch => {
   try {
-    const dataNewUser = await axios.put(`/api/user/update/${id}`, body)
+    const dataNewUser = await axios.put(`/api/user/profile/update/${id}`, body, {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    console.log(body)
     dispatch({
       type: PUT_USER_INFO,
       payload: dataNewUser.data.updUser
@@ -380,18 +384,18 @@ export const updateUserInfo = (id, body) => async dispatch => {
 
 // CARRITO DE COMPRAS USUARIO FINAL
 
-export function addToCart(itemID){
+export function addToCart(itemID) {
   //console.log('llega id?', itemID)
-    return (dispatch) => {
-      try {
-        dispatch({
-          type: ADD_TO_CART,
-          payload: {
-            id: itemID,
-          }
-        });
-      } catch (error) {console.log(error)}
-}
+  return (dispatch) => {
+    try {
+      dispatch({
+        type: ADD_TO_CART,
+        payload: {
+          id: itemID,
+        }
+      });
+    } catch (error) { console.log(error) }
+  }
 };
 export const removeFromCart = (itemID) => {
   return (dispatch) => {
@@ -402,12 +406,12 @@ export const removeFromCart = (itemID) => {
           id: itemID
         }
       });
-    } catch (error) {console.log(error)}
-}
+    } catch (error) { console.log(error) }
+  }
 };
 
-export const postCart = (body) =>{
-  return (dispatch) =>{
+export const postCart = (body) => {
+  return (dispatch) => {
     const post = axios.post('/api/shopcart', body)
     return post
   }
@@ -421,39 +425,52 @@ export function sortByName(order) {
   }
 }
 
-export function sortByScore(order) {  
+export function sortByScore(order) {
   return {
-      type: SORT_BY_SCORE, payload: order
+    type: SORT_BY_SCORE, payload: order
   }
 }
 
 //-------- ESTA ACCIÓN LIMPIA EL ESTADO DE GYM DETAIL ---------------------------------
 
 
-export function clearGymDetail() {  
+export function clearGymDetail() {
   return {
       type: CLEAR_GYM_DETAIL, payload: {}
 
   }
 }
 
+export const updateFavouriteGym = (id, user) => async dispatch => {
+  try {
+    const newFavourite = await axios.put(`/api/user/profile/update/favourite/${id}`, {
+      favourite: 1,
+      idUser: user
+    })
+    dispatch({
+      type: PUT_FAVOURITE,
+      payload: newFavourite.data
+    })
+  } catch (error) {
+    console.log("error: ", error)
+  }
+}
+
 //////////// ACA VA LO RELACIONADO CON LAS ENFERMEDADES (modelo Diseases)
 
-export function getAttributeDesease(){
+export function getAttributeDesease() {
   return async (dispatch) => {
 
     try {
-      var json = await axios.get("/api/user/all/deseasesMap",{
+      var json = await axios.get("/api/user/all/deseasesMap", {
 
       });
       return dispatch({
-          type: GET_ATTRIBUTE_DESEASE,
-          payload: json.data
+        type: GET_ATTRIBUTE_DESEASE,
+        payload: json.data
       })
     } catch (error) {
       console.log("error: ", error)
     }
-      
-
   }
 }

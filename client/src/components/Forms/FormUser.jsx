@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import validate from "./validation";
 import avatar from "../../asets/icons/avatar.jpg";
 import styles from "./styles/form.module.css";
@@ -6,52 +7,45 @@ import { updateUserInfo } from "../../redux/actions/index";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import MapUser from "../MapsAndGeo/MapUser";
-import {getAttributeDesease} from '../../redux/actions/index';
+import { getAttributeDesease } from "../../redux/actions/index";
 
 export default function FormUser() {
   const navigate = useNavigate();
 
   const { userId } = useParams();
 
+  const avatar = localStorage.getItem("avatar")
+
   const deseaseAttribute = useSelector((state) => state.deseaseAttribute);
   const user = useSelector((state) => state.currentUserDetails);
-  console.log("user", user)
+  console.log("user", user);
   const dispatch = useDispatch();
 
-
-  // const validador = (a) => {
-  //   user ? a : ""
-  // }`
-
-  
-
-  useEffect(()=> {
-    dispatch(getAttributeDesease())
-}, []);
-
+  useEffect(() => {
+    dispatch(getAttributeDesease());
+  }, []);
 
   const [dese, setDese] = useState({
     desease: "",
     trainlimits: "",
-    considerations: ""
-  })
+    considerations: "",
+  });
   const [input, setInput] = useState({
-       name: "",
-       username: "",
-       avatar: "",
-       lastname: "",
-       phone: "",
-       birthday: "",
-       gender: "",
-       photo: "",
-       address: "",
-       apartment: "",
-       neighborhood: "",
-       city: "",
-       country: "",
-       zipCode: "",
-       desease:[],
-       
+    username: "",
+    avatar: avatar,
+    lastname: "",
+    phone: "",
+    birthday: "",
+    gender: "",
+    photo: "",
+    address: "",
+    apartment: "",
+    neighborhood: "",
+    city: "",
+    country: "",
+    zipCode: "",
+    desease: [],
+
     /* name: user.name,
     username: user.username,
     // avatar: "",
@@ -70,11 +64,9 @@ export default function FormUser() {
     zipCode: user.zipCode, */
   });
 
-
   const [error, setError] = useState({});
 
   function handleOnChange(e) {
-
     /* let concatDesease = "";
     if(e.target.name = "inpDesease"){
       concatDesease = [...concatDesease + e.target.value ]
@@ -87,12 +79,12 @@ export default function FormUser() {
         desease: [...input.desease, concatDesease[1]]
       }); 
     } */
-    if(e.target.name !== "inpDesease" && e.target.name !== "but"){
+    if (e.target.name !== "inpDesease" && e.target.name !== "but") {
       setInput({
         ...input,
 
         [e.target.name]: e.target.value,
-      }); 
+      });
       setError(
         validate({
           ...input,
@@ -100,98 +92,95 @@ export default function FormUser() {
         })
       );
     }
-    
+
     console.log("input", input);
     console.log(error);
-    console.log("target",e.target);
+    console.log("target", e.target);
     //console.log(user);
-
   }
 
   let concatDesease = {};
-  function handleOnChange3(e){
-      /* const filtrar = input.desease.filter(d =>  d.desease === e.target.value)*/
-      
-      const fil = input.desease.filter(d =>  d.desease.toLowerCase() === dese.desease.toLowerCase())
-      console.log("fil", fil); 
-    if(e.target.name == "desease"  && e.target.name !== "but"  /* && e.target.name !== "considerations"  && e.target.name !=="trainlimits"  */){
+  function handleOnChange3(e) {
+    /* const filtrar = input.desease.filter(d =>  d.desease === e.target.value)*/
+
+    const fil = input.desease.filter(
+      (d) => d.desease.toLowerCase() === dese.desease.toLowerCase()
+    );
+    console.log("fil", fil);
+    if (
+      e.target.name == "desease" &&
+      e.target.name !==
+        "but" /* && e.target.name !== "considerations"  && e.target.name !=="trainlimits"  */
+    ) {
       //concatDesease = [...concatDesease ,  e.target.value ]
       setDese({
         ...dese,
-        desease : e.target.value
-      })
-      console.log("concatDesease", concatDesease)
+        desease: e.target.value,
+      });
+      console.log("concatDesease", concatDesease);
       console.log("dese", dese);
-     
-    }
-     else if (dese.desease){
-      
-       console.log("fil", fil); 
-       console.log("estoy dentro")
-       if(fil.length){
-         alert ("deberias agregar una enfemedad diferente")
-         setDese({
-           ...dese,
-           desease:""
-         })
+    } else if (dese.desease) {
+      console.log("fil", fil);
+      console.log("estoy dentro");
+      if (fil.length) {
+        alert("deberias agregar una enfemedad diferente");
+        setDese({
+          ...dese,
+          desease: "",
+        });
         //setDese("no se puede agregar una enfermedad ya agregada")
-        } else {
-         
-          setDese({
-            ...dese,
-            [e.target.name]: e.target.value
-          })
-      setInput({
-            ...input,
-            desease: [...input.desease, dese]
-          })
-          setDese({
-            desease: "",
-            trainlimits: "",
-            considerations: ""
-          })
-          /* let formulario = document.getElementById('desease');
+      } else {
+        setDese({
+          ...dese,
+          [e.target.name]: e.target.value,
+        });
+        setInput({
+          ...input,
+          desease: [...input.desease, dese],
+        });
+        setDese({
+          desease: "",
+          trainlimits: "",
+          considerations: "",
+        });
+        /* let formulario = document.getElementById('desease');
           console.log("formulario", formulario)
            formulario.reset()
           console.log("formulario.value", formulario.value) */
-          
-        }
-        
-     } 
-     else {
-      alert("debes agregar una enfermedad")
-    } 
+      }
+    } else {
+      alert("debes agregar una enfermedad");
+    }
     console.log("input", input);
     console.log("dese", dese);
     console.log("concatDesease", concatDesease);
     //console.log(error);
-    console.log("target",e);
-  } 
+    console.log("target", e);
+  }
 
-  function handleOnChange4(e){
+  function handleOnChange4(e) {
     // if (e.target.name === "considerations") {
-      //concatDesease.considerations = e.target.value
-      /* setInput({
+    //concatDesease.considerations = e.target.value
+    /* setInput({
         ...input,
         [e.target.name]: e.target.value,
       }); */
     //}
     //else if (e.target.name === "trainlimits") {
-      //concatDesease.trainlimits = e.target.value
-      /* setInput({
+    //concatDesease.trainlimits = e.target.value
+    /* setInput({
         ...input,
         [e.target.name]: e.target.value,
       }); */
-    //} 
+    //}
     setDese({
       ...dese,
-      [e.target.name]: e.target.value
-    }) 
+      [e.target.name]: e.target.value,
+    });
     console.log("input", input);
     console.log("concatDesease", concatDesease);
     //console.log(error);
-    console.log("target",e);
-  
+    console.log("target", e);
   }
 
   async function handleOnChange2(e) {
@@ -230,13 +219,11 @@ export default function FormUser() {
         [e.target.name]: e.target.value,
       })
     );
-    
+
     console.log("input", input);
     //console.log(error);
     console.log("e.target.value", e.target.result);
   }
-  
-    
 
   function handleSelect(e) {
     console.log(e);
@@ -255,17 +242,18 @@ export default function FormUser() {
     console.log(error);
   }
 
-  function handleSelectDeseases(e){
-    const filtro = input.desease.filter(d =>  d.desease.toLowerCase() === e.target.value.toLowerCase())
-    if (filtro.length){
-      alert("deberias agregar una enfermedad diferente")
+  function handleSelectDeseases(e) {
+    const filtro = input.desease.filter(
+      (d) => d.desease.toLowerCase() === e.target.value.toLowerCase()
+    );
+    if (filtro.length) {
+      alert("deberias agregar una enfermedad diferente");
     } else {
       setDese({
-        desease : e.target.value
-      })
-    } 
-    
-    
+        desease: e.target.value,
+      });
+    }
+
     /* if(!input.desease.includes(e.target.value) && e.target.name !== "inpDesease" 
        && e.target.name !== "but" && input.desease.length === 0){
 
@@ -274,16 +262,16 @@ export default function FormUser() {
        desease: [...input.desease, e.target.value]
     })
     } */
-    
+
     /* setError(validate({
         ...input,
         types :  [...input.types, e.target.value]
-    }))  */ 
+    }))  */
     console.log("e.t.name", e.target.name);
     console.log("concatDes", concatDesease);
     console.log("value", e.target.value);
     console.log("filtro", filtro);
-}
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -318,20 +306,26 @@ export default function FormUser() {
     });
   }
 
-  function handleDeleteDse(e){
+  function handleDeleteDse(e) {
     setInput({
-        ...input,
-        desease: input.desease.filter(c=> c !== e)
-    })
-}
+      ...input,
+      desease: input.desease.filter((c) => c !== e),
+    });
+  }
 
   return (
     <div>
       <h1>Datos del Usuario</h1>
 
-      <p>Aqui puedes completar los datos de tu información personal, esta información es muy importante para nosotros
-        <br />tanto como lo es para tí, es por eso que la tratarémos con la mayor confidencialidad y discreción,
-        <br />puedes consultar nuestro anuncio de privacidad aqui</p>
+      <p>
+        Aqui puedes completar los datos de tu información personal, esta
+        información es muy importante para nosotros
+        <br />
+        tanto como lo es para tí, es por eso que la tratarémos con la mayor
+        confidencialidad y discreción,
+        <br />
+        puedes consultar nuestro anuncio de privacidad aqui
+      </p>
 
       <form>
         <div>
@@ -431,32 +425,42 @@ export default function FormUser() {
               </button>
             )}
           </div>
+
           <div>
             <h1>DISEASES</h1>
 
-
-            <select /* className={!input.types.length? styles.inputError :  styles.input } */ onChange={(e) => handleSelectDeseases(e)}>
-               <option id='des' disabled >Desease...</option>
-               {
-                        deseaseAttribute.map(e=> {
-                                return(
-                                    <option value= {e} key= {e}>{e} </option>
-                                )                            
-                        })
-                    } 
+            <select
+              /* className={!input.types.length? styles.inputError :  styles.input } */ onChange={(
+                e
+              ) => handleSelectDeseases(e)}
+            >
+              <option id="des" disabled>
+                Desease...
+              </option>
+              {deseaseAttribute.map((e) => {
+                return (
+                  <option value={e} key={e}>
+                    {e}{" "}
+                  </option>
+                );
+              })}
             </select>
             {/* {(input.types.length === 0 || input.types.length > 2) && (
                         <p className={styles.parrafo}>{error.types}</p>
                     )}   */}
 
-
-             {input.desease.map(e =>
+            {input.desease.map((e) => (
               <div key={e.desease}>
                 <p>{e.desease}</p>
-                <button  className={styles.btn} type="button"  onClick={() => handleDeleteDse(e)}>x</button>
+                <button
+                  className={styles.btn}
+                  type="button"
+                  onClick={() => handleDeleteDse(e)}
+                >
+                  x
+                </button>
               </div>
-            )}  
-
+            ))}
 
             <input
               id="desease"
@@ -464,7 +468,7 @@ export default function FormUser() {
               type="text"
               placeholder="inpDesease"
               name="desease"
-              value= {dese.desease}
+              value={dese.desease}
               onChange={(e) => handleOnChange3(e)}
             />
             {error.desease && <p className={styles.parrafo}>{error.desease}</p>}
@@ -475,19 +479,29 @@ export default function FormUser() {
               name="trainlimits"
               onChange={(e) => handleOnChange4(e)}
             />
-            {error.trainlimits && <p className={styles.parrafo}>{error.trainlimits}</p>}
+            {error.trainlimits && (
+              <p className={styles.parrafo}>{error.trainlimits}</p>
+            )}
             <textarea
-              className={error.considerations ? styles.inputError : styles.input}
+              className={
+                error.considerations ? styles.inputError : styles.input
+              }
               type="text"
               placeholder="considerations"
               name="considerations"
               onChange={(e) => handleOnChange4(e)}
             />
-            <button name="but" type="button" onClick={(e) => handleOnChange3(e)}>
-                save desease
-              </button>
-           {/*{error.desease && <p className={styles.parrafo}>{error.desease}</p>} */}
-            {error.considerations && <p className={styles.parrafo}>{error.considerations}</p>}
+            <button
+              name="but"
+              type="button"
+              onClick={(e) => handleOnChange3(e)}
+            >
+              save desease
+            </button>
+            {/*{error.desease && <p className={styles.parrafo}>{error.desease}</p>} */}
+            {error.considerations && (
+              <p className={styles.parrafo}>{error.considerations}</p>
+            )}
           </div>
           <div>
             <section>
@@ -567,18 +581,18 @@ export default function FormUser() {
           </div>
           <div>
             {error.lastname ||
-              error.phone ||
-              error.birthday ||
-              error.gender ||
-              error.photo ||
-              error.street ||
-              error.floor ||
-              error.address ||
-              error.apartment ||
-              error.neighborhood ||
-              error.city ||
-              error.country ||
-              error.zipCode ? (
+            error.phone ||
+            error.birthday ||
+            error.gender ||
+            error.photo ||
+            error.street ||
+            error.floor ||
+            error.address ||
+            error.apartment ||
+            error.neighborhood ||
+            error.city ||
+            error.country ||
+            error.zipCode ? (
               <button type="submit" disabled>
                 SAVE CHANGES
               </button>
