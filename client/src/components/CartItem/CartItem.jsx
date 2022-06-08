@@ -24,7 +24,7 @@ export default function CartItem({ id, name, price, description, duration }) {
         <div className={style.box}>
           <div className={style.content}>
             <span>{duration} min</span>
-            <h2>$ {price}</h2>
+            <h2>{price} $</h2>
             <h3>{name}</h3>
             <p>{description}</p>
             <div className={style.contButton}>
