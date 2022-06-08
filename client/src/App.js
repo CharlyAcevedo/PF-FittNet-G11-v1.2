@@ -100,10 +100,6 @@ function App() {
           path="/profile/partner/:name/:userId/gym/service"
           element={<Services />}
         />
-        <Route
-          path="/stripe"
-          element={<StripeCart />}
-        />
       </Routes>
     </div>
   );
