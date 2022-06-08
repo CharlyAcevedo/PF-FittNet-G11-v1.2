@@ -32,9 +32,9 @@ export default function HomeAdmin() {
                 <button style={{padding: "5px", marginRight:"30px"}}
                 onClick={(e)=>{setView("viewUser")}}>Vista User</button>
                 <button style={{padding: "5px", marginRight:"30px"}}
-                onClick={(e)=>{setView("deleteAccount")}}>Inhabilitar</button>
+                onClick={(e)=>{setView("deleteAccount")}}>Eliminar cuenta</button>
                 
-                <p style={{padding: "10px"}}>1 - Necesito información financiera, números</p>
+                <p style={{padding: "10px"}}>Necesito información financiera, números</p>
                 <Finances/>
             </div>
         )
@@ -56,9 +56,9 @@ export default function HomeAdmin() {
                 <button style={{padding: "5px", marginRight:"30px"}}
                 onClick={(e)=>{setView("viewUser")}}>Vista User</button>
                 <button style={{padding: "5px", marginRight:"30px"}}
-                onClick={(e)=>{setView("deleteAccount")}}>Inhabilitar</button>
+                onClick={(e)=>{setView("deleteAccount")}}>Eliminar cuenta</button>
                 
-                <p style={{padding: "10px"}}>2 - Necesito una lista de todos de todos los clientes empresa adheridos</p>
+                <p style={{padding: "10px"}}>Necesito cargar la info del estado de partners, una una barra de búsqueda y filtros</p>
                 <Partners/>
             </div>
         )
@@ -80,10 +80,9 @@ export default function HomeAdmin() {
                 <button style={{padding: "5px", marginRight:"30px"}}
                 onClick={(e)=>{setView("viewUser")}}>Vista User</button>
                 <button style={{padding: "5px", marginRight:"30px"}}
-                onClick={(e)=>{setView("deleteAccount")}}>Inhabilitar</button>
+                onClick={(e)=>{setView("deleteAccount")}}>Eliminar cuenta</button>
                 
-                <p style={{padding: "10px"}}>3.0 - Necesito una una barra de búsqueda y filtros</p>
-                <p style={{padding: "10px"}}>3.1 - Necesito una lista de todos los usuarios finales adeheridos</p>
+                <p style={{padding: "10px"}}>Necesito una lista de todos los usuarios finales adeheridos, una una barra de búsqueda y filtros</p>
                 <Users/>
             </div>
         )
@@ -105,9 +104,8 @@ export default function HomeAdmin() {
                 <button style={{padding: "5px", marginRight:"30px"}}
                 onClick={(e)=>{setView("viewUser")}}>Vista User</button>
                 <button style={{padding: "5px", marginRight:"30px"}}
-                onClick={(e)=>{setView("deleteAccount")}}>Inhabilitar</button>
+                onClick={(e)=>{setView("deleteAccount")}}>Eliminar cuenta</button>
                 
-                <p style={{padding: "10px"}}>4.1 - Necesito poder eliminar una cuenta de partner o user</p>
                 <DeteleteAccount/>
             </div>
         )
@@ -129,7 +127,7 @@ export default function HomeAdmin() {
                 <button style={{padding: "5px", marginRight:"30px"}}
                 onClick={(e)=>{setView("viewUser")}}>Vista User</button>
                 <button style={{padding: "5px", marginRight:"30px"}}
-                onClick={(e)=>{setView("deleteAccount")}}>Inhabilitar</button>
+                onClick={(e)=>{setView("deleteAccount")}}>Eliminar cuenta</button>
                                
                 <ViewPartner/>
             </div>
@@ -152,9 +150,8 @@ export default function HomeAdmin() {
                 <button style={{padding: "5px", marginRight:"30px"}}
                 onClick={(e)=>{setView("viewUser")}}>Vista User</button>
                 <button style={{padding: "5px", marginRight:"30px"}}
-                onClick={(e)=>{setView("deleteAccount")}}>Inhabilitar</button>
-                
-                <p style={{padding: "10px"}}>5 - Necesito una vista como partner</p>
+                onClick={(e)=>{setView("deleteAccount")}}>Eliminar cuenta</button>
+                               
                 <ViewUsers/>
             </div>
         )
@@ -177,7 +174,7 @@ export default function HomeAdmin() {
                 <button style={{padding: "5px", marginRight:"30px"}}
                 onClick={(e)=>{setView("viewUser")}}>Vista User</button>
                 <button style={{padding: "5px", marginRight:"30px"}}
-                onClick={(e)=>{setView("deleteAccount")}}>Inhabilitar</button>
+                onClick={(e)=>{setView("deleteAccount")}}>Eliminar cuenta</button>
 
                 <p style={{padding: "10px"}}>Quiero una pestaña dinámica para pasar de un tema al otro</p>
                 <p style={{padding: "10px"}}></p>

@@ -61,12 +61,15 @@ export default function DeteleteAccount() {
     if (!user._id) {
         return (
             <div>
-                <h4>Por favor indique el id de la cuenta a eliminar</h4>
-                <form action="deleteUser">Id del usuario
+                <h4 style={{padding: "10px"}}
+                >Por favor indique el id de la cuenta a eliminar</h4>
+
+                <form style={{padding: "10px"}} action="deleteUser">Id del usuario
                     <p></p>
-                    <input type="text" value={userId} onChange={(e)=>{setUserId(e.target.value)}}/>
+                    <input style={{marginBottom: "10px"}} type="text" value={userId} onChange={(e)=>{setUserId(e.target.value)}}/>
                     <p></p>
-                    <button onClick={(e)=>{getUserById(e)}}>Taer usuario</button>
+                    <button style={{padding: "5px", marginRight:"30px"}} 
+                    onClick={(e)=>{getUserById(e)}}>Taer usuario</button>
                 </form>
                                           
                 <h4>{userId ? userId : null}</h4>
@@ -78,16 +81,22 @@ export default function DeteleteAccount() {
     if (user._id) {
         return (
             <div>
-                <h4>¿Está seguro que desea eilinar la cuenta indicada?</h4>
+                <h4 style={{paddingBottom: "15px"}}>¿Está seguro que desea eliminar la cuenta indicada?</h4>
 
-                <button onClick={(e)=>{deteleUserById(e)}}>Eliminar usuario</button>
+                <button style={{padding: "5px", marginRight:"30px"}} 
+                onClick={(e)=>{deteleUserById(e)}}>Eliminar usuario</button>
+                <button style={{padding: "5px", marginRight:"30px"}}
+                onClick={(e)=>{setUser({}); setUserId("")}}>Cancelar</button>
+
                 <p></p>
-                <button onClick={(e)=>{setUser({})}}>Cancelar</button>
-
-                <h4>El id que envío {userId ? userId : null}</h4>
-                <p></p>                                        
-                <h4>Nombre del usuario: {user.name ? user.name : null}</h4>
-                <h4>Id de cuenta: {user._id ? user._id : null}</h4>   
+                
+                <div>
+                    <h3 style={{paddingBottom: "15px", paddingTop: "15px"}}>Cuena a eliminar</h3>                                        
+                    <h4>Tipo de cuenta: {user.type ? user.type : null}</h4>   
+                    <h4>Nombre del usuario: {user.name ? user.name : null}</h4>
+                    <h4>Nombre de la cuenta: {user.userName ? user.userName : null}</h4>
+                    <h4>Id de cuenta: {user._id ? user._id : null}</h4>
+                </div>
             </div>
         )
 
