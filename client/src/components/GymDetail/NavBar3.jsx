@@ -29,8 +29,8 @@ export function NavBar3({ id, usuarioId }) {
     let items = 0;
     let price = 0;
     cart.forEach((item) => {
-      items = item.price;
-      price += item.qty * item.price;
+      items = item.price.$numberDecimal;
+      price += item.qty * item.price.$numberDecimal;
     });
     setTotalPrice(price);
     setTotalItems(items);
