@@ -10,7 +10,7 @@ export default function DetailProfileUser() {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user);
-
+console.log("user", user)
   const { name, userName, type, avatar, info } = user;
 
   const avatarId = avatar?._id;

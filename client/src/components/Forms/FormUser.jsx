@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import validate from "./validation";
 import avatar from "../../asets/icons/avatar.jpg";
 import styles from "./styles/form.module.css";
@@ -28,7 +28,7 @@ export default function FormUser() {
 
   useEffect(()=> {
     dispatch(getAttributeDesease())
-}, []);
+  }, []);
 
 
   const [dese, setDese] = useState({
