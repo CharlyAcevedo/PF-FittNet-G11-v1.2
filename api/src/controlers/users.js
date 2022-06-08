@@ -101,8 +101,6 @@ const updateUser = async (req, res) => {
     try {
         const body = req.body
 
-        console.log(body)
-
         const dataDesease = body.desease
         const allDesease = await Diseases.find();
         const igualesDeseases = allDesease.filter(x => dataDesease.some(y => y.desease === x.desease));
@@ -129,7 +127,6 @@ const updateUser = async (req, res) => {
         }
         const user = await User.findById(id)
         let idAddress = user.address ? user.address : null;
-        console.log(idAddress);
         if (idAddress === null) {
             const addressUser = new Address(newAddressUser)
             await addressUser.save()
@@ -151,7 +148,6 @@ const updateUser = async (req, res) => {
             photo: body.photo,
         }
         const updUser = await InfoUser.findByIdAndUpdate(idInfo, newInfoUser, { new: true })
-        console.log("se creo", updUser)
         res.status(200).json({
             ok: true,
             updUser,
@@ -226,8 +222,22 @@ const getUserGoogleAccount = async (req, res) => {
                 }
             },
             {
+                $lookup: {
+                    from: "diseases",
+                    localField: "info.diseases",
+                    foreignField: "_id",
+                    as: "info.diseases"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.diseases",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
                 $project: {
-                    name: 1, //! 1 -> mostrar - 0 -> 0
+                    name: 1,
                     userName: 1,
                     // latitude: 0,
                     // longitude: 0,
@@ -249,12 +259,12 @@ const getUserGoogleAccount = async (req, res) => {
                         address: {
                             _id: 1,
                             street: 1,
-                        }
+                        },
+                        diseases: 1
                     }
                 }
             }
         ]);
-        // console.log(user)
         return res.status(200).json({
             ok: true,
             user: user[0]

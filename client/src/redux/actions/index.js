@@ -85,7 +85,6 @@ export const getUserGoogleForToken = (payload) => async dispatch => {
   };
 };
 
-
 //------AVATARS ACTIONS------(Favor de poner aqui todas las aciones referentes a los avatares)
 
 // export const postAvatar = (id, body) => async (dispatch) => {
