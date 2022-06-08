@@ -9,14 +9,15 @@ import axios from "axios";
 
 
 import styles from "./styles/stylesCards.module.css";
+import { useDispatch } from "react-redux";
 
 export const CardAvatares = (props) => {
   const { image } = props;
-
+  
   const estiloPruebaImage = {
     backgroundImage: `url(${image})`,
   };
-
+  
   return (
     <div className={styles.containerCardAvatares}>
       <div style={estiloPruebaImage}></div>
@@ -27,7 +28,8 @@ export const CardAvatares = (props) => {
 
 export const CardAvatarAdicional = (props) => { // El id del avatar llega por props
   const { name, image, features, id, userId, typeuser, nameUser, icono } = props;
-
+  
+  const dispatch = useDispatch()
   const navigate = useNavigate();
 
   async function handleUdpateAvatar (idAvatar, e) {

@@ -20,9 +20,7 @@ export default function NavBarProfile() {
     if(token) {
       dispatch(getUserGoogleForToken(token))
     }
-  }, []);
-
-  console.log(user)
+  }, []);   
 
   return (
     <div className={style.boxNavBarProfile}>

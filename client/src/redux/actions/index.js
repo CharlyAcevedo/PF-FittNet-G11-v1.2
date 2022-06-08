@@ -6,7 +6,7 @@ import {
   GET_AVATARS, GET_ALL_PARTNERS, GET_ALL_GYMS, GET_GYM_DETAIL, SET_CURRENT_PAGE,
   SET_PAGE_NUMBER, SET_CURRENT_LIMIT, POST_GYM, POST_SERVICES, POST_PARTNER, ADD_TO_CART,
   REMOVE_FROM_CART, SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE,
-  PUT_FAVOURITE
+  PUT_FAVOURITE,CLEAR_CART, GET_CART
 
 } from "./actionTypes";
 
@@ -384,6 +384,23 @@ export const updateUserInfo = (id, body) => async dispatch => {
 
 // CARRITO DE COMPRAS USUARIO FINAL
 
+export const getCart = () => {
+  try {
+    return async (dispatch) => 
+    {
+      const getCart = await axios.get('/api/shopcart')
+      console.log(getCart.data)
+      return dispatch({
+        type: GET_CART,
+        payload: getCart.data
+      })
+    }    
+  } catch (error) {
+    console.log(error)
+  }
+  
+}
+
 export function addToCart(itemID) {
   //console.log('llega id?', itemID)
   return (dispatch) => {
@@ -417,6 +434,19 @@ export const postCart = (body) => {
   }
 }
 
+export function editStatus( statusCart ) {
+  return (dispatch) => {
+    const put = axios.put('/api/shopcart', statusCart )    
+    return put
+  };
+}
+
+export function clearCart() {
+  return ({
+      type: CLEAR_CART
+  })
+}
+
 
 //-------- ORDENAMIENTO POR PUNTUACIÓN Y ORDEN ALFABÉTICO ---------------------------
 export function sortByName(order) {
@@ -436,7 +466,7 @@ export function sortByScore(order) {
 
 export function clearGymDetail() {
   return {
-      type: CLEAR_GYM_DETAIL, payload: {}
+    type: CLEAR_GYM_DETAIL, payload: {}
 
   }
 }
