@@ -6,6 +6,7 @@ import {
   GET_AVATARS, GET_ALL_PARTNERS, GET_ALL_GYMS, GET_GYM_DETAIL, SET_CURRENT_PAGE,
   SET_PAGE_NUMBER, SET_CURRENT_LIMIT, POST_GYM, POST_SERVICES, POST_PARTNER, ADD_TO_CART,
   REMOVE_FROM_CART, SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE,
+  PUT_FAVOURITE
 
 } from "./actionTypes";
 
@@ -438,6 +439,21 @@ export function clearGymDetail() {
   return {
       type: CLEAR_GYM_DETAIL, payload: {}
 
+  }
+}
+
+export const updateFavouriteGym = (id, user) => async dispatch => {
+  try {
+    const newFavourite = await axios.put(`/api/user/profile/update/favourite/${id}`, {
+      favourite: 1,
+      idUser: user
+    })
+    dispatch({
+      type: PUT_FAVOURITE,
+      payload: newFavourite.data
+    })
+  } catch (error) {
+    console.log("error: ", error)
   }
 }
 
