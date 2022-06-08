@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 import { useState } from 'react';
+import { SweetAlrt } from '../../asets/helpers/sweetalert';
 
 
 export default function DeactivateAccount() {
@@ -35,7 +36,8 @@ export default function DeactivateAccount() {
             axios.put(`/api/service/deleteuseraccount/`, object)
             .then((response)=> {
                 console.log(response.data)
-                window.alert(response.data)
+                SweetAlrt("Exito!",response.data,"success")
+                // window.alert(response.data)
                 return (window.location = "http://localhost:3000/");
             })
             .catch((error)=> {console.lgo(error)})

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
-import { SweetAlrt } from "../../asets/helpers/sweetalert";
+import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 
 // Esta es la ruta del back que podemos usar
 // router.post('/updatepassword', async (req, res, next) => {
@@ -48,7 +48,7 @@ export default function UpdatePasword () {
             .then((response)=>{
               console.log(response.data)              
               // window.alert(response.data)
-              SweetAlrt("Exito!",response.data, "success",true )
+              SweetAlrt("Exito!",response.data, "success")
               return (window.location = "http://localhost:3000/login");
             })
             .catch((error)=>{console.log(error)})
@@ -58,12 +58,12 @@ export default function UpdatePasword () {
             // window.alert('Contraseña actualizada')
             // return (window.location = "http://localhost:3000/login");
         } else {
-          SweetAlrt("Atencion","Verifique los datos del formulario","warning",true )
+          SweetAlrtTem("Verifique los datos del formulario","warning" )
             // window.alert("Verifique los datos del formulario");
 
         }
     } else {
-      SweetAlrt("Atencion","Verigique los datos del formulario","error",true)
+      SweetAlrtTem("Verifique los datos del formulario","error")
       // window.alert("Verifique los datos del formulario");
         //setError("Verifique los datos del formulario");
 
