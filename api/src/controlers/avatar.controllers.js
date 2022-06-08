@@ -1,5 +1,6 @@
 const Avatar = require('../models/Avatar');
 const User = require('../models/User')
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const getAvatar = async (req, res) => {
     try {
@@ -31,23 +32,32 @@ const createAvatar = async (req, res) => {
     }
 }
 
+function isValidObjectId(id) {
+
+    if (ObjectId.isValid(id)) {
+        if ((String)(new ObjectId(id)) === id)
+            return true;
+        return false;
+    }
+    return false;
+}
 
 const updateAvatarForUser = async (req, res) => {
     const { id } = req.params;
     const { avatar } = req.body;
     try {
         console.log(id, avatar)
+        // Verificar el id del usuario
+        if(!isValidObjectId(id)) {
+            return res.json({ok: false, msg: "Id de usuario no valido"})
+        }
+
         const UserUpdateAvatar = await User.findByIdAndUpdate(
             id,
             req.body,
             { new: true }
         )
-        // const idForInfo = UserUpdateAvatar.info
-        // const UserInfoUpdateAvatar = await User.findByIdAndUpdate(
-        //     idForInfo,
-        //     req.body,
-        //     { new: true }
-        // )
+        console.log(UserUpdateAvatar, 'Ver si se actualizó')      
         res.status(200).json({
             ok: true,
             msg: "Usuario modificado correctamente",

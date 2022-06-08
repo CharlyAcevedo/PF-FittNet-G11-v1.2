@@ -28,12 +28,11 @@
 }
 
 .cardImg {
-  background-color: #ffcaa6;
   /* height: 40%; */
   width: 100%;
   border-radius: 0.5rem;
   transition: 0.3s ease;
-  position: unset;
+  /* position: unset; */
   /* bottom: 0; */
   /* left: 3px; */
   /* right: 0; */
@@ -42,7 +41,7 @@
   /* width: 98%; */
   /* min-width: 98%; */
   /* max-width: 100%; */
-  min-height: 60%;
+  /* min-height: 60%; */
   /* max-height: 60%; */
 }
 
@@ -96,4 +95,13 @@ svg {
 .cardButton:hover {
   border: 1px solid #ffcaa6;
   background-color: #ffcaa6;
+}
+
+.btnAddFavourite {
+  color: rgb(22, 22, 22);
+}
+
+.btnAddFavourite:hover {
+  cursor: pointer;
+  color: rgb(43, 63, 177);
 }

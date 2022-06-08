@@ -5,7 +5,10 @@ const socialMediaSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    userSM: String,
+    userSM: {
+        type: String,
+        required: true,
+    }
 });
 
 module.exports = mongoose.model('SocialMedia', socialMediaSchema);

@@ -1,9 +1,8 @@
 import React from "react";
-import img from "../../asets/images/logoPF.jpg";
 import style from "./styles/LegendCe.module.css";
 import Slider from "../Slider/Slider";
 import CardPlans from "../CardPlans/CardPlans";
-import NavBar from "../NavBar/NavBar";
+
 
 export default function LegendCe() {
   return (

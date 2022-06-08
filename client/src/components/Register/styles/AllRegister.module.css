@@ -136,3 +136,16 @@
   outline: none;
 }
 
+.selectTypeClient {
+  border: none;
+  outline: none;
+  font-weight: 600;
+  padding: .2rem 1rem;
+  border-radius: .6rem;
+  cursor: pointer;
+}
+
+.selectTypeClient option {
+  background-color: var(--color-prim);
+  color: #fff;
+}

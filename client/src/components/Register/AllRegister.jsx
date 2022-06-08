@@ -4,7 +4,8 @@ import { setUserGeo } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles/AllRegister.module.css";
-import { regexEmail, regexName } from "../../asets/helpers/regexValidators";
+import { regexEmail, regexName } from "../../asets/helpers/regexValidators"
+
 import {
   BackgroundTwo,
   BackgroundOne,
@@ -72,6 +73,7 @@ export default function AllRegister() {
         type: type,
       };
 
+      SweetAlrt("Estamos procesando su solicitud!")
       console.log("está saliendo el post ", userCreate);
 
       axios
@@ -207,6 +209,7 @@ export default function AllRegister() {
             <div className={styles.loginRield}>
               <select
                 name="select"
+                className={styles.selectTypeClient}
                 onChange={(e) =>
                   e.target.value === "Tipo de cliente" ? null : onChangeType(e)
                 }

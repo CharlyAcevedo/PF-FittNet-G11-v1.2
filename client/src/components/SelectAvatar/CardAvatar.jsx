@@ -1,27 +1,55 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { postAvatar } from "../../redux/actions/index";
+
+import axios from "axios";
+
 
 import styles from "./styles/avatar.module.css";
 
 export const CardAvatar = (props) => {
   const { name, image, features, id, userId, typeuser, nameUser } = props;
 
-  const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
-  const handleUdpateAvatar = (idAvatar, e) => {
+  async function handleUdpateAvatar (idAvatar, e) {
     e.preventDefault();
     const avatar = { avatar: idAvatar };
+
     dispatch(postAvatar(userId, avatar));
     SweetAlrtTem(
       `elegiste el avatar ${name}, ahora vas a ser redirigido a los gimnasios que cumplan con las caracteristicas de este avatar`,"success"
     );
     console.log("se agrego el avatar al usuario");
     navigate(`/home/${typeuser}/${nameUser}/${userId}/${idAvatar}`);
+
+
+    let avatarSelect = await postAvatar(userId, avatar)    
+
+    let avatarId = avatarSelect ? avatarSelect.data.UserUpdateAvatar.avatar : null;
+
+    console.log(avatarSelect, 'avatar selected id')
+
+    localStorage.setItem("avatar", avatarId);
+
+    navigate(`/home/${typeuser}/${nameUser}/${userId}/${avatarId}`);
+ 
+  };
+  
+  async function postAvatar (userId, avatar) {
+    try {
+      const dataUdpateAvatar = await axios.put(`/api/user/avatar/${userId}`, avatar);
+      
+      console.log(dataUdpateAvatar);
+
+      return dataUdpateAvatar;
+      
+    } catch (error) {
+      console.log(error)
+    };
+
   };
 
   return (

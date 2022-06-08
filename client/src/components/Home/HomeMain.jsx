@@ -5,18 +5,17 @@ import { useEffect } from "react";
 import SelecAvatar from "../SelectAvatar/SelectAvatar";
 import GymCards from "../GymCards/GymCards";
 import UserCards from "../UserCards/UserCards";
-import NavBarProfile from "../NavBarProfile/NavBarProfile";
 import PartnerCards from "../PartnerCards/PartnerCards";
-import Advertising from "../PartnerHomeComponents/Advertising";
 import { getAllGyms, getUserGoogleForToken } from "../../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import IncomesGraph from "../Graphics/Incomes";
-import ClientsGraph from "../Graphics/GraphClient";
 import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
 import styles from "./styles/homeMain.module.css";
 import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
+import Advertising from "../PartnerHomeComponents/Advertising";
+import ClientsGraph from "../Graphics/GraphClient"
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
@@ -27,6 +26,7 @@ export default function HomeMain() {
   const dispatch = useDispatch();
 
   // const user = useSelector((state) => state.user);
+  const avatarLS = localStorage.getItem("avatar")
 
   const token = localStorage.getItem("token");
 
@@ -42,7 +42,7 @@ export default function HomeMain() {
   }, [userId]);
 
   // Esto es una vista para un usuario sin avatar
-  if (type === "user" && !avatar) {
+  if (type === "user" && !avatar && !avatarLS) {
     return (
       <div
         style={{
@@ -79,6 +79,16 @@ export default function HomeMain() {
         <Paginated />
       </div>
     );
+  };
+
+  if (type === "user" && avatarLS) {
+    return (
+      <div className={styles.cont}>
+        <Sarch/>       
+        <GymCards/>
+        <Paginated />
+      </div>
+    );
   }
 
   // Esto es una para cliente empresa
@@ -99,7 +109,6 @@ export default function HomeMain() {
         </div>
       </div>
     );
-
   } 
 
   // Esto es una para un administrador de sitio

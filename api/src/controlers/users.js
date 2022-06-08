@@ -8,13 +8,14 @@ var passport = require("passport");
 const jwt_decode = require('jwt-decode');
 const bcrypt = require('bcrypt');
 const Address = require('../models/Address');
+const Diseases = require('../models/Diseases')
 
 async function findUser(userName) {
     try {
         const response = await User.findOne(userName)
-        .populate('avatar')
-        .populate('info')
-        .populate('partner')
+            .populate('avatar')
+            .populate('info')
+            .populate('partner')
         return response
     } catch (error) {
         console.log(error.message)
@@ -39,10 +40,48 @@ const getUser = async (req, res) => {
     const { id } = req.params;
     console.log(id)
     try {
-        const user = await User.findById(id)
-            .populate('avatar')
-            .populate('info')
-            .populate('partner')
+        // const user = await User.findById(id)
+        //     .populate('avatar')
+        //     .populate('info')
+        //     .populate('info.address')
+        //     .populate('partner')
+        const user = await User.aggregate([
+            {
+                $match: { _id: ObjectId(id)}
+            },
+            {
+                $lookup: {
+                    from: "avatars",
+                    localField: "avatar",
+                    foreignField: "_id", 
+                    as: "avatar"
+                }
+            },
+            {
+                $lookup: {
+                    from: "infousers",
+                    localField: "info",
+                    foreignField: "_id",
+                    as: "info"
+                },                
+            },
+            {
+                $lookup: {
+                    from: "addresses",
+                    localField: "info.address",
+                    foreignField: "_id",
+                    as: "address"
+                }
+            },
+            {
+                $lookup: {
+                    from: "partners",
+                    localField: "partner",
+                    foreignField: "_id",
+                    as: "partner"
+                }
+            },
+        ])
         console.log(user)
         res.json({
             ok: true,
@@ -61,6 +100,21 @@ const updateUser = async (req, res) => {
     const { id } = req.params
     try {
         const body = req.body
+
+        const dataDesease = body.desease
+        const allDesease = await Diseases.find();
+        const igualesDeseases = allDesease.filter(x => dataDesease.some(y => y.desease === x.desease));
+        const desigualesDesease = dataDesease.filter(x => !allDesease.some(y => y.desease === x.desease));
+
+        let finallyDesease = []
+        let idDesiguales = []
+        if (desigualesDesease.length > 0) {
+            finallyDesease = await Diseases.create(desigualesDesease)
+            idDesiguales = finallyDesease.map(x => x._id);
+        }
+
+        const concatDesease = [...igualesDeseases.map(x => x._id), ...idDesiguales]
+
         const newAddressUser = {
             street: body.street,
             floor: body.floor,
@@ -72,14 +126,14 @@ const updateUser = async (req, res) => {
             zipCode: body.zipCode
         }
         const user = await User.findById(id)
-        const idAddress = user.address ? user.address : null;
+        let idAddress = user.address ? user.address : null;
         if (idAddress === null) {
             const addressUser = new Address(newAddressUser)
             await addressUser.save()
             idAddress = addressUser._id
         } else {
-            let updatedAddress = await Address.findByIdAndUpdate(idAddress, newAddressUser, { new: true })
-        }        
+            await Address.findByIdAndUpdate(idAddress, newAddressUser, { new: true })
+        }
         const idInfo = user.info
         const idAvatar = user.avatar
         const newInfoUser = {
@@ -89,16 +143,18 @@ const updateUser = async (req, res) => {
             birthday: body.birthday,
             avatar: idAvatar,
             address: idAddress,
+            diseases: concatDesease,
             gender: body.gender,
             photo: body.photo,
         }
         const updUser = await InfoUser.findByIdAndUpdate(idInfo, newInfoUser, { new: true })
         res.status(200).json({
             ok: true,
-            updUser
+            updUser,
+            msg: "se creo correctamente"
         })
     } catch (error) {
-        console.log(error)
+        console.log(error, "no se creo")
         res.status(500).json({
             ok: false,
             msg: "no se pudo actualizar el usuario"
@@ -122,13 +178,104 @@ const getUserGoogleAccount = async (req, res) => {
     console.log(req.body)
     const userName = usuario.email
     try {
-        const user = await User.findOne({ userName })
-            .populate('avatar', 'avatarName')
-            .populate('info', 'photo')
-        res.json({
+        const user = await User.aggregate([
+            { $match: { userName: userName } },
+            {
+                $lookup: {
+                    from: "avatars",
+                    localField: "avatar",
+                    foreignField: "_id",
+                    as: "avatar"
+                }
+            },
+            {
+                $unwind: {
+                    path: '$avatar',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $lookup: {
+                    from: "infousers",
+                    localField: "info",
+                    foreignField: "_id",
+                    as: "info"
+                }
+            },
+            {
+                $unwind: {
+                    path: '$info',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $lookup: {
+                    from: "addresses",
+                    localField: "info.address",
+                    foreignField: "_id",
+                    as: "info.address"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.address",
+                }
+            },
+            {
+                $lookup: {
+                    from: "diseases",
+                    localField: "info.diseases",
+                    foreignField: "_id",
+                    as: "info.diseases"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.diseases",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $project: {
+                    name: 1,
+                    userName: 1,
+                    // latitude: 0,
+                    // longitude: 0,
+                    active: 1,
+                    secretToken: 1,
+                    type: 1,
+                    avatar: {
+                        _id: 1,
+                        avatarName: 1,
+                    },
+                    info: {
+                        _id: 1,
+                        name: 1,
+                        lastName: 1,
+                        photo: 1,
+                        birthday: 1,
+                        phone: 1,
+                        username: 1,
+                        address: {
+                            _id: 1,
+                            street: 1,
+                        },
+                        diseases: 1
+                    }
+                }
+            }
+        ]);
+        return res.status(200).json({
             ok: true,
-            user
+            user: user[0]
         })
+        // const user = await User.findOne({ userName })
+        //     .populate('avatar', 'avatarName')
+        //     .populate('info', 'photo')
+        // res.json({
+        //     ok: true,
+        //     user
+        // })
     } catch (error) {
         console.log("error: ", error);
         res.status(500).json({
@@ -159,6 +306,7 @@ const googleSignIn = async (req, res) => {
                 userName: userName,
                 password: "0xoaudfj203ru09dsfu2390fdsfc90sdf2dfs",
                 type: "user",
+                active: true,
                 info: infoId
             });
         } else {
@@ -166,13 +314,18 @@ const googleSignIn = async (req, res) => {
         }
         let newUser = await usuario.save();
         // console.log (newUser, 'nuevo usuario Google')
-        let userId = newUser._id;
+        let user = {
+            userId: newUser._id, avatar: newUser.avatar, type: newUser.type,
+            latitude: newUser.latitude, longitude: newUser.longitude
+        };
+
 
         res.json({
             ok: true,
             usuario,
             googleToken,
-            userId           
+            user
+
         })
     } catch (error) {
         console.log("error: ", error);
@@ -273,14 +426,15 @@ async function updatePassword(userId, newPassword, password, secretToken) {
 }
 
 
+
 module.exports = {
-  findUser,
-  findAllUsers,
-  getUser,
-  deleteUser,
-  updateUser,
-  updatePassword,
-  googleSignIn,
-  isValidObjectId,
-  getUserGoogleAccount,
+    findUser,
+    findAllUsers,
+    getUser,
+    deleteUser,
+    updateUser,
+    updatePassword,
+    googleSignIn,
+    isValidObjectId,
+    getUserGoogleAccount,
 };

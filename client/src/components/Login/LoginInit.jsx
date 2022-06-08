@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles/LoginInit.module.css";
 import jwt_decode from "jwt-decode";
-import { getUser, getUserGoogleForToken } from "../../redux/actions";
 import {
   BackgroundTwo,
   BackgroundOne,
@@ -14,18 +14,22 @@ import {
 export default function LoginInit() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [googleUser, setGoogleUser] = useState({});
+  // const [googleUser, setGoogleUser] = useState({});
   const [error, setError] = useState("");
   
  
   const navigate = useNavigate();
 
-  const userGoogle = useSelector((state) => state.user);
+  // const userGoogle = useSelector((state) => state.user);
 
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
+  
+    
+      
 
-  const dispatch = useDispatch();
+
+  // const dispatch = useDispatch();
 
   const handleCallbackGoogle = async (response) => {
     const userObject = jwt_decode(response.credential);
@@ -40,13 +44,22 @@ export default function LoginInit() {
       );
       const finalizacionData = await googleData.data;
       // dispatch(getUser(finalizacionData.usuario._id));
-      localStorage.setItem("token", response.credential);
-      
-      localStorage.setItem('userId',finalizacionData.userId)
-      
+      localStorage.setItem("token", response.credential);      
       document.getElementById("signInDiv").hidden = true;
-      console.log(googleUser);
+      localStorage.setItem('userId',finalizacionData.user.userId)
+      localStorage.setItem('type',finalizacionData.user.type)   
+      localStorage.setItem('avatar',finalizacionData.user.avatar)
+      localStorage.setItem('name', finalizacionData.usuario.name)
+      // localStorage.setItem('latitude',finalizacionData.user.latitude.$numberDecimal)  
+      // localStorage.setItem('longitude',finalizacionData.user.longitude.$numberDecimal)       
+
+      // localStorage.setItem("type", type)
+      // localStorage.setItem("avatar", avatar._id)
+      // console.log(finalizacionData, ' finalización data')
+     
       const { avatar } = finalizacionData.usuario;
+      
+      // console.log(finalizacionData.usuario);
       if (!avatar) {
         return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
       } else {
@@ -88,8 +101,9 @@ export default function LoginInit() {
         shape: "circle",
       }
     );
+  });
 
-  }, [window.google?.accounts]);
+  // }, [window.google?.accounts]);
 
 
   async function onSubmit(e) {
@@ -117,20 +131,32 @@ export default function LoginInit() {
         if (login.login) {
           console.log(login, " lo que responde el back si se autentica el user" );
           
-          let { userId, name, type, avatar, active } = login;
-
-          if (active === true) { // Si la cuenta está activa
-            if (typeof avatar === "string") {
+          let { userId, name, type, avatar, active, latitude, longitude } = login;
           
+          if (active === true) { // Si la cuenta está activa
+            if (!login.avatar ) {
+              localStorage.setItem("userId", userId)
+              localStorage.setItem("name", name)
+              localStorage.setItem("type", type)         
+              localStorage.setItem("latitude", latitude.$numberDecimal)
+              localStorage.setItem("longitude", longitude.$numberDecimal)
+
+              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
+            }
+            if (login.avatar._id ) {
+              console.log(login, ' el user')
+              
               localStorage.setItem("userId", userId)
               localStorage.setItem("name", name)
               localStorage.setItem("type", type)
-              localStorage.setItem("avatar", avatar)
-            
-              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`);
+              localStorage.setItem("avatar", avatar._id)
+              localStorage.setItem("latitude", latitude.$numberDecimal)
+              localStorage.setItem("longitude", longitude.$numberDecimal)             
+              
+              let avatarId = avatar._id;
+              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatarId}`);
             }
             // ya le paso info por params de quién estamos hablando
-            return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
           
           } else {
             setError("Cuenta inactiva, verifiación de email pendiente");

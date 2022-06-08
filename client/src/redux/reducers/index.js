@@ -1,17 +1,18 @@
 import { latBA, lngBA } from "../../asets/helpers/goeDefaults";
-import { Action } from "history";
+
 import {
+
   GET_ALL_USERS, GET_ALL_PARTNERS, GET_AVATARS, SET_CURRENT_PAGE, SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT, GET_ALL_GYMS, GET_GYM_DETAIL, SET_USER_GEO, POST_USER_GOOGLE,
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, ADD_TO_CART, REMOVE_FROM_CART,
-  ADJUST_QTY, LOAD_CURRENT_ITEM, SORT_BY_NAME, SORT_BY_SCORE,
+  SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE
+
 } from "../actions/actionTypes";
 
 const initialState = {
   users: [],
   user: {},
   usersToShow: [],
-  currentUserDetails2:{},
   currentUserDetails: {
     name: "",
     userName: "",
@@ -35,6 +36,8 @@ const initialState = {
   errors: "",
   products: [],
   cart: [],
+  deseaseAttribute:[],
+
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -186,19 +189,21 @@ export default function rootReducer(state = initialState, { type, payload }) {
           errors: payload.error,
         };
       }
+    
       return {
         ...state,
         currentLimit: payload,
       };
+
       case ADD_TO_CART:
         const item = state.products.find(prod => prod._id === payload.id) //la clase q me matche con el id
-        const inCart = state.cart.find(item => item.id === payload.id) 
-        //console.log(item)
-        return{
+        const inCart = state.cart.find(item => item._id === payload.id) 
+        console.log(item)
+        return{          
           ...state,
           cart: inCart ? 
           state.cart.map(item =>
-            item.id === payload.id
+            item._id === payload.id
             ? {...item, qty: item.qty + 1} 
             : item
             ) 
@@ -240,7 +245,30 @@ export default function rootReducer(state = initialState, { type, payload }) {
           ...state,
           pageToShow: orderedGymsScore
         }
-
+      case CLEAR_GYM_DETAIL:
+        return {
+          ...state,
+          gymDetail: payload
+        }
+    case GET_ATTRIBUTE_DESEASE:
+      return{
+         ...state, 
+         deseaseAttribute: payload,
+      }
+    case PUT_FAVOURITE:
+      const objFav = []
+      state.pageToShow.forEach(x => {
+        if(x._id === payload.gym._id) {
+          x.favourite = payload.gym.favourite
+        }
+        objFav.push(x)
+      })
+      return {
+        ...state,
+        pageToShow: objFav,
+        gyms: objFav,
+        gymsToShow: objFav
+      }
     default:
       return state;
   }

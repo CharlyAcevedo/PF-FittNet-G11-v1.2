@@ -34,8 +34,8 @@ const gymSchema = new mongoose.Schema({
   },
   trainers: {
     type: Array,
-    of: mongoose.SchemaTypes.ObjectId,
-    ref: "Users",
+    of: String,
+    // ref: "Users",
   },
   logo: {
     type: String,
@@ -64,6 +64,9 @@ const gymSchema = new mongoose.Schema({
     required: true,
     default: true,
   },
+  favourite: {
+    type: Number,
+  }
 });
 
 module.exports = mongoose.model("Gyms", gymSchema);

@@ -1,0 +1,117 @@
+.containerPerfilUser {
+  width: 90%;
+  margin: 1.5rem auto;
+  display: grid;
+  grid-template-columns: 25% 75%;
+}
+
+.containerPhotoPerfil {
+  width: 95%;
+}
+
+.infoPerfilUser {
+  width: 95%;
+  /* display: flex;
+  flex-direction: row; */
+}
+
+.headerPerfilUser {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-primD1);
+  padding-bottom: 1rem;
+}
+
+.infoContactUser {
+  margin: 2rem;
+}
+
+.contactUser {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.contactUser p {
+  color: #fff;
+}
+
+.othersInfo {
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+}
+
+.othersInfo p {
+  color: #fff;
+  margin-top: .8rem;
+}
+
+.etiquetasProfile {
+  display: inline-flex;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  gap: 2rem;
+}
+
+.etiquetasProfile a,
+.etiquetasProfile span {
+  text-decoration: none;
+  position: relative;
+}
+
+.etiquetasProfile a::before,
+.etiquetasProfile span::before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 10%;
+  opacity: 0;
+  border-bottom: 2px solid var(--color-primD1);
+  transition: 0.5s all;
+}
+.etiquetasProfile a:hover::before,
+.etiquetasProfile span:hover::before {
+  opacity: 1;
+  width: 100%;
+}
+/* 
+.containerInfoPerfil {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border-radius: 0.5rem;
+  color: #fff;
+}
+
+.infoPerfil {
+  width: 100%;
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: .4rem 1rem;
+  border: 1px solid var(--color-prim);
+}
+
+.direccionPerfil {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 1.5rem;
+  text-align: center;
+  margin: 1rem auto;
+}
+.DetailProfileUser {
+  width: 95%;
+}
+
+.containerCarritoCompras {
+  margin-top: 1rem;
+}
+
+.containerCarritoCompras h3 {
+  position: relative;
+  color: #fff;
+} */

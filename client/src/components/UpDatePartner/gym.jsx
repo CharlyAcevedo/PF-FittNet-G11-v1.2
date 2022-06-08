@@ -28,6 +28,7 @@ export default function UpdateGym() {
     idName: "",
     id: "",
   });
+  
   const [error, setError] = useState({});
 
   //!----------------HANDLECHANGE-----------------------
@@ -69,27 +70,30 @@ export default function UpdateGym() {
   }
 
   //!------------------SERVICES---------------
-  function handleChangeServices(e) {
-    setInput(() => {
-      const newServices = {
-        ...input,
-        services: input.services.includes(e.target.value)
-          ? [...input.services]
-          : [...input.services, e.target.value],
-      };
-      return newServices;
-    });
-  }
+  // function handleChangeServices(e) {
+  //   setInput(() => {
+  //     const newServices = {
+  //       ...input,
+  //       services: input.services.includes(e.target.value)
+  //         ? [...input.services]
+  //         : [...input.services, e.target.value],
+  //     };
+  //     return newServices;
+  //   });
+  // }
+  
   //!deleted services
-  function handleDelete(e) {
-    setInput({
-      ...input,
-      services: input.services.filter((el) => el !== e.target.value),
-    });
-    console.log("ESTO ES DELET", e);
-  }
+
+  // function handleDelete(e) {
+  //   setInput({
+  //     ...input,
+  //     services: input.services.filter((el) => el !== e.target.value),
+  //   });
+  //   console.log("ESTO ES DELET", e);
+  // }
 
   //!-------------------Trainers-----------------------------
+
   function handleChangeTrainers(e) {
     setInput(() => {
       const newTrainers = {
@@ -188,7 +192,7 @@ export default function UpdateGym() {
   //PARA EVITAR PISAR ESTILOS DE ERRORES.
 
   return (
-    <div className={styles.div}>
+    <div className={styles.editPartnerMainContainer}>
       <h1>FORMULARIO GYM</h1>
       <span>
         Los campos marcados con <strong>*</strong> deben ser completados

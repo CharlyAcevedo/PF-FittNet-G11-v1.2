@@ -30,10 +30,10 @@ export default function CardPlans() {
           <li>Otorgarás visibilidad a tus casos de exito!</li>
         </ul>
         {plansPrice.map((a) => (
-          <h4>Costo mensual: {a.planStandar}</h4>
+          <h4 key={a} >Costo mensual: {a.planStandar}</h4>
         ))}
         {plansPorcentage.map((a) => (
-          <h4>Comision sobre venta de servicio: {a.planStandar} </h4>
+          <h4 key={a}>Comision sobre venta de servicio: {a.planStandar} </h4>
         ))}
       </div>
       <div className={style.containEx}>
@@ -47,10 +47,10 @@ export default function CardPlans() {
           <li>Otorgarás visibilidad a tus casos de exito!</li>
         </ul>
         {plansPrice.map((a) => (
-          <h4>Costo mensual: {a.planPremiun}</h4>
+          <h4 key={a}>Costo mensual: {a.planPremiun}</h4>
         ))}
         {plansPorcentage.map((a) => (
-          <h4>Comision sobre venta de servicio: {a.planPremiun} </h4>
+          <h4 key={a}>Comision sobre venta de servicio: {a.planPremiun} </h4>
         ))}
       </div>
       <div className={style.containEx}>
@@ -64,10 +64,10 @@ export default function CardPlans() {
           <li>Otorgarás visibilidad a tus casos de exito!</li>
         </ul>
         {plansPrice.map((a) => (
-          <h4>Costo mensual: {a.planGolden}</h4>
+          <h4 key={a}>Costo mensual: {a.planGolden}</h4>
         ))}
         {plansPorcentage.map((a) => (
-          <h4>Comision sobre venta de servicio: {a.planGolden} </h4>
+          <h4 key={a}>Comision sobre venta de servicio: {a.planGolden} </h4>
         ))}
       </div>
     </div>

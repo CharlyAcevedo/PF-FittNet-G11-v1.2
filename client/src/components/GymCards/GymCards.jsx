@@ -6,9 +6,10 @@ import GymCard from "../GymCard/GymCard";
 export default function GymsCards() {
   const gyms = useSelector((state) => state.pageToShow);
 
+  console.log(gyms);
+
   return (
-    <div className={style.mainBoxCards}>
-      <h5>Aqui puede ver los gimnasios de su preferencia</h5>
+    <div className={style.mainBoxCards}>      
       <div className={style.boxCards}>    
         {gyms.length
           ? gyms.map((g) => {
@@ -20,6 +21,7 @@ export default function GymsCards() {
                   rating={g.raiting}
                   price={g.price}
                   image={g.image}
+                  favourite={g.favourite}
                 />
               );
             })

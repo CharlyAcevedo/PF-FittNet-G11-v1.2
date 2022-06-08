@@ -24,7 +24,7 @@ export default function UpdatePasword () {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [copyNewPassword, setCopyNewPassword] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
 
 
 
@@ -33,7 +33,8 @@ export default function UpdatePasword () {
 
   function onSubmit (e) {
     e.preventDefault()
-    if ( userId && password && newPassword && copyNewPassword && !error) {
+    if ( userId && password && newPassword && copyNewPassword ) {
+    // if ( userId && password && newPassword && copyNewPassword && !error) {
         if (newPassword === copyNewPassword && newPassword !== password ) {
             let formUpdate = {
                 userId: userId,
@@ -64,6 +65,8 @@ export default function UpdatePasword () {
     } else {
       SweetAlrtTem("Verifique los datos del formulario","error")
       // window.alert("Verifique los datos del formulario");
+        //setError("Verifique los datos del formulario");
+
     }    
 
   }
@@ -91,7 +94,7 @@ export default function UpdatePasword () {
         name='copyNnewPassword' placeholder='New password' required 
         onChange = {(e) => setCopyNewPassword(e.target.value)}/>
 
-        <h6>{error ? error : null }</h6>        
+        {/* <h6>{error ? error : null }</h6>         */}
 
         <input type='submit' value='Confirmar'  onClick={(e)=>onSubmit(e)} />
 
