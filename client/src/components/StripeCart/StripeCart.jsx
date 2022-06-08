@@ -6,6 +6,7 @@ import axios from 'axios';
 import { NavBar3 } from '../GymDetail/NavBar3';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { SweetAlrtTem } from '../../asets/helpers/sweetalert';
 
 const stripePromise = loadStripe('pk_test_51L7OPdEPCpA0H6YFBVpVX0fFBJbIIUnXcU4hSY5uUZwQth9mmogZEiwUzXyXi5aJLSb43EzWLXcMPk75NBTjFGEC00usvaG53P');
 
@@ -37,7 +38,7 @@ const CheckoutForm = () => {
                 amount: totalPrice*100,                
             }).data
         }
-        window.alert(`Su compra fue realizada con exito ${name}`)
+        SweetAlrtTem(`Su compra fue realizada con exito ${name}`,"success")
         navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`)
     }
     return (

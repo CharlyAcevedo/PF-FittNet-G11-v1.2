@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { postAvatar } from "../../redux/actions/index";
 
 import styles from "./styles/avatar.module.css";
@@ -16,8 +17,8 @@ export const CardAvatar = (props) => {
     e.preventDefault();
     const avatar = { avatar: idAvatar };
     dispatch(postAvatar(userId, avatar));
-    alert(
-      `elegiste el avatar ${name}, ahora vas a ser redirigido a los gimnasios que cumplan con las caracteristicas de este avatar`
+    SweetAlrtTem(
+      `elegiste el avatar ${name}, ahora vas a ser redirigido a los gimnasios que cumplan con las caracteristicas de este avatar`,"success"
     );
     console.log("se agrego el avatar al usuario");
     navigate(`/home/${typeuser}/${nameUser}/${userId}/${idAvatar}`);
