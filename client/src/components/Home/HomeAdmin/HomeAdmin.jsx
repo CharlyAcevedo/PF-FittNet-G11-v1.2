@@ -14,8 +14,6 @@ export default function HomeAdmin() {
 
     // Necesito una barra de búsqueda con filtros
 
-
-
     if(view === "finances" ){ // ver finanzas
         return(
             <div style={{padding: "20px", color: "#fff" }}>

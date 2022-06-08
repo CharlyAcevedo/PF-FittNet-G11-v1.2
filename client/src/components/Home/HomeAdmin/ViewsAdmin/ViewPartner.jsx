@@ -9,6 +9,7 @@ export default function ViewPartner() {
             <div style={{padding: "10px"}}>
                 <a style={{padding: "10px", color: "#fff", fontSize:"18px" }} 
                 href="/home/partner/tincho/eliddelusuario">Experiencia partner</a>
+                <p>Ingrese en "experiencia parter" para recorrer la app como un socio comercial.</p>
             </div>
             <Advertising/>
             <GeneralActions/>

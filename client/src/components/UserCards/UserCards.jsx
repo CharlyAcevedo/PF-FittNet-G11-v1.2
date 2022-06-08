@@ -4,34 +4,37 @@ import styles from "./style/UserCards.module.css";
 import { useSelector } from "react-redux";
 
 export default function UserCards() {
-    const gyms = useSelector((state) => state.gyms);  
+    const users = useSelector((state) => state.users);
 
     return (
 
         <div className={styles.mainBoxCards2}>
             <div className={styles.boxCards2}>
-                <h2>Nuestros Clientes</h2>
+                <h3>Nuestros Clientes</h3>
                 <table>
-                    <td><strong>Nombre</strong></td>                   
-                    <td><strong>Correo</strong></td>
-                    <td><strong>Id de cuenta</strong></td>
-                    {gyms.length ? gyms.map(g =>{
-                        return (
-                            <tr>
-                                <td>{g.name ? g.name : null}</td>
-                                <td>{g.email ? g.email : null}</td>
-                                <td>{g._id ? g._id : null}</td>
-                            </tr>
-                                             
-                        )
-                    }): 
-                    <td>Cargando...</td>}
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Id de cuenta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.length ? users.map(u => {
+                            return (
+                                <tr key={u.id}>
+                                    <td key={`1${u.id}`}>{u.type ? u.type : null}</td>
+                                    <td key={`2${u.id}`}>{u.name ? u.name : null}</td>
+                                    <td key={`3${u.id}`}>{u.userName ? u.userName : null}</td>
+                                    <td key={`4${u.id}`}>{u._id ? u._id : null}</td>
+                                </tr>
+                            )
+                        }) : null}
+                    </tbody>
                 </table>
-                
-
+                <h4>La app cuenta actualmente con {users.length} clientes finales registrados</h4>
             </div>
-                           
-        </div>   
-
+        </div>
     )
 }

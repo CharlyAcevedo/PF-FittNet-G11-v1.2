@@ -31,31 +31,34 @@ const Users = require('../../models/User');
 function isValidObjectId(id) {
 
   if (ObjectId.isValid(id)) {
-      if ((String)(new ObjectId(id)) === id)
-          return true;
-      return false;
+    if ((String)(new ObjectId(id)) === id)
+      return true;
+    return false;
   }
   return false;
 }
 
+// Banear la cuenta -- Falta (como admin) PUT
 
 router.delete("/delete", async (req, res, next) => {
   const { userId } = req.body;
 
-  try {  
-    if(!isValidObjectId(userId)) {
+  try {
+    if (!isValidObjectId(userId)) {
       return res.send('Id invalido');
     }
-
+    
     let userDelete = await Users.findOneAndDelete({ _id: userId });
+    // Borrar la cuenta solo por solicitud del usuario -- Fata que sea completo 
     
+
     // console.log(userDelete, 'llegó la solicitud');
-    
+
     res.send(userDelete);
 
   } catch (error) {
     console.log(error)
-    
+
   }
 });
 
@@ -64,18 +67,75 @@ router.delete("/delete", async (req, res, next) => {
 router.get("/userId/:userId", async (req, res) => {
   const { userId } = req.params;
 
-    try {
-      if(!isValidObjectId(userId)) {
-        return res.send('Id invalido');
-      }
-
-      let user = await Users.findById(userId);
-
-      res.json({user});
-
-    } catch (error) {
-      res.status(error.status).json({ error: error.message });
+  try {
+    if (!isValidObjectId(userId)) {
+      return res.send('Id invalido');
     }
+
+    let user = await Users.findById(userId);
+
+    res.json({ user });
+
+  } catch (error) {
+    res.status(error.status).json({ error: error.message });
+  }
+});
+
+
+
+router.get("/allusers", async (req, res) => {
+
+  try {
+    let pipeline = { $match: { type: "user" } };
+
+    let allUsers = await Users.aggregate([pipeline,      
+      {
+        $project: {
+          name: 1, //! 1 -> mostrar - 0 -> 0
+          userName: 1,
+          _id: 1,
+          type: 1,
+          active: 1,
+          avatar: 1,
+        }
+      }]).sort({ name: 'asc', test: -1 });
+
+    // console.log(allUsers, 'todos los user')
+
+    res.json(allUsers);
+
+  } catch (error) {
+    res.status(error.status).json({ error: error.message });
+  }
+});
+
+
+
+router.get("/allpartners", async (req, res) => {
+  try {
+
+    let pipeline = { $match: { type: "partner" } };
+
+
+    let allUsers = await Users.aggregate([pipeline,
+      {
+        $project: {
+          name: 1, //! 1 -> mostrar - 0 -> 0
+          userName: 1,
+          _id: 1,
+          type: 1,
+          active: 1,
+          avatar: 1,
+        }
+      }]).sort({ name: 'asc', test: -1 });
+
+    // console.log(allUsers, 'todos los user')
+
+    res.json(allUsers);
+
+  } catch (error) {
+    res.status(error.status).json({ error: error.message });
+  }
 });
 
 module.exports = router;
