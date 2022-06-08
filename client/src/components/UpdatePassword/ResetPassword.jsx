@@ -1,7 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
+import {
+  BackgroundOne,
+  BackgroundTwo,
+} from "../../helpers/Backround/Background";
+import { InputPrymary, InputSecond } from "../../helpers/Inputs/Inputs";
+import style from "./styles/stylePasword.module.css";
 
 // Esta es la ruta del back que podemos usar
 // router.post('/updatepassword', async (req, res, next) => {
@@ -50,13 +56,16 @@ export default function ResetPassword() {
   function onSubmit(e) {
     e.preventDefault();
 
-    if(!error && userName && !newPassword && !copyNewPassword) {
-        let object = { userName: userName }
-        console.log('envío el objeto al back la solicitud al back para enviar el correo electrónico');
-        axios.get('/api/service/updatepassword', { params: object } )
-        .then((response)=> {
-          if(response.data.message) {
-            return SweetAlrt("Atencion", response.data.message, "warning")
+    if (!error && userName && !newPassword && !copyNewPassword) {
+      let object = { userName: userName };
+      console.log(
+        "envío el objeto al back la solicitud al back para enviar el correo electrónico"
+      );
+      axios
+        .get("/api/service/updatepassword", { params: object })
+        .then((response) => {
+          if (response.data.message) {
+            return SweetAlrt("Atencion", response.data.message, "warning");
 
             // return window.alert(response.data.message)
           }
@@ -73,114 +82,149 @@ export default function ResetPassword() {
 
   function onSubmitForm(e) {
     e.preventDefault();
-    if(!error && userId && newPassword && copyNewPassword) {
-        if(newPassword === copyNewPassword) {
-            let form = { 
-                userId: userId,
-                newPassword: newPassword,
-                secretToken: secretToken
-            }
-            console.log(form, "Tengo que enviar el formulario al back para el cambio de clave")
-            axios.post('/api/service/updatepassword', form )
-            .then((response)=>{
-              console.log(response.data)
-              // window.alert(response.data)
-             SweetAlrt("Exito", response.data, "info")
-              return (window.location = "http://localhost:3000/login");
-            })
-            .catch((error)=>{console.log(error)})
+    if (!error && userId && newPassword && copyNewPassword) {
+      if (newPassword === copyNewPassword) {
+        let form = {
+          userId: userId,
+          newPassword: newPassword,
+          secretToken: secretToken,
+        };
+        console.log(
+          form,
+          "Tengo que enviar el formulario al back para el cambio de clave"
+        );
+        axios
+          .post("/api/service/updatepassword", form)
+          .then((response) => {
+            console.log(response.data);
+            // window.alert(response.data)
+            SweetAlrt("Exito", response.data, "info");
+            return (window.location = "http://localhost:3000/login");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
 
-            // window.alert('Contraseña cambiada, vuelva a iniciar sesión');
-            // return (window.location = "http://localhost:3000/login");            
-           
-        }
+        // window.alert('Contraseña cambiada, vuelva a iniciar sesión');
+        // return (window.location = "http://localhost:3000/login");
+      }
     } else {
-      SweetAlrtTem("No puede envar al solicitud, por favor verigique los valores de los campos requeridos","warning")
-        // window.alert("No puede enviar la solicitud, por favor verifique los valores de los campos requeridos")
-
+      SweetAlrtTem(
+        "No puede envar al solicitud, por favor verigique los valores de los campos requeridos",
+        "warning"
+      );
+      // window.alert("No puede enviar la solicitud, por favor verifique los valores de los campos requeridos")
     }
   }
 
   if (validation === false) {
     return (
-      <div>
-        <form>
-          {validation ? validation : null}
-          {userName ? userName : null}
-          <p>Indique su email y luego haga click en "Enviar"</p>
-          <p>Luego verifique su correo y confime el mensaje para continuar</p>
-          <input
-            type="email"
-            value={userName}
-            name="email"
-            placeholder="Email"
-            required
-            onChange={(e) => setuserName(e.target.value)}
-          />
-          <h6>{error ? error : null}</h6>
-          <input type="submit" value="Enviar" onClick={(e) => onSubmit(e)} />
-        </form>
+      <div className={style.container}>
+        <div className={style.screen}>
+          <div className={style.screenContent}>
+            <form className={style.login}>
+              <div className={style.texto}>
+                <p>1º Indique su email y luego haga click en "Enviar"</p>
+                <p>
+                  2º Luego verifique su correo y confime el mensaje para
+                  continuar
+                </p>
+              </div>
+              <div className={style.contInput}>
+                <InputPrymary
+                  type="email"
+                  value={userName}
+                  name="email"
+                  placeholder="Email"
+                  required
+                  onChange={(e) => setuserName(e.target.value)}
+                />
+
+                {/* Bloque button */}
+                <InputSecond
+                  type="submit"
+                  value="Enviar"
+                  onClick={(e) => onSubmit(e)}
+                />
+              </div>
+              <h6>{error ? error : null}</h6>
+            </form>
+            {/* Bloque de background */}
+          </div>
+          <BackgroundTwo />
+        </div>
+        <BackgroundOne />
       </div>
     );
   }
 
   if (validation === true) {
     return (
-      <div>
-        <form>
-          <p>
-            Hemos enviado a su correo un secretToken de seguridad para que pueda
-            validar su identidad
-          </p>
+      <div className={style.container}>
+        <div className={style.screen}>
+          <div className={style.screenContent}>
+            <form className={style.login}>
+              <div className={style.texto}>
+                <p>
+                  Hemos enviado a su correo un secretToken de seguridad para que
+                  pueda validar su identidad
+                </p>
+              </div>
+              <div className={style.contInput}>
+                <InputPrymary
+                  type="text"
+                  value={secretToken}
+                  name="secretToken"
+                  placeholder="Token de seguridad"
+                  required
+                  onChange={(e) => setSecretToken(e.target.value)}
+                />
+                <InputPrymary
+                  type="password"
+                  value={newPassword}
+                  name="newPassword"
+                  placeholder="New Password"
+                  required
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+                <InputPrymary
+                  type="password"
+                  value={copyNewPassword}
+                  name="newPassword"
+                  placeholder="New Password"
+                  required
+                  onChange={(e) => setCopyNewPassword(e.target.value)}
+                />
 
-          <input
-            type="text"
-            value={secretToken}
-            name="secretToken"
-            placeholder="Token de seguridad"
-            required
-            onChange={(e) => setSecretToken(e.target.value)}
-          />
-          <br />
-          <input
-            type="password"
-            autoComplete="off"
-            value={newPassword}
-            name="newPassword"
-            placeholder="New Password"
-            required
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-          <br />
-          <input
-            type="password"
-            autoComplete="off"
-            value={copyNewPassword}
-            name="newPassword"
-            placeholder="New Password"
-            required
-            onChange={(e) => setCopyNewPassword(e.target.value)}
-          />
-          <br />
-          <input
-            type="submit"
-            value="Confirmar"
-            onClick={(e) => onSubmitForm(e)}
-          />
-        </form>
-        {secretToken ? secretToken : null}
-        <br />
-        {newPassword ? newPassword : null}
-        <br />
-        {copyNewPassword ? copyNewPassword : null}
-        <br />
-        <h6>userName :{userName ? userName : null}</h6>
-        <br />
-        <h6>erores: {error ? error : null}</h6>
-        <br />
-        <h6 style={{ color: "#fff" }}>
-          llegó el userId: {userId ? userId : null}
-        </h6>
+                {/* Bloque button */}
+                <InputSecond
+                  type="submit"
+                  value="Confirmar"
+                  onClick={(e) => onSubmitForm(e)}
+                />
+              </div>
+              {/* <input
+                type="text"
+                value={secretToken}
+                name="secretToken"
+                placeholder="Token de seguridad"
+                required
+                onChange={(e) => setSecretToken(e.target.value)}
+              /> */}
+              
+            </form>
+            
+            <h3>erores: {error ? error : null}</h3>
+            <br />
+            {/* <h6 style={{ color: "#fff" }}>
+              llegó el userId: {userId ? userId : null}
+            </h6> */}
+
+            {/* Bloque de background */}
+          </div>
+          <BackgroundTwo />
+        </div>
+        <BackgroundOne />
       </div>
     );
   }
