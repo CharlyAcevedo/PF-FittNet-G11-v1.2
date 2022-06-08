@@ -67,11 +67,11 @@ function App() {
           <Route path="/home/:type/:name/:userId" element={<Home />} />
           <Route path="/detail/gym/:userId" element={<GymDetail />} />
           <Route path="/profile/:type/:name/:userId" element={<Profile />} />
-          <Route path="/home/modificacion/:type/:name/:userId" element={<FormUser />} />
+          <Route path="/home/editprofile/:type/:name/:userId" element={<FormUser />} />
         <Route path="/profile/edit/partner/:name/:userId" element={<UpdatePartner />} />
         <Route path="/profile/edit/partner/:name/:userId/gym" element={<UpdateGym />} />
         <Route path="/profile/edit/partner/:name/:userId/gym/service" element={<Services />} />
-          {/* <Route path="/api/partner/gyms/gymbyid/:id" element={<GymDetail />} /> */}
+          <Route path="/api/partner/gyms/gymbyid/:id" element={<GymDetail />} />
 
         </Route>
       </Routes>

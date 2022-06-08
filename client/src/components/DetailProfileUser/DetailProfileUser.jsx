@@ -81,7 +81,7 @@ export default function DetailProfileUser() {
           <div className={styles.etiquetasProfile}>
             <a
               style={{ color: "#fff" }}
-              href={`/home/modificacion/${type}/${name}/${userId}`}
+              href={`/home/editprofile/${type}/${name}/${userId}`}
             >
               Editar mi perfil
             </a>
