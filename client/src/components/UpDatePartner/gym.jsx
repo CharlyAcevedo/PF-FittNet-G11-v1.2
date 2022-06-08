@@ -192,7 +192,7 @@ export default function UpdateGym() {
   //PARA EVITAR PISAR ESTILOS DE ERRORES.
 
   return (
-    <div className={styles.div}>
+    <div className={styles.editPartnerMainContainer}>
       <h1>FORMULARIO GYM</h1>
       <span>
         Los campos marcados con <strong>*</strong> deben ser completados
