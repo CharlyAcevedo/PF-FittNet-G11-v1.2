@@ -48,7 +48,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
           ...state,
           errors: payload.error,
         };
-      }
+      };
+      console.log(payload, "desde reducer")
       return {
         ...state,
         currentUserDetails: {

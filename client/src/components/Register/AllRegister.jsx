@@ -32,13 +32,13 @@ export default function AllRegister() {
     navigator.geolocation.getCurrentPosition(
       function (position) {
         const payload = {
-          latitud: position.coords.latitude,
-          longitud: position.coords.longitude,
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
         };
         dispatch(setUserGeo(payload));
         setGeoloc({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
+          lat: position.coords.latitude ? position.coords.latitude : geolocation.latitude,
+          lng: position.coords.longitude ? position.coords.longitude : geolocation.longitude,
         });
       },
       function (error) {

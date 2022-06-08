@@ -15,7 +15,8 @@ import styles from "./styles/homeMain.module.css";
 import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
 import Advertising from "../PartnerHomeComponents/Advertising";
-import ClientsGraph from "../Graphics/GraphClient"
+import ClientsGraph from "../Graphics/GraphClient";
+import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
 
 // import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
@@ -74,7 +75,8 @@ export default function HomeMain() {
   if (type === "user" && avatar) {
     return (
       <div className={styles.cont}>
-        <Sarch/>       
+        <Sarch/>
+        <GymsForUsersMap />    
         <GymCards/>
         <Paginated />
       </div>
@@ -84,7 +86,8 @@ export default function HomeMain() {
   if (type === "user" && avatarLS) {
     return (
       <div className={styles.cont}>
-        <Sarch/>       
+        <Sarch/>
+        <GymsForUsersMap /> 
         <GymCards/>
         <Paginated />
       </div>

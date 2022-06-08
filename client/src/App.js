@@ -15,7 +15,7 @@ import GymDetail from "./components/GymDetail/GymDetail";
 import LegendUf from "./components/LegendUf/LegendUf";
 import ResetPassword from "./components/UpdatePassword/ResetPassword";
 import UpdatePasword from "./components/UpdatePassword/UpdatePassword";
-import MapGyms from "./components/MapsAndGeo/MapGyms";
+import GymsForUsersMap from "./components/MapsAndGeo/GymsForUsers";
 import Activation from "./components/Activation/Activation";
 import DeactivateAccount from "./components/DeactivateAccount/DeactivateAccount";
 import FormUser from "./components/Forms/FormUser";
@@ -80,7 +80,7 @@ function App() {
         <Route path="/register" element={<InitRegister />} />
         <Route path="/user_register" element={<UserRegister />} />
         <Route path="/client_register" element={<ClientRegister />} />
-        <Route path="/maps" element={<MapGyms />} />
+        <Route path="/maps" element={<GymsForUsersMap />} />
         <Route path="/updatepassword/:userId" element={<UpdatePasword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/activation/:userId/:secretToken" element={<Activation />} />

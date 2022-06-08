@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserGeo } from "../../redux/actions/index";
 import styles from "./styles/LoginInit.module.css";
 import jwt_decode from "jwt-decode";
 import {
@@ -10,55 +10,85 @@ import {
   BackgroundOne,
 } from "../../helpers/Backround/Background";
 
-
 export default function LoginInit() {
+  const dispatch = useDispatch();
+  const geolocation = useSelector(
+    (state) => state.currentUserDetails.currentGeo
+  );
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // const [googleUser, setGoogleUser] = useState({});
   const [error, setError] = useState("");
-  
- 
+  const [geoloc, setGeoloc] = useState({
+    lat: geolocation.latitude,
+    lng: geolocation.longitude,
+  });
+
   const navigate = useNavigate();
 
   // const userGoogle = useSelector((state) => state.user);
 
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
-  
-    
-      
 
-
-  // const dispatch = useDispatch();
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        const payload = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        };
+        dispatch(setUserGeo(payload));
+        console.log("pasa por el dispatch");
+        setGeoloc({
+          lat: position.coords.latitude
+            ? position.coords.latitude
+            : geolocation.latitude,
+          lng: position.coords.longitude
+            ? position.coords.longitude
+            : geolocation.longitude,
+        });
+      },
+      function (error) {
+        console.log(error);
+      },
+      {
+        enableHighAccuracy: true,
+      }
+    ); // eslint-disable-next-line
+  }, []);
 
   const handleCallbackGoogle = async (response) => {
     const userObject = jwt_decode(response.credential);
     if (!token || !userId) {
       console.log("ENTRO A GENERAR TOKEN", response.credential);
-      const googleData = await axios.post(
-        `/api/service/google/auth`,
-        {
-          tokenId: response.credential,
-          data: userObject,
-        }
-      );
+      const googleData = await axios.post(`/api/service/google/auth`, {
+        tokenId: response.credential,
+        data: userObject,
+      });
       const finalizacionData = await googleData.data;
       // dispatch(getUser(finalizacionData.usuario._id));
-      localStorage.setItem("token", response.credential);      
+      localStorage.setItem("token", response.credential);
       document.getElementById("signInDiv").hidden = true;
-      localStorage.setItem('userId',finalizacionData.user.userId)
-      localStorage.setItem('type',finalizacionData.user.type)   
-      localStorage.setItem('avatar',finalizacionData.user.avatar)
-      localStorage.setItem('name', finalizacionData.usuario.name)
-      // localStorage.setItem('latitude',finalizacionData.user.latitude.$numberDecimal)  
-      // localStorage.setItem('longitude',finalizacionData.user.longitude.$numberDecimal)       
+      localStorage.setItem("userId", finalizacionData.user.userId);
+      localStorage.setItem("type", finalizacionData.user.type);
+      localStorage.setItem("avatar", finalizacionData.user.avatar);
+      localStorage.setItem("name", finalizacionData.usuario.name);
+      localStorage.setItem(
+        "latitude",
+        geoloc.lat ? geoloc.lat : finalizacionData.user.latitude.$numberDecimal
+      );
+      localStorage.setItem(
+        "longitude",
+        geoloc.lng ? geoloc.lng : finalizacionData.user.longitude.$numberDecimal          
+      );
 
       // localStorage.setItem("type", type)
       // localStorage.setItem("avatar", avatar._id)
       // console.log(finalizacionData, ' finalización data')
-     
+
       const { avatar } = finalizacionData.usuario;
-      
+
       // console.log(finalizacionData.usuario);
       if (!avatar) {
         return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
@@ -105,13 +135,12 @@ export default function LoginInit() {
 
   // }, [window.google?.accounts]);
 
-
   async function onSubmit(e) {
-    let userLogin;
+    e.preventDefault();
+    let userLogin = {};
 
     console.log("se está intentando hacer el post");
 
-    e.preventDefault();
 
     if (username && password) {
       userLogin = { username: username, password: password };
@@ -119,59 +148,63 @@ export default function LoginInit() {
       console.log("está saliendo el post ", userLogin);
 
       const login = await axios({
-          method: 'post',
-          url: '/api/service/login',
-          data: userLogin,
-          headers: {'X-Requested-With': 'XMLHttpRequest'},
-          withCredentials: true
-        })  
-        .then((res) => { return res.data })
-        .catch((error) => console.log(error))
-          
-        if (login.login) {
-          console.log(login, " lo que responde el back si se autentica el user" );
-          
-          let { userId, name, type, avatar, active, latitude, longitude } = login;
-          
-          if (active === true) { // Si la cuenta está activa
-            if (!login.avatar ) {
-              localStorage.setItem("userId", userId)
-              localStorage.setItem("name", name)
-              localStorage.setItem("type", type)         
-              localStorage.setItem("latitude", latitude.$numberDecimal)
-              localStorage.setItem("longitude", longitude.$numberDecimal)
+        method: "post",
+        url: "/api/service/login",
+        data: userLogin,
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+        withCredentials: true,
+      })
+        .then((res) => {
+          return res.data;
+        })
+        .catch((error) => console.log(error));
 
-              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
-            }
-            if (login.avatar._id ) {
-              console.log(login, ' el user')
-              
-              localStorage.setItem("userId", userId)
-              localStorage.setItem("name", name)
-              localStorage.setItem("type", type)
-              localStorage.setItem("avatar", avatar._id)
-              localStorage.setItem("latitude", latitude.$numberDecimal)
-              localStorage.setItem("longitude", longitude.$numberDecimal)             
-              
-              let avatarId = avatar._id;
-              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatarId}`);
-            }
-            // ya le paso info por params de quién estamos hablando
-          
-          } else {
-            setError("Cuenta inactiva, verifiación de email pendiente");
+      if (login.login) {
+        console.log(login, " lo que responde el back si se autentica el user");
+
+        let { userId, name, type, avatar, active, latitude, longitude } = login;
+
+        if (active === true) {
+          // Si la cuenta está activa
+          if (!login.avatar) {
+            localStorage.setItem("userId", userId);
+            localStorage.setItem("name", name);
+            localStorage.setItem("type", type);
+            localStorage.setItem("latitude", geoloc.lat ? geoloc.lat : latitude.$numberDecimal);
+            localStorage.setItem("longitude", geoloc.lng ? geoloc.lng : longitude.$numberDecimal);
+
+            return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
           }
+          if (login.avatar._id) {
+            console.log(login, " el user");
+
+            localStorage.setItem("userId", userId);
+            localStorage.setItem("name", name);
+            localStorage.setItem("type", type);
+            localStorage.setItem("avatar", avatar._id);
+            localStorage.setItem("latitude", geoloc.lat ? geoloc.lat : latitude.$numberDecimal);
+            localStorage.setItem("longitude", geoloc.lng ? geoloc.lng : longitude.$numberDecimal);
+
+            let avatarId = avatar._id;
+            return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatarId}`);
+          }
+          // ya le paso info por params de quién estamos hablando
+        } else {
+          setError("Cuenta inactiva, verifiación de email pendiente");
         }
-        if (typeof login === "string") {
-          setError("usuario o password incorrecta");
-          setPassword("");
-          setUsername("");
-        }
-      
-      
+      }
+      if (typeof login === "string") {
+        setError("usuario o password incorrecta");
+        setPassword("");
+        setUsername("");
+      }
     }
-    if (!username && password) {setError("No olvide introducir su email");}
-    if (username && !password) {setError("No olvide introducir su contraseña");}
+    if (!username && password) {
+      setError("No olvide introducir su email");
+    }
+    if (username && !password) {
+      setError("No olvide introducir su contraseña");
+    }
   }
 
   return (
@@ -225,11 +258,13 @@ export default function LoginInit() {
             {/* <button onClick={(e) => handleLogoutGoogle(e)}>Logout</button> */}
             <p>{error === "" ? null : error}</p>
           </form>
-          <a href="/resetpassword" style={{padding: "1.5rem", color: "#fff" }}>Olvidé mi contraseña</a>
+          <a href="/resetpassword" style={{ padding: "1.5rem", color: "#fff" }}>
+            Olvidé mi contraseña
+          </a>
         </div>
         <BackgroundTwo />
       </div>
-      <BackgroundOne/>
+      <BackgroundOne />
     </div>
   );
 }
