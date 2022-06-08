@@ -98,24 +98,13 @@ async function saveGyms(id, data) {
 const updateFavGym = async (req, res) => {
     const { id } = req.params
     try {
-        console.log(id)
-        console.log(req.body)
-        // const gymfav = await Gims.findById(id)
 
-        // console.log(gymfav)
-        // res.status(200).json({
-        //     ok: true,
-        //     msg: "se creo piola"
-        // })
         if (req.body.favourite) {
             const userFav = await User.findById(req.body.idUser)
             const gymFav = await Gims.findById(id)
             if (userFav.favourite.includes(id)) {
-                console.log("entro a restar el favourite")
-                // console.log(userFav.favorite.includes(id))
 
                 const userPull = await User.findByIdAndUpdate(req.body.idUser, { $pull: { favourite: id } }, { new: true })
-                    // .populate('favourite', 'name')
                 const obj = { favourite: gymFav.favourite - 1 }
                 const gymfav = await Gims.findByIdAndUpdate(id, obj, { new: true })
 
@@ -123,21 +112,18 @@ const updateFavGym = async (req, res) => {
                     ok: 'true',
                     gym: gymfav,
                     user: userPull,
-                    msg: "se llego a dar la resta"
                 })
             } else {
 
-                console.log("entro a sumar el favourite")
                 const user = await User.findByIdAndUpdate(req.body.idUser, { $push: { favourite: id } }, { new: true })
-    
+
                 const obj = { favourite: gymFav.favourite + 1 }
                 const gym = await Gims.findByIdAndUpdate(id, obj, { new: true })
-    
+
                 return res.status(200).json({
                     ok: 'true',
                     gym,
                     user,
-                    msg: "se llego a dar la suma"
                 })
             }
         }
@@ -149,30 +135,6 @@ const updateFavGym = async (req, res) => {
         })
     }
 }
-
-
-// //! FUNCIONES DE PRUEBAS
-
-// const postGyms2 = async (req, res) => {
-//     try {
-//         const newGym = await Gims.aggregate([
-//             { $addFields: {
-
-//             }}
-//         ])
-//     } catch (error) {
-//         console.log(error)
-//         res.status(500).json({
-//             ok: false,
-//             msg: "error no se pudo crear correctamente el gimnasio"
-//         })
-//     }
-// }
-
-
-
-
-
 
 
 module.exports = { getAllGyms, postGyms, saveGyms, getGymById, getGymByName, updateFavGym }
