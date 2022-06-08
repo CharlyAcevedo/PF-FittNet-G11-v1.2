@@ -47,13 +47,13 @@ const getUser = async (req, res) => {
         //     .populate('partner')
         const user = await User.aggregate([
             {
-                $match: { _id: ObjectId(id)}
+                $match: { _id: ObjectId(id) }
             },
             {
                 $lookup: {
                     from: "avatars",
                     localField: "avatar",
-                    foreignField: "_id", 
+                    foreignField: "_id",
                     as: "avatar"
                 }
             },
@@ -63,7 +63,7 @@ const getUser = async (req, res) => {
                     localField: "info",
                     foreignField: "_id",
                     as: "info"
-                },                
+                },
             },
             {
                 $lookup: {
@@ -81,6 +81,49 @@ const getUser = async (req, res) => {
                     as: "partner"
                 }
             },
+            {
+                $lookup: {
+                    from: "diseases",
+                    localField: "info.diseases",
+                    foreignField: "_id",
+                    as: "info.diseases"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.diseases",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $project: {
+                    name: 1,
+                    userName: 1,
+                    latitude: 1,
+                    longitude: 1,
+                    active: 1,
+                    secretToken: 1,
+                    type: 1,
+                    avatar: {
+                        _id: 1,
+                        avatarName: 1,
+                    },
+                    info: {
+                        _id: 1,
+                        name: 1,
+                        lastName: 1,
+                        photo: 1,
+                        birthday: 1,
+                        phone: 1,
+                        username: 1,
+                        address: {
+                            _id: 1,
+                            street: 1,
+                        },
+                        diseases: 1
+                    }
+                }
+            }
         ])
         console.log(user)
         res.json({
@@ -280,7 +323,7 @@ const getUserGoogleAccount = async (req, res) => {
         console.log("error: ", error);
         res.status(500).json({
             ok: false,
-            msg: "Unexpected errorf"
+            msg: "Unexpected error"
         })
     }
 }

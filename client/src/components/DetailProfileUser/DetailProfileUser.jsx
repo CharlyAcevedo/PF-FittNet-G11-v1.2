@@ -11,16 +11,13 @@ export default function DetailProfileUser() {
 
   const user = useSelector((state) => state.user);
 
-  const type = localStorage.getItem('type');
+  const type = localStorage.getItem("type");
 
-  const avatar = localStorage.getItem('avatar');
-  
-  const name = localStorage.getItem('name');
+  const avatar = localStorage.getItem("avatar");
 
+  const name = localStorage.getItem("name");
 
-  // const { name, userName, type, avatar, info } = user;
-
-  const avatarId = avatar?._id;
+  // const avatarId = avatar?._id;
 
   return (
     <div style={{ width: "100%" }}>
@@ -126,7 +123,9 @@ export default function DetailProfileUser() {
               </p>
               <p>
                 Email:{" "}
-                <span style={{ color: "var(--color-prim)" }}>marcelo@gmail.com</span>
+                <span style={{ color: "var(--color-prim)" }}>
+                  marcelo@gmail.com
+                </span>
               </p>
             </div>
           </div>
