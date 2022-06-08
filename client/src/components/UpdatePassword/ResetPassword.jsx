@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import axios from "axios";
-import { SweetAlrt } from "../../asets/helpers/sweetalert";
+import axios from 'axios';
+import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 
 // Esta es la ruta del back que podemos usar
 // router.post('/updatepassword', async (req, res, next) => {
@@ -49,22 +49,15 @@ export default function ResetPassword() {
 
   function onSubmit(e) {
     e.preventDefault();
-    if (!error && userName && !newPassword && !copyNewPassword) {
-      let object = { userName: userName };
-      console.log(
-        "envío el objeto al back la solicitud al back para enviar el correo electrónico"
-      );
-      axios
-        .get("/api/service/updatepassword", { params: object })
-        .then((response) => {
-          if (response.data.message) {
-            return SweetAlrt(
-              "Atencion",
-              response.data.message,
-              "warning",
-              true,
-              true
-            );
+
+    if(!error && userName && !newPassword && !copyNewPassword) {
+        let object = { userName: userName }
+        console.log('envío el objeto al back la solicitud al back para enviar el correo electrónico');
+        axios.get('/api/service/updatepassword', { params: object } )
+        .then((response)=> {
+          if(response.data.message) {
+            return SweetAlrt("Atencion", response.data.message, "warning")
+
             // return window.alert(response.data.message)
           }
           setUserId(response.data);
@@ -80,41 +73,31 @@ export default function ResetPassword() {
 
   function onSubmitForm(e) {
     e.preventDefault();
-    if (!error && userId && newPassword && copyNewPassword) {
-      if (newPassword === copyNewPassword) {
-        let form = {
-          userId: userId,
-          newPassword: newPassword,
-          secretToken: secretToken,
-        };
-        console.log(
-          form,
-          "Tengo que enviar el formulario al back para el cambio de clave"
-        );
-        axios
-          .post("/api/service/updatepassword", form)
-          .then((response) => {
-            console.log(response.data);
-            // window.alert(response.data)
-            SweetAlrt("Exito", response.data, "info", true);
-            return (window.location = "http://localhost:3000/login");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+    if(!error && userId && newPassword && copyNewPassword) {
+        if(newPassword === copyNewPassword) {
+            let form = { 
+                userId: userId,
+                newPassword: newPassword,
+                secretToken: secretToken
+            }
+            console.log(form, "Tengo que enviar el formulario al back para el cambio de clave")
+            axios.post('/api/service/updatepassword', form )
+            .then((response)=>{
+              console.log(response.data)
+              // window.alert(response.data)
+             SweetAlrt("Exito", response.data, "info")
+              return (window.location = "http://localhost:3000/login");
+            })
+            .catch((error)=>{console.log(error)})
 
-        // window.alert('Contraseña cambiada, vuelva a iniciar sesión');
-        // return (window.location = "http://localhost:3000/login");
-      }
+            // window.alert('Contraseña cambiada, vuelva a iniciar sesión');
+            // return (window.location = "http://localhost:3000/login");            
+           
+        }
     } else {
-      SweetAlrt(
-        "Atencion!",
-        "No puede envar al solicitud, por favor verigique los valores de los campos requeridos",
-        "warning",
-        true,
-        true
-      );
-      // window.alert("No puede enviar la solicitud, por favor verifique los valores de los campos requeridos")
+      SweetAlrtTem("No puede envar al solicitud, por favor verigique los valores de los campos requeridos","warning")
+        // window.alert("No puede enviar la solicitud, por favor verifique los valores de los campos requeridos")
+
     }
   }
 

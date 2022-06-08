@@ -9,6 +9,7 @@ import {
   BackgroundTwo,
   BackgroundOne,
 } from "../../helpers/Backround/Background";
+
 // Esta es la ruta del back que podemos usar
 // router.post('/updatepassword', async (req, res, next) => {
 // if (userId && newPassword && password && !secretToken) { // Actualizo una vieja contraseña
@@ -32,7 +33,6 @@ export default function UpdatePasword() {
   // const [error, setError] = useState("");
 
   // Falta setear errores según la validación que queramos
-
   function onSubmit(e) {
     e.preventDefault();
     if (userId && password && newPassword && copyNewPassword) {

@@ -96,3 +96,12 @@ svg {
   border: 1px solid #ffcaa6;
   background-color: #ffcaa6;
 }
+
+.btnAddFavourite {
+  color: rgb(22, 22, 22);
+}
+
+.btnAddFavourite:hover {
+  cursor: pointer;
+  color: rgb(43, 63, 177);
+}

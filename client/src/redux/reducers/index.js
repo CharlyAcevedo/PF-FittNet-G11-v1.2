@@ -5,7 +5,7 @@ import {
   GET_ALL_USERS, GET_ALL_PARTNERS, GET_AVATARS, SET_CURRENT_PAGE, SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT, GET_ALL_GYMS, GET_GYM_DETAIL, SET_USER_GEO, POST_USER_GOOGLE,
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, ADD_TO_CART, REMOVE_FROM_CART,
-  SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE,
+  SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE
 
 } from "../actions/actionTypes";
 
@@ -255,7 +255,20 @@ export default function rootReducer(state = initialState, { type, payload }) {
          ...state, 
          deseaseAttribute: payload,
       }
-
+    case PUT_FAVOURITE:
+      const objFav = []
+      state.pageToShow.forEach(x => {
+        if(x._id === payload.gym._id) {
+          x.favourite = payload.gym.favourite
+        }
+        objFav.push(x)
+      })
+      return {
+        ...state,
+        pageToShow: objFav,
+        gyms: objFav,
+        gymsToShow: objFav
+      }
     default:
       return state;
   }

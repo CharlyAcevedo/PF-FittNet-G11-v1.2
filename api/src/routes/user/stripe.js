@@ -10,7 +10,7 @@ const stripe = new Stripe(API_STRIPE)
 router.post('/', async (req, res)=>{
     const {id, amount} = req.body;
     const payment = await stripe.paymentIntents.create({
-        amount,
+        amount: amount,
         currency: 'ARS',
         payment_method: id,
         confirm: true
