@@ -71,13 +71,12 @@ export default function GymDetail() {
         <div className={style.contServices}>
           {gymDetail.services.map((e) => {
             return (
-              <div key={e._id}>
-                  {console.log(gymDetail)}
+              <div key={e._id} >
                 <CartItem
                   id={e._id}
                   key={e._id}
                   name={e.name}
-                  price={e.price}
+                  price={e.price.$numberDecimal}
                   description={e.description}
                   duration={e.duration}
                 />{" "}
