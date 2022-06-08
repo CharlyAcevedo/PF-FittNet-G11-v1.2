@@ -214,6 +214,7 @@ export default function AllRegister() {
             <div className={styles.loginRield}>
               <select
                 name="select"
+                className={styles.selectTypeClient}
                 onChange={(e) =>
                   e.target.value === "Tipo de cliente" ? null : onChangeType(e)
                 }

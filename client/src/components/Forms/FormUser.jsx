@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import validate from "./validation";
 import avatar from "../../asets/icons/avatar.jpg";
@@ -13,6 +13,8 @@ export default function FormUser() {
   const navigate = useNavigate();
 
   const { userId } = useParams();
+
+  const avatar = localStorage.getItem("avatar")
 
   const deseaseAttribute = useSelector((state) => state.deseaseAttribute);
   const user = useSelector((state) => state.currentUserDetails);
@@ -29,9 +31,8 @@ export default function FormUser() {
     considerations: "",
   });
   const [input, setInput] = useState({
-    name: "",
     username: "",
-    avatar: "",
+    avatar: avatar,
     lastname: "",
     phone: "",
     birthday: "",
