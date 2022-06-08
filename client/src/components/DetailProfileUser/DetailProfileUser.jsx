@@ -11,6 +11,7 @@ export default function DetailProfileUser() {
 
   const user = useSelector((state) => state.user);
 
+
   const type = localStorage.getItem('type');
 
   const avatar = localStorage.getItem('avatar');
@@ -19,6 +20,7 @@ export default function DetailProfileUser() {
 
 
   // const { name, userName, type, avatar, info } = user;
+
 
   const avatarId = avatar?._id;
 
