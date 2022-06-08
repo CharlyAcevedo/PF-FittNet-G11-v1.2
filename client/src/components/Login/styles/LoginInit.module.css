@@ -81,34 +81,6 @@
   text-align: initial;
 }
 
-.loginField {
-  padding: 20px 0px;
-  position: relative;
-}
-
-.loginIcon {
-  position: absolute;
-  top: 30px;
-  color: var(--color-primD1);
-}
-
-.loginInput {
-  border: none;
-  border-bottom: 2px solid #fff;
-  background: none;
-  padding: 10px;
-  padding-left: 24px;
-  font-weight: 700;
-  width: 75%;
-  transition: 0.2s;
-}
-
-.loginInput:active,
-.loginInput:focus,
-.loginInput:hover {
-  outline: none;
-  border-bottom-color: var(--color-primD1);
-}
 
 .loginSubmit {
   background: #fff;
