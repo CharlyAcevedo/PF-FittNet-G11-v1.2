@@ -1,12 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { postAvatar } from "../../redux/actions/index";
 
 import axios from "axios";
-
-
 
 import styles from "./styles/stylesCards.module.css";
 
@@ -25,12 +24,14 @@ export const CardAvatares = (props) => {
   );
 };
 
-export const CardAvatarAdicional = (props) => { // El id del avatar llega por props
-  const { name, image, features, id, userId, typeuser, nameUser, icono } = props;
+export const CardAvatarAdicional = (props) => {
+  // El id del avatar llega por props
+  const { name, image, features, id, userId, typeuser, nameUser, icono } =
+    props;
 
   const navigate = useNavigate();
-
-  async function handleUdpateAvatar (idAvatar, e) {
+  const dispatch = useDispatch();
+  async function handleUdpateAvatar(idAvatar, e) {
     e.preventDefault();
     const avatar = { avatar: idAvatar };
 
@@ -42,45 +43,41 @@ export const CardAvatarAdicional = (props) => { // El id del avatar llega por pr
     console.log("se agrego el avatar al usuario");
     navigate(`/home/${typeuser}/${nameUser}/${userId}/${idAvatar}`);
 
+    let avatarSelect = await postAvatar(userId, avatar);
 
-    let avatarSelect = await postAvatar(userId, avatar)
-    
     // Hay que avaluar la respuesta y retornar un swit altert
     // console.log(avatarSelect, 'Respuesta a avatarSelect')
 
-    if (avatarSelect.data.ok === false) { // Si el userId es invalido
-      return window.alert(avatarSelect.data.msg)
+    if (avatarSelect.data.ok === false) {
+      // Si el userId es invalido
+      return window.alert(avatarSelect.data.msg);
     }
 
-    let avatarId = avatarSelect ? avatarSelect.data.UserUpdateAvatar.avatar : null;
+    let avatarId = avatarSelect
+      ? avatarSelect.data.UserUpdateAvatar.avatar
+      : null;
 
-    console.log(avatarSelect, 'avatar selected id')
+    console.log(avatarSelect, "avatar selected id");
 
     localStorage.setItem("avatar", avatarId);
 
     navigate(`/home/${typeuser}/${nameUser}/${userId}/${avatarId}`);
-  };
+  }
 
-
-  async function postAvatar (userId, avatar) {
+  async function postAvatar(userId, avatar) {
     try {
-      const dataUdpateAvatar = await axios.put(`/api/user/avatar/${userId}`, avatar);
-      
+      const dataUdpateAvatar = await axios.put(
+        `/api/user/avatar/${userId}`,
+        avatar
+      );
+
       console.log(dataUdpateAvatar);
 
       return dataUdpateAvatar;
-      
     } catch (error) {
-      console.log(error)
-    };
-
-
-  };
-
-
-
-
-
+      console.log(error);
+    }
+  }
 
   const estiloIcono = {
     content: "",
@@ -123,7 +120,7 @@ export const CardAvatarAdicional = (props) => { // El id del avatar llega por pr
 };
 
 export const CardIcons = (props) => {
-  const { img, num} = props;
+  const { img, num } = props;
   return (
     <div className={styles.cardIcons}>
       <img src={img} alt="" />
