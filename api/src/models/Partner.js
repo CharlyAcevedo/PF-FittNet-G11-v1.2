@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { regEmail, regWord } = require('../controlers/regExes');
+const { regEmail, regWord, regCBU, regCUIL } = require('../controlers/regExes');
 
 const partnerSchema = new mongoose.Schema({
   name: {
@@ -33,12 +33,19 @@ const partnerSchema = new mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Plan",
   },
-  profileCategory: {
-    type: Array, //debe contener las caracteristicas asociadas de los avatares con el perfil del gym
+  cbu: {
+    type: String,
+    validate: {
+      validator: (e) => regCBU.test(e),
+      message: (e) => `${e.value} is not a valid CBU`,
+    },
   },
-  userActive: {
-    type: Boolean,
-    required: true,
+  cuil: {
+    type: String,
+    validate: {
+      validator: (e) => regCUIL.test(e),
+      message: (e) => `${e.value} is not a valid CUIL`,
+    },
   },
   socialNetworks: {
     type: Array,
@@ -50,15 +57,31 @@ const partnerSchema = new mongoose.Schema({
     of: mongoose.SchemaTypes.ObjectId,
     ref: "Gym",
   },
-  paymentMethods: {
-    type: Array,
-    of: mongoose.SchemaTypes.ObjectId,
-    ref: "Payment",
-  },
   category: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Category",
   },
+  userActive: {
+    type: Boolean,
+  },
+  paymentMethods: {
+    type: Array,
+    of: mongoose.SchemaTypes.ObjectId,
+    ref: "PaymentType",
+  },
+  paidOut: {
+    type: Boolean,
+  },
+  incomes: {
+    type: Array,
+    of: mongoose.SchemaTypes.ObjectId,
+    ref: "ShopCart"
+  },
+  payments: {
+    type: Array,
+    of: mongoose.SchemaTypes.ObjectId,
+    ref: "Payments"
+  }
 });
 
 module.exports = mongoose.model("Partner", partnerSchema);
