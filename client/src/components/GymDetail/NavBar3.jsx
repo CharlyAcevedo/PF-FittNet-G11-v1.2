@@ -29,8 +29,8 @@ export function NavBar3({ id, usuarioId }) {
     let items = 0;
     let price = 0;
     cart.forEach((item) => {
-      items = item.price;
-      price += item.qty * item.price;
+      items = item.price.$numberDecimal;
+      price += item.qty * item.price.$numberDecimal;
     });
     setTotalPrice(price);
     setTotalItems(items);
@@ -48,15 +48,16 @@ export function NavBar3({ id, usuarioId }) {
   }
 
   return (
-    <nav>
-      <div>
+    <nav style={{color: "white"}}>
+      <div >
         {cart.map((e) => {
           return (
-            <div>
-              <h3>Clase: {e.name}</h3>
+            <div >{console.log(cart)}
+              <h3 key={e._id}>Clase: {e.name} x {e.qty}</h3>              
             </div>
-          );
-        })}
+          )
+        })        
+    }
         Cantidad : {cartCount}
       </div>
       <div>Subtotal: {totalItems}</div>
