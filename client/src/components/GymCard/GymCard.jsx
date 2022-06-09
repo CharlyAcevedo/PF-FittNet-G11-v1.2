@@ -1,21 +1,68 @@
 import React from "react";
 import style from "./styles/GymCard.module.css";
 import { useNavigate } from "react-router-dom";
+import { updateFavouriteGym } from "../../redux/actions/index";
+import { useDispatch } from "react-redux";
 
 export default function GymCard(props) {
   const navigate = useNavigate();
 
+  const userId = localStorage.getItem("userId")
+
+  const dispatch = useDispatch();
+
+  const handleFavourite = (e, gymId) => {
+    e.preventDefault();
+    if(userId) {
+      dispatch(updateFavouriteGym(gymId, userId))
+    } else {
+      alert('no puedes agregar a favorito si no estas logueado')
+    }
+  };
+
   return (
     <div className={style.card}>
       <div className={style.cardImg}>
-        <img src={props.image} alt="logo" style={{width: "100%", height: "190px"}} />
+        <img
+          src={props.image}
+          alt="logo"
+          style={{ width: "100%", height: "190px" }}
+        />
       </div>
       <div className={style.cardInfo}>
-        <p className={style.textTitle}>{props.name}</p>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "1.5rem",
+          }}
+        >
+          <p className={style.textTitle}>{props.name}</p>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: ".5rem",
+              alignItems: "center",
+            }}
+          >
+            <span style={{ color: "#46489e", fontWeight: "800" }}>
+              {props.favourite}
+            </span>
+            <p
+              className={style.btnAddFavourite}
+              onClick={(e) => handleFavourite(e, props.id)}
+            >
+              Add Favourite
+            </p>
+          </div>
+        </div>
         <p className={style.textBody}>{props.rating}</p>
       </div>
       <div className={style.cardFooter}>
         <span className={style.textTitle}>{props.price.$numberDecimal}</span>
+
         <button></button>
         <div className={style.cardButton}>
           <svg

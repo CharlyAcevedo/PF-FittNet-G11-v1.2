@@ -22,10 +22,11 @@ export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"; //setea el estado general "p
 export const SET_PAGE_NUMBER = "SET_PAGE_NUMBER"; //setea el estado general "numero de pagina" para paginado
 export const SET_CURRENT_LIMIT = "SET_CURRENT_LIMIT"; //setea el estado general "limite por pagina" para paginado
 
-
+export const GET_CART = 'GET_CART'
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
-export const ADJUST_QTY= 'ADJUST_QTY';
+export const CLEAR_CART = 'CLEAR_CART'
+export const ADJUST_QTY = 'ADJUST_QTY';
 export const LOAD_CURRENT_ITEM = 'LOAD_CURRENT_ITEM';
 
 export const SORT_BY_NAME = 'SORT_BY_NAME'; // para hacer un ordenamiento alfabético de a-z o z-a
@@ -34,4 +35,6 @@ export const SORT_BY_SCORE = 'SORT_BY_SCORE'; // para hacer un ordemiento por pu
 export const CLEAR_GYM_DETAIL = 'CLEAR_GYM_DETAIL'; // Para limpiar el estado del detalle de gym cuando se remueva el componente
 
 export const GET_ATTRIBUTE_DESEASE = "GET_ATTRIBUTE_DESEASE"; // llama del back el atributo desease de la collection Diseases
+
+export const PUT_FAVOURITE = "PUT_FAVOURITE"; //? Tiene la funcionalidad de poner y sacar de favorito un gym
 

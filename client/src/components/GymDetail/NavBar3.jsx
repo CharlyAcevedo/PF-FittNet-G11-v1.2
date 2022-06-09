@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { postCart } from "../../redux/actions/index";
+import { getCart, postCart } from "../../redux/actions/index";
 
 export function NavBar3({ id, usuarioId }) {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export function NavBar3({ id, usuarioId }) {
     gym: [],
     services: [],
     user: "",
-  });
+  });  
 
   useEffect(() => {
     let count = 0;
@@ -29,8 +29,8 @@ export function NavBar3({ id, usuarioId }) {
     let items = 0;
     let price = 0;
     cart.forEach((item) => {
-      items = item.price;
-      price += item.qty * item.price;
+      items = item.price.$numberDecimal;
+      price += item.qty * item.price.$numberDecimal;
     });
     setTotalPrice(price);
     setTotalItems(items);
@@ -41,22 +41,24 @@ export function NavBar3({ id, usuarioId }) {
     });
     // }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems])
   }, [cart, totalPrice, totalItems, id, usuarioId]);
-
+  
   function handleSubmit() {
     dispatch(postCart(body));
+    dispatch(getCart())      
     navigate("/stripe");
   }
 
   return (
-    <nav>
-      <div>
+    <nav style={{color: "white"}}>
+      <div >
         {cart.map((e) => {
           return (
-            <div>
-              <h3>Clase: {e.name}</h3>
+            <div >
+              <h3 key={e._id}>Clase: {e.name} x {e.qty}</h3>              
             </div>
-          );
-        })}
+          )
+        })        
+    }
         Cantidad : {cartCount}
       </div>
       <div>Subtotal: {totalItems}</div>

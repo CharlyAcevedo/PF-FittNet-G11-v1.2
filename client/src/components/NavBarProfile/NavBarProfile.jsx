@@ -24,6 +24,7 @@ export default function NavBarProfile() {
 
   // console.log(user)
 
+
   return (
     <div className={style.boxNavBarProfile}>
       <nav className={style.navBarProfile}>

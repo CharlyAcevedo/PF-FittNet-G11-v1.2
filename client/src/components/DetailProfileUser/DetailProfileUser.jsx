@@ -11,7 +11,16 @@ export default function DetailProfileUser() {
 
   const user = useSelector((state) => state.user);
 
-  const { name, userName, type, avatar, info } = user;
+
+  const type = localStorage.getItem('type');
+
+  const avatar = localStorage.getItem('avatar');
+  
+  const name = localStorage.getItem('name');
+
+
+  // const { name, userName, type, avatar, info } = user;
+
 
   const avatarId = avatar?._id;
 
@@ -19,11 +28,11 @@ export default function DetailProfileUser() {
     <div style={{ width: "100%" }}>
       <div className={styles.containerPerfilUser}>
         <div className={styles.containerPhotoPerfil}>
-          <img
+          {/* <img
             src={info?.photo}
             alt="mi foto"
             style={{ width: "90%", height: "300px", borderRadius: ".6rem" }}
-          />
+          /> */}
         </div>
         <div className={styles.infoPerfilUser}>
           <div className={styles.headerPerfilUser}>
@@ -31,7 +40,7 @@ export default function DetailProfileUser() {
               style={{ display: "flex", alignItems: "center", gap: "1.1rem" }}
             >
               <div>
-                <h3 style={{ color: "#fff" }}>Marcelo Copa</h3>
+                <h3 style={{ color: "#fff" }}>{name}</h3>
                 <p
                   style={{
                     color: "var(--color-prim)",
@@ -81,7 +90,11 @@ export default function DetailProfileUser() {
           <div className={styles.etiquetasProfile}>
             <a
               style={{ color: "#fff" }}
-              href={`/home/editprofile/${type}/${name}/${userId}`}
+
+             //href={`/home/editprofile/${type}/${name}/${userId}`}
+              
+              href={`/home/${type}/${name}/${userId}/${avatar}/FormUser`}
+
             >
               Editar mi perfil
             </a>
@@ -94,7 +107,7 @@ export default function DetailProfileUser() {
             <span
               style={{ color: "#fff", cursor: "pointer" }}
               onClick={() =>
-                navigate(`/home/${type}/${name}/${userId}/${avatarId}`)
+                navigate(`/home/${type}/${name}/${userId}/${avatar}`)
               }
             >
               Volver
@@ -108,7 +121,7 @@ export default function DetailProfileUser() {
               <p>
                 Phone:{" "}
                 <span style={{ color: "var(--color-prim)" }}>
-                  {info?.phone}
+                  32452352454{/* {info?.phone} */}
                 </span>
               </p>
               <p>
@@ -119,7 +132,7 @@ export default function DetailProfileUser() {
               </p>
               <p>
                 Email:{" "}
-                <span style={{ color: "var(--color-prim)" }}>{userName}</span>
+                <span style={{ color: "var(--color-prim)" }}>marcelo@gmail.com</span>
               </p>
             </div>
           </div>
@@ -131,7 +144,7 @@ export default function DetailProfileUser() {
               <p>
                 Fecha de nacimiento:{" "}
                 <span style={{ color: "var(--color-prim)" }}>
-                  {info?.birthday.substring(0, 10)}
+                  21/01/21{/* {info?.birthday.substring(0, 10)} */}
                 </span>
               </p>
               <p>
