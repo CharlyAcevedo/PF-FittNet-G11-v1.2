@@ -41,7 +41,7 @@ export default function Activation() {
               <p>Su cuenta ha sido activada con exito</p>
               <div className={style.containerReg}>
                 <a href="/login" style={{ textDecoration: "none" }}>
-                Iniciar sesión
+                  Iniciar sesión
                 </a>
               </div>
             </div>

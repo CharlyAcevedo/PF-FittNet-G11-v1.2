@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { SweetAlrt } from "../../asets/helpers/sweetalert";
 import { getCart, postCart } from "../../redux/actions/index";
 
 export function NavBar3({ id, usuarioId }) {
@@ -29,7 +30,7 @@ export function NavBar3({ id, usuarioId }) {
     let items = 0;
     let price = 0;
     cart.forEach((item) => {
-      items = item.price.$numberDecimal;
+      items = item.price.$numberDecimal*item.qty;
       price += item.qty * item.price.$numberDecimal;
     });
     setTotalPrice(price);
@@ -43,6 +44,7 @@ export function NavBar3({ id, usuarioId }) {
   }, [cart, totalPrice, totalItems, id, usuarioId]);
   
   function handleSubmit() {
+      if(cartCount<1){return SweetAlrt('Su carrito esta vacio')}
     dispatch(postCart(body));
     dispatch(getCart())      
     navigate("/stripe");
@@ -54,14 +56,14 @@ export function NavBar3({ id, usuarioId }) {
         {cart.map((e) => {
           return (
             <div >
-              <h3 key={e._id}>Clase: {e.name} x {e.qty}</h3>              
+              <h3 key={e._id}>{e.qty==0?null:'Clase: ' + e.name + ' x ' + e.qty} </h3>              
             </div>
           )
         })        
     }
         Cantidad : {cartCount}
       </div>
-      <div>Subtotal: {totalItems}</div>
+      {/* <div>Subtotal: {totalItems}</div> */}
       <div>Total: {totalPrice}</div>
       <div>
         <button onClick={() => handleSubmit()}>COMPRAR!</button>
