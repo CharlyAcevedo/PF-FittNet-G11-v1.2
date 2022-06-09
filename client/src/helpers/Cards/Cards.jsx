@@ -8,7 +8,7 @@ import { postAvatar } from "../../redux/actions/index";
 import axios from "axios";
 
 import styles from "./styles/stylesCards.module.css";
-import { useDispatch } from "react-redux";
+
 
 export const CardAvatares = (props) => {
   const { image } = props;
