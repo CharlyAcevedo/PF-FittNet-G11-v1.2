@@ -1,14 +1,28 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getAdmin } from "../../redux/actions";
 
 export default function DetailProfileAdmin() {
-    let { id, userId , name, type } = useParams();
-   
+    let { userId , name, type } = useParams();
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        console.log('useEffect')
+
+        if (userId.length > 20) {
+            console.log('sale la cción', userId)
+            
+            dispatch(getAdmin(userId)); 
+        }      
+       
+    });  
 
     // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
     // si le llega este id (de la fomra que lo espera) y si el usuario tiene una
     // sesión iniciada.
-
     // Queda pendiente dispachar una acción para cargar en el estado global
     // la info del usuario en un objeto. Ejeplo --> State.detailUser = {}
 
@@ -16,36 +30,33 @@ export default function DetailProfileAdmin() {
 
     return (
         
-        <div> 
-            {/* <NavBarProfile/> */}
-            <p>Id: {id}, name: {name} </p>
-            <p>Typo: {type}</p>
-            <br />
-            <h3>Esta vista corresponde a un Admin "admin"</h3>
-            <p>Hay que solicitar info para cada una de estás vistas</p>
-            <h3>Gestión de negocio</h3>
-            <p>Tablero de control de ventas y operaciones</p>
-            <br />
-            <h3>Tablero de gestión de cuentas</h3>
-            <p>Ver cuentas, borrar cuentas, forzar reset password, etc.</p>
-            <br />
-            <h3>Detalles del perfil admin</h3>
-            <p>Name: {name}</p>
-            <br />
-            <p>Tipo de plan: {type}</p>
-            <br />
-            <p>Siguitene 2</p>
-            <br />
-            <a style={{color: "#fff"}} href={`/home/modificacion/${type}/${name}/${userId}`}>Editar mi perfil</a>
-            <br />
-            <br />
-            <a style={{color: "#fff"}} href={`/updatepassword/${userId}`}>Cambiar mi contraseña</a>
-            <br />
-            <br /> 
-            <a style={{color: "#fff"}} href={`/deactivate/${userId}`}>Borra mi cuenta</a>
-            <br />
-            <br />
-            <a style={{color: "#fff"}} href='/'>Volver</a>
+        <div style={{padding: "20px", color: "#fff" }}> 
+            
+            <h3 style={{padding: "15px"}}>Perfil del admin</h3>
+           
+            <p style={{padding: "5px"}}>Lo que tengo por params</p>
+            <p style={{padding: "5px"}}>Typo: {type}, name: {name}, userId: {userId}</p>
+            <p style={{padding: "15px"}}></p> 
+           
+
+            <h3 style={{padding: "5px"}}>Detalles del perfil admin</h3>
+            <p style={{padding: "5px"}}>Quiero mostrar toda su infomación</p>
+
+            <p style={{padding: "5px"}}></p>         
+            <h3 style={{padding: "5px"}}>Cosas que necesito</h3>
+            <p style={{padding: "5px"}}>1 - Necesito la info completa del perfil del admin, ir a buscar en la db</p>
+            <p style={{padding: "5px"}}>2 - Neceisto ver la estructura de esa infomación</p>
+            <p style={{padding: "5px"}}>3 - Necesito una foto del admin</p>
+            <p style={{padding: "5px"}}>4 - Necesito que esta sección tenga el mismo estilo que la sección de perfil user</p>
+            <p style={{padding: "15px"}}></p> 
+           
+            <a style={{padding: "5px"}}href={`/home/editprofile/${type}/${name}/${userId}`}>Editar mi perfil</a>
+           
+            <a style={{padding: "5px"}} href={`/updatepassword/${userId}`}>Cambiar mi contraseña</a>
+             
+            <a style={{padding: "5px"}} href={`/deactivate/${userId}`}>Borra mi cuenta</a>
+            
+            <a style={{padding: "5px"}} href='/'>Volver</a>
         </div>
         
 

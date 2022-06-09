@@ -19,7 +19,7 @@ export default function DetailProfileUser() {
   const name = localStorage.getItem("name");
 
   return (
-    <div style={{ width: "100%", height: "85vh"}}>
+    <div style={{ width: "100%", height: "85vh" }}>
       <div className={styles.containerPerfilUser}>
         <div className={styles.containerPhotoPerfil}>
           <img

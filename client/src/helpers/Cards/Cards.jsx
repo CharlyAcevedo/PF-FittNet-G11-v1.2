@@ -9,13 +9,14 @@ import axios from "axios";
 
 import styles from "./styles/stylesCards.module.css";
 
+
 export const CardAvatares = (props) => {
   const { image } = props;
-
+  
   const estiloPruebaImage = {
     backgroundImage: `url(${image})`,
   };
-
+  
   return (
     <div className={styles.containerCardAvatares}>
       <div style={estiloPruebaImage}></div>
@@ -23,6 +24,7 @@ export const CardAvatares = (props) => {
     </div>
   );
 };
+
 
 export const CardAvatarAdicional = (props) => {
   // El id del avatar llega por props
