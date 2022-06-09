@@ -20,6 +20,8 @@ export default function FormUser() {
   const name = localStorage.getItem("name");
   const type = localStorage.getItem("type");
 
+  
+
   const deseaseAttribute = useSelector((state) => state.deseaseAttribute);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
