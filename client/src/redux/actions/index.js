@@ -388,8 +388,7 @@ export const getCart = () => {
   try {
     return async (dispatch) => 
     {
-      const getCart = await axios.get('/api/shopcart')
-      console.log(getCart.data)
+      const getCart = await axios.get('/api/shopcart')      
       return dispatch({
         type: GET_CART,
         payload: getCart.data

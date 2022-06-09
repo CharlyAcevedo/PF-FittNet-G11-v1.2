@@ -196,8 +196,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       };
 
     case GET_CART:
-      const idCart = payload?payload[payload.length - 1]._id:{}
-      console.log(idCart)
+      const idCart = payload?payload[payload.length - 1]._id:{}      
       return {
         ...state,
         getCart: idCart
@@ -218,7 +217,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case REMOVE_FROM_CART:
       return {
         ...state,
-        cart: state.cart.filter(item => item._id !== payload.id)
+        cart: state.cart.map(item =>
+          item._id === payload.id
+            ? { ...item, qty: item.qty ==0?0:item.qty - 1 }
+            : item
+        )        
       };
     case CLEAR_CART:
       return {
