@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const ObjectId = require('mongoose').Types.ObjectId;
 const Users = require('../../models/User');
+const BlockAccounts = require('../../models/BlockAccount');
+const { regEmail } = require('../../controlers/regExes');
 
 // function isAuthenticated(req, res, next) {
 
@@ -28,6 +30,7 @@ const Users = require('../../models/User');
 //   }
 // );
 
+
 function isValidObjectId(id) {
 
   if (ObjectId.isValid(id)) {
@@ -38,8 +41,81 @@ function isValidObjectId(id) {
   return false;
 }
 
-// Banear la cuenta -- Falta (como admin) PUT
+//--------------------------------------------------------------------------------
+// Consulta la lista de correos baneados el sitio
+//--------------------------------------------------------------------------------
 
+router.get("/blockaccounts", async (req, res) => {
+  try {
+    let blockAccounts = await BlockAccounts.find().sort({ userName: 'asc', test: -1 });
+    // console.log(blockAccounts);
+    res.json(blockAccounts);
+
+  } catch (error) {
+    console.log(error);
+    res.status(error.status).json({ error: error.message });
+  }
+});
+
+//--------------------------------------------------------------------------------
+// Agrega un email a la lista de correos baneados para que no funcione en el sitio
+//--------------------------------------------------------------------------------
+
+router.put("/blockaccounts", async (req, res) => {
+
+  let { userName } = req.body;
+  
+  if (!regEmail.test(userName)) {
+    return res.send('El campo recibido no es un email');
+  }
+  try {
+    let account = await BlockAccounts.find({ userName: userName });
+
+    if (account.length > 0 ) { // Si ya exite la cuenta en la lista
+      return res.json(null)
+       // no agrega la cuenta a la lista y responde con null 
+    }
+
+    let blockAccounts = await BlockAccounts.create({ userName: userName });
+    
+    res.json(blockAccounts);
+    // si agrega la cuenta a la lista responde con el objeto agregado 
+
+  } catch (error) {
+    console.log(error);
+    res.status(error.status).json({ error: error.message });
+  }
+});
+
+//--------------------------------------------------------------------------------
+// Quita un email a la lista de correos baneados
+//--------------------------------------------------------------------------------
+
+router.delete("/blockaccounts", async (req, res) => {
+
+  let { userName } = req.body;
+
+  if (!regEmail.test(userName)) {
+    return res.send('El campo recibido no es un email');
+  }
+  try {
+    let blockAccounts = await BlockAccounts.findOneAndDelete({ userName: userName });
+    
+    res.json(blockAccounts); 
+    // si borra una cuenta responde con el objeto borrado 
+    // si la cuenta no existe responde null 
+
+  } catch (error) {
+    console.log(error);
+    res.status(error.status).json({ error: error.message });
+  }
+});
+
+
+
+//--------------------------------------------------------------------------------
+// Elimina toda la información completa de un usuario
+//--------------------------------------------------------------------------------
 router.delete("/delete", async (req, res, next) => {
   const { userId } = req.body;
 
@@ -50,9 +126,6 @@ router.delete("/delete", async (req, res, next) => {
     
     let userDelete = await Users.findOneAndDelete({ _id: userId });
     // Borrar la cuenta solo por solicitud del usuario -- Fata que sea completo 
-    
-
-    // console.log(userDelete, 'llegó la solicitud');
 
     res.send(userDelete);
 
@@ -61,9 +134,9 @@ router.delete("/delete", async (req, res, next) => {
 
   }
 });
-
-
-
+//--------------------------------------------------------------------------------
+// Responde con la info completa del usuario admin 
+//--------------------------------------------------------------------------------
 router.get("/userId/:userId", async (req, res) => {
   const { userId } = req.params;
 
@@ -80,9 +153,9 @@ router.get("/userId/:userId", async (req, res) => {
     res.status(error.status).json({ error: error.message });
   }
 });
-
-
-
+//--------------------------------------------------------------------------------
+// Responde con la info de todos los users 
+//--------------------------------------------------------------------------------
 router.get("/allusers", async (req, res) => {
 
   try {
@@ -100,17 +173,15 @@ router.get("/allusers", async (req, res) => {
         }
       }]).sort({ name: 'asc', test: -1 });
 
-    // console.log(allUsers, 'todos los user')
-
     res.json(allUsers);
 
   } catch (error) {
     res.status(error.status).json({ error: error.message });
   }
 });
-
-
-
+//--------------------------------------------------------------------------------
+// Responde con la info de todos los partners 
+//--------------------------------------------------------------------------------
 router.get("/allpartners", async (req, res) => {
   try {
 
@@ -127,9 +198,7 @@ router.get("/allpartners", async (req, res) => {
           active: 1,
           avatar: 1,
         }
-      }]).sort({ name: 'asc', test: -1 });
-
-    // console.log(allUsers, 'todos los user')
+      }]).sort({ name: 'asc', test: -1 }); 
 
     res.json(allUsers);
 
