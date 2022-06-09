@@ -34,10 +34,11 @@ export function getUser(data) {
   }
 }
 
-export function getAllUsers() {
+export function getAllUsers() { // Voy a usar esta action para el admin
+  console.log('esta buscando los users')
   return async (dispatch) => {
     try {
-      const response = await axios.get("/api/user/all");
+      const response = await axios.get("/api/admin/allusers");
       dispatch({
         type: GET_ALL_USERS,
         payload: response.data,
@@ -120,10 +121,10 @@ export const getAvatars = () => async (dispatch) => {
 
 //------PARTNER ACTIONS------(Favor de poner aqui todas las aciones para partners)
 
-export function getAllPartner() {
+export function getAllPartners() {
   return async (dispatch) => {
     try {
-      const response = await axios.get("/api/partner/allgyms");
+      const response = await axios.get("/api/admin/allpartners");
       dispatch({
         type: GET_ALL_PARTNERS,
         payload: response.data,

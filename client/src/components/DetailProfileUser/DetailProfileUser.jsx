@@ -90,7 +90,11 @@ export default function DetailProfileUser() {
           <div className={styles.etiquetasProfile}>
             <a
               style={{ color: "#fff" }}
+
+             //href={`/home/editprofile/${type}/${name}/${userId}`}
+              
               href={`/home/${type}/${name}/${userId}/${avatar}/FormUser`}
+
             >
               Editar mi perfil
             </a>

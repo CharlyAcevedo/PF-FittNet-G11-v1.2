@@ -10,8 +10,8 @@ import {
 } from "../actions/actionTypes";
 
 const initialState = {
-  users: [],
-  user: {},
+  users: [], // Acá guardo mis users de la página
+  user: {}, 
   usersToShow: [],
   currentUserDetails: {
     name: "",
@@ -60,6 +60,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         },
       };
     case GET_ALL_USERS:
+      console.log(payload, 'en el reducer')
       if (payload.error) {
         return {
           ...state,
@@ -68,8 +69,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
       }
       return {
         ...state,
-        users: payload.data,
-        usersToShow: payload.data,
+        users: payload,
+        usersToShow: payload,
       };
     case GET_ALL_PARTNERS:
       if (payload.error) {
