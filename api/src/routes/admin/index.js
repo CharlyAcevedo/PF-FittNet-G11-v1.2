@@ -74,7 +74,7 @@ router.get("/userId/:userId", async (req, res) => {
 
     let user = await Users.findById(userId);
 
-    res.json({ user });
+    res.json(user);
 
   } catch (error) {
     res.status(error.status).json({ error: error.message });

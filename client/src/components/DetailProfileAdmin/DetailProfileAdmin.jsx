@@ -1,14 +1,28 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getAdmin } from "../../redux/actions";
 
 export default function DetailProfileAdmin() {
-    let { id, userId , name, type } = useParams();
-   
+    let { userId , name, type } = useParams();
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        console.log('useEffect')
+
+        if (userId.length > 20) {
+            console.log('sale la cción', userId)
+            
+            dispatch(getAdmin(userId)); 
+        }      
+       
+    });  
 
     // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
     // si le llega este id (de la fomra que lo espera) y si el usuario tiene una
     // sesión iniciada.
-
     // Queda pendiente dispachar una acción para cargar en el estado global
     // la info del usuario en un objeto. Ejeplo --> State.detailUser = {}
 

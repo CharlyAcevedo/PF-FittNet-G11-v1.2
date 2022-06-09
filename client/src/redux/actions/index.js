@@ -6,7 +6,7 @@ import {
   GET_AVATARS, GET_ALL_PARTNERS, GET_ALL_GYMS, GET_GYM_DETAIL, SET_CURRENT_PAGE,
   SET_PAGE_NUMBER, SET_CURRENT_LIMIT, POST_GYM, POST_SERVICES, POST_PARTNER, ADD_TO_CART,
   REMOVE_FROM_CART, SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE,
-  PUT_FAVOURITE,CLEAR_CART, GET_CART
+  PUT_FAVOURITE, CLEAR_CART, GET_CART, GET_ADMIN,
 
 } from "./actionTypes";
 
@@ -34,8 +34,31 @@ export function getUser(data) {
   }
 }
 
+export function getAdmin(userId) { 
+  // Me traigo la info del admin y de cualquier usuario por una ruta protegida
+  // por acá puedo responder con información sensible para que la consuma el admin
+  return async (dispatch) => {
+    try {
+      const infoAdmin = await axios({
+        method: "get", url: `/api/admin/userId/${userId}`,
+        headers: { "X-Requested-With": "XMLHttpRequest" }, withCredentials: true
+      });
+
+      dispatch({
+        type: GET_ADMIN,
+        payload: infoAdmin.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_ADMIN,
+        payload: { error: err.message },
+      });
+    };
+  };
+}
+
 export function getAllUsers() { // Voy a usar esta action para el admin
-  console.log('esta buscando los users')
+  // console.log('esta buscando los users')
   return async (dispatch) => {
     try {
       const response = await axios.get("/api/admin/allusers");
@@ -387,18 +410,18 @@ export const updateUserInfo = (id, body) => async dispatch => {
 
 export const getCart = () => {
   try {
-    return async (dispatch) => 
-    {
-      const getCart = await axios.get('/api/shopcart')      
+    return async (dispatch) => {
+      const getCart = await axios.get('/api/shopcart')
+      console.log(getCart.data)
       return dispatch({
         type: GET_CART,
         payload: getCart.data
       })
-    }    
+    }
   } catch (error) {
     console.log(error)
   }
-  
+
 }
 
 export function addToCart(itemID) {
@@ -434,16 +457,16 @@ export const postCart = (body) => {
   }
 }
 
-export function editStatus( statusCart ) {
+export function editStatus(statusCart) {
   return (dispatch) => {
-    const put = axios.put('/api/shopcart', statusCart )    
+    const put = axios.put('/api/shopcart', statusCart)
     return put
   };
 }
 
 export function clearCart() {
   return ({
-      type: CLEAR_CART
+    type: CLEAR_CART
   })
 }
 
@@ -468,7 +491,7 @@ export function clearGymDetail() {
   return {
     type: CLEAR_GYM_DETAIL, payload: {}
 
-    
+
   }
 }
 
