@@ -1,5 +1,6 @@
 import React, { useMemo, useEffect, useState, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import styles from './styles/mapGyms.module.css';
 
 export default function MapGyms() {
@@ -38,7 +39,7 @@ export default function MapGyms() {
     );
 
     function handleOnClick() {
-      alert('Tu ubicacion ha sido enviada con exito')
+      SweetAlrtTem('Tu ubicacion ha sido enviada con exito',"success")
     }
     
 

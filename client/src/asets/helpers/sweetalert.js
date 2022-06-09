@@ -1,30 +1,94 @@
-//npm install sweetalert
-//si se quiere utilizar etiquetas y presonalizar las alertas se instala ademas
-// npm install @sweelalert/with-react
-//si hay conflictos con otras dependencias se agrega el --force para instalar
+//npm install sweetalert2
 
-import swal from "sweetalert";
-
-// import swal from "@sweetalert/with-react"; //Para agregar estilos mas adelante
+import Swal from "sweetalert2";
 
 //1er Agumento, "Title": Es el nombre del Error.
 //2do "Text": Breve descripcion del error.
 //3er "icon": Referencia al icono de la alerta, puede ser del tipo:
 //"warning", "error" , "success" o "info"
-//4to buttons: si se pasa true se agregan dos botones "cancel" y "ok" de forma predeterminada
-// pero tambien se puede pasar un array de string con los nombres de los botones
-//ejemplo ["volver atras", "confirmar envio"]
-//5to dangerMode:  el enfoque se establecerá automáticamente en el botón
-// de cancelación en lugar del botón de confirmación,
-//y el botón de confirmación será rojo en lugar de azul para enfatizar la acción peligrosa.
 
-export function SweetAlrt(title, text, icon, buttons, dangerMode) {
-  return swal({
+export function SweetAlrt(title, text, icon) {
+  return Swal.fire({
     title: title,
     text: text,
     icon: icon,
-    buttons: buttons,
-    dangerMode: dangerMode,
+    iconColor: "#ff004c",
+    allowOutsideClick: false,
+    background: "#001519", //revisar que color es
+    backdrop: true,
+    confirmButtonColor: "#ff2767",
+  });
+}
+export function SweetAlrtTem(text, icon) {
+  Swal.fire({
+    text: text,
+    timer: 5000,
+    timerProgressBar: true,
+    icon: icon,
+    iconColor: "#ff004c",
+    allowOutsideClick: false,
+    background: "#001519", //revisar que color es
+    backdrop: true,
+    showConfirmButton: false,
   });
 }
 
+// Swal.fire({
+// title:
+// text:
+// html:
+// icon:
+// confirmButtonText:
+// footer:
+// width:
+// padding:
+// background:
+// grow:
+// backdrop:
+// timer:
+// timerProgressBar:
+// toast:
+// position:
+// allowOutsideClick:
+// allowEscapeKey:
+// allowEnterKey:
+// stopKeydownPropagation:
+
+// input:
+// inputPlaceholder:
+// inputValue:
+// inputOptions:
+
+//  customClass:
+// 	container:
+// 	popup:
+// 	header:
+// 	title:
+// 	closeButton:
+// 	icon:
+// 	image:
+// 	content:
+// 	input:
+// 	actions:
+// 	confirmButton:
+// 	cancelButton:
+// 	footer:
+
+// showConfirmButton:
+// confirmButtonColor:
+// confirmButtonAriaLabel:
+
+// showCancelButton:
+// cancelButtonText:
+// cancelButtonColor:
+// cancelButtonAriaLabel:
+
+// buttonsStyling:
+// showCloseButton:
+// closeButtonAriaLabel:
+
+// imageUrl:
+// imageWidth:
+// imageHeight:
+// imageAlt:
+// });
