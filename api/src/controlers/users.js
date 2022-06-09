@@ -125,7 +125,6 @@ const getUser = async (req, res) => {
                 }
             }
         ])
-        console.log(user)
         res.json({
             ok: true,
             user
@@ -144,19 +143,22 @@ const updateUser = async (req, res) => {
     try {
         const body = req.body
 
-        const dataDesease = body.desease
-        const allDesease = await Diseases.find();
-        const igualesDeseases = allDesease.filter(x => dataDesease.some(y => y.desease === x.desease));
-        const desigualesDesease = dataDesease.filter(x => !allDesease.some(y => y.desease === x.desease));
+        const dataDesease = body.desease //! enfermedades body
+        // const allDesease = await Diseases.find();
+        // const igualesDeseases = allDesease.filter(x => dataDesease.some(y => y.desease === x.desease));
+        // const desigualesDesease = dataDesease.filter(x => !allDesease.some(y => y.desease === x.desease));
 
-        let finallyDesease = []
-        let idDesiguales = []
-        if (desigualesDesease.length > 0) {
-            finallyDesease = await Diseases.create(desigualesDesease)
-            idDesiguales = finallyDesease.map(x => x._id);
-        }
+        // let finallyDesease = []
+        // let idDesiguales = []
+        // if (desigualesDesease.length > 0) {
+        //     idDesiguales = finallyDesease.map(x => x._id);
+        // }
 
-        const concatDesease = [...igualesDeseases.map(x => x._id), ...idDesiguales]
+        finallyDesease = await Diseases.create(dataDesease)
+
+        const idDesease = finallyDesease.map(x => x._id);
+
+        // const concatDesease = [...igualesDeseases.map(x => x._id), ...idDesiguales]
 
         const newAddressUser = {
             street: body.street,
@@ -179,6 +181,7 @@ const updateUser = async (req, res) => {
         }
         const idInfo = user.info
         const idAvatar = user.avatar
+        // console.log(body.username)
         const newInfoUser = {
             username: body.username,
             lastName: body.lastname,
@@ -186,11 +189,14 @@ const updateUser = async (req, res) => {
             birthday: body.birthday,
             avatar: idAvatar,
             address: idAddress,
-            diseases: concatDesease,
+            // diseases: concatDesease,
+            diseases: idDesease,
             gender: body.gender,
             photo: body.photo,
         }
         const updUser = await InfoUser.findByIdAndUpdate(idInfo, newInfoUser, { new: true })
+
+        console.log(updUser)
         res.status(200).json({
             ok: true,
             updUser,
@@ -282,8 +288,8 @@ const getUserGoogleAccount = async (req, res) => {
                 $project: {
                     name: 1,
                     userName: 1,
-                    // latitude: 0,
-                    // longitude: 0,
+                    // latitude: 1,
+                    // longitude: 1,
                     active: 1,
                     secretToken: 1,
                     type: 1,
@@ -295,6 +301,7 @@ const getUserGoogleAccount = async (req, res) => {
                         _id: 1,
                         name: 1,
                         lastName: 1,
+                        gender: 1,
                         photo: 1,
                         birthday: 1,
                         phone: 1,
@@ -302,8 +309,20 @@ const getUserGoogleAccount = async (req, res) => {
                         address: {
                             _id: 1,
                             street: 1,
+                            floor: 1,
+                            neighborhood: 1,
+                            apartament: 1,
+                            zipCode: 1,
+                            address: 1,
+                            city: 1,
+                            country: 1,
                         },
-                        diseases: 1
+                        diseases: {
+                            _id: 1,
+                            desease: 1,
+                            trainlimits: 1,
+                            considerations: 1
+                        }
                     }
                 }
             }

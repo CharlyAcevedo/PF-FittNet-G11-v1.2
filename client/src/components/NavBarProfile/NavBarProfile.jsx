@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Logout from "../Logout/Logout";
 import { getUserGoogleForToken } from "../../redux/actions/index";
 import style from "./style/NavBarProfile.module.css";
@@ -44,7 +44,7 @@ export default function NavBarProfile() {
           </h3>
         </div>
         <div className={style.boxListaNavBarProfile}>
-          <a href={`/profile/${type}/${name}/${userId}`}>Mi perfil</a>
+          <Link to={`/profile/${type}/${name}/${userId}`}>Mi perfil</Link>
 
           <a href="/">Inicio</a>
           <a

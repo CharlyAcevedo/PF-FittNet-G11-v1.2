@@ -1,15 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import styles from "./styles/detailProfile.module.css";
 
 export default function DetailProfileUser() {
   let { userId } = useParams();
-  // console.log(userId, name, type, avatar, ' los params')
 
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user);
+
+  const { info } = user;
 
   const type = localStorage.getItem("type");
 
@@ -17,17 +18,15 @@ export default function DetailProfileUser() {
 
   const name = localStorage.getItem("name");
 
-  // const avatarId = avatar?._id;
-
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", height: "85vh"}}>
       <div className={styles.containerPerfilUser}>
         <div className={styles.containerPhotoPerfil}>
-          {/* <img
+          <img
             src={info?.photo}
             alt="mi foto"
             style={{ width: "90%", height: "300px", borderRadius: ".6rem" }}
-          /> */}
+          />
         </div>
         <div className={styles.infoPerfilUser}>
           <div className={styles.headerPerfilUser}>
@@ -83,12 +82,12 @@ export default function DetailProfileUser() {
             </div>
           </div>
           <div className={styles.etiquetasProfile}>
-            <a
+            <Link
               style={{ color: "#fff" }}
-              href={`/home/${type}/${name}/${userId}/${avatar}/FormUser`}
+              to={`/home/${type}/${name}/${userId}/${avatar}/FormUser`}
             >
               Editar mi perfil
-            </a>
+            </Link>
             <a style={{ color: "#fff" }} href={`/updatepassword/${userId}`}>
               Cambiar mi contraseña
             </a>

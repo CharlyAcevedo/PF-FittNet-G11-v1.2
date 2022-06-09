@@ -438,6 +438,7 @@ export function clearGymDetail() {
   return {
       type: CLEAR_GYM_DETAIL, payload: {}
 
+    
   }
 }
 

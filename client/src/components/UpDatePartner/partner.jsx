@@ -143,7 +143,7 @@ export default function UpdatePartner() {
       // return alert("Todos los campos deben estar completos!");
     } else {
       dispatch(updatePartnerData(input));
-      SweetAlrt("Exito!", "Perfil Creado", "success", true)
+      SweetAlrt("Exito!", "Perfil Creado", "success")
       // alert("Perfil creado!");
       setInput({
         ...input,
