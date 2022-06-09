@@ -7,7 +7,7 @@ import React from "react"
 export default function BlockAccount() {
     return (       
         <div>
-            <h3>Qué quiero ver aquí?</h3>
+            <h3>Qué necesito para banear una cuenta?</h3>
             <p>1 - Necesito un modelo en la base de datos</p>
             <p>2 - Necesito ver la lista de correos baneados</p>
             <p>3 - Necesito agregar y quitar correos al modelo</p>

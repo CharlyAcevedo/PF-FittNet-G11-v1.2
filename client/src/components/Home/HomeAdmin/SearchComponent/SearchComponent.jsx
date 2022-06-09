@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import style from './styles/stylesSearch.module.css'
 
 
 export default function SearchComponent () {
@@ -15,31 +16,38 @@ export default function SearchComponent () {
     
     // Acoto la info para tener solo lo que necesito
     partners = partners.length > 0 ? partners.map((p) => {
-        return { name: p.name, id: p._id, type: p.type}
+        return { name: p.name, id: p._id, type: p.type, userName: p.userName}
     }) : [] ;
 
     users = users.length > 0 ? users.map((u) => {
-        return { name: u.name, id: u._id, type: u           .type}
+        return { name: u.name, id: u._id, type: u.type, userName: u.userName}
     }) : [] ;
       
     
     let usersApp = partners.concat(users);
     
-    // console.log(gyms, ' A ver si están los gyms')
-    
-    // Me creo un función para setear el estado local según lo que busco
 
-    function searchLocalGyms (gymName) {
+    function searchLocalUser (name) {
         // Llega el valor de la búsqueda por argumento
-        let filterByName;
+        let filterByName = [];
+        let filterByUserName = [];
 
-        if (gymName === "") {
+        if (name === "") {
             filterByName = []
         }
 
-        if (gymName !== "") {
+        if (name !== "") {
             filterByName = searchResult.length ? [...searchResult] : [...usersApp];
-            filterByName = filterByName.filter(n => n.name.toLowerCase().includes(gymName.toLowerCase()))            
+            filterByName = filterByName.filter(n => n.name.toLowerCase().includes(name.toLowerCase()))
+            // busco por name (nombre)
+            filterByUserName = searchResult.length ? [...searchResult] : [...usersApp];
+            filterByUserName = filterByUserName.filter(e => e.userName.toLowerCase().includes(name.toLowerCase()))
+            // busco por userName (email)
+            filterByName = filterByName.concat(filterByUserName);
+            // uno los resultados de las búsquedas
+            filterByName = [...new Set (filterByName)];
+            // hago que el array tenga solo elementos únicos y no repetidos 
+
             if (filterByName.length > 10) {
                 filterByName = filterByName.slice(0, 10)
             }            
@@ -52,7 +60,7 @@ export default function SearchComponent () {
         setSearch(e.target.value)
         
         // Ejecuto una acción en el local pasandole el valor de la búsqueda
-        searchLocalGyms(search);
+        searchLocalUser(search);
 
     }
 
@@ -80,7 +88,7 @@ export default function SearchComponent () {
                 </form>                   
             </div>
 
-            <div id = "div-list-nano" >
+            <div id = "div-list-nano" className={style.divListNano} >
                 <ul id = 'list-search-nano'>
                 { focus && searchResult ? searchResult.map ((g) => {
                     return (
@@ -88,7 +96,7 @@ export default function SearchComponent () {
                                     : `/profile/user/${g.name}/${g.id}` } key={g.id} >
 
                             <li style={{color: "#fff", paddingBottom:"7px", paddingTop: "7px",
-                            fontSize: "16px" }} >{g.name}</li>
+                            fontSize: "16px" }} >{g.name}, {g.userName}</li>
                         </Link>    
                     )
                 }) : <div id='id-nano'></div>}
