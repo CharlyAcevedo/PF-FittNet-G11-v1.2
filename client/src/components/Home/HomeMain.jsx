@@ -18,24 +18,19 @@ import Advertising from "../PartnerHomeComponents/Advertising";
 import ClientsGraph from "../Graphics/GraphClient"
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
 
-// import SelectAvatar from "./views/SelectAvatar";
+
 export default function HomeMain() {
-  let { userId, type, avatar } = useParams();
-  // debería llegarme por params si es un
-  // "user" con sin avatar o un "partner" o incluso un "admin"
+  let { userId, type, avatar } = useParams(); 
 
   const dispatch = useDispatch();
 
-  // const user = useSelector((state) => state.user);
   const avatarLS = localStorage.getItem("avatar")
 
   const token = localStorage.getItem("token");
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // dispachar la action ¿pero qué voy a escuchar??? No sé si sea userId
-    // console.log('sale la action de traer gyms')
+  useEffect(() => { 
     dispatch(getAllGyms()); 
     if (token) {
       dispatch(getUserGoogleForToken(token));
