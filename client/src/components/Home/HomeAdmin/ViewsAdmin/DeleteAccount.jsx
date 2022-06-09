@@ -2,9 +2,6 @@ import React from "react"
 import { useState } from "react"
 import axios from "axios";
 
-
-// Me queda pendiente conectar al back y hacer la petición ( info user) 
-// y luego la acción (delete)
 export default function DeteleteAccount() {
     const [userId, setUserId] = useState("");
     const [user, setUser] = useState({});
