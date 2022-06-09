@@ -264,6 +264,16 @@
     width: 35%;
   }
 }
+
+/* Bloque de Cards de planes partner */
+.contPlanPartner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  padding: 50px 20px;
+}
+
 .mujerHombre {
   max-width: 100%;
 }
@@ -423,7 +433,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url('https://res.cloudinary.com/salta/image/upload/v1654129995/Gym-fondo-bn_f57ywe.jpg');
+  background-image: url("https://res.cloudinary.com/salta/image/upload/v1654129995/Gym-fondo-bn_f57ywe.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   filter: grayscale(10%);
@@ -436,7 +446,7 @@
   text-transform: uppercase;
   font-size: 300px;
   font-weight: 900;
-  background-image: url('https://res.cloudinary.com/salta/image/upload/v1654014806/man-1920_vcrlef.jpg');
+  background-image: url("https://res.cloudinary.com/salta/image/upload/v1654014806/man-1920_vcrlef.jpg");
   background-size: cover;
   background-position-y: center;
   background-clip: text;

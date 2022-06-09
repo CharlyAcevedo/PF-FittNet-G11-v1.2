@@ -12,6 +12,7 @@ import {
 } from "./componentsLanding/componentsLanding.jsx";
 // import { CardGymsAdicional } from "../../helpers/Cards/Cards.jsx";
 import style from "../Landing/styles/Landing.module.css";
+import { CardsPlansPartner } from "../../helpers/Cards/Cards";
 
 export default function LandingInfo() {
   const navigate = useNavigate();
@@ -98,6 +99,38 @@ export default function LandingInfo() {
           <CardPromoBalance />
           <CardPromoBulk />
         </div>
+        {/* Bloque de cards partner */}
+        <div className={style.contPlanPartner}>
+          <CardsPlansPartner
+            title="STANDARD"
+            busqueda="10%"
+            gym="Hasta 1 GYM"
+            servicios="5 servicios por GYM"
+            Size="2em"
+          />
+          <CardsPlansPartner
+            title="PREMIUM"
+            busqueda="30%"
+            gym="Hasta 5 GYM"
+            servicios="10 servicios por GYM"
+            Size="2em"
+          />
+          <CardsPlansPartner
+            title="GOLDEN"
+            busqueda="50%"
+            gym="Hasta 50 GYM"
+            servicios="50 servicios en GYM"
+            Size="2em"
+          />
+        </div>
+        <div className={style.containerBtnPromos}>
+          <ButtonPrimary
+            title="MAS INFO"
+            padding="0 1rem"
+            onClick={() => navigate("/legendCe")}
+          />
+        </div>
+        <br />
         <div className={style.hero}>
           <h1
             style={{
