@@ -4,20 +4,23 @@ const USER_ACCOUNT = process.env.USER_ACCOUNT;
 const PASS_ACCOUNT = process.env.PASS_ACCOUNT;
 const CORS_URL = process.env.CORS_URL || 'http://localhost:3000';
 const { regEmail } = require('../../controlers/regExes')
+const ObjectId = require('mongoose').Types.ObjectId
+const ShopCart = require('../../models/ShopCart')
+const { getShopCart } = require('../../controlers/shopCart')
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-        user: USER_ACCOUNT,
-        pass: PASS_ACCOUNT,
-    },
-    tls: {
-      rejectUnauthorized: false,
-    },
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user: USER_ACCOUNT,
+    pass: PASS_ACCOUNT,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
 });
-transporter.verify(()=>{
+transporter.verify(() => {
   console.log('Ready for send emails')
 })
 
@@ -28,19 +31,29 @@ const router = Router();
 //-------------------------------------------------------------------------------
 // Esta función crea el cuerpo del correo a enviar
 //------------------------------------------------------------------------------- 
-function createBodyEmail(name, product, quantity, price){
-  
-  let bodyEmail = `<b> ${name} gracias por tu compra! </br> Detalle de tu compra: 
-  </br> ${product} x ${quantity} x US$ ${price}, total US$ ${quantity * price} </b>`
-  
+function createBodyEmail(gymName, product, quantity, price, phone, user) {
+
+  let bodyEmail = `<b> ${user} gracias por tu compra! </br> Detalle de tu compra: 
+  </br> ${product} x ${quantity} x US$ ${price}, total US$ ${quantity * price} </b>
+  </br> en el gimnasio ${gymName} telefono del gimnasio ${phone}`
+
   // Fernando gracias por tu compra!
   // Detalle de tu compra:
   // Clase de yoga x 3 x US$ 5, total US$ 15
-  
+  console.log('correoenviado')
   return bodyEmail;
-  
+
 };
 
+function isValidObjectId(id) {
+
+  if (ObjectId.isValid(id)) {
+    if ((String)(new ObjectId(id)) === id)
+      return true;
+    return false;
+  }
+  return false;
+}
 
 
 //-------------------------------------------------------------------------------
@@ -50,48 +63,76 @@ function createBodyEmail(name, product, quantity, price){
 // recibir para hacer el envío del email
 //-------------------------------------------------------------------------------
 
-router.get('/emails/:email', async (req, res, next) => {
+router.post('/emails', async (req, res, next) => {
   // Esta es la ruta para postman
   // http://localhost:3001/api/service/emails/fer_0144@hotmail.com
-  
+
   // Recordar que userName es un email
-  let {email} = req.params;
+  const { userId, saleId } = req.body;
+  console.log(req.body)
 
   // Si recibo id del user lo podría buscar en la base de datos y sacar la info 
   // de name, product, quantity y price de su carrito.
-  
-  console.log(email, 'voy a mandar un email');  
-  
-  if (!regEmail.test(email)) { // Testeo que sea un email
-    return res.send('El valor recibido no es un email');
+  if (!isValidObjectId(userId) || !isValidObjectId(saleId)) {
+    return res.send('User id o sale id no valido')
   }
 
-  let name = "Fernando";
-  let product = "Clase de yoga";
-  let quantity = 3;
-  let price = 5;
+  const dataSale = await ShopCart.aggregate([
+    {
+      $match: { _id: ObjectId(saleId) }
+    },
+    { $lookup: { from: 'gyms', localField: 'gyms', foreignField: '_id', as: 'gyms' } },
+    { $unwind: { path: '$gyms', preserveNullAndEmptyArrays: true } },
 
-  let body = createBodyEmail(name, product, quantity, price);
+    { $lookup: { from: 'users', localField: 'user', foreignField: '_id', as: 'user' } },
+    { $unwind: { path: '$user', preserveNullAndEmptyArrays: true } },
+
+    { $lookup: { from: 'services', localField: 'services', foreignField: '_id', as: 'services' } },
+    { $unwind: { path: '$services', preserveNullAndEmptyArrays: true } },
+    { $project: { _id: 1, user: { name: 1, userName: 1 }, gyms: { name: 1, phone: 1 }, services: { name: 1 }, price: 1, quantity: 1 } }
+  ])  
+
+  // if (!regEmail.test(email)) { // Testeo que sea un email
+  //   return res.send('El valor recibido no es un email');
+  // }
+
+  // {
+  //   _id: new ObjectId("62a3a2a2bbb65b18fa74deba"),
+  //   user: { name: 'fredito', userName: 'largelescano@gmail.com' },
+  //   gyms: { name: 'gym de prueba Charly', phone: 345345345 },  
+  //   services: { name: 'spring' },
+  //   price: new Decimal128("500"),
+  //   quantity: 2
+  // }
+  
+  const { user, gyms, services, price, quantity } = dataSale[0]
+  const { name, phone } = gyms
+  const nameserv = services.name
+  const username = user.name
+  const email = user.userName
+  let body = createBodyEmail(name, nameserv, quantity, price, phone, username);
+  // const { name, userName} = user
+  // let body = createBodyEmail(name, product, quantity, price, phone, gyms);
   // Este body lo mandaría al item html
+  console.log('correoenviad2')
 
   try {
     if (email && body) { // Una verificación que sea necesria
       await transporter.sendMail({
-      from: '"Fittener - Confirmación de compra" <fittnet.com>', // sender address
-      to: email, // list of receivers
+      from: '"Fittnet - Confirmación de compra" <fittnet.com>', // sender address
+      to: 'jessim.longo@gmail.com', // list of receivers
       subject: "Confirmación de compra", // Subject line
       html: body
-      // html: `<b> Acá va el cuerpo del correo y puede ser un html </b>` // html body
-      });
-      
-      res.json({sended: true, message:'Correo enviado con éxito'});  
-      // Si hay que responder al front para confirmar que el correo fue enviado
-     
+    // html: `<b> Acá va el cuerpo del correo y puede ser un html </b>` // html body
+    });
+    console.log('correoenviado3')
+    res.json({ sended: true, message: 'Correo enviado con éxito' });
+    // Si hay que responder al front para confirmar que el correo fue enviado     
     }
-    
+
   } catch (error) {
     console.log(error)
-    res.json({sended: false, message:'Ocurrió un error y el correo no ha sido envíado'});      
+    res.json({ sended: false, message: 'Ocurrió un error y el correo no ha sido envíado' });
   }
 
 })
@@ -121,7 +162,7 @@ router.get('/emails/:email', async (req, res, next) => {
 //         subject: "Recuperación de cuenta FittNet", // Subject line
 //         html: `<p>Token de seguridad que le será solicitado en nuestra página</p> <br/> <b>${secretToken}</b>` // html body
 //       });
-      
+
 //       res.status(200).json(userId);
 //     }
 
@@ -151,4 +192,4 @@ router.get('/emails/:email', async (req, res, next) => {
 // }
 
 module.exports = router;
-    
+

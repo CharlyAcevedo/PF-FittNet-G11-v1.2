@@ -5,11 +5,12 @@ const Service = require('../models/Service')
 
 const getShopCart = async (req, res) => {
     try {
-        const response = await ShopCart.aggregate([
+        
+        const response = await ShopCart.aggregate([            
             { $lookup: { from: 'gyms', localField: 'gyms', foreignField: '_id', as: 'gyms' } },
             { $unwind: { path: '$gyms', preserveNullAndEmptyArrays: true } },
 
-            { $lookup: { from: 'user', localField: 'user', foreignField: '_id', as: 'user' } },
+            { $lookup: { from: 'users', localField: 'user', foreignField: '_id', as: 'user' } },
             { $unwind: { path: '$user', preserveNullAndEmptyArrays: true } },
 
             { $lookup: { from: 'services', localField: 'services', foreignField: '_id', as: 'services' } },
@@ -38,10 +39,13 @@ const postCart = async (req, res) => {
 }
 
 const updateCart = async (req, res) => {
-    const { status, id } = req.body
+    const { status, id, price, quantity, total } = req.body
     try {
         const updatedShopCart = await ShopCart.findByIdAndUpdate(id, {
-            status: status
+            status: status,
+            price: price,
+            quantity: quantity,
+            total: total
         })
         console.log(id)
         res.send(updatedShopCart)

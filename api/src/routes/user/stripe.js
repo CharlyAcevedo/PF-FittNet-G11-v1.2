@@ -18,8 +18,6 @@ router.post('/', async (req, res) => {
         transfer_group: 'ORDER10',
         confirm: true,
     })
-    
-    console.log(payment)
     res.send('todok')
 })
 
