@@ -6,8 +6,9 @@ import {
   GET_AVATARS, GET_ALL_PARTNERS, GET_ALL_GYMS, GET_GYM_DETAIL, SET_CURRENT_PAGE,
   SET_PAGE_NUMBER, SET_CURRENT_LIMIT, POST_GYM, POST_SERVICES, POST_PARTNER, ADD_TO_CART,
   REMOVE_FROM_CART, SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE,
-  PUT_FAVOURITE, CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,
+  DELETE_DESEASE,PUT_FAVOURITE, CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,
   
+
 } from "./actionTypes";
 //--------------------------------------------------------------------------------
 //------USER SERVICE ACTIONS------(favor de poner todas las aciones referentes a service en general todos los usuarios aqui)
@@ -559,6 +560,17 @@ export function getAttributeDesease() {
     }
   }
 }
+
+
+export function deleteDesease(id){
+  return function(dispatch){
+    return axios.delete("/api/user/all/deleteDesease" + id)
+    .then(json => {
+      dispatch({type: DELETE_DESEASE})
+    })
+  }
+}
+
 //--------------------------------------------------------------------------------
 //////////// ACA VA LO RELACIONADO CON LAS PUBLICIDADES DEL LANDING
 //--------------------------------------------------------------------------------
@@ -580,3 +592,4 @@ export function getMarketing() { // Voy a usar esta action para el admin
     };
   };
 };
+

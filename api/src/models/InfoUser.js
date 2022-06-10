@@ -36,8 +36,7 @@ const infoUserSchema = new mongoose.Schema({
         type: String,
     },
     diseases: {
-        type: Array,
-        of:  mongoose.SchemaTypes.ObjectId,
+        type: mongoose.SchemaTypes.ObjectId,
         ref: "Diseases"
     },
     emergenciCallTo: { //contacto de emergencias
