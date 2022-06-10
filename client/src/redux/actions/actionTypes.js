@@ -43,3 +43,9 @@ export const DELETE_DESEASE = "DELETE_DEASE";
 
 export const GET_ADMIN = "GET_ADMIN"; // llama al back para traer infomación del admin por una ruta protegida
 
+
+export const GET_LOCK_ACCOUNTS = "GET_LOCK_ACCOUNTS"; // llama al back para traer información de las cuentas bloquedas (admin - ruta protegida)
+
+export const GET_MARKETING ="GET_MARKETING" //llama al back para traer info y mostrar en la landing
+
+

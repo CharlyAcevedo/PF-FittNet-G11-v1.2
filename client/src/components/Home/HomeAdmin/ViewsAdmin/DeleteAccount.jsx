@@ -9,7 +9,7 @@ export default function DeteleteAccount() {
     async function getUserById(e) {
         e.preventDefault();
         if (userId.length > 5) {
-            // console.log(userId, "voy a buscar el user por id a la db")
+            console.log(userId, "voy a buscar el user por id a la db")
             // Voy a tener que mandar headers
             const getUser = await axios({
                   method: 'get',
@@ -19,9 +19,11 @@ export default function DeteleteAccount() {
                 })  
                 .then((res) => { return res.data })
                 .catch((error) => console.log(error))
-            if (getUser.user === null) return window.alert('Id no encontrado')
-            console.log(getUser.user, 'la respuesta del back')
-            setUser(getUser.user);
+            
+            console.log(getUser, 'la respuesta del back')
+            if (getUser === null) return window.alert('Id no encontrado')
+            // if (getUser.user === null) return window.alert('Id no encontrado')
+            setUser(getUser);
         }
     }
 

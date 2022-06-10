@@ -36,3 +36,25 @@
   grid-column-gap: 20px;
   grid-row-gap: 20px;
 }
+
+.contCarr {
+  background-color: #fff;
+}
+
+.table {
+  background-color: #fff;
+  display: flex;
+}
+.contServ {
+  padding: 1px 1px 1px 1px;
+}
+
+.titleTable {
+  display: flex;
+}
+
+.contTotalC {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

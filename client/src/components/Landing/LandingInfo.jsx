@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getUserGoogleForToken } from "../../redux/actions/index";
+import { getUserGoogleForToken, getMarketing } from "../../redux/actions/index";
 import {
   ButtonPrimary,
   ButtonSecondaryDeslice,
@@ -12,7 +12,11 @@ import {
 } from "./componentsLanding/componentsLanding.jsx";
 // import { CardGymsAdicional } from "../../helpers/Cards/Cards.jsx";
 import style from "../Landing/styles/Landing.module.css";
-import { CardsPlansPartner } from "../../helpers/Cards/Cards";
+import { CardIcons, CardsPlansPartner } from "../../helpers/Cards/Cards";
+import userIcon from "../../asets/icons/users.svg";
+import actividadesIcon from "../../asets/icons/trending-up.svg";
+import startIcon from "../../asets/icons/star.svg";
+import mapIcon from "../../asets/icons/map-pin.svg";
 
 export default function LandingInfo() {
   const navigate = useNavigate();
@@ -39,9 +43,16 @@ export default function LandingInfo() {
     } // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    dispatch(getMarketing());
+  }, []);
+
+  const userSistem = useSelector((state) => state.users);
+  const cantUser = userSistem.length;
   return (
     // <div>
     <div className={style.container}>
+      {console.log(userSistem)}
       <div className={style.contPrim}>
         <div className={style.contElempadre}>
           <div className={style.contElem}>
@@ -94,6 +105,12 @@ export default function LandingInfo() {
               onClick={() => navigate("/userprices")}
             />
           </div>
+        </div>
+        <div className={style.contDat}>
+          <CardIcons img={startIcon} num="5" />
+          <CardIcons img={userIcon} num={cantUser} />
+          <CardIcons img={mapIcon} num="1.4 Km" />
+          <CardIcons img={actividadesIcon} num="20" />
         </div>
         <div className={style.promosUsuarios}>
           <CardPromoBalance />
