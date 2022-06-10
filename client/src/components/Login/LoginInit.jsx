@@ -204,7 +204,7 @@ export default function LoginInit() {
               name="password"
               placeholder="Contraseña"
               required
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
 
             <InputSecond

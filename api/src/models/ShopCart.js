@@ -26,8 +26,7 @@ const shopCartSchema = new mongoose.Schema({
         type: mongoDB.Decimal128
     },
     status: {
-        type: String,
-        enum: ["Pending", "Payed", "Canceled"],
+        type: String,        
         default: "Pending"
     }
 

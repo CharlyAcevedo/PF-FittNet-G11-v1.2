@@ -4,8 +4,8 @@ import { useEffect } from "react";
 // import Logout from "../Logout/Logout";
 import SelecAvatar from "../SelectAvatar/SelectAvatar";
 import GymCards from "../GymCards/GymCards";
-import UserCards from "../UserCards/UserCards";
-import PartnerCards from "../PartnerCards/PartnerCards";
+// import UserCards from "../UserCards/UserCards";
+// import PartnerCards from "../PartnerCards/PartnerCards";
 import { getAllGyms, getUserGoogleForToken } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import IncomesGraph from "../Graphics/Incomes";
@@ -16,25 +16,21 @@ import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
 import Advertising from "../PartnerHomeComponents/Advertising";
 import ClientsGraph from "../Graphics/GraphClient"
+import HomeAdmin from "./HomeAdmin/HomeAdmin";
 
-// import SelectAvatar from "./views/SelectAvatar";
+
 export default function HomeMain() {
-  let { userId, type, avatar } = useParams();
-  // debería llegarme por params si es un
-  // "user" con sin avatar o un "partner" o incluso un "admin"
+  let { userId, type, avatar } = useParams(); 
 
   const dispatch = useDispatch();
 
-  // const user = useSelector((state) => state.user);
   const avatarLS = localStorage.getItem("avatar")
 
   const token = localStorage.getItem("token");
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // dispachar la action ¿pero qué voy a escuchar??? No sé si sea userId
-    // console.log('sale la action de traer gyms')
+  useEffect(() => { 
     dispatch(getAllGyms()); 
     if (token) {
       dispatch(getUserGoogleForToken(token));
@@ -113,19 +109,11 @@ export default function HomeMain() {
 
   // Esto es una para un administrador de sitio
   if (type === "admin") {
+
     return (
       <div>
-        {/* <NavBarProfile /> */}
-        <h3>Qué más quiere ver un usuario Admin en su home???</h3>
-        <PartnerCards />
-        <UserCards />
-        <h3>
-          Vista de la parte financiera, ingresos, egresos, por pagar, por cobrar
-        </h3>
-        <IncomesGraph />
-
-        <h3>Una vista como user</h3>
-        <h3>Una vista como partner</h3>
+      <HomeAdmin/>
+        {/* <PartnerCards /><UserCards /><IncomesGraph /> */}
       </div>
     );
   } 

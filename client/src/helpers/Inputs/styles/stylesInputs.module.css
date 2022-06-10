@@ -2,6 +2,7 @@
   padding: 20px 0px;
   position: relative;
 }
+
 .Input {
   border: none;
   border-bottom: 2px solid #fff;
@@ -19,7 +20,6 @@
   outline: none;
   border-bottom-color: var(--color-primD1);
 }
-
 
 .Submit {
   background: #fff;
@@ -44,4 +44,26 @@
 .Submit:hover {
   border-bottom-color: var(--color-primD1);
   outline: none;
+}
+
+.FieldAlternative {
+  position: relative;
+}
+
+.InputAlternative {
+  border: none;
+  border-bottom: 2px solid #fff;
+  background: rgba(0, 0, 0, 0.01);
+  color: #fff;
+  padding: .7rem;
+  font-weight: 700;
+  width: 95%;
+  transition: 0.2s;
+}
+
+.InputAlternative:active,
+.InputAlternative:focus,
+.loginInputInput:hover {
+  outline: none;
+  border-bottom-color: var(--color-primD1);
 }

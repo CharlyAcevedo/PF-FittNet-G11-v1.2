@@ -18,16 +18,18 @@ export default function DetailProfilePartner() {
   return (
     <div className={styles.partnerMainContainer}>
       {/* <NavBarProfile/>  */}
-      {/* <p>Id: {id}, name: {name} </p>
-            <p>Typo: {type}</p> */}
-      {/* <br /> */}
+      <p>Id: {id}, name: {name} </p>
+            <p>Typo: {type}</p>
+      <br />
+
+
       <section className={styles.partnerTitles}>
         <h3>Perfil de Partner</h3>
         <p>
           En esta seccion usted podrá ver la informacion de su perfil;
           Información sobre sus Ventas, su Flujo de fondos y mas
         </p>
-      </section>
+      </section>       
       <section className={styles.partnerIncomes}>
         <section className={styles.partnerSales}>
           <h3>Gestión de ventas</h3>
@@ -49,7 +51,7 @@ export default function DetailProfilePartner() {
           <h3>Detalles del perfil</h3>
           <p>Name: {name}</p>
           <br />
-          <p>Tipo de plan: {type}</p>
+          <p>Tipo de plan: estandar, premium o golden</p>
           <br />
         </section>
         <section className={styles.partnerLinks}>
