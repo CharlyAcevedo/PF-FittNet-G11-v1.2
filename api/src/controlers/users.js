@@ -96,6 +96,23 @@ const getUser = async (req, res) => {
     }
 }
 
+/* const updateUser = async (req, res) => {
+    const { id } = req.params
+    try {
+        const body = req.body
+
+
+        const dataDesease = body.desease
+        const user = await User.findById(id)
+        const allDesease = user.desease
+        const igualesDeseases = allDesease.filter(x => dataDesease.some(y => y.desease === x.desease));
+        const desigualesDesease = dataDesease.filter(x => !allDesease.some(y => y.desease === x.desease));
+
+    } catch (error) {
+        
+    }
+       
+} */
 const updateUser = async (req, res) => {
     const { id } = req.params
     try {
@@ -160,7 +177,7 @@ const updateUser = async (req, res) => {
             msg: "no se pudo actualizar el usuario"
         })
     }
-}
+} 
 
 async function deleteUser(id) {
     try {
