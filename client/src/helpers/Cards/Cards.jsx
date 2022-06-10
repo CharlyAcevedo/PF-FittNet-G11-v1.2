@@ -130,7 +130,7 @@ export const CardIcons = (props) => {
 };
 
 export const CardsPlansPartner = (props) => {
-  const { title, Size, busqueda,servicios,gym } = props;
+  const { title, Size, busqueda, servicios, gym } = props;
   return (
     <div className={styles.contPlanPartner}>
       <div className={styles.card}>

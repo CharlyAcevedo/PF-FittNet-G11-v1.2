@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SweetAlrt } from "../../asets/helpers/sweetalert";
+import { ButtonSimple } from "../../helpers/Buttons/Buttons";
 import { getCart, postCart } from "../../redux/actions/index";
 import CardServices from "../CardCarritoService/CardServices";
 import style from "./styles/style.module.css";
@@ -56,13 +57,14 @@ export function NavBar3({ id, usuarioId }) {
 
   return (
     <div className={style.contCarr}>
-      <p className={style.titleCarrito}>Carrito de compras</p>
+      <p className={style.titleCarrito}>CARRITO DE COMPRAS</p>
       <div className={style.tablePadre}>
         {console.log(cart)}
         <CardServices title="true" />
         {cart.map((e) => {
           return (
             <CardServices
+              title="false"
               key={e._id}
               img="img"
               name={e.name}
@@ -75,9 +77,13 @@ export function NavBar3({ id, usuarioId }) {
       {/* Bloque de total de compra */}
       <div className={style.contTotalC}>
         <div>Cantidad Total: {cartCount}</div>
-        <div>Precio Total: {totalPrice}</div>
+        <div>Precio Total: ${totalPrice}</div>
         <div>
-          <button onClick={() => handleSubmit()}>COMPRAR!</button>
+          <ButtonSimple
+            onClick={() => handleSubmit()}
+            title="COMPRAR"
+            padding="0 1rem"
+          />
         </div>
       </div>
     </div>
