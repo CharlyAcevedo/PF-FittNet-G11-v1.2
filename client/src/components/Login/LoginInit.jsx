@@ -10,7 +10,8 @@ import {
   BackgroundOne,
 } from "../../helpers/Backround/Background";
 import { InputPrymary, InputSecond } from "../../helpers/Inputs/Inputs";
-
+import { SweetAlrt } from "../../asets/helpers/sweetalert";
+// , SweetAlrt2, SweetAlrtTem
 
 export default function LoginInit() {
   const [username, setUsername] = useState("");
@@ -157,7 +158,8 @@ export default function LoginInit() {
         }
       }
       if (typeof login === "string") {
-        setError("usuario o password incorrecta");
+        console.log(login); // qué  me responde el back?
+        SweetAlrt(login);
         setPassword("");
         setUsername("");
       }

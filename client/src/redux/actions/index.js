@@ -6,7 +6,7 @@ import {
   GET_AVATARS, GET_ALL_PARTNERS, GET_ALL_GYMS, GET_GYM_DETAIL, SET_CURRENT_PAGE,
   SET_PAGE_NUMBER, SET_CURRENT_LIMIT, POST_GYM, POST_SERVICES, POST_PARTNER, ADD_TO_CART,
   REMOVE_FROM_CART, SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE,
-  PUT_FAVOURITE, CLEAR_CART, GET_CART, GET_ADMIN,
+  PUT_FAVOURITE, CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, 
 
 } from "./actionTypes";
 //--------------------------------------------------------------------------------
@@ -164,6 +164,26 @@ export function getAllPartners() {
     }
   };
 }
+
+export function getLockAccounts() {
+  // Esta ruta la consume el admin (va a estar protegida), y me trae información de
+  // la lista de emails bloquedos para el sitio.
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/admin/lockaccounts");
+      dispatch({
+        type: GET_LOCK_ACCOUNTS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_LOCK_ACCOUNTS,
+        payload: { error: err.message },
+      });
+    }
+  };
+}
+
 
 //--------------------------------------------------------------------------------
 //------PARTNER ACTIONS------(Favor de poner aqui todas las aciones para partners)
