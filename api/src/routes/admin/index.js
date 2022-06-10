@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const ObjectId = require('mongoose').Types.ObjectId;
 const Users = require('../../models/User');
-const BlockAccounts = require('../../models/BlockAccount');
+const LockAccounts = require('../../models/LockAccount');
 const { regEmail } = require('../../controlers/regExes');
 
 // function isAuthenticated(req, res, next) {
@@ -45,11 +45,11 @@ function isValidObjectId(id) {
 // Consulta la lista de correos baneados el sitio
 //--------------------------------------------------------------------------------
 
-router.get("/blockaccounts", async (req, res) => {
+router.get("/lockaccounts", async (req, res) => {
   try {
-    let blockAccounts = await BlockAccounts.find().sort({ userName: 'asc', test: -1 });
+    let lockAccounts = await LockAccounts.find().sort({ userName: 'asc', test: -1 });
     // console.log(blockAccounts);
-    res.json(blockAccounts);
+    res.json(lockAccounts);
 
   } catch (error) {
     console.log(error);
@@ -61,7 +61,7 @@ router.get("/blockaccounts", async (req, res) => {
 // Agrega un email a la lista de correos baneados para que no funcione en el sitio
 //--------------------------------------------------------------------------------
 
-router.put("/blockaccounts", async (req, res) => {
+router.put("/lockaccounts", async (req, res) => {
 
   let { userName } = req.body;
   
@@ -69,16 +69,16 @@ router.put("/blockaccounts", async (req, res) => {
     return res.send('El campo recibido no es un email');
   }
   try {
-    let account = await BlockAccounts.find({ userName: userName });
+    let account = await LockAccounts.find({ userName: userName });
 
     if (account.length > 0 ) { // Si ya exite la cuenta en la lista
       return res.json(null)
        // no agrega la cuenta a la lista y responde con null 
     }
 
-    let blockAccounts = await BlockAccounts.create({ userName: userName });
+    let lockAccounts = await LockAccounts.create({ userName: userName });
     
-    res.json(blockAccounts);
+    res.json(lockAccounts);
     // si agrega la cuenta a la lista responde con el objeto agregado 
 
   } catch (error) {
@@ -91,7 +91,7 @@ router.put("/blockaccounts", async (req, res) => {
 // Quita un email a la lista de correos baneados
 //--------------------------------------------------------------------------------
 
-router.delete("/blockaccounts", async (req, res) => {
+router.delete("/lockaccounts", async (req, res) => {
 
   let { userName } = req.body;
 
@@ -99,9 +99,9 @@ router.delete("/blockaccounts", async (req, res) => {
     return res.send('El campo recibido no es un email');
   }
   try {
-    let blockAccounts = await BlockAccounts.findOneAndDelete({ userName: userName });
+    let lockAccounts = await LockAccounts.findOneAndDelete({ userName: userName });
     
-    res.json(blockAccounts); 
+    res.json(lockAccounts); 
     // si borra una cuenta responde con el objeto borrado 
     // si la cuenta no existe responde null 
 

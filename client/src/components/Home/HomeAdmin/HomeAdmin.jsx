@@ -1,3 +1,4 @@
+import React from "react";
 import Finances from "./ViewsAdmin/Finances";
 import Partners from "./ViewsAdmin/Partners";
 import Users from "./ViewsAdmin/Users";
@@ -10,26 +11,32 @@ import { useDispatch } from "react-redux";
 import { getAllPartners } from "../../../redux/actions";
 import { getAllUsers } from "../../../redux/actions";
 import { useEffect } from "react";
-
-
-
-import React from "react";
+import { getLockAccounts } from "../../../redux/actions";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+
+
+
 
 export default function HomeAdmin() {
     const [ view , setView ] = useState("finances");
 
     const dispatch = useDispatch();
 
+    let { userId } = useParams();
+
+    console.log(userId, 'los params')
+
 
     // Necesito una barra de búsqueda con filtros
     useEffect(() => {
-        console.log('useEffect')
-      
+        console.log('useEffect');
+        
         dispatch(getAllPartners());
-        dispatch(getAllUsers());  
+        dispatch(getAllUsers()); 
+        dispatch(getLockAccounts());  
        
-    });
+    },[userId]);
     
     return(
         <div style={{padding: "20px", color: "#fff" }}>
