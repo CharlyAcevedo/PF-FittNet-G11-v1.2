@@ -33,3 +33,26 @@ export const InputSecond = (props) => {
     </div>
   );
 };
+
+export const InputPrimaryFormUsers = (props) => {
+  const { value, type, name, placeholder, onChange, padding } = props;
+
+  const inputStylesLinea = {
+    padding: padding,
+  };
+
+  return (
+    <div className={styles.FieldAlternative}>
+      <input
+        type={type}
+        value={value}
+        name={name}
+        className={styles.InputAlternative}
+        placeholder={placeholder}
+        onChange={onChange}
+        padding={padding}
+        style={inputStylesLinea}
+      />
+    </div>
+  );
+};

@@ -6,8 +6,8 @@ import {
   SET_CURRENT_LIMIT, GET_ALL_GYMS, GET_GYM_DETAIL, SET_USER_GEO, POST_USER_GOOGLE,
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, ADD_TO_CART, REMOVE_FROM_CART,
   SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE, 
-  CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS,
-
+  CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,
+  
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -308,6 +308,17 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         lockAccounts: payload
       }
+    case GET_MARKETING:
+      if (payload.error) {
+        return {
+          ...state,
+          errors: payload.error,
+        };
+      }
+      return {
+        ...state,
+      users: payload
+      }      
 
     default:
       return state;

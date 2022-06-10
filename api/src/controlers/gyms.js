@@ -51,6 +51,7 @@ async function postGyms(gym) {
             zipCode: gym.address.zipCode,
         })
         await newAddress.save();
+        console.log(newAddress);
         const addressId = newAddress._id
         const response = await Gims.create({
             name: gym.name,
@@ -65,7 +66,7 @@ async function postGyms(gym) {
             logo: gym.logo,
             phone: gym.phone,
             email: gym.email,
-            socialNetworks: gym.socialNetworks,
+            // socialNetworks: gym.socialNetworks,
             gymActive: true,
             favourite: 0
         })
