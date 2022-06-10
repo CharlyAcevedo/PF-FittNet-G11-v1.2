@@ -44,6 +44,22 @@ export default function validate(input) {
     // } else if (input.floor?.length > 10) {
     //     error.floor = "superaste el maximo de caracteres"
     // }
+    if (!input.desease.length && (input.trainlimits.length || input.considerations.length)) {
+        error.desease = 'debes seleccionar las enfermedades que se realcionen con tu condicion'
+    } 
+
+    
+
+    /* if (input.desease.length && input.trainlimits.length > 30) {
+        error.trainlimits = "superaste el maximo de caracteres"
+    } */
+    if (input.trainlimits.length > 30){
+        error.trainlimits = "superaste el maximo de caracteres"
+    }
+
+    if (input.considerations.length > 30) {
+        error.considerations = "superaste el maximo de caracteres"
+    }  
 
     if (!/^([0-9])*$/.test(input.address)) {
         error.address = 'solo acepta numeros'
@@ -74,6 +90,12 @@ export default function validate(input) {
         error.country = 'solo acepta letras'
     } else if (input.country?.length > 12) {
         error.country = "superaste el maximo de caracteres"
+    }
+
+    if (!/^([0-9])*$/.test(input.zipCode)) {
+        error.zipCode = 'solo acepta numeros'
+    } else if (input.zipCode?.length > 10) {
+        error.zipCode = "superaste el maximo de caracteres"
     }
 
     if (!/^([0-9])*$/.test(input.zipCode)) {

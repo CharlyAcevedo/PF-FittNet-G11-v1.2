@@ -9,6 +9,7 @@ const jwt_decode = require('jwt-decode');
 const bcrypt = require('bcrypt');
 const Address = require('../models/Address');
 const Diseases = require('../models/Diseases')
+const DiseasesType = require('../models/DiseasesType')
 
 async function findUser(userName) {
     try {
@@ -138,12 +139,37 @@ const getUser = async (req, res) => {
     }
 }
 
+/* const updateUser = async (req, res) => {
+    const { id } = req.params
+    try {
+        const body = req.body
+
+
+        const dataDesease = body.desease
+        const user = await User.findById(id)
+        const allDesease = user.desease
+        const igualesDeseases = allDesease.filter(x => dataDesease.some(y => y.desease === x.desease));
+        const desigualesDesease = dataDesease.filter(x => !allDesease.some(y => y.desease === x.desease));
+
+    } catch (error) {
+        
+    }
+       
+} */
 const updateUser = async (req, res) => {
     const { id } = req.params
     try {
         const body = req.body
 
         const dataDesease = body.desease //! enfermedades body
+        console.log(dataDesease)
+        
+        const findDesTypes= await DiseasesType.find()
+        const fil = findDesTypes.filter(e => dataDesease.includes(e.deseaseName))
+        const deseaseId = fil.map(x => x._id);
+        console.log("mfil", fil)
+        console.log("deseaseId", deseaseId)
+        console.log("findDesTypes", findDesTypes)
         // const allDesease = await Diseases.find();
         // const igualesDeseases = allDesease.filter(x => dataDesease.some(y => y.desease === x.desease));
         // const desigualesDesease = dataDesease.filter(x => !allDesease.some(y => y.desease === x.desease));
@@ -153,12 +179,22 @@ const updateUser = async (req, res) => {
         // if (desigualesDesease.length > 0) {
         //     idDesiguales = finallyDesease.map(x => x._id);
         // }
+        //const diseasesType = await
 
-        finallyDesease = await Diseases.create(dataDesease)
+        /* finallyDesease = await Diseases.create(dataDesease)
 
-        const idDesease = finallyDesease.map(x => x._id);
+        const idDesease = finallyDesease.map(x => x._id); */
 
         // const concatDesease = [...igualesDeseases.map(x => x._id), ...idDesiguales]
+        const newDiseasesUser = {
+            desease:deseaseId,
+            trainlimits:body.trainlimits,
+            considerations:body.considerations
+        }
+        console.log("newDiseasesUser", newDiseasesUser)
+
+        finallyDesease = await Diseases.create(newDiseasesUser)
+        console.log("finallyDesease", finallyDesease)
 
         const newAddressUser = {
             street: body.street,
@@ -190,7 +226,7 @@ const updateUser = async (req, res) => {
             avatar: idAvatar,
             address: idAddress,
             // diseases: concatDesease,
-            diseases: idDesease,
+            diseases: finallyDesease._id,
             gender: body.gender,
             photo: body.photo,
         }
@@ -209,7 +245,7 @@ const updateUser = async (req, res) => {
             msg: "no se pudo actualizar el usuario"
         })
     }
-}
+} 
 
 async function deleteUser(id) {
     try {
