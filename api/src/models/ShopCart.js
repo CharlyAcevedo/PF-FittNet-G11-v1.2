@@ -16,7 +16,7 @@ const shopCartSchema = new mongoose.Schema({
         of: mongoose.SchemaTypes.ObjectId,
         ref: "Service",
     },
-    quantiti: {
+    quantity: {
         type: Number
     },
     price: {

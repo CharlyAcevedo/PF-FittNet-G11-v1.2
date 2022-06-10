@@ -10,8 +10,7 @@ export default function CartItem({ id, name, price, description, duration }) {
     dispatch(addToCart(id));
   }
 
-  function handleDelete(id) {
-    console.log(id);
+  function handleDelete(id) {    
     dispatch(removeFromCart(id));
   }
   const styleTemp = {
