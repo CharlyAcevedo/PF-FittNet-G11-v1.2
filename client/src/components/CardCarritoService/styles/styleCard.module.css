@@ -1,0 +1,18 @@
+.content {
+  background-color: blue;
+}
+.content .card {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+.content .card .contImg {
+}
+.content .card .contText {
+}
+.content .card .contUnid {
+}
+.content .card .contPrice {
+}
