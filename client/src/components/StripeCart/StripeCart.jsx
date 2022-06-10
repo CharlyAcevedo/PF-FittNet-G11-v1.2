@@ -48,14 +48,14 @@ const CheckoutForm = () => {
         console.log('Usuario name', name)
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
-            card: elements.getElement(CardElement)
+            card: elements.getElement(CardElement)            
         })
         if (!error) {
             const { id } = paymentMethod;
             await axios.post('/api/checkout', {
                 //const response = await axios.post('/api/checkout', {
                 id,
-                amount: totalPrice * 170,
+                amount: totalPrice*10,                                
             }).data
             dispatch(editStatus(statusCart))
             SweetAlrtTem(`Su compra fue realizada con exito ${name}`, "success")
