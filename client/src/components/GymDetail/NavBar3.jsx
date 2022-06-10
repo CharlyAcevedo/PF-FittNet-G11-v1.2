@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SweetAlrt } from "../../asets/helpers/sweetalert";
 import { getCart, postCart } from "../../redux/actions/index";
+import CardServices from "../CardCarritoService/CardServices";
+import style from "./styles/style.module.css";
 
 export function NavBar3({ id, usuarioId }) {
   const dispatch = useDispatch();
@@ -15,7 +17,7 @@ export function NavBar3({ id, usuarioId }) {
     gym: [],
     services: [],
     user: "",
-  });  
+  });
 
   useEffect(() => {
     let count = 0;
@@ -30,7 +32,7 @@ export function NavBar3({ id, usuarioId }) {
     let items = 0;
     let price = 0;
     cart.forEach((item) => {
-      items = item.price.$numberDecimal*item.qty;
+      items = item.price.$numberDecimal * item.qty;
       price += item.qty * item.price.$numberDecimal;
     });
     setTotalPrice(price);
@@ -42,32 +44,42 @@ export function NavBar3({ id, usuarioId }) {
     });
     // }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems])
   }, [cart, totalPrice, totalItems, id, usuarioId]);
-  
+
   function handleSubmit() {
-      if(cartCount<1){return SweetAlrt('Su carrito esta vacio')}
+    if (cartCount < 1) {
+      return SweetAlrt("Su carrito esta vacio");
+    }
     dispatch(postCart(body));
-    dispatch(getCart())      
+    dispatch(getCart());
     navigate("/stripe");
   }
 
   return (
-    <nav style={{color: "white"}}>
-      <div >
+    <div className={style.contCarr}>
+      <p className={style.titleCarrito}>Carrito de compras</p>
+      <div className={style.tablePadre}>
+        {console.log(cart)}
+        <CardServices title="true" />
         {cart.map((e) => {
           return (
-            <div >
-              <h3 key={e._id}>{e.qty==0?null:'Clase: ' + e.name + ' x ' + e.qty} </h3>              
-            </div>
-          )
-        })        
-    }
-        Cantidad : {cartCount}
+            <CardServices
+              key={e._id}
+              img="img"
+              name={e.name}
+              unidad={e.qty}
+              price={e.price.$numberDecimal}
+            />
+          );
+        })}
       </div>
-      {/* <div>Subtotal: {totalItems}</div> */}
-      <div>Total: {totalPrice}</div>
-      <div>
-        <button onClick={() => handleSubmit()}>COMPRAR!</button>
+      {/* Bloque de total de compra */}
+      <div className={style.contTotalC}>
+        <div>Cantidad Total: {cartCount}</div>
+        <div>Precio Total: {totalPrice}</div>
+        <div>
+          <button onClick={() => handleSubmit()}>COMPRAR!</button>
+        </div>
       </div>
-    </nav>
+    </div>
   );
 }
