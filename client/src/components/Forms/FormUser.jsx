@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 import validate from "./validation";
-import avatar from "../../asets/icons/avatar.jpg";
 import styles from "./styles/form.module.css";
 import { updateUserInfo } from "../../redux/actions/index";
 import { useNavigate, useParams } from "react-router-dom";
@@ -19,8 +18,6 @@ export default function FormUser() {
   const avatar = localStorage.getItem("avatar");
   const name = localStorage.getItem("name");
   const type = localStorage.getItem("type");
-
-  
 
   const deseaseAttribute = useSelector((state) => state.deseaseAttribute);
   const user = useSelector((state) => state.user);
