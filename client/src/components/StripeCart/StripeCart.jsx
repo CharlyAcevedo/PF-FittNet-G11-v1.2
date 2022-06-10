@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { clearCart, editStatus, getCart } from "../../redux/actions";
 import { Link } from "react-router-dom";
+import { SendEmail } from "./SendEmail";
 
 const stripePromise = loadStripe(
   "pk_test_51L7OPdEPCpA0H6YFBVpVX0fFBJbIIUnXcU4hSY5uUZwQth9mmogZEiwUzXyXi5aJLSb43EzWLXcMPk75NBTjFGEC00usvaG53P"
@@ -37,13 +38,16 @@ const CheckoutForm = () => {
   const name = localStorage.getItem("name");
   const type = localStorage.getItem("type");
   const avatar = localStorage.getItem("avatar");
-  const [statusCart, setStatusCart] = useState({ status: "", id: {} });
+  const [statusCart, setStatusCart] = useState({ status: "", id: {}, price:{}, quantity:{}, total:{} });
   const idCart = useSelector((state) => state.getCart);
 
   useEffect(() => {
     setStatusCart({
       status: "Payed",
       id: idCart,
+      price: 500,
+      quantity: 2,
+      total: 1000
     });
   }, [idCart]);
 
@@ -71,8 +75,9 @@ const CheckoutForm = () => {
         amount: totalPrice * 10,
       }).data;
       dispatch(editStatus(statusCart));
+      SendEmail(usuarioId, idCart);
       SweetAlrtTem(`Su compra fue realizada con exito ${name}`, "success");
-      navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
+    //   navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
       dispatch(clearCart());
     } else {
       SweetAlrtTem(`Su compra NO fue realizada con exito ${name}`, "error");
