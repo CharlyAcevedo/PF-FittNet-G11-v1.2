@@ -19,7 +19,7 @@ export default function DetailProfilePartner() {
     <div className={styles.partnerMainContainer}>
       {/* <NavBarProfile/>  */}
       <p>Id: {id}, name: {name} </p>
-            <p>Typo: {type}</p>
+            <p>Typo: {type}</p>            
       <br />
 
 

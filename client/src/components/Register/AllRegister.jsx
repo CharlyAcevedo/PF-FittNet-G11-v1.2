@@ -93,11 +93,14 @@ export default function AllRegister() {
           }
           if (res.data.created === false) {
             // window.alert(res.data.message);
-            SweetAlrtTem("Atencion!", res.data.message, "warning");
+            SweetAlrt("Atencion!", res.data.message, "warning");
             setName("");
             setPassword("");
             setError("");
             setEmail("");
+          }
+          if (typeof res.data === 'string') {
+            SweetAlrt(res.data);
           }
         })
         .catch((error) => console.log(error));

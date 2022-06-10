@@ -7,6 +7,8 @@ const routeActivation = require('./activation');
 const routerEmailValidate = require('./emailValidate');
 const routerGoogleAuth = require('./googleAuth');
 const routerMarketing = require('./marketing');
+const routeEmails = require('./emails');
+
 
 router.use('/', routeLogin); //ruta /api/service/login get y post
 router.use('/', routeLogout); //ruta /api/service/logout post
@@ -16,6 +18,8 @@ router.use('/', routeActivation); //ruta /api/service/activation//:userId/:secre
 router.use('/', routerEmailValidate) //ruta /api/service/logout post
 router.use('/', routerGoogleAuth) //ruta /api/service/google/auth post
 router.use('/', routerMarketing) //ruta /api/service/
+router.use('/', routeEmails); //ruta /api/service/emails --> para enviar correos
+
 
 router.get('/', async (req, res) => {
     try {

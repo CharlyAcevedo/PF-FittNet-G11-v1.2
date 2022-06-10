@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const blockAccountSchema = new mongoose.Schema({
+const lockAccountSchema = new mongoose.Schema({
     userName: {
         type: String,
         unique: true,
@@ -8,4 +8,4 @@ const blockAccountSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('BlockAccounts', blockAccountSchema);
+module.exports = mongoose.model('LockAccounts', lockAccountSchema);
