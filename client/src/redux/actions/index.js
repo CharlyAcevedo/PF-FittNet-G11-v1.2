@@ -6,7 +6,7 @@ import {
   GET_AVATARS, GET_ALL_PARTNERS, GET_ALL_GYMS, GET_GYM_DETAIL, SET_CURRENT_PAGE,
   SET_PAGE_NUMBER, SET_CURRENT_LIMIT, POST_GYM, POST_SERVICES, POST_PARTNER, ADD_TO_CART,
   REMOVE_FROM_CART, SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE,
-  PUT_FAVOURITE, CLEAR_CART, GET_CART, GET_ADMIN,
+  PUT_FAVOURITE, CLEAR_CART, GET_CART, GET_ADMIN,GET_MARKETING,
 
 } from "./actionTypes";
 
@@ -69,6 +69,23 @@ export function getAllUsers() { // Voy a usar esta action para el admin
     } catch (err) {
       dispatch({
         type: GET_ALL_USERS,
+        payload: { error: err.message },
+      });
+    };
+  };
+};
+export function getMarketing() { // Voy a usar esta action para el admin
+  // console.log('esta buscando los users')
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/service/allusers");
+      dispatch({
+        type: GET_MARKETING,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_MARKETING,
         payload: { error: err.message },
       });
     };
