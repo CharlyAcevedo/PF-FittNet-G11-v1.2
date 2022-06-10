@@ -3,21 +3,24 @@ const Stripe = require('stripe')
 require("dotenv").config();
 const { API_STRIPE } = process.env;
 
-
-
 const stripe = new Stripe(API_STRIPE)
-// router.get('/', getShopCart)
-router.post('/', async (req, res)=>{
-    const {id, amount} = req.body;
+
+router.post('/', async (req, res) => {
+    const { id, amount } = req.body;
     const payment = await stripe.paymentIntents.create({
         amount: amount,
-        currency: 'ARS',
+        transfer_data: {
+            amount: amount * .9,
+            destination: 'acct_1L8ue22QtfyOgkUu',
+        },
+        currency: 'usd',
         payment_method: id,
-        confirm: true
+        transfer_group: 'ORDER10',
+        confirm: true,
     })
+    
     console.log(payment)
     res.send('todok')
 })
-
 
 module.exports = router;

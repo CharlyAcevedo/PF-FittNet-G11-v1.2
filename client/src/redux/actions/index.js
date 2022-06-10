@@ -6,8 +6,8 @@ import {
   GET_AVATARS, GET_ALL_PARTNERS, GET_ALL_GYMS, GET_GYM_DETAIL, SET_CURRENT_PAGE,
   SET_PAGE_NUMBER, SET_CURRENT_LIMIT, POST_GYM, POST_SERVICES, POST_PARTNER, ADD_TO_CART,
   REMOVE_FROM_CART, SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE,
-  PUT_FAVOURITE, CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, 
-
+  PUT_FAVOURITE, CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,
+  
 } from "./actionTypes";
 //--------------------------------------------------------------------------------
 //------USER SERVICE ACTIONS------(favor de poner todas las aciones referentes a service en general todos los usuarios aqui)
@@ -33,6 +33,7 @@ export function getUser(data) {
     dispatch({ type: GET_USER, payload: data })
   }
 }
+
 
 export function postUser(payload) {
   return async (dispatch) => {
@@ -74,12 +75,12 @@ export const getUserGoogleForToken = (payload) => async dispatch => {
 //   try {
 //     const dataUdpateAvatar = await axios.put(`/api/user/avatar/${id}`, body);
 //     dispatch({
-//       type: POST_AVATAR,
-//       payload: dataUdpateAvatar.data,
+  //       type: POST_AVATAR,
+  //       payload: dataUdpateAvatar.data,
 //     });
 //   } catch (error) {
 //     dispatch({
-//       type: POST_AVATAR,
+  //       type: POST_AVATAR,
 //       payload: { error: error.message },
 //     });
 //   };
@@ -131,9 +132,9 @@ export function getAllUsers() {
   // Esta ruta la consume el admin (va a estar protegida), y me trae información de todos
   // los "users" registrados en a app
     return async (dispatch) => {
-    try {
-      const response = await axios.get("/api/admin/allusers");
-      dispatch({
+      try {
+        const response = await axios.get("/api/admin/allusers");
+        dispatch({
         type: GET_ALL_USERS,
         payload: response.data,
       });
@@ -272,7 +273,7 @@ export function updatePartnerData({
 };
 
 export function getPartnerDetails() {
-
+  
 };
 //--------------------------------------------------------------------------------
 //------GYMS ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a gimnasios)
@@ -337,7 +338,7 @@ export function createService({
 }) {
   return async (dispatch) => {
     try {
-
+      
       const result = await axios.post("ruta", {
         name: name,
         description: description,
@@ -351,7 +352,7 @@ export function createService({
         type: POST_SERVICES,
         payload: result.data,
       });
-
+      
     } catch (error) {
       dispatch({
         type: POST_SERVICES,
@@ -450,7 +451,7 @@ export const getCart = () => {
   } catch (error) {
     console.log(error)
   }
-
+  
 }
 
 export function addToCart(itemID) {
@@ -520,7 +521,7 @@ export function sortByScore(order) {
 export function clearGymDetail() {
   return {
     type: CLEAR_GYM_DETAIL, payload: {}
-
+    
 
   }
 }
@@ -544,10 +545,10 @@ export const updateFavouriteGym = (id, user) => async dispatch => {
 //--------------------------------------------------------------------------------
 export function getAttributeDesease() {
   return async (dispatch) => {
-
+    
     try {
       var json = await axios.get("/api/user/all/deseasesMap", {
-
+        
       });
       return dispatch({
         type: GET_ATTRIBUTE_DESEASE,
@@ -558,3 +559,24 @@ export function getAttributeDesease() {
     }
   }
 }
+//--------------------------------------------------------------------------------
+//////////// ACA VA LO RELACIONADO CON LAS PUBLICIDADES DEL LANDING
+//--------------------------------------------------------------------------------
+
+export function getMarketing() { // Voy a usar esta action para el admin
+  // console.log('esta buscando los users')
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/service/allusers");
+      dispatch({
+        type: GET_MARKETING,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_MARKETING,
+        payload: { error: err.message },
+      });
+    };
+  };
+};

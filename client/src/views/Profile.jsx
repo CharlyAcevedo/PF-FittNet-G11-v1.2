@@ -12,7 +12,6 @@ export default function Profile() {
         return (
             <div >          
                 <DetailProfileUser/>
-                <Logout/>
             </div>
         )
     }

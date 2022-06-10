@@ -9,14 +9,13 @@ import axios from "axios";
 
 import styles from "./styles/stylesCards.module.css";
 
-
 export const CardAvatares = (props) => {
   const { image } = props;
-  
+
   const estiloPruebaImage = {
     backgroundImage: `url(${image})`,
   };
-  
+
   return (
     <div className={styles.containerCardAvatares}>
       <div style={estiloPruebaImage}></div>
@@ -24,7 +23,6 @@ export const CardAvatares = (props) => {
     </div>
   );
 };
-
 
 export const CardAvatarAdicional = (props) => {
   // El id del avatar llega por props
@@ -127,6 +125,36 @@ export const CardIcons = (props) => {
     <div className={styles.cardIcons}>
       <img src={img} alt="" />
       <p>{num}</p>
+    </div>
+  );
+};
+
+export const CardsPlansPartner = (props) => {
+  const { title, Size, busqueda,servicios,gym } = props;
+  return (
+    <div className={styles.contPlanPartner}>
+      <div className={styles.card}>
+        <div className={styles.face1}>
+          <div className={styles.content}>
+            <span className={styles.stars}></span>
+            <div className={styles.plan}>
+              <ul>
+                <li>{busqueda} de visibilidad</li>
+                <li>Panel de control</li>
+                <li>Historial de ventas</li>
+                <li>Gestios de GYM</li>
+                <li>Gestios de servicios</li>
+                <li>{gym}</li>
+                <li>{servicios}</li>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className={styles.face2}>
+          <h2 style={{ fontSize: Size }}>{title}</h2>
+        </div>
+      </div>
     </div>
   );
 };
