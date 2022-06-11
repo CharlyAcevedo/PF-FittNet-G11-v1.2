@@ -205,8 +205,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case SORT_DISTANCE:
       const gym = state.gyms;
       const user = state.user;
-      console.log("Esta aqui en reducer")
-      console.log("esto seria user", user)
+      console.log("Esta aqui en reducer");
+      console.log("esto seria user", user);
       const dist =
         (Math.pow(
           gym.map((e) => Number(e.longitude.$numberDecimal)) -
@@ -217,22 +217,21 @@ export default function rootReducer(state = initialState, { type, payload }) {
               Number(user.latitude.$numberDecimal)
           )) **
         0.5;
-        console.log("Esto es la distancia de los GYM: ", dist)
-        const newPage6 = dist.slice(payload.offset, payload.limit);
-    if(dist <= 1 && payload ==="menor"){
-
-      return {
-        ...state,
-        gymsToShow: dist,
-        pageToShow: newPage6,
-      };
-    } else {
+      console.log("Esto es la distancia de los GYM: ", dist);
+      const newPage6 = dist.slice(payload.offset, payload.limit);
+      if (dist <= 1 && payload === "menor") {
         return {
-        ...state,
-        gymsToShow: dist,
-        pageToShow: newPage6,
-      };
-    }
+          ...state,
+          gymsToShow: dist,
+          pageToShow: newPage6,
+        };
+      } else {
+        return {
+          ...state,
+          gymsToShow: dist,
+          pageToShow: newPage6,
+        };
+      }
     case FILTER_CATEGORY:
       const category = state.gyms;
       const filtCateg =
