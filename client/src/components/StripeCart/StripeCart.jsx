@@ -49,7 +49,7 @@ const CheckoutForm = () => {
   });
   const idCart = useSelector((state) => state.getCart);
   const [imgBack, setImgBack] = useState(
-    Math.floor(Math.random() * (25 - 1 + 1) + 2)
+    Math.floor(Math.random() * (26 - 1) + 1)
   );
 
   const img =
@@ -149,6 +149,7 @@ const CheckoutForm = () => {
                 </div>
                 <div className={styles.contButton}>
                   <div>
+                    {/* <Link to={`/home/${type}/${name}/${usuarioId}/${avatar}`}> */}
                     <Link to={-1}>
                       <ButtonSimple
                         onClick={() => clearCart()}
