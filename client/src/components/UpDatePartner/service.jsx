@@ -10,13 +10,12 @@ export default function Services() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [input, setInput] = useState({
-    name: "",
-    description: "", //cuadro te Texto
-    duration: "", //numero
-    gyms: [],
-    uEnd: "",
+    name: "", // string requerido
+    description: "", // string requerido
+    duration: 0, //numero requerido
+    price: 0, //numero requerido
     photo: [],
-    objTraining: "",
+    profileCategory: [],
   });
   const [error, setError] = useState({});
 
@@ -119,7 +118,7 @@ export default function Services() {
             value={input.name}
             type="text"
             name="name"
-            placeholder="Nombre..."
+            placeholder="Nombre de la actividad o servicio..."
           />{" "}
           {error.name && <p className={styles.danger}>{error.name}</p>}
         </div>
@@ -131,7 +130,7 @@ export default function Services() {
             value={input.description}
             type="text"
             name="description"
-            placeholder="Descripcion..."
+            placeholder="Una breve descripcion..."
           />{" "}
           {error.description && (
             <p className={styles.danger}>{error.description}</p>

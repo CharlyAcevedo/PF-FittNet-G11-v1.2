@@ -167,7 +167,7 @@ export default function UpdateGym() {
         gymActive: "",
       });
       setError({});
-      navigate("//profile/partner/:name/:userId/servicie");
+      navigate("/profile/edit/partner/:name/:userId/gym/service");
     }
   }
 
