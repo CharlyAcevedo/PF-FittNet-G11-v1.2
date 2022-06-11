@@ -15,13 +15,12 @@ import styles from "./styles/homeMain.module.css";
 // import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
 import Advertising from "../PartnerHomeComponents/Advertising";
-import ClientsGraph from "../Graphics/GraphClient"
-import OrderBy from '../OrderBy/OrderBy'
+import ClientsGraph from "../Graphics/GraphClient";
+import OrderBy from "../OrderBy/OrderBy";
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
 import { HomePartner } from "./HomePartner/HomePartner";
 import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
 // import { CardShop } from "../../helpers/Cards/Cards.jsx";
-
 
 export default function HomeMain() {
   let { userId, type, avatar } = useParams();
@@ -74,10 +73,20 @@ export default function HomeMain() {
   if (type === "user" && avatar) {
     return (
       <div className={styles.cont}>
-
         <GymsForUsersMap />
-        <Sarch />
-        <OrderBy/>
+        <div
+          style={{
+            width: "90%",
+            margin: "0 auto",
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Sarch />
+          <OrderBy />
+        </div>
         <GymCards />
         {/* <CardShop /> */}
         <Paginated />
@@ -89,8 +98,10 @@ export default function HomeMain() {
     return (
       <div className={styles.cont}>
         <GymsForUsersMap />
-        <Sarch />
-         <OrderBy />
+        <div>
+          <Sarch />
+          <OrderBy />
+        </div>
         <GymCards />
         {/* <CardShop /> */}
         <Paginated />
