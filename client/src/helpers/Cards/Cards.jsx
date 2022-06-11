@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { postAvatar, updateFavouriteGym } from "../../redux/actions/index";
 
+
 import axios from "axios";
 
 import styles from "./styles/stylesCards.module.css";
@@ -26,6 +27,7 @@ export const CardAvatares = (props) => {
     </div>
   );
 };
+
 
 export const CardAvatarAdicional = (props) => {
   // El id del avatar llega por props
