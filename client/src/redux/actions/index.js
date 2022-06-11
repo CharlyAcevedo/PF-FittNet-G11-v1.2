@@ -301,7 +301,6 @@ export function updatePartnerData({
 }
 
 
-
 export function getPartnerDetails() {
   
 };
