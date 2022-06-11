@@ -645,7 +645,7 @@
   font-size: 2em;
 }
 
-.containerCardShop {
+/* .containerCardShop {
   position: relative;
 }
 
@@ -699,10 +699,9 @@
 .containerCardShop .cardShop:hover .imgBx {
   top: 0%;
   transform: translateY(-25%);
-  /* bug  */
-}
+} */
 
-.containerCardShop .cardShop .imgBx img {
+/* .containerCardShop .cardShop .imgBx img {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -780,11 +779,11 @@
   cursor: pointer;
 }
 
-.containerCardShop .cardShop .contentBx .sizeCard span:hover {  /* other bug */
+.containerCardShop .cardShop .contentBx .sizeCard span:hover {  
   background: #B90000;
-}
+} */
 
-.containerCardShop .cardShop .contentBx .colorCard span {
+/* .containerCardShop .cardShop .contentBx .colorCard span {
   width: 20px;
   height: 20px;
   background: #ff0;
@@ -823,9 +822,132 @@
   opacity: 1;
   transform: translateY(0px);
   transition-delay: .7s;
-} 
+}  */
 
 
+.cardShop {
+  position: relative;
+  width: 320px;
+  height: 480px;
+  background: #191919;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.cardShop::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  width: 100%;
+  height: 100%;
+  background: var(--color-primD1);
+  /* box-shadow: 0px 0px 10px rgb(202, 202, 202); */
+  transform: skewY(347deg);
+  transition: 0.5s;
+}
+
+.cardShop:hover::before {
+  box-shadow: 0px 0px 10px rgb(202, 202, 202);
+}
+
+.cardShop:hover::before {
+  top: -70%;
+  transform: skewY(380deg);
+}
+
+.cardShop::after {
+  content: "FITTNET";
+  position: absolute;
+  bottom: 0;
+  left: -20px;
+  right: 20px;
+  font-weight: 800;
+  font-size: 4.7em;
+  color: rgba(34, 34, 34, 0.445);
+}
+
+.cardShop .imgBox {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  z-index: 1;
+}
+/*
+.card .imgBox img {
+    max-width: 100%;
+    
+    transition: .5s;
+}
+
+.card:hover .imgBox img {
+    max-width: 50%;
+      
+}
+*/
+.cardShop {
+  box-shadow: 0px 0px 8px rgba(218, 218, 218, 0.514);
+}
+
+.cardShop .contentBox {
+  position: relative;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.cardShop .contentBox h3 {
+  font-size: 18px;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cardShop .contentBox .priceCard {
+  font-size: 24px;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.cardShop .contentBox .buyCard {
+  position: relative;
+  top: 100px;
+  opacity: 0;
+  padding: 10px 30px;
+  margin-top: 15px;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  background: var(--color-primD1);
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.5s;
+}
+
+.cardShop:hover .contentBox .buyCard {
+  top: 0;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.buyCard:hover {
+  box-shadow: 0px 0px 10px var(--color-primD1);
+}
+
+.mouseCard {
+  height: 210px;
+  width: 212px;
+  margin-top: 2rem;
+  border-radius: 50%;
+}
 
 
 
