@@ -72,9 +72,9 @@ export default function UpdateGym() {
     
     console.log('recibe el click y edita un gym')
 
-    let newGym = await editGym (dataForEditGym);
+    let editOneGym = await editGym (dataForEditGym);
 
-    return newGym;
+    return editOneGym;
 
   }
 
@@ -207,7 +207,7 @@ export default function UpdateGym() {
       return SweetAlrt("Error", "Todos los campos deben estar completos","error")
       // return alert("Todos los campos deben estar completos!");
     } else {
-      dispatch(createGym(input));
+      // dispatch(createGym(input));
      SweetAlrtTem("Exito! Gym Registrado","success")
       // alert("Gym Registrado!");
       setInput({
@@ -262,7 +262,7 @@ export default function UpdateGym() {
         <button onClick={(e)=>{onClickCreateGym(e)}}>Crear gym de prueba</button>
         </p>
         <p>
-          <button onClick={(e)=>{onClickEditGym(e)}}> Editar del gym de prueba</button>
+          <button onClick={(e)=>{onClickEditGym(e)}}> Editar gym de prueba</button>
         </p>
 
 
