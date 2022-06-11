@@ -55,9 +55,11 @@ export function postUser(payload) {
 
 export const getUserGoogleForToken = (payload) => async dispatch => {
   try {
+    console.log(payload);
     const userGoogle = await axios.post('/api/service/google/auth/profile', {
       token: payload
     })
+    console.log(userGoogle)
     dispatch({
       type: GET_USER_TOKEN_GOOGLE,
       payload: userGoogle.data.user
