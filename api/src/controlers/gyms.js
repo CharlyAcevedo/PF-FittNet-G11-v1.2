@@ -56,15 +56,12 @@ async function postGyms(idUser, gyms) {
     const currentGymsNumber = partnerComplete.gyms.length;
     const numberOfGymsComing = gyms.length;
 
-    let equals = [];
     let notEquals = [];
     let gymsCreatedIds = [];
     let gymsCreated = [];
-    let addressesToCreateE = [];
-    let sMediaToCreateE = [];
+    let serviceToCreateNE = [];
     let addressesToCreateNE = [];
     let sMediaToCreateNE = [];
-    let message = {};
     let currentGyms = 0;
     let gymsToAdd = 0;
     let gymsToDiscount = 0;
@@ -88,12 +85,14 @@ async function postGyms(idUser, gyms) {
           };
           gymsToAdd = gymsToAdd + 1;
           notEquals.push(newGym);
+          serviceToCreateNE.push(gyms[i].services)
           addressesToCreateNE.push(gyms[i].address);
           sMediaToCreateNE.push(gyms[i].socialNetworks);
         } else {
           gymsToDiscount = gymsToDiscount + 1;
           const idToSet = gyms[i].id;
           gymsCreatedIds.push(idToSet);
+          // await putService(idUser, idToSet, gyms[i].services)
           await Gyms.findByIdAndUpdate(idToSet, gyms[i], { new: true });
           await Partner.findByIdAndUpdate(
             partnerComplete._id,
@@ -204,7 +203,6 @@ async function postGyms(idUser, gyms) {
           newGym._id,
           addressesToCreateNE[i]
         );
-        console.log(newGymAddress);
         const newSMedia = await putGymsSocialMedia(
           newGym._id,
           sMediaToCreateNE[i]
