@@ -15,15 +15,11 @@ import styles from "./styles/homeMain.module.css";
 import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
 import Advertising from "../PartnerHomeComponents/Advertising";
-<<<<<<< HEAD
-import ClientsGraph from "../Graphics/GraphClient";
-import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
-=======
 import ClientsGraph from "../Graphics/GraphClient"
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
 import { HomePartner } from "./HomePartner/HomePartner";
+import GymsForUsersMap from "../MapsAndGeo/GymsForUsers"
 
->>>>>>> 925a393fccd508e1a9128067933da785325343e2
 
 export default function HomeMain() {
   let { userId, type, avatar } = useParams(); 
