@@ -49,7 +49,7 @@ const CheckoutForm = () => {
   });
   const idCart = useSelector((state) => state.getCart);
   const [imgBack, setImgBack] = useState(
-    Math.floor(Math.random() * (10 - 1 + 1) + 1)
+    Math.floor(Math.random() * (26 - 1) + 1)
   );
 
   const img =
