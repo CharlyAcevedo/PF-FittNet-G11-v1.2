@@ -15,6 +15,8 @@ import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { clearCart, editStatus, getCart } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import { SendEmail } from "./SendEmail";
+import { BackgroundOne } from "../../helpers/Backround/Background";
+import { ButtonSimple } from "../../helpers/Buttons/Buttons";
 
 const stripePromise = loadStripe(
   "pk_test_51L7OPdEPCpA0H6YFBVpVX0fFBJbIIUnXcU4hSY5uUZwQth9mmogZEiwUzXyXi5aJLSb43EzWLXcMPk75NBTjFGEC00usvaG53P"
@@ -38,16 +40,29 @@ const CheckoutForm = () => {
   const name = localStorage.getItem("name");
   const type = localStorage.getItem("type");
   const avatar = localStorage.getItem("avatar");
-  const [statusCart, setStatusCart] = useState({ status: "", id: {}, price:{}, quantity:{}, total:{} });
+  const [statusCart, setStatusCart] = useState({
+    status: "",
+    id: {},
+    price: {},
+    quantity: {},
+    total: {},
+  });
   const idCart = useSelector((state) => state.getCart);
+  const [imgBack, setImgBack] = useState(
+    Math.floor(Math.random() * (10 - 1 + 1) + 1)
+  );
 
+  const img =
+    "https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/" +
+    imgBack +
+    ".jpeg";
   useEffect(() => {
     setStatusCart({
       status: "Payed",
       id: idCart,
       price: 500,
       quantity: 2,
-      total: 1000
+      total: 1000,
     });
   }, [idCart]);
 
@@ -77,39 +92,90 @@ const CheckoutForm = () => {
       dispatch(editStatus(statusCart));
       SendEmail(usuarioId, idCart);
       SweetAlrtTem(`Su compra fue realizada con exito ${name}`, "success");
-    //   navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
+      //   navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
       dispatch(clearCart());
     } else {
       SweetAlrtTem(`Su compra NO fue realizada con exito ${name}`, "error");
     }
   };
-
-  return (
-    <div>
-      <div className={styles.contNav}>
-        <NavBar3 />
+  if (imgBack) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.screen}>
+          <div className={styles.screenContent}>
+            <form>
+              <div className={styles.tarjetPadre}>
+                <div className={styles.tarjet}>
+                  <div className={styles.cardTarjet}>
+                    <div className={styles.cardBackground}>
+                      <img
+                        src={img}
+                        alt=""
+                        style={{ width: "100%", height: "100%" }}
+                      />
+                    </div>
+                    <div className={styles.cardWrapper}>
+                      <div className={styles.itemTop}>
+                        <img
+                          src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png"
+                          alt=""
+                          style={{ width: "70px", height: "56px" }}
+                        />
+                        <img
+                          src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png"
+                          alt=""
+                          style={{ width: "100px", height: "55px" }}
+                        />
+                      </div>
+                      <div className={styles.itemCredit}>
+                        <CardElement />
+                      </div>
+                      <div className={styles.itemButton}>
+                        <p>{name ? name : "USUARIO"}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style={{ height: "140px" }}></div>
+              <div
+                style={{
+                  boxShadow: "0px 0px 12px 1px var(--light-color)",
+                  borderRadius: "20px",
+                }}
+              >
+                <div className={styles.contNav}>
+                  <NavBar3 />
+                </div>
+                <div className={styles.contButton}>
+                  <div>
+                    <Link to={`/home/${type}/${name}/${usuarioId}`}>
+                      <ButtonSimple
+                        onClick={() => clearCart()}
+                        title="VOLVER"
+                        padding="0 1rem"
+                      />
+                    </Link>
+                  </div>
+                  <ButtonSimple
+                    onClick={(e) => handleSubmit(e)}
+                    title="PAGAR"
+                    padding="0 1rem"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <BackgroundOne />
       </div>
-      <form onSubmit={handleSubmit}>
-        <CardElement />
-        {/* {console.log(CardElement)} */}
-        <button>Pagar</button>
-      </form>
-      <div>
-        <Link to={`/home/${type}/${name}/${usuarioId}`}>
-          <button onClick={clearCart()}>volver</button>
-        </Link>
-      </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default function StripeCart() {
-  // const options = {
-
-  //     clientSecret: 'stripePromise',
-  //   };
   return (
-    <div className={styles.stripeContain}>
+    <div>
       <Elements stripe={stripePromise}>
         <CheckoutForm />
       </Elements>
