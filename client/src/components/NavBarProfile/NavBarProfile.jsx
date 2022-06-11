@@ -56,7 +56,7 @@ export default function NavBarProfile() {
           <Link to="/">Inicio</Link>
           <Link
             to={
-              !avatar
+              avatar
                 ? `/home/${type}/${name}/${userId}/${avatar}`
                 : `/home/${type}/${name}/${userId}`
             }

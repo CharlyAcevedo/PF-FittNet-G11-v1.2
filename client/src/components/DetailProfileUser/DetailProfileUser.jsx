@@ -44,8 +44,8 @@ export default function DetailProfileUser() {
                 <h3 style={{ color: "#fff" }}>{name}</h3>
                 <p
                   style={{
-                    color: "var(--color-prim)",
-                    border: "1px solid var(--color-prim)",
+                    color: "var(--color-primD1)",
+                    border: "1px solid var(--color-primD1)",
                     textAlign: "center",
                     padding: ".2rem",
                     marginTop: ".2rem",
@@ -117,19 +117,19 @@ export default function DetailProfileUser() {
             <div className={styles.contactUser}>
               <p>
                 Phone:{" "}
-                <span style={{ color: "var(--color-prim)" }}>
+                <span style={{ color: "var(--color-primD1)" }}>
                   32452352454{/* {info?.phone} */}
                 </span>
               </p>
               <p>
                 Address:{" "}
-                <span style={{ color: "var(--color-prim)" }}>
+                <span style={{ color: "var(--color-primD1)" }}>
                   Direccion 14, Salta AR - 4400
                 </span>
               </p>
               <p>
                 Email:{" "}
-                <span style={{ color: "var(--color-prim)" }}>
+                <span style={{ color: "var(--color-primD1)" }}>
                   marcelo@gmail.com
                 </span>
               </p>
@@ -142,13 +142,13 @@ export default function DetailProfileUser() {
             <div className={styles.others}>
               <p>
                 Fecha de nacimiento:{" "}
-                <span style={{ color: "var(--color-prim)" }}>
+                <span style={{ color: "var(--color-primD1)" }}>
                   21/01/21{/* {info?.birthday.substring(0, 10)} */}
                 </span>/
               </p>
               <p>
                 Genero:{" "}
-                <span style={{ color: "var(--color-prim)" }}>Masculino</span>
+                <span style={{ color: "var(--color-primD1)" }}>Masculino</span>
               </p>
             </div>
           </div>
