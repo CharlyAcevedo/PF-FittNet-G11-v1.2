@@ -96,6 +96,35 @@ const getUser = async (req, res) => {
                     preserveNullAndEmptyArrays: true
                 }
             },
+            /* {
+                $lookup: {
+                    from: "diseasestypes",
+                    localField: "info.diseases.desease",
+                    foreignField: "_id",
+                    as: "info.diseases"
+
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.diseases.desease",
+                    preserveNullAndEmptyArrays: true
+                }
+            }, */
+            {
+                $lookup: {
+                    from: "diseasestypes",
+                    localField: "info.diseases.desease",
+                    foreignField: "_id",
+                    as: "info.diseases.desease"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.diseases.desease",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
             {
                 $project: {
                     name: 1,
@@ -121,7 +150,11 @@ const getUser = async (req, res) => {
                             _id: 1,
                             street: 1,
                         },
-                        diseases: 1
+                        diseases: {
+                            desease: 1,
+                            trainlimits: 1,
+                            considerations: 1
+                        }
                     }
                 }
             }

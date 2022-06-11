@@ -51,9 +51,9 @@ export default function FormUser() {
     city: user.info?.address.city ? user.info.address.city : "",
     country: user.info?.address.country ? user.info.address.country : "",
     zipCode: user.info?.address.zipCode ? user.info.address.zipCode : "",
-    desease: [],
-    trainlimits: "",
-    considerations: "",
+    desease: user.info?.diseases.desease? user.info.diseases.desease : [],
+    trainlimits: user.info?.diseases.considerations? user.info.diseases.desease : "",
+    considerations: user.info?.diseases.trainlimits? user.info.diseases.trainlimits : "",
   });
 
   const [error, setError] = useState({});
@@ -95,6 +95,7 @@ export default function FormUser() {
   console.log("input", input)
   console.log("error", error)
   console.log("e", e)
+  console.log("deseaseAttr", deseaseAttribute)
 }
 /* function handleOnChange(e) {
   if (e.target.name !== "inpDesease" && e.target.name !== "but") {
@@ -236,16 +237,20 @@ function handleDelete(e) {
 }
 
 function handleDeleteDse(e) {
+  /* if(input.desease.length === 1 && (!input.trainlimits && !input.considerations)) */
   if(input.desease.length === 1){
-    setError({
-      ...error,
-      desease: "debes seleccionar las enfermedades que se relacionen con tu condicion"
-    })
-    setInput({
-      ...input,
-      desease: input.desease.filter((c) => c !== e),
-    });
-  }
+    if(input.trainlimits || input.considerations){
+      setError({
+        ...error,
+        desease: "debes seleccionar las enfermedades que se relacionen con tu condicion"
+      })
+      setInput({
+        ...input,
+        desease: input.desease.filter((c) => c !== e),
+      });
+    }
+    }
+    
   setInput({
     ...input,
     desease: input.desease.filter((c) => c !== e),
@@ -431,8 +436,8 @@ return (
           </option>
           {deseaseAttribute.map((e) => {
             return (
-              <option value={e} key={e}>
-                {e}{" "}
+              <option value={e.deseaseName} key={e._id}>
+                {e.deseaseName}{" "}
               </option>
             );
           })}
@@ -449,6 +454,17 @@ return (
             </button>
           </div>
         ))}
+        {
+          input.desease.length > 0 && deseaseAttribute.map(e=> {
+            return(
+              input.desease.includes(e.deseaseName) && 
+              <div key = {e._id}>
+                  <li>{e.benefits}</li>
+                </div>
+            )})
+        }
+        
+        
         {/* <InputPrimaryFormUsers
             type="text"
             placeholder="enfermedad"
@@ -480,6 +496,7 @@ return (
         {error.considerations && (
           <p className={styles.parrafo}>{error.considerations}</p>
         )}
+        
       </div>
       <div>
         <section>
