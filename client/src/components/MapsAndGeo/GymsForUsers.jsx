@@ -152,8 +152,8 @@ export default function GymsForUsersMap() {
       <div>
         <ButtonSimple onClick={handleOnClick} padding=".1rem 1rem" title="Agregar Ubicacion" />
       </div>
-      <div>
-        La ubicacion actual es: Latitud: {lat}, Longitud: {lng}
+      <div style={{marginTop: "1rem", fontSize: "1rem"}}>
+        La ubicacion actual es: Latitud: <span style={{color: "var(--color-prim"}}>{lat}</span>, Longitud: <span style={{color: "var(--color-prim"}}>{lng}</span>
       </div>
     </div>
   );
