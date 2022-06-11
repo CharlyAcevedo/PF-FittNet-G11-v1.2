@@ -149,6 +149,7 @@ const CheckoutForm = () => {
                 </div>
                 <div className={styles.contButton}>
                   <div>
+                    {/* <Link to={`/home/${type}/${name}/${usuarioId}/${avatar}`}> */}
                     <Link to={-1}>
                       <ButtonSimple
                         onClick={() => clearCart()}
