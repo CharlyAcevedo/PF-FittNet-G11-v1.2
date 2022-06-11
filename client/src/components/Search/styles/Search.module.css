@@ -10,15 +10,20 @@
 }
 
 .searchImp {
-    height: 30%;
+    height: 15%;
     border-radius: 10px;
     padding: 14px 50px 25px 10px;
     font-size: 1.5rem;
-    width: 375%;
+    width: 265%;
     background-color:#3e3e4186;
     font-family: monospace;
     color: white;
-    border-color: bisque;
+    
 }
-
+@media (max-width: 1300px) {
+    .searchImp, .searchBox {
+        width: 100%;
+        height: 30%;
+    }
+}
 

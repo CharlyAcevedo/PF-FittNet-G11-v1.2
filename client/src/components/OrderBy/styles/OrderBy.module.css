@@ -33,3 +33,12 @@
     border-color: rgb(83, 83, 83);
     background-color:#11152a;;
 }
+@media (max-width: 1300px) {
+
+    .select,
+    .sel {
+        width: 90%;
+        height: auto;
+        margin-top: auto;
+    }
+}
