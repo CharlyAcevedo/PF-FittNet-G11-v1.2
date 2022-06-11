@@ -43,6 +43,8 @@ async function getGymByName(name) {
 }
 
 async function postGyms(idUser, gyms) {
+  // idUser - id del usario que crea el gym
+  // gym arreglo de objetos (gyms) con propiedades y valores de cada gym a crear
   try {
     const userToAddGym = await User.findById({ _id: idUser }).populate(
       "partner"

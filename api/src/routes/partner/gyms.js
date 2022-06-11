@@ -58,12 +58,28 @@ router.put('/gymupdate', async (req, res) => {
 // Para crear gym
 router.post('/gymcreate/:idUser', async (req, res) => {
     const { idUser } = req.params;    
-    try {    
+    try {     
+
         const response = await postGyms(idUser, req.body);
         res.status(200).send(response);
     } catch (error) {
         res.status(404).send({ error: error.message });
       }
 })
+
+router.post('/createOneGym/', async (req, res) => {
+  console.log(req.body, 'create One Gym')
+
+  const { idUser } = req.body;    
+  try {     
+
+    
+      res.status(200).send('create One Gym');
+  } catch (error) {
+      res.status(404).send({ error: error.message });
+    }
+})
+
+
 
 module.exports = router;
