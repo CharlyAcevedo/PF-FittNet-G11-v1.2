@@ -7,7 +7,7 @@ import { getCart, postCart } from "../../redux/actions/index";
 import CardServices from "../CardCarritoService/CardServices";
 import style from "./styles/style.module.css";
 
-export function NavBar3({ id, usuarioId }) {
+export function NavBar3({ id, usuarioId, button }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
@@ -79,11 +79,15 @@ export function NavBar3({ id, usuarioId }) {
         <div>Cantidad Total: {cartCount}</div>
         <div>Precio Total: ${totalPrice}</div>
         <div>
-          <ButtonSimple
-            onClick={() => handleSubmit()}
-            title="COMPRAR"
-            padding="0 1rem"
-          />
+          {button ? (
+            <ButtonSimple
+              onClick={() => handleSubmit()}
+              title="COMPRAR"
+              padding="0 1rem"
+            />
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
