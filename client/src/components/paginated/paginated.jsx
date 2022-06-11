@@ -126,7 +126,6 @@ export default function Paginated() {
       <section className={style.labelPagOfContainer}>
         <div className={style.labelCurrentPage}>
           Pag: <div className={style.currentPageInput}>{currentPage}</div>
-
         </div>
         <div className={style.labelCurrentPage}>
           Of: <div className={style.currentPageInput}>{totalPages}</div>
@@ -136,31 +135,31 @@ export default function Paginated() {
       {/* Bloque de seleccion de pagina */}
       <ul className={style.paginatedContainer}>
         <li className={style.btnPaginated} onClick={() => handleFirstPage()}>
-          <button className={style.btnPrevNext}>
+          <div className={style.btnPrevNext}>
             <img src={firstPage} alt="last Page" />
-          </button>
+          </div>
         </li>
         <li className={style.btnPaginated} onClick={() => prevPage()}>
-          <button className={style.btnPrevNext}>
+          <div className={style.btnPrevNext}>
             <img src={leftArrows} alt="previous" />
-          </button>
+          </div>
         </li>
         <div className={style.btnConteinerNumber}>
-        {pages ? (
-          pages.map((page) => (
-            <li className={style.btnPaginatedNumber} key={page}>
-              <button
-                className={style.btnNumber}
-                onClick={() => pagination(page)}
-                value={page}
-              >
-                {page}
-              </button>
-            </li>
-          ))
-        ) : (
-          <li></li>
-        )}
+          {pages ? (
+            pages.map((page, num) => (
+              <li className={style.btnPaginatedNumber} key={num}>
+                <div
+                  className={style.btnNumber}
+                  onClick={() => pagination(page)}
+                  value={page}
+                >
+                  {page}
+                </div>
+              </li>
+            ))
+          ) : (
+            <li></li>
+          )}
         </div>
         <li className={style.btnPaginated} onClick={() => nextPage()}>
           <button className={style.btnPrevNext}>
@@ -193,7 +192,6 @@ export default function Paginated() {
           </select>
         </label>
       </section>
-
     </div>
   );
 }

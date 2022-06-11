@@ -1,50 +1,52 @@
 .mainContainer{
     display: flex;
     flex-direction: column;
-    width: 100vw;
-    height: 100vh;
     align-items: center;
     justify-content: center;
     text-align: center;
 }
 
 .mainTitle{
-    background-color: #a09e98bb;
-    border-radius: 15px;
-    padding: .5em .5em;
+    /* background-color: #a09e98bb; */
+    padding: 1rem;
+    border-radius: .6rem;
+    color: #fff;
+    border: 1px solid var(--color-primD1);
 }
 
 .mapContainer{
-    width: 80vw;
+    margin: 1rem auto;
+    width: 70vw;
     height: 70vh;
-    background-color: #2a353f85;
 }
 
 .ubicationDiv{
-    background-color: #a09e98bb;
+    /* background-color: #a09e98bb; */
+    border: 1px solid var(--color-primD1);
+    color: #fff;
     border-radius: 10px;
-    padding: .5em .5em;
-
+    padding: 1rem;
 }
 
 .btnMapSend{
-    background-color: #587967ab;
+    background-color: var(--color-primD1);
     border-radius: 5px;
-    padding: .5em .5em;
-    box-shadow: 3px 3px 2px #2a353f85;
-    margin-top: .3em;
-    margin-bottom: .3em;
-    border: 2px solid #2a353f85;
+    padding: .8rem 1rem;
+    margin: 1rem auto;
+    color: #fff;
+    font-weight: 700;
     border-style: outset;
+    cursor: pointer;
+    transition: .9s;
 }
 
 .btnMapSend:hover{
-    background-color: #78a88eab;
+    background-color: #fff;
+    color: var(--color-primD1);
+    font-weight: 700;
     border-radius: 5px;
-    padding: .5em .5em;
-    box-shadow: 1px 1px 1px #798b9c85, -1px -1px 1px #798b9c85;
-    margin-top: .3em;
-    margin-bottom: .3em;
+    padding: .8rem 1rem;
+    margin: 1rem auto;
 }
 
 .btnMapSend:active{

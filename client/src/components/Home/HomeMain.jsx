@@ -39,7 +39,7 @@ export default function HomeMain() {
   }, [userId]);
 
   // Esto es una vista para un usuario sin avatar
-  if (type === "user" && !avatar && !avatarLS) {
+  if (type === "user" && !avatar || !avatarLS) {
     return (
       <div
         style={{
