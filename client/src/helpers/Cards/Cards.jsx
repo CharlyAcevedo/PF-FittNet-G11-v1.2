@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { postAvatar } from "../../redux/actions/index";
+import { useDispatch } from "react-redux";
 
 import axios from "axios";
 
@@ -27,14 +28,14 @@ export const CardAvatares = (props) => {
 
 export const CardAvatarAdicional = (props) => { // El id del avatar llega por props
   const { name, image, features, id, userId, typeuser, nameUser, icono } = props;
-
+const dispatch= useDispatch();
   const navigate = useNavigate();
 
   async function handleUdpateAvatar (idAvatar, e) {
     e.preventDefault();
     const avatar = { avatar: idAvatar };
 
-    dispatch(postAvatar(userId, avatar));
+    // dispatch(postAvatar(userId, avatar));
     SweetAlrtTem(
       `elegiste el avatar ${name}, ahora vas a ser redirigido a los gimnasios que cumplan con las caracteristicas de este avatar`,
       "success"

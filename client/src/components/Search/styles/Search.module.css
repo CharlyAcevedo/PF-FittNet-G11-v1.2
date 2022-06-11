@@ -1,0 +1,24 @@
+.searchContainer {
+    display: flex;
+    justify-content: left;
+    margin-top: 20px;
+}
+
+.searchBox {
+    position: relative;
+    font-family: monospace;
+}
+
+.searchImp {
+    height: 30%;
+    border-radius: 10px;
+    padding: 14px 50px 25px 10px;
+    font-size: 1.5rem;
+    width: 375%;
+    background-color:#3e3e4186;
+    font-family: monospace;
+    color: white;
+    border-color: bisque;
+}
+
+
