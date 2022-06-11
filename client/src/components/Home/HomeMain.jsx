@@ -15,32 +15,32 @@ import styles from "./styles/homeMain.module.css";
 import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
 import Advertising from "../PartnerHomeComponents/Advertising";
-import ClientsGraph from "../Graphics/GraphClient"
+import ClientsGraph from "../Graphics/GraphClient";
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
 import { HomePartner } from "./HomePartner/HomePartner";
-import GymsForUsersMap from "../MapsAndGeo/GymsForUsers"
-
+import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
+import { CardShop } from "../../helpers/Cards/Cards.jsx";
 
 export default function HomeMain() {
-  let { userId, type, avatar } = useParams(); 
+  let { userId, type, avatar } = useParams();
 
   const dispatch = useDispatch();
 
-  const avatarLS = localStorage.getItem("avatar")
+  const avatarLS = localStorage.getItem("avatar");
 
   const token = localStorage.getItem("token");
 
   const navigate = useNavigate();
 
-  useEffect(() => { 
-    dispatch(getAllGyms()); 
+  useEffect(() => {
+    dispatch(getAllGyms());
     if (token) {
       dispatch(getUserGoogleForToken(token));
-    }// eslint-disable-next-line
+    } // eslint-disable-next-line
   }, [userId]);
 
   // Esto es una vista para un usuario sin avatar
-  if (type === "user" && !avatar || !avatarLS) {
+  if ((type === "user" && !avatar) || !avatarLS) {
     return (
       <div
         style={{
@@ -72,20 +72,22 @@ export default function HomeMain() {
   if (type === "user" && avatar) {
     return (
       <div className={styles.cont}>
-        <Sarch/>
-        <GymsForUsersMap />    
-        <GymCards/>
+        <GymsForUsersMap />
+        <Sarch />
+        <GymCards />
+        {/* <CardShop /> */}
         <Paginated />
       </div>
     );
-  };
+  }
 
   if (type === "user" && avatarLS) {
     return (
       <div className={styles.cont}>
-        <Sarch/>
-        <GymsForUsersMap /> 
-        <GymCards/>
+        <GymsForUsersMap />
+        <Sarch />
+        <GymCards />
+        {/* <CardShop /> */}
         <Paginated />
       </div>
     );
@@ -95,7 +97,7 @@ export default function HomeMain() {
   if (type === "partner") {
     return (
       <div>
-        <HomePartner/>
+        <HomePartner />
         {/* <div className={styles.advertising}>
           <Advertising/>
         </div>
@@ -110,16 +112,15 @@ export default function HomeMain() {
         </div> */}
       </div>
     );
-  } 
+  }
 
   // Esto es una para un administrador de sitio
   if (type === "admin") {
-
     return (
       <div>
-      <HomeAdmin/>
+        <HomeAdmin />
         {/* <PartnerCards /><UserCards /><IncomesGraph /> */}
       </div>
     );
-  } 
+  }
 }
