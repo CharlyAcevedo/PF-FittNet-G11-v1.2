@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { postAvatar } from "../../redux/actions/index";
-import { useDispatch } from "react-redux";
+
 
 import axios from "axios";
 
@@ -25,17 +25,12 @@ export const CardAvatares = (props) => {
   );
 };
 
-<<<<<<< HEAD
-export const CardAvatarAdicional = (props) => { // El id del avatar llega por props
-  const { name, image, features, id, userId, typeuser, nameUser, icono } = props;
-const dispatch= useDispatch();
-=======
+
 export const CardAvatarAdicional = (props) => {
   // El id del avatar llega por props
   const { name, image, features, id, userId, typeuser, nameUser, icono } =
     props;
 
->>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
   const navigate = useNavigate();
   const dispatch = useDispatch();
   async function handleUdpateAvatar(idAvatar, e) {
