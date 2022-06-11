@@ -35,7 +35,7 @@ export const CardAvatarAdicional = (props) => {
     e.preventDefault();
     const avatar = { avatar: idAvatar };
 
-    dispatch(postAvatar(userId, avatar));
+    // dispatch(postAvatar(userId, avatar));
     SweetAlrtTem(
       `elegiste el avatar ${name}, ahora vas a ser redirigido a los gimnasios que cumplan con las caracteristicas de este avatar`,
       "success"
