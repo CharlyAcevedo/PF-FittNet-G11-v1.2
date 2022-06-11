@@ -321,12 +321,27 @@ const getUserGoogleAccount = async (req, res) => {
                 }
             },
             {
+                $lookup: {
+                    from: "diseasestypes",
+                    localField: "info.diseases.desease",
+                    foreignField: "_id",
+                    as: "info.diseases.desease"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.diseases.desease",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
                 $project: {
                     name: 1,
                     userName: 1,
                     // latitude: 1,
                     // longitude: 1,
                     active: 1,
+                    favourite: 1,
                     secretToken: 1,
                     type: 1,
                     avatar: {
@@ -354,11 +369,10 @@ const getUserGoogleAccount = async (req, res) => {
                             country: 1,
                         },
                         diseases: {
-                            _id: 1,
+                            considerations: 1,
                             desease: 1,
                             trainlimits: 1,
-                            considerations: 1
-                        }
+                        },
                     }
                 }
             }

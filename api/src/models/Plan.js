@@ -8,7 +8,6 @@ const userPlanSchema = new mongoose.Schema({
     services: [String],
     price: {
         type: Number,
-        
     }
     //array de servicios, relacionar con el esquema de servicios
 });

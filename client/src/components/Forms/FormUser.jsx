@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 import validate from "./validation";
-import avatar from "../../asets/icons/avatar.jpg";
 import styles from "./styles/form.module.css";
 import { updateUserInfo } from "../../redux/actions/index";
 import { useNavigate, useParams } from "react-router-dom";
@@ -96,68 +95,6 @@ export default function FormUser() {
   console.log("error", error)
   console.log("e", e)
 }
-/* function handleOnChange(e) {
-  if (e.target.name !== "inpDesease" && e.target.name !== "but") {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-    setError(
-      validate({
-        ...input,
-        [e.target.name]: e.target.value,
-      })
-    );
-  }
-  console.log("input", input)
-  console.log("error", error)
-  console.log("e", e)
-} */
-
-/*  let concatDesease = {};
- function handleOnChange3(e) {
-   const fil = input.desease.filter(
-     (d) => d.desease.toLowerCase() === dese.desease.toLowerCase()
-   );
-   console.log("fil", fil);
-   if (e.target.name == "desease" && e.target.name !== "but") {
-     setDese({
-       ...dese,
-       desease: e.target.value,
-     });
-   } else if (dese.desease) {
-     if (fil.length) {
-       alert("deberias agregar una enfemedad diferente");
-       setDese({
-         ...dese,
-         desease: "",
-       });
-     } else {
-       setDese({
-         ...dese,
-         [e.target.name]: e.target.value,
-       });
-       setInput({
-         ...input,
-         desease: [...input.desease, dese],
-       });
-       setDese({
-         desease: "",
-         trainlimits: "",
-         considerations: "",
-       });
-     }
-   } else {
-     alert("debes agregar una enfermedad");
-   }
- } */
-
-/* function handleOnChange4(e) {
-  setDese({
-    ...dese,
-    [e.target.name]: e.target.value,
-  });
-} */
 
 async function handleOnChange2(e) {
   const preview = document.querySelector("img");
@@ -199,29 +136,6 @@ function handleSelect(e) {
   );
 }
 
-
-/* function handleSelectDeseases(e) {
-  const filtro = input.desease.filter(
-    (d) => d.toLowerCase() === e.target.value.toLowerCase()
-  );
-  if (filtro.length) {
-    alert("deberias agregar una enfermedad diferente");
-  } else {
-    setInput({
-      ...input,
-      desease: [...input.desease, e.target.value]
-  }) 
-  
-} 
-setError(
-  validate({
-    ...input,
-    desease: [...input.desease, e.target.value]
-  })
-);
-console.log("input", input)
-}*/
-
 function handleSubmit(e) {
   e.preventDefault();
   dispatch(updateUserInfo(userId, input));
@@ -253,9 +167,9 @@ function handleDeleteDse(e) {
   
   
 
-  console.log("e", e)
-  console.log("error", error)
-  console.log("input", input)
+  // console.log("e", e)
+  // console.log("error", error)
+  // console.log("input", input)
 
 }
 
