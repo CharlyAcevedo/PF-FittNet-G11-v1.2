@@ -32,7 +32,7 @@ export default function DetailProfileUser() {
           <img
             src={info?.photo}
             alt="mi foto"
-            style={{ width: "90%", height: "300px", borderRadius: ".6rem" }}
+            style={{ width: "90%", height: "250px", borderRadius: ".6rem" }}
           />
         </div>
         <div className={styles.infoPerfilUser}>
