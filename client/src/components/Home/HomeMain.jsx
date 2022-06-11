@@ -15,11 +15,14 @@ import styles from "./styles/homeMain.module.css";
 import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
 import Advertising from "../PartnerHomeComponents/Advertising";
+import ClientsGraph from "../Graphics/GraphClient"
+import OrderBy from '../OrderBy/OrderBy'
 import ClientsGraph from "../Graphics/GraphClient";
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
 import { HomePartner } from "./HomePartner/HomePartner";
 import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
 import { CardShop } from "../../helpers/Cards/Cards.jsx";
+
 
 export default function HomeMain() {
   let { userId, type, avatar } = useParams();
@@ -72,8 +75,10 @@ export default function HomeMain() {
   if (type === "user" && avatar) {
     return (
       <div className={styles.cont}>
+
         <GymsForUsersMap />
         <Sarch />
+        <OrderBy/>
         <GymCards />
         {/* <CardShop /> */}
         <Paginated />
@@ -86,6 +91,7 @@ export default function HomeMain() {
       <div className={styles.cont}>
         <GymsForUsersMap />
         <Sarch />
+         <OrderBy />
         <GymCards />
         {/* <CardShop /> */}
         <Paginated />

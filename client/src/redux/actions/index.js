@@ -1,6 +1,34 @@
 import axios from "axios";
 
 import {
+<<<<<<< HEAD
+  SET_USER_GEO,
+  GET_ALL_USERS,
+  POST_USER,
+  PUT_USER_INFO,
+  GET_USER,
+  GET_USER_TOKEN_GOOGLE,
+  GET_AVATARS,
+  GET_ALL_PARTNERS,
+  GET_ALL_GYMS,
+  GET_GYM_DETAIL,
+  SET_CURRENT_PAGE,
+  SET_PAGE_NUMBER,
+  SET_CURRENT_LIMIT,
+  POST_GYM,
+  POST_SERVICES,
+  POST_PARTNER,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  SORT_QUALIFICATION,
+  CLEAR_GYM_DETAIL,
+  GET_ATTRIBUTE_DESEASE,
+  PUT_FAVOURITE,
+  FILTER_CATEGORY,
+  SORT_PRICE,
+  SEARCH,
+  SORT_DISTANCE,
+=======
 
   SET_USER_GEO, GET_ALL_USERS, POST_USER, PUT_USER_INFO, GET_USER, GET_USER_TOKEN_GOOGLE,
   GET_AVATARS, GET_ALL_PARTNERS, GET_ALL_GYMS, GET_GYM_DETAIL, SET_CURRENT_PAGE,
@@ -9,6 +37,7 @@ import {
   DELETE_DESEASE,PUT_FAVOURITE, CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,
   
 
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
 } from "./actionTypes";
 //--------------------------------------------------------------------------------
 //------USER SERVICE ACTIONS------(favor de poner todas las aciones referentes a service en general todos los usuarios aqui)
@@ -25,16 +54,35 @@ export function setUserGeo(payload) {
         type: SET_USER_GEO,
         payload: { error: err.message },
       });
-    };
+    }
   };
-};
+}
 
 export function getUser(data) {
   return (dispatch) => {
-    dispatch({ type: GET_USER, payload: data })
-  }
+    dispatch({ type: GET_USER, payload: data });
+  };
 }
 
+<<<<<<< HEAD
+export function getAllUsers() {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/user/all");
+      dispatch({
+        type: GET_ALL_USERS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_ALL_USERS,
+        payload: { error: err.message },
+      });
+    }
+  };
+}
+=======
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
 
 export function postUser(payload) {
   return async (dispatch) => {
@@ -49,29 +97,46 @@ export function postUser(payload) {
         type: POST_USER,
         payload: { error: err.message },
       });
-    };
+    }
   };
-};
+}
 
-export const getUserGoogleForToken = (payload) => async dispatch => {
+export const getUserGoogleForToken = (payload) => async (dispatch) => {
   try {
+<<<<<<< HEAD
+    const userGoogle = await axios.post("/api/service/google/auth/profile", {
+      token: payload,
+    });
+=======
     console.log(payload);
     const userGoogle = await axios.post('/api/service/google/auth/profile', {
       token: payload
     })
     console.log(userGoogle)
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
     dispatch({
       type: GET_USER_TOKEN_GOOGLE,
-      payload: userGoogle.data.user
-    })
+      payload: userGoogle.data.user,
+    });
   } catch (error) {
     dispatch({
       type: GET_USER_TOKEN_GOOGLE,
       payload: { error: error.message },
     });
-  };
+  }
 };
+<<<<<<< HEAD
+
+export function getSearch(payload) {
+  return {
+    type: SEARCH,
+    payload,
+  };
+}
+
+=======
 //--------------------------------------------------------------------------------
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
 //------AVATARS ACTIONS------(Favor de poner aqui todas las aciones referentes a los avatares)
 //--------------------------------------------------------------------------------
 // export const postAvatar = (id, body) => async (dispatch) => {
@@ -89,7 +154,6 @@ export const getUserGoogleForToken = (payload) => async dispatch => {
 //   };
 // };
 
-
 export const getAvatars = () => async (dispatch) => {
   try {
     const dataAvatar = await axios.get(`/api/user/avatar`);
@@ -102,7 +166,7 @@ export const getAvatars = () => async (dispatch) => {
       type: GET_AVATARS,
       payload: { error: error.message },
     });
-  };
+  }
 };
 
 //--------------------------------------------------------------------------------
@@ -229,7 +293,6 @@ export function getGymDetail(id) {
   };
 }
 
-
 export function updatePartnerData({
   name,
   lastName,
@@ -271,14 +334,21 @@ export function updatePartnerData({
         type: POST_PARTNER,
         payload: { error: error.message },
       });
-    };
+    }
   };
+<<<<<<< HEAD
+}
+
+export function getPartnerDetails() {}
+
+=======
 };
 
 export function getPartnerDetails() {
   
 };
 //--------------------------------------------------------------------------------
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
 //------GYMS ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a gimnasios)
 //--------------------------------------------------------------------------------
 export function createGym({
@@ -340,7 +410,10 @@ export function createService({
 }) {
   return async (dispatch) => {
     try {
+<<<<<<< HEAD
+=======
       
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
       const result = await axios.post("ruta", {
         name: name, // string requerido
         description: description, // string requerido
@@ -353,14 +426,17 @@ export function createService({
         type: POST_SERVICES,
         payload: result.data,
       });
+<<<<<<< HEAD
+=======
       
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
     } catch (error) {
       dispatch({
         type: POST_SERVICES,
         payload: { error: error.message },
       });
     }
-  }
+  };
 }
 //--------------------------------------------------------------------------------
 //---------PAGINATED ACTIONS------------
@@ -380,8 +456,6 @@ export function setCurrentPage(payload) {
     }
   };
 }
-
-
 
 export function setPageNumber(payload) {
   return (dispatch) => {
@@ -415,28 +489,35 @@ export function setCurrentLimit(payload) {
   };
 }
 
-
-
 // };
 
 //? AQUI VA LA ACTUALIZACION DE LA INFO DEL USUARIO
 
-export const updateUserInfo = (id, body) => async dispatch => {
+export const updateUserInfo = (id, body) => async (dispatch) => {
   try {
-    const dataNewUser = await axios.put(`/api/user/profile/update/${id}`, body, {
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    })
-    console.log(body)
+    const dataNewUser = await axios.put(
+      `/api/user/profile/update/${id}`,
+      body,
+      {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+      }
+    );
+    console.log(body);
     dispatch({
       type: PUT_USER_INFO,
-      payload: dataNewUser.data.updUser
-    })
+      payload: dataNewUser.data.updUser,
+    });
   } catch (error) {
-    console.log("error: ", error)
+    console.log("error: ", error);
   }
+<<<<<<< HEAD
+};
+
+=======
 }
 
 //--------------------------------------------------------------------------------
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
 // CARRITO DE COMPRAS USUARIO FINAL
 //--------------------------------------------------------------------------------
 export const getCart = () => {
@@ -463,26 +544,36 @@ export function addToCart(itemID) {
         type: ADD_TO_CART,
         payload: {
           id: itemID,
-        }
+        },
       });
-    } catch (error) { console.log(error) }
-  }
-};
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 export const removeFromCart = (itemID) => {
   return (dispatch) => {
     try {
       dispatch({
         type: REMOVE_FROM_CART,
         payload: {
-          id: itemID
-        }
+          id: itemID,
+        },
       });
-    } catch (error) { console.log(error) }
-  }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 
 export const postCart = (body) => {
   return (dispatch) => {
+<<<<<<< HEAD
+    const post = axios.post("/api/shopcart", body);
+    return post;
+  };
+};
+=======
     const post = axios.post('/api/shopcart', body)
     return post
   }
@@ -500,23 +591,51 @@ export function clearCart() {
     type: CLEAR_CART
   })
 }
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
 
 //--------------------------------------------------------------------------------
 //-------- ORDENAMIENTO POR PUNTUACIÓN Y ORDEN ALFABÉTICO ---------------------------
+<<<<<<< HEAD
+export function sortByQualification(payload) {
+=======
 //--------------------------------------------------------------------------------
 export function sortByName(order) {
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
   return {
-    type: SORT_BY_NAME, payload: order
-  }
+    type: SORT_QUALIFICATION,
+    payload,
+  };
 }
 
-export function sortByScore(order) {
+export function filterByCategory(payload) {
   return {
-    type: SORT_BY_SCORE, payload: order
+    type: FILTER_CATEGORY,
+    payload,
+  };
+}
+
+export function sortByPrice(payload) {
+  return {
+    type: SORT_PRICE,
+    payload,
+  };
+}
+export function sortByDistance(payload){
+  return {
+    type: SORT_DISTANCE ,
+    payload
   }
 }
 //--------------------------------------------------------------------------------
 //-------- ESTA ACCIÓN LIMPIA EL ESTADO DE GYM DETAIL ---------------------------------
+<<<<<<< HEAD
+
+export function clearGymDetail() {
+  return {
+    type: CLEAR_GYM_DETAIL,
+    payload: {},
+  };
+=======
 //--------------------------------------------------------------------------------
 
 export function clearGymDetail() {
@@ -525,40 +644,54 @@ export function clearGymDetail() {
     
 
   }
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
 }
 
-export const updateFavouriteGym = (id, user) => async dispatch => {
+export const updateFavouriteGym = (id, user) => async (dispatch) => {
   try {
-    const newFavourite = await axios.put(`/api/user/profile/update/favourite/${id}`, {
-      favourite: 1,
-      idUser: user
-    })
+    const newFavourite = await axios.put(
+      `/api/user/profile/update/favourite/${id}`,
+      {
+        favourite: 1,
+        idUser: user,
+      }
+    );
     dispatch({
       type: PUT_FAVOURITE,
-      payload: newFavourite.data
-    })
+      payload: newFavourite.data,
+    });
   } catch (error) {
-    console.log("error: ", error)
+    console.log("error: ", error);
   }
+<<<<<<< HEAD
+};
+
+=======
 }
 //--------------------------------------------------------------------------------
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
 //////////// ACA VA LO RELACIONADO CON LAS ENFERMEDADES (modelo Diseases)
 //--------------------------------------------------------------------------------
 export function getAttributeDesease() {
   return async (dispatch) => {
+<<<<<<< HEAD
+    try {
+      var json = await axios.get("/api/user/all/deseasesMap", {});
+=======
     
     try {
       var json = await axios.get("/api/user/all/deseasesMap", {
         
       });
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
       return dispatch({
         type: GET_ATTRIBUTE_DESEASE,
-        payload: json.data
-      })
+        payload: json.data,
+      });
     } catch (error) {
-      console.log("error: ", error)
+      console.log("error: ", error);
     }
-  }
+  };
 }
 
 

@@ -6,6 +6,7 @@ export const POST_USER_GOOGLE = 'POST_USER_GOOGLE'; // usada para logeo por goog
 export const GET_USER_TOKEN_GOOGLE = 'GET_USER_TOKEN_GOOGLE';// usada para logeo por google
 export const PUT_USER_INFO = 'PUT_USER_INFO'; // ruta que actualiza la informacion del usuario
 
+
 export const GET_AVATARS = "GET_AVATARS"; //llama al back para traerse todos los avatares
 export const POST_AVATAR = "POST_AVATAR"; //usada para crear un nuevo avatar
 
@@ -29,8 +30,11 @@ export const CLEAR_CART = 'CLEAR_CART'
 export const ADJUST_QTY = 'ADJUST_QTY';
 export const LOAD_CURRENT_ITEM = 'LOAD_CURRENT_ITEM';
 
-export const SORT_BY_NAME = 'SORT_BY_NAME'; // para hacer un ordenamiento alfabético de a-z o z-a
-export const SORT_BY_SCORE = 'SORT_BY_SCORE'; // para hacer un ordemiento por puentuación de mayor a menor o viceversa
+export const SORT_QUALIFICATION= "SORT_QUALIFICATION" //ORDENAR gym por calificacion
+export const SORT_PRICE= "SORT_PRICE"//ordenar gym por precio
+export const FILTER_CATEGORY="FILTER_CATEGORY"//filtrar Gym por categoria
+export const SEARCH= "SEARCH" //Busqueda de gimnasios por su nombre
+export const SORT_DISTANCE= "SORT_DISTANCE" //Ordena por la ubicacion del gym
 
 export const CLEAR_GYM_DETAIL = 'CLEAR_GYM_DETAIL'; // Para limpiar el estado del detalle de gym cuando se remueva el componente
 
