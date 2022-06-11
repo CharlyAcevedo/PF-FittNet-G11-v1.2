@@ -7,9 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 // import FormUser from "../Forms/FormUser";
 
 export default function NavBarProfile() {
-  let { userId, name, type, avatar } = useParams();
+  // let { userId, name, type, avatar } = useParams();
 
   const token = localStorage.getItem("token");
+
+  const name = localStorage.getItem("name");
+
+  const userId = localStorage.getItem("userId");
+
+  const type = localStorage.getItem("type");
+  
+  const avatar = localStorage.getItem("avatar");
 
   const user = useSelector((state) => state.user);
 
