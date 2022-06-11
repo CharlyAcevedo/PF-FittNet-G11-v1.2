@@ -5,6 +5,7 @@ const InfoUsers = require('../../models/InfoUser');
 const Partner = require('../../models/Partner');
 const bcrypt = require('bcrypt');
 const randomstring = require("randomstring");
+const LockAccounts = require('../../models/LockAccount');
 
 
 const router = Router();
@@ -49,6 +50,14 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
   }
   
   try {
+
+    let lockAccount = await LockAccounts.find({userName: username})
+    
+    // console.log(lockAccount, ' esto es req.user autenticado');
+
+    if (lockAccount.length > 0 ) { // Si está baneado
+      return res.redirect('/api/service/lockedaccount');
+    }
     
     
     if ( name && username && password && type) {  

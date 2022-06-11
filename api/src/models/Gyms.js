@@ -64,6 +64,9 @@ const gymSchema = new mongoose.Schema({
     required: true,
     default: true,
   },
+  favourite: {
+    type: Number,
+  }
 });
 
 module.exports = mongoose.model("Gyms", gymSchema);

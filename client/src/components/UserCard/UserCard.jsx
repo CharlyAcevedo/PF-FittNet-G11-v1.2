@@ -1,5 +1,5 @@
 import React from "react";
-import styles from './style/UserCard.modeule.css';
+import styles from './style/UserCard.module.css';
 
 
 export default function UserCards(props) {

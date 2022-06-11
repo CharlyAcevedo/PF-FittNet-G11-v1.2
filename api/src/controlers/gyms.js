@@ -263,22 +263,46 @@ async function saveGyms(id, data) {
   return response;
 }
 
-// //! FUNCIONES DE PRUEBAS
+const updateFavGym = async (req, res) => {
+    const { id } = req.params
+    try {
 
-// const postGyms2 = async (req, res) => {
-//     try {
-//         const newGym = await Gims.aggregate([
-//             { $addFields: {
+        if (req.body.favourite) {
+            const userFav = await User.findById(req.body.idUser)
+            const gymFav = await Gims.findById(id)
+            if (userFav.favourite.includes(id)) {
 
-//             }}
-//         ])
-//     } catch (error) {
-//         console.log(error)
-//         res.status(500).json({
-//             ok: false,
-//             msg: "error no se pudo crear correctamente el gimnasio"
-//         })
-//     }
-// }
+                const userPull = await User.findByIdAndUpdate(req.body.idUser, { $pull: { favourite: id } }, { new: true })
+                const obj = { favourite: gymFav.favourite - 1 }
+                const gymfav = await Gims.findByIdAndUpdate(id, obj, { new: true })
 
-module.exports = { getAllGyms, postGyms, saveGyms, getGymById, getGymByName };
+                return res.status(200).json({
+                    ok: 'true',
+                    gym: gymfav,
+                    user: userPull,
+                })
+            } else {
+
+                const user = await User.findByIdAndUpdate(req.body.idUser, { $push: { favourite: id } }, { new: true })
+
+                const obj = { favourite: gymFav.favourite + 1 }
+                const gym = await Gims.findByIdAndUpdate(id, obj, { new: true })
+
+                return res.status(200).json({
+                    ok: 'true',
+                    gym,
+                    user,
+                })
+            }
+        }
+    } catch (error) {
+        console.log("error", error)
+        res.status(500).send({
+            ok: true,
+            msg: "no pudiste darle like"
+        })
+    }
+}
+
+
+module.exports = { getAllGyms, postGyms, saveGyms, getGymById, getGymByName, updateFavGym }

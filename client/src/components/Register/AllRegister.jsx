@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles/AllRegister.module.css";
 import { regexEmail, regexName } from "../../asets/helpers/regexValidators"
+
 import {
   BackgroundTwo,
   BackgroundOne,
 } from "../../helpers/Backround/Background";
-import { SweetAlrt } from "../../asets/helpers/sweetalert";
+import { SweetAlrt, SweetAlrt2, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 
 export default function AllRegister() {
   const dispatch = useDispatch();
@@ -86,29 +87,26 @@ export default function AllRegister() {
             setPassword("");
             setError("");
             setEmail("");
-            SweetAlrt("Exito!", res.data.message, "success", true);
+            SweetAlrt("Exito!", res.data.message, "success");
             // window.alert(res.data.message);
             return (window.location = "http://localhost:3000/login");
           }
           if (res.data.created === false) {
             // window.alert(res.data.message);
-            SweetAlrt("Atencion!", res.data.message, "warning", true, true);
+            SweetAlrt("Atencion!", res.data.message, "warning");
             setName("");
             setPassword("");
             setError("");
             setEmail("");
           }
+          if (typeof res.data === 'string') {
+            SweetAlrt(res.data);
+          }
         })
         .catch((error) => console.log(error));
     }
     if (!name || !email || !password || !type) {
-      SweetAlrt(
-        "Error",
-        "Por favor complete todos los campos",
-        "warning",
-        true,
-        true
-      );
+      SweetAlrtTem("Por favor complete todos los campos","warning")
       // window.alert('Por favor complete todos los campos')
     }
   }
@@ -214,6 +212,7 @@ export default function AllRegister() {
             <div className={styles.loginRield}>
               <select
                 name="select"
+                className={styles.selectTypeClient}
                 onChange={(e) =>
                   e.target.value === "Tipo de cliente" ? null : onChangeType(e)
                 }

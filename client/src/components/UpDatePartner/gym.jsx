@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { createGym } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { SweetAlrt } from "../../asets/helpers/sweetalert";
+import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 
 export default function UpdateGym() {
   const dispatch = useDispatch();
@@ -145,11 +145,11 @@ export default function UpdateGym() {
       !input.services ||
       !input.email
     ) {
-      return SweetAlrt("Error", "Todos los campos deben estar completos","error",true)
+      return SweetAlrt("Error", "Todos los campos deben estar completos","error")
       // return alert("Todos los campos deben estar completos!");
     } else {
       dispatch(createGym(input));
-     SweetAlrt("Exito!","Gym Registrado","success",true)
+     SweetAlrtTem("Exito! Gym Registrado","success")
       // alert("Gym Registrado!");
       setInput({
         ...input,

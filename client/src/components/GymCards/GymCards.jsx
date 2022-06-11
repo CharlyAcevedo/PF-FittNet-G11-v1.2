@@ -19,6 +19,7 @@ export default function GymsCards() {
                   rating={g.raiting}
                   price={g.price}
                   image={g.image}
+                  favourite={g.favourite}
                 />
               );
             })

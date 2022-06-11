@@ -9,6 +9,12 @@ import {
   BackgroundTwo,
   BackgroundOne,
 } from "../../helpers/Backround/Background";
+<<<<<<< HEAD
+=======
+import { InputPrymary, InputSecond } from "../../helpers/Inputs/Inputs";
+import { SweetAlrt } from "../../asets/helpers/sweetalert";
+// , SweetAlrt2, SweetAlrtTem
+>>>>>>> 925a393fccd508e1a9128067933da785325343e2
 
 export default function LoginInit() {
   const dispatch = useDispatch();
@@ -19,10 +25,13 @@ export default function LoginInit() {
   const [password, setPassword] = useState("");
   // const [googleUser, setGoogleUser] = useState({});
   const [error, setError] = useState("");
+<<<<<<< HEAD
   const [geoloc, setGeoloc] = useState({
     lat: geolocation.latitude,
     lng: geolocation.longitude,
   });
+=======
+>>>>>>> 925a393fccd508e1a9128067933da785325343e2
 
   const navigate = useNavigate();
 
@@ -31,6 +40,7 @@ export default function LoginInit() {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
+<<<<<<< HEAD
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       function (position) {
@@ -57,6 +67,9 @@ export default function LoginInit() {
       }
     ); // eslint-disable-next-line
   }, []);
+=======
+  // const dispatch = useDispatch();
+>>>>>>> 925a393fccd508e1a9128067933da785325343e2
 
   const handleCallbackGoogle = async (response) => {
     const userObject = jwt_decode(response.credential);
@@ -74,6 +87,7 @@ export default function LoginInit() {
       localStorage.setItem("type", finalizacionData.user.type);
       localStorage.setItem("avatar", finalizacionData.user.avatar);
       localStorage.setItem("name", finalizacionData.usuario.name);
+<<<<<<< HEAD
       localStorage.setItem(
         "latitude",
         geoloc.lat ? geoloc.lat : finalizacionData.user.latitude.$numberDecimal
@@ -82,6 +96,10 @@ export default function LoginInit() {
         "longitude",
         geoloc.lng ? geoloc.lng : finalizacionData.user.longitude.$numberDecimal          
       );
+=======
+      // localStorage.setItem('latitude',finalizacionData.user.latitude.$numberDecimal)
+      // localStorage.setItem('longitude',finalizacionData.user.longitude.$numberDecimal)
+>>>>>>> 925a393fccd508e1a9128067933da785325343e2
 
       // localStorage.setItem("type", type)
       // localStorage.setItem("avatar", avatar._id)
@@ -170,8 +188,13 @@ export default function LoginInit() {
             localStorage.setItem("userId", userId);
             localStorage.setItem("name", name);
             localStorage.setItem("type", type);
+<<<<<<< HEAD
             localStorage.setItem("latitude", geoloc.lat ? geoloc.lat : latitude.$numberDecimal);
             localStorage.setItem("longitude", geoloc.lng ? geoloc.lng : longitude.$numberDecimal);
+=======
+            localStorage.setItem("latitude", latitude.$numberDecimal);
+            localStorage.setItem("longitude", longitude.$numberDecimal);
+>>>>>>> 925a393fccd508e1a9128067933da785325343e2
 
             return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
           }
@@ -182,8 +205,13 @@ export default function LoginInit() {
             localStorage.setItem("name", name);
             localStorage.setItem("type", type);
             localStorage.setItem("avatar", avatar._id);
+<<<<<<< HEAD
             localStorage.setItem("latitude", geoloc.lat ? geoloc.lat : latitude.$numberDecimal);
             localStorage.setItem("longitude", geoloc.lng ? geoloc.lng : longitude.$numberDecimal);
+=======
+            localStorage.setItem("latitude", latitude.$numberDecimal);
+            localStorage.setItem("longitude", longitude.$numberDecimal);
+>>>>>>> 925a393fccd508e1a9128067933da785325343e2
 
             let avatarId = avatar._id;
             return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatarId}`);
@@ -194,7 +222,12 @@ export default function LoginInit() {
         }
       }
       if (typeof login === "string") {
+<<<<<<< HEAD
         setError("usuario o password incorrecta");
+=======
+        console.log(login); // qué  me responde el back?
+        SweetAlrt(login);
+>>>>>>> 925a393fccd508e1a9128067933da785325343e2
         setPassword("");
         setUsername("");
       }
@@ -226,34 +259,30 @@ export default function LoginInit() {
             </div>
           </div>
           <form className={styles.login}>
-            <div className={styles.loginField}>
-              <input
-                type="email"
-                value={username}
-                name="email"
-                className={styles.loginInput}
-                placeholder="Email"
-                required
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div className="login_field">
-              <input
-                type="password"
-                value={password}
-                name="password"
-                className={styles.loginInput}
-                placeholder="Contraseña"
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <input
-              className={styles.loginSubmit}
+            <InputPrymary
+              type="email"
+              value={username}
+              name="email"
+              placeholder="Email"
+              required
+              onChange={(e) => setUsername(e.target.value)}
+            />
+
+            <InputPrymary
+              type="password"
+              value={password}
+              name="password"
+              placeholder="Contraseña"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <InputSecond
               type="submit"
               value="Ingresar"
               onClick={(e) => onSubmit(e)}
             />
+
             <div id="signInDiv" style={{ paddingTop: "1.5rem" }}></div>
             {/* <button onClick={(e) => handleLogoutGoogle(e)}>Logout</button> */}
             <p>{error === "" ? null : error}</p>

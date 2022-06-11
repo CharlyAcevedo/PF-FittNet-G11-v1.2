@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const diseaseSchema = new mongoose.Schema({
     desease: {
-        type: String,
+        type: Array,
+        of: mongoose.SchemaTypes.ObjectId, 
         required: true,
     },
     trainlimits: { //limitantes de entrenamiento

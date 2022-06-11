@@ -6,11 +6,13 @@ import {
   GET_AVATARS, GET_ALL_PARTNERS, GET_ALL_GYMS, GET_GYM_DETAIL, SET_CURRENT_PAGE,
   SET_PAGE_NUMBER, SET_CURRENT_LIMIT, POST_GYM, POST_SERVICES, POST_PARTNER, ADD_TO_CART,
   REMOVE_FROM_CART, SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE,
+  DELETE_DESEASE,PUT_FAVOURITE, CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,
+  
 
 } from "./actionTypes";
-
+//--------------------------------------------------------------------------------
 //------USER SERVICE ACTIONS------(favor de poner todas las aciones referentes a service en general todos los usuarios aqui)
-
+//--------------------------------------------------------------------------------
 export function setUserGeo(payload) {
   return async (dispatch) => {
     try {
@@ -27,28 +29,12 @@ export function setUserGeo(payload) {
   };
 };
 
-export function getUser (data) {
-  return (dispatch) => { 
-    dispatch({ type: GET_USER, payload: data })    
+export function getUser(data) {
+  return (dispatch) => {
+    dispatch({ type: GET_USER, payload: data })
   }
 }
 
-export function getAllUsers() {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get("/api/user/all");
-      dispatch({
-        type: GET_ALL_USERS,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: GET_ALL_USERS,
-        payload: { error: err.message },
-      });
-    };
-  };
-};
 
 export function postUser(payload) {
   return async (dispatch) => {
@@ -83,20 +69,19 @@ export const getUserGoogleForToken = (payload) => async dispatch => {
     });
   };
 };
-
-
+//--------------------------------------------------------------------------------
 //------AVATARS ACTIONS------(Favor de poner aqui todas las aciones referentes a los avatares)
-
+//--------------------------------------------------------------------------------
 // export const postAvatar = (id, body) => async (dispatch) => {
 //   try {
 //     const dataUdpateAvatar = await axios.put(`/api/user/avatar/${id}`, body);
 //     dispatch({
-//       type: POST_AVATAR,
-//       payload: dataUdpateAvatar.data,
+  //       type: POST_AVATAR,
+  //       payload: dataUdpateAvatar.data,
 //     });
 //   } catch (error) {
 //     dispatch({
-//       type: POST_AVATAR,
+  //       type: POST_AVATAR,
 //       payload: { error: error.message },
 //     });
 //   };
@@ -118,12 +103,57 @@ export const getAvatars = () => async (dispatch) => {
   };
 };
 
-//------PARTNER ACTIONS------(Favor de poner aqui todas las aciones para partners)
-
-export function getAllPartner() {
+//--------------------------------------------------------------------------------
+//---------- Acciones para el admin (las rutas van a ser protegidas)---------------
+//---------------------------------------------------------------------------------
+export function getAdmin(userId) { 
+  // Esta ruta la consume el admin (va a estar protegida), y me trae información del
+  // perfil del admin que la solicita
   return async (dispatch) => {
     try {
-      const response = await axios.get("/api/partner/allgyms");
+      const infoAdmin = await axios({
+        method: "get", url: `/api/admin/userId/${userId}`,
+        headers: { "X-Requested-With": "XMLHttpRequest" }, withCredentials: true
+      });
+
+      dispatch({
+        type: GET_ADMIN,
+        payload: infoAdmin.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_ADMIN,
+        payload: { error: err.message },
+      });
+    };
+  };
+}
+
+export function getAllUsers() { 
+  // Esta ruta la consume el admin (va a estar protegida), y me trae información de todos
+  // los "users" registrados en a app
+    return async (dispatch) => {
+      try {
+        const response = await axios.get("/api/admin/allusers");
+        dispatch({
+        type: GET_ALL_USERS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_ALL_USERS,
+        payload: { error: err.message },
+      });
+    };
+  };
+};
+
+export function getAllPartners() {
+  // Esta ruta la consume el admin (va a estar protegida), y me trae información de
+  // todos los "partners" registrados en la app
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/admin/allpartners");
       dispatch({
         type: GET_ALL_PARTNERS,
         payload: response.data,
@@ -136,6 +166,31 @@ export function getAllPartner() {
     }
   };
 }
+
+export function getLockAccounts() {
+  // Esta ruta la consume el admin (va a estar protegida), y me trae información de
+  // la lista de emails bloquedos para el sitio.
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/admin/lockaccounts");
+      dispatch({
+        type: GET_LOCK_ACCOUNTS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_LOCK_ACCOUNTS,
+        payload: { error: err.message },
+      });
+    }
+  };
+}
+
+
+//--------------------------------------------------------------------------------
+//------PARTNER ACTIONS------(Favor de poner aqui todas las aciones para partners)
+//--------------------------------------------------------------------------------
+
 
 export function getAllGyms() {
   return async (dispatch) => {
@@ -209,7 +264,7 @@ export function updatePartnerData({
         type: POST_PARTNER,
         payload: result.data,
       });
-    } catch  (error) {
+    } catch (error) {
       dispatch({
         type: POST_PARTNER,
         payload: { error: error.message },
@@ -219,11 +274,11 @@ export function updatePartnerData({
 };
 
 export function getPartnerDetails() {
-
+  
 };
-
+//--------------------------------------------------------------------------------
 //------GYMS ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a gimnasios)
-
+//--------------------------------------------------------------------------------
 export function createGym({
   name,
   price,
@@ -270,9 +325,9 @@ export function createGym({
     }
   };
 }
-
+//--------------------------------------------------------------------------------
 //------SERVICE ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a servicios)
-
+//--------------------------------------------------------------------------------
 export function createService({
   name, 
   description, 
@@ -281,9 +336,9 @@ export function createService({
   photo,
   profileCategory,
 }) {
-  return async (dispatch) => { 
-  try {
-    
+  return async (dispatch) => {
+    try {
+      
       const result = await axios.post("ruta", {
         name: name, // string requerido
         description: description, // string requerido
@@ -296,17 +351,18 @@ export function createService({
         type: POST_SERVICES,
         payload: result.data,
       });
-   
-  } catch (error) {
-    dispatch({
-      type: POST_SERVICES,
-      payload: { error: error.message },
-    });
+      
+    } catch (error) {
+      dispatch({
+        type: POST_SERVICES,
+        payload: { error: error.message },
+      });
+    }
   }
-} }
-
+}
+//--------------------------------------------------------------------------------
 //---------PAGINATED ACTIONS------------
-
+//--------------------------------------------------------------------------------
 export function setCurrentPage(payload) {
   return (dispatch) => {
     try {
@@ -365,7 +421,10 @@ export function setCurrentLimit(payload) {
 
 export const updateUserInfo = (id, body) => async dispatch => {
   try {
-    const dataNewUser = await axios.put(`/api/user/update/${id}`, body)
+    const dataNewUser = await axios.put(`/api/user/profile/update/${id}`, body, {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    console.log(body)
     dispatch({
       type: PUT_USER_INFO,
       payload: dataNewUser.data.updUser
@@ -375,21 +434,37 @@ export const updateUserInfo = (id, body) => async dispatch => {
   }
 }
 
-
+//--------------------------------------------------------------------------------
 // CARRITO DE COMPRAS USUARIO FINAL
-
-export function addToCart(itemID){
-  //console.log('llega id?', itemID)
-    return (dispatch) => {
-      try {
-        dispatch({
-          type: ADD_TO_CART,
-          payload: {
-            id: itemID,
-          }
-        });
-      } catch (error) {console.log(error)}
+//--------------------------------------------------------------------------------
+export const getCart = () => {
+  try {
+    return async (dispatch) => {
+      const getCart = await axios.get('/api/shopcart')
+      console.log(getCart.data)
+      return dispatch({
+        type: GET_CART,
+        payload: getCart.data
+      })
+    }
+  } catch (error) {
+    console.log(error)
+  }
+  
 }
+
+export function addToCart(itemID) {
+  //console.log('llega id?', itemID)
+  return (dispatch) => {
+    try {
+      dispatch({
+        type: ADD_TO_CART,
+        payload: {
+          id: itemID,
+        }
+      });
+    } catch (error) { console.log(error) }
+  }
 };
 export const removeFromCart = (itemID) => {
   return (dispatch) => {
@@ -400,58 +475,119 @@ export const removeFromCart = (itemID) => {
           id: itemID
         }
       });
-    } catch (error) {console.log(error)}
-}
+    } catch (error) { console.log(error) }
+  }
 };
 
-export const postCart = (body) =>{
-  return (dispatch) =>{
+export const postCart = (body) => {
+  return (dispatch) => {
     const post = axios.post('/api/shopcart', body)
     return post
   }
 }
 
+export function editStatus(statusCart) {
+  return (dispatch) => {
+    const put = axios.put('/api/shopcart', statusCart)
+    return put
+  };
+}
 
+export function clearCart() {
+  return ({
+    type: CLEAR_CART
+  })
+}
+
+//--------------------------------------------------------------------------------
 //-------- ORDENAMIENTO POR PUNTUACIÓN Y ORDEN ALFABÉTICO ---------------------------
+//--------------------------------------------------------------------------------
 export function sortByName(order) {
   return {
     type: SORT_BY_NAME, payload: order
   }
 }
 
-export function sortByScore(order) {  
+export function sortByScore(order) {
   return {
-      type: SORT_BY_SCORE, payload: order
+    type: SORT_BY_SCORE, payload: order
   }
 }
-
+//--------------------------------------------------------------------------------
 //-------- ESTA ACCIÓN LIMPIA EL ESTADO DE GYM DETAIL ---------------------------------
+//--------------------------------------------------------------------------------
 
-
-export function clearGymDetail() {  
+export function clearGymDetail() {
   return {
-      type: CLEAR_GYM_DETAIL, payload: {}
+    type: CLEAR_GYM_DETAIL, payload: {}
+    
 
   }
 }
 
+export const updateFavouriteGym = (id, user) => async dispatch => {
+  try {
+    const newFavourite = await axios.put(`/api/user/profile/update/favourite/${id}`, {
+      favourite: 1,
+      idUser: user
+    })
+    dispatch({
+      type: PUT_FAVOURITE,
+      payload: newFavourite.data
+    })
+  } catch (error) {
+    console.log("error: ", error)
+  }
+}
+//--------------------------------------------------------------------------------
 //////////// ACA VA LO RELACIONADO CON LAS ENFERMEDADES (modelo Diseases)
-
-export function getAttributeDesease(){
+//--------------------------------------------------------------------------------
+export function getAttributeDesease() {
   return async (dispatch) => {
-
+    
     try {
-      var json = await axios.get("/api/user/all/deseasesMap",{
-
+      var json = await axios.get("/api/user/all/deseasesMap", {
+        
       });
       return dispatch({
-          type: GET_ATTRIBUTE_DESEASE,
-          payload: json.data
+        type: GET_ATTRIBUTE_DESEASE,
+        payload: json.data
       })
     } catch (error) {
       console.log("error: ", error)
     }
-      
-
   }
 }
+
+
+export function deleteDesease(id){
+  return function(dispatch){
+    return axios.delete("/api/user/all/deleteDesease" + id)
+    .then(json => {
+      dispatch({type: DELETE_DESEASE})
+    })
+  }
+}
+
+//--------------------------------------------------------------------------------
+//////////// ACA VA LO RELACIONADO CON LAS PUBLICIDADES DEL LANDING
+//--------------------------------------------------------------------------------
+
+export function getMarketing() { // Voy a usar esta action para el admin
+  // console.log('esta buscando los users')
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/service/allusers");
+      dispatch({
+        type: GET_MARKETING,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_MARKETING,
+        payload: { error: err.message },
+      });
+    };
+  };
+};
+

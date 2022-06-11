@@ -1,22 +1,32 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import styles from "./styles/detailProfile.module.css";
 
 export default function DetailProfileUser() {
   let { userId } = useParams();
-  // console.log(userId, name, type, avatar, ' los params')
 
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user);
+  console.log("user", user)
 
-  const { name, userName, type, avatar, info } = user;
+  const { info } = user;
+
+   const type = localStorage.getItem('type');
+
+  const avatar = localStorage.getItem('avatar');
+  
+  const name = localStorage.getItem('name'); 
+
+
+  //const { name, userName, type, avatar, info } = user;
+
 
   const avatarId = avatar?._id;
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", height: "85vh" }}>
       <div className={styles.containerPerfilUser}>
         <div className={styles.containerPhotoPerfil}>
           <img
@@ -31,7 +41,7 @@ export default function DetailProfileUser() {
               style={{ display: "flex", alignItems: "center", gap: "1.1rem" }}
             >
               <div>
-                <h3 style={{ color: "#fff" }}>Marcelo Copa</h3>
+                <h3 style={{ color: "#fff" }}>{name}</h3>
                 <p
                   style={{
                     color: "var(--color-prim)",
@@ -79,12 +89,12 @@ export default function DetailProfileUser() {
             </div>
           </div>
           <div className={styles.etiquetasProfile}>
-            <a
+            <Link
               style={{ color: "#fff" }}
-              href={`/home/modificacion/${type}/${name}/${userId}`}
+              to={`/home/${type}/${name}/${userId}/${avatar}/FormUser`}
             >
               Editar mi perfil
-            </a>
+            </Link>
             <a style={{ color: "#fff" }} href={`/updatepassword/${userId}`}>
               Cambiar mi contraseña
             </a>
@@ -94,7 +104,7 @@ export default function DetailProfileUser() {
             <span
               style={{ color: "#fff", cursor: "pointer" }}
               onClick={() =>
-                navigate(`/home/${type}/${name}/${userId}/${avatarId}`)
+                navigate(`/home/${type}/${name}/${userId}/${avatar}`)
               }
             >
               Volver
@@ -108,7 +118,7 @@ export default function DetailProfileUser() {
               <p>
                 Phone:{" "}
                 <span style={{ color: "var(--color-prim)" }}>
-                  {info?.phone}
+                  32452352454{/* {info?.phone} */}
                 </span>
               </p>
               <p>
@@ -119,7 +129,9 @@ export default function DetailProfileUser() {
               </p>
               <p>
                 Email:{" "}
-                <span style={{ color: "var(--color-prim)" }}>{userName}</span>
+                <span style={{ color: "var(--color-prim)" }}>
+                  marcelo@gmail.com
+                </span>
               </p>
             </div>
           </div>
@@ -131,7 +143,7 @@ export default function DetailProfileUser() {
               <p>
                 Fecha de nacimiento:{" "}
                 <span style={{ color: "var(--color-prim)" }}>
-                  {info?.birthday.substring(0, 10)}
+                  21/01/21{/* {info?.birthday.substring(0, 10)} */}
                 </span>
               </p>
               <p>
