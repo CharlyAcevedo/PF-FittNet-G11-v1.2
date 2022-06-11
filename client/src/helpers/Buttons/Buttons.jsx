@@ -96,9 +96,13 @@ export const ButtonDetailGym = (props) => {
   )
 }
 
-// export const LinkPrimaryDeslice = (props) => {
-//   const { onClick } = props;
-//   return (
+export const ButtonHomePA = (props) => {
+  const {onClick, title, padding } = props;
 
-//   )
-// }
+  return (
+    <div className={styles.btnHomePA} onClick={onClick} style={{padding: padding}} >
+      {title}
+    </div>
+  )
+}
+
