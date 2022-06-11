@@ -123,17 +123,17 @@ export default function Paginated() {
   return (
     <div className={style.cont}>
       {/* Bloque de info de pag */}
-      <section className={style.labelPagOfContainer}>
+      {/* <section className={style.labelPagOfContainer}>
         <div className={style.labelCurrentPage}>
           Pag: <div className={style.currentPageInput}>{currentPage}</div>
         </div>
         <div className={style.labelCurrentPage}>
           Of: <div className={style.currentPageInput}>{totalPages}</div>
         </div>
-      </section>
+      </section> */}
 
       {/* Bloque de seleccion de pagina */}
-      <ul className={style.paginatedContainer}>
+      {/* <ul className={style.paginatedContainer}>
         <li className={style.btnPaginated} onClick={() => handleFirstPage()}>
           <div className={style.btnPrevNext}>
             <img src={firstPage} alt="last Page" />
@@ -171,10 +171,10 @@ export default function Paginated() {
             <img src={lastPage} alt="last Page" />
           </button>
         </li>
-      </ul>
+      </ul> */}
 
       {/* Bloque de cantidad de cards por pag */}
-      <section className={style.toShowSelector}>
+      {/* <section className={style.toShowSelector}>
         <label className={style.selectLageLabel}>
           Pages to show:{" "}
           <select
@@ -191,39 +191,29 @@ export default function Paginated() {
             <option value="12">12</option>
           </select>
         </label>
-      </section>
+      </section> */}
       <div>
         <div className={style.containerPagination}>
           <ul className={style.paginationPrueba}>
-            <li>
+            <li onClick={() => prevPage()} style={{cursor: "pointer"}}>
               <span>Prev</span>
             </li>
-            <li>
-              {/* <a href="#">Prev</a> */}
-              <span>1</span>
-            </li>
-            <li>
-              {/* <a href="#">1</a> */}
-              <span>2</span>
-            </li>
-            <li className={style.active}>
-              {/* <a href="#">2</a> */}
-              <span>3</span>
-            </li>
-            <li>
-              {/* <a href="#">3</a> */}
-              <span>4</span>
-            </li>
-            <li>
-              {/* <a href="#">4</a> */}
-              <span>5</span>
-            </li>
-            <li>
-              {/* <a href="#">5</a> */}
-              <span>6</span>
-            </li>
-            <li>
-              {/* <a href="#">Next</a> */}
+            {pages ? (
+            pages.map((page, num) => (
+              <li key={num}>
+                <span
+                  onClick={() => pagination(page)}
+                  style={{cursor: "pointer"}}
+                  value={page}
+                >
+                  {page}
+                </span>
+              </li>
+            ))
+          ) : (
+            <li style={{cursor: "pointer"}}></li>
+          )}
+            <li onClick={() => nextPage()} style={{cursor: "pointer"}}>
               <span>Next</span>
             </li>
           </ul>

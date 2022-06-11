@@ -8,11 +8,11 @@ import GymCards from "../GymCards/GymCards";
 // import PartnerCards from "../PartnerCards/PartnerCards";
 import { getAllGyms, getUserGoogleForToken } from "../../redux/actions";
 import { useDispatch } from "react-redux";
-import IncomesGraph from "../Graphics/Incomes";
+// import IncomesGraph from "../Graphics/Incomes";
 import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
 import styles from "./styles/homeMain.module.css";
-import GeneralActions from "../PartnerHomeComponents/GeneralActions";
+// import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
 import Advertising from "../PartnerHomeComponents/Advertising";
 import ClientsGraph from "../Graphics/GraphClient"
@@ -20,7 +20,7 @@ import OrderBy from '../OrderBy/OrderBy'
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
 import { HomePartner } from "./HomePartner/HomePartner";
 import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
-import { CardShop } from "../../helpers/Cards/Cards.jsx";
+// import { CardShop } from "../../helpers/Cards/Cards.jsx";
 
 
 export default function HomeMain() {
@@ -41,7 +41,7 @@ export default function HomeMain() {
     } // eslint-disable-next-line
   }, [userId]);
 
-  // Esto es una vista para un usuario sin avatar
+  //! Esto es una vista para un usuario sin avatar
   if ((type === "user" && !avatar) || !avatarLS) {
     return (
       <div
@@ -70,7 +70,7 @@ export default function HomeMain() {
     );
   }
 
-  // Esto es una vista para un usuario con avatar
+  //! Esto es una vista para un usuario con avatar
   if (type === "user" && avatar) {
     return (
       <div className={styles.cont}>
@@ -98,7 +98,7 @@ export default function HomeMain() {
     );
   }
 
-  // Esto es una para cliente empresa
+  //! Esto es una para cliente empresa
   if (type === "partner") {
     return (
       <div>
