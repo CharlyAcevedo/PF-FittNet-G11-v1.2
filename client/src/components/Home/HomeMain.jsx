@@ -16,35 +16,34 @@ import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
 import Advertising from "../PartnerHomeComponents/Advertising";
 import ClientsGraph from "../Graphics/GraphClient"
-<<<<<<< HEAD
 import OrderBy from '../OrderBy/OrderBy'
-=======
+import ClientsGraph from "../Graphics/GraphClient";
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
 import { HomePartner } from "./HomePartner/HomePartner";
-import GymsForUsersMap from "../MapsAndGeo/GymsForUsers"
+import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
+import { CardShop } from "../../helpers/Cards/Cards.jsx";
 
->>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
 
 export default function HomeMain() {
-  let { userId, type, avatar } = useParams(); 
+  let { userId, type, avatar } = useParams();
 
   const dispatch = useDispatch();
 
-  const avatarLS = localStorage.getItem("avatar")
+  const avatarLS = localStorage.getItem("avatar");
 
   const token = localStorage.getItem("token");
 
   const navigate = useNavigate();
 
-  useEffect(() => { 
-    dispatch(getAllGyms()); 
+  useEffect(() => {
+    dispatch(getAllGyms());
     if (token) {
       dispatch(getUserGoogleForToken(token));
-    }// eslint-disable-next-line
+    } // eslint-disable-next-line
   }, [userId]);
 
   // Esto es una vista para un usuario sin avatar
-  if (type === "user" && !avatar || !avatarLS) {
+  if ((type === "user" && !avatar) || !avatarLS) {
     return (
       <div
         style={{
@@ -76,30 +75,25 @@ export default function HomeMain() {
   if (type === "user" && avatar) {
     return (
       <div className={styles.cont}>
-<<<<<<< HEAD
-        <Sarch/>  
+
+        <GymsForUsersMap />
+        <Sarch />
         <OrderBy/>
-           
-=======
-        <Sarch/>
-        <GymsForUsersMap />    
->>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
-        <GymCards/>
+        <GymCards />
+        {/* <CardShop /> */}
         <Paginated />
       </div>
     );
-  };
+  }
 
   if (type === "user" && avatarLS) {
     return (
       <div className={styles.cont}>
-        <Sarch/>
-<<<<<<< HEAD
-        <OrderBy />    
-=======
-        <GymsForUsersMap /> 
->>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
-        <GymCards/>
+        <GymsForUsersMap />
+        <Sarch />
+         <OrderBy />
+        <GymCards />
+        {/* <CardShop /> */}
         <Paginated />
       </div>
     );
@@ -109,7 +103,7 @@ export default function HomeMain() {
   if (type === "partner") {
     return (
       <div>
-        <HomePartner/>
+        <HomePartner />
         {/* <div className={styles.advertising}>
           <Advertising/>
         </div>
@@ -124,16 +118,15 @@ export default function HomeMain() {
         </div> */}
       </div>
     );
-  } 
+  }
 
   // Esto es una para un administrador de sitio
   if (type === "admin") {
-
     return (
       <div>
-      <HomeAdmin/>
+        <HomeAdmin />
         {/* <PartnerCards /><UserCards /><IncomesGraph /> */}
       </div>
     );
-  } 
+  }
 }
