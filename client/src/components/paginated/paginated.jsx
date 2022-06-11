@@ -196,25 +196,35 @@ export default function Paginated() {
         <div className={style.containerPagination}>
           <ul className={style.paginationPrueba}>
             <li>
-              <a href="#">Prev</a>
+              <span>Prev</span>
             </li>
             <li>
-              <a href="#">1</a>
+              {/* <a href="#">Prev</a> */}
+              <span>1</span>
+            </li>
+            <li>
+              {/* <a href="#">1</a> */}
+              <span>2</span>
             </li>
             <li className={style.active}>
-              <a href="#">2</a>
+              {/* <a href="#">2</a> */}
+              <span>3</span>
             </li>
             <li>
-              <a href="#">3</a>
+              {/* <a href="#">3</a> */}
+              <span>4</span>
             </li>
             <li>
-              <a href="#">4</a>
+              {/* <a href="#">4</a> */}
+              <span>5</span>
             </li>
             <li>
-              <a href="#">5</a>
+              {/* <a href="#">5</a> */}
+              <span>6</span>
             </li>
             <li>
-              <a href="#">Next</a>
+              {/* <a href="#">Next</a> */}
+              <span>Next</span>
             </li>
           </ul>
         </div>

@@ -2,13 +2,27 @@ import React from "react";
 import style from "./styles/GymCards.module.css";
 import { useSelector } from "react-redux";
 import GymCard from "../GymCard/GymCard";
+import { CardShop } from "../../helpers/Cards/Cards.jsx";
 
 export default function GymsCards() {
   const gyms = useSelector((state) => state.pageToShow);
 
   return (
-    <div className={style.mainBoxCards}>      
-      <div className={style.boxCards}>    
+    <div className={style.mainBoxCards}>
+      <div className={style.boxCards}>
+        {/* {gyms.length
+          ? gyms.map((x, y) => (
+              <CardShop
+                key={y}
+                id={x._id}
+                name={x.name}
+                rating={x.raiting}
+                price={x.price}
+                image={x.image}
+                favourite={x.favourite}
+              />
+            ))
+          : null} */}
         {gyms.length
           ? gyms.map((g) => {
               return (

@@ -119,9 +119,10 @@
 
 .containerPagination {
   position: relative;
-  height: 100vh;
+  /* height: 100vh; */
   width: 100%;
   background-size: cover;
+  margin: 2rem auto;
   background-position: center;
   display: flex;
   align-items: center;
@@ -143,14 +144,14 @@
   list-style-type: none;
   display: inline-block;
 }
-.containerPagination .paginationPrueba li a {
+.containerPagination .paginationPrueba li span {
   position: relative;
   padding: 20px 25px;
   text-decoration: none;
   color: #fff;
   font-weight: 500;
 }
-.containerPagination .paginationPrueba li a:hover,
-.containerPagination .paginapaginationPruebation li.active a {
+.containerPagination .paginationPrueba li span:hover,
+.containerPagination .paginapaginationPruebation li.active span {
   background: rgba(255, 255, 255, 0.2);
 }
