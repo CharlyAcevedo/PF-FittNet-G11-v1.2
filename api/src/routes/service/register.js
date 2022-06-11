@@ -107,6 +107,7 @@ router.post('/register', isAuthenticated, async (req, res, next) => {
             name: name,
             email: username,
             userActive: true,
+            gyms: []
           })
           await newPartnerInfo.save();
           newUser = await Users.create({

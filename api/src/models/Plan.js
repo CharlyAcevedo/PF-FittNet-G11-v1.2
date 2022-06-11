@@ -7,9 +7,18 @@ const userPlanSchema = new mongoose.Schema({
     },
     services: [String],
     price: {
+        type: String,        
+    },
+    commission: {
+        type: String,
+    },
+    gymsPermited: {
+        type: Number,
+    },
+    servicePerGym: {
         type: Number,
     }
-    //array de servicios, relacionar con el esquema de servicios
+    
 });
 
 module.exports = mongoose.model('Plan', userPlanSchema);

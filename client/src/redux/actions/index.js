@@ -331,25 +331,23 @@ export function createGym({
 //------SERVICE ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a servicios)
 //--------------------------------------------------------------------------------
 export function createService({
-  name,
-  description,
-  duration,
-  gyms,
-  uEnd,
-  image,
-  objtrainers,
+  name, 
+  description, 
+  duration, 
+  price, 
+  photo,
+  profileCategory,
 }) {
   return async (dispatch) => {
     try {
       
       const result = await axios.post("ruta", {
-        name: name,
-        description: description,
-        duration: duration,
-        gyms: gyms,
-        uEnd: uEnd,
-        image: image,
-        objtrainers: objtrainers,
+        name: name, // string requerido
+        description: description, // string requerido
+        duration: duration, //numero requerido
+        price: price, //numero requerido
+        photo: photo,
+        profileCategory: profileCategory,
       });
       return dispatch({
         type: POST_SERVICES,

@@ -4,7 +4,7 @@ import Logout from "../Logout/Logout";
 import { getUserGoogleForToken } from "../../redux/actions/index";
 import style from "./style/NavBarProfile.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import FormUser from "../Forms/FormUser";
+// import FormUser from "../Forms/FormUser";
 
 export default function NavBarProfile() {
   let { userId, name, type, avatar } = useParams();

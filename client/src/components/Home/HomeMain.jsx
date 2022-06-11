@@ -18,6 +18,7 @@ import Advertising from "../PartnerHomeComponents/Advertising";
 import ClientsGraph from "../Graphics/GraphClient"
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
 import { HomePartner } from "./HomePartner/HomePartner";
+import GymsForUsersMap from "../MapsAndGeo/GymsForUsers"
 
 
 export default function HomeMain() {
@@ -71,7 +72,8 @@ export default function HomeMain() {
   if (type === "user" && avatar) {
     return (
       <div className={styles.cont}>
-        <Sarch/>       
+        <Sarch/>
+        <GymsForUsersMap />    
         <GymCards/>
         <Paginated />
       </div>
@@ -81,7 +83,8 @@ export default function HomeMain() {
   if (type === "user" && avatarLS) {
     return (
       <div className={styles.cont}>
-        <Sarch/>       
+        <Sarch/>
+        <GymsForUsersMap /> 
         <GymCards/>
         <Paginated />
       </div>
