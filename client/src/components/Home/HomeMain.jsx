@@ -17,6 +17,7 @@ import Sarch from "../Search/Search";
 import Advertising from "../PartnerHomeComponents/Advertising";
 import ClientsGraph from "../Graphics/GraphClient"
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
+import { HomePartner } from "./HomePartner/HomePartner";
 
 
 export default function HomeMain() {
@@ -90,8 +91,9 @@ export default function HomeMain() {
   // Esto es una para cliente empresa
   if (type === "partner") {
     return (
-      <div className={styles.mainContainer}>
-        <div className={styles.advertising}>
+      <div>
+        <HomePartner/>
+        {/* <div className={styles.advertising}>
           <Advertising/>
         </div>
         <div className={styles.generalActions}>
@@ -102,7 +104,7 @@ export default function HomeMain() {
         </div>
         <div className={styles.infoFinantial}>
           <IncomesGraph/>
-        </div>
+        </div> */}
       </div>
     );
   } 

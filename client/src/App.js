@@ -1,18 +1,22 @@
 import "./App.css";
 import { Route, Routes, Outlet } from "react-router-dom";
+
 import Landing from "./views/Landing";
+import LegendCe from "./components/LegendCe/LegendCe";
+import LegendUf from "./components/LegendUf/LegendUf";
+import UserPrices from "./components/UserPrices/UserPrices";
+
 import Home from "./views/Home";
+
 import Login from "./views/Login";
 import UserRegister from "./views/UserRegister";
-import LegendCe from "./components/LegendCe/LegendCe";
+
 import ClientRegister from "./views/ClientRegister";
 import InitRegister from "./views/InitRegister";
+
 import Profile from "./views/Profile";
-//import UserPrices from "./components/UserPrices/UserPrices";
-//import GymDetail from "./views/GymDetail";
-import UserPrices from "./components/UserPrices/UserPrices";
+
 import GymDetail from "./components/GymDetail/GymDetail";
-import LegendUf from "./components/LegendUf/LegendUf";
 import ResetPassword from "./components/UpdatePassword/ResetPassword";
 import UpdatePasword from "./components/UpdatePassword/UpdatePassword";
 import MapGyms from "./components/MapsAndGeo/MapGyms";
@@ -101,10 +105,6 @@ function App() {
         <Route path="/deactivate/:userId" element={<DeactivateAccount />} />
 
         <Route path="/stripe" element={<StripeCart />} />
-        <Route
-          path="/profile/partner/:name/:userId"
-          element={<UpdatePartner />}
-        />
         <Route
           path="/profile/partner/:name/:userId/gym"
           element={<UpdateGym />}
