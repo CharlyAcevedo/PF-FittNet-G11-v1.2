@@ -1,15 +1,16 @@
 import axios from "axios";
 
 import {
+ 
+
+  POST_USER,POST_GYM,POST_SERVICES,POST_PARTNER, ADD_TO_CART, DELETE_DESEASE, GET_PARTNER,
  GET_ALL_USERS, GET_ALL_PARTNERS, GET_AVATARS, SET_CURRENT_PAGE, SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT, GET_ALL_GYMS, GET_GYM_DETAIL, SET_USER_GEO, POST_USER_GOOGLE,
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, ADD_TO_CART, REMOVE_FROM_CART,
   SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE, 
   CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,SORT_QUALIFICATION,
-  FILTER_CATEGORY,
-  SORT_PRICE,
-  SEARCH,
-  SORT_DISTANCE,
+  FILTER_CATEGORY,  SORT_PRICE,  SEARCH,  SORT_DISTANCE,
+
 } from "./actionTypes";
 //--------------------------------------------------------------------------------
 //------USER SERVICE ACTIONS------(favor de poner todas las aciones referentes a service en general todos los usuarios aqui)
@@ -157,24 +158,6 @@ export function getAdmin(userId) {
   };
 }
 
-export function getAllUsers() { 
-  // Esta ruta la consume el admin (va a estar protegida), y me trae información de todos
-  // los "users" registrados en a app
-    return async (dispatch) => {
-      try {
-        const response = await axios.get("/api/admin/allusers");
-        dispatch({
-        type: GET_ALL_USERS,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: GET_ALL_USERS,
-        payload: { error: err.message },
-      });
-    };
-  };
-};
 
 export function getAllPartners() {
   // Esta ruta la consume el admin (va a estar protegida), y me trae información de
