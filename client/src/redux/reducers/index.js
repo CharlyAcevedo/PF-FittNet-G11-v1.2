@@ -284,7 +284,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         pageToShow: objFav,
         gyms: objFav,
-        gymsToShow: objFav
+        gymsToShow: objFav,
+        user: {...state.user, favourite: payload.user.favourite}
       }
     case GET_ADMIN:
       if (payload.error) {

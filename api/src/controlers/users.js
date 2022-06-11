@@ -341,6 +341,7 @@ const getUserGoogleAccount = async (req, res) => {
                     // latitude: 1,
                     // longitude: 1,
                     active: 1,
+                    favourite: 1,
                     secretToken: 1,
                     type: 1,
                     avatar: {
