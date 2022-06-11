@@ -17,7 +17,6 @@ import Sarch from "../Search/Search";
 import Advertising from "../PartnerHomeComponents/Advertising";
 import ClientsGraph from "../Graphics/GraphClient"
 import OrderBy from '../OrderBy/OrderBy'
-import ClientsGraph from "../Graphics/GraphClient";
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
 import { HomePartner } from "./HomePartner/HomePartner";
 import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
