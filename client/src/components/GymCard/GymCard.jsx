@@ -9,9 +9,6 @@ import { AiFillStar, AiOutlineShoppingCart } from "react-icons/ai";
 export default function GymCard(props) {
   const navigate = useNavigate();
 
-  // IoIosHeart
-  // AiFillStar
-
   const user = useSelector((state) => state.user);
 
   const userId = localStorage.getItem("userId");

@@ -59,3 +59,8 @@
     border-radius: 10px;
     padding: .5em .5em;    
 }
+
+.titleContainer {
+    margin: 1rem auto;
+    font-size: 1.1rem;
+}
