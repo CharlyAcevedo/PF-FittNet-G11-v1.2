@@ -23,9 +23,10 @@ export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"; //setea el estado general "p
 export const SET_PAGE_NUMBER = "SET_PAGE_NUMBER"; //setea el estado general "numero de pagina" para paginado
 export const SET_CURRENT_LIMIT = "SET_CURRENT_LIMIT"; //setea el estado general "limite por pagina" para paginado
 
-
+export const GET_CART = 'GET_CART'
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const CLEAR_CART = 'CLEAR_CART'
 export const ADJUST_QTY = 'ADJUST_QTY';
 export const LOAD_CURRENT_ITEM = 'LOAD_CURRENT_ITEM';
 
@@ -37,7 +38,18 @@ export const SORT_DISTANCE= "SORT_DISTANCE" //Ordena por la ubicacion del gym
 
 export const CLEAR_GYM_DETAIL = 'CLEAR_GYM_DETAIL'; // Para limpiar el estado del detalle de gym cuando se remueva el componente
 
-export const GET_ATTRIBUTE_DESEASE = "GET_ATTRIBUTE_DESEASE"; // llama del back el atributo desease de la collection Diseases
+export const GET_ATTRIBUTE_DESEASE = "GET_ATTRIBUTE_DESEASE"; // llama del back el atributo deseaseName de la collection DiseasesType
 
 export const PUT_FAVOURITE = "PUT_FAVOURITE"; //? Tiene la funcionalidad de poner y sacar de favorito un gym
+
+export const DELETE_DESEASE = "DELETE_DEASE";
+
+
+export const GET_ADMIN = "GET_ADMIN"; // llama al back para traer infomación del admin por una ruta protegida
+
+
+export const GET_LOCK_ACCOUNTS = "GET_LOCK_ACCOUNTS"; // llama al back para traer información de las cuentas bloquedas (admin - ruta protegida)
+
+export const GET_MARKETING ="GET_MARKETING" //llama al back para traer info y mostrar en la landing
+
 

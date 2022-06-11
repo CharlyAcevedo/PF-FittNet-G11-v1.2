@@ -1,11 +1,11 @@
 //!----------------VALIDACIONES DE INPUT---------------------
-const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import { regexEmail, regexName, regPhrase } from '../../../asets/helpers/regexValidators'
 
 //!--------------------------------VALIDACIONES GYM----------------------
 export function gymValidate(input) {
   let error = {};
-  if (!input.name) {
-    error.name = "El nombre es requerido";
+  if (!input.name || !regexName.test(input.name)) {
+    error.name = "El nombre es requerido y debe tener por lo menos dos letras";
   } else if (Number(input.name)) {
     error.name = "No se puede ingresar Numeros!";
   } else if (!input.price) {

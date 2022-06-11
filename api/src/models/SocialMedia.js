@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const socialMediaSchema = new mongoose.Schema({
-    SocialMedia: {
+    socialMedia: {
         type: String,
         required: true,
     },

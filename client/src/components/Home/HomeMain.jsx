@@ -4,8 +4,8 @@ import { useEffect } from "react";
 // import Logout from "../Logout/Logout";
 import SelecAvatar from "../SelectAvatar/SelectAvatar";
 import GymCards from "../GymCards/GymCards";
-import UserCards from "../UserCards/UserCards";
-import PartnerCards from "../PartnerCards/PartnerCards";
+// import UserCards from "../UserCards/UserCards";
+// import PartnerCards from "../PartnerCards/PartnerCards";
 import { getAllGyms, getUserGoogleForToken } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import IncomesGraph from "../Graphics/Incomes";
@@ -16,26 +16,27 @@ import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
 import Advertising from "../PartnerHomeComponents/Advertising";
 import ClientsGraph from "../Graphics/GraphClient"
+<<<<<<< HEAD
 import OrderBy from '../OrderBy/OrderBy'
+=======
+import HomeAdmin from "./HomeAdmin/HomeAdmin";
+import { HomePartner } from "./HomePartner/HomePartner";
+import GymsForUsersMap from "../MapsAndGeo/GymsForUsers"
 
-// import SelectAvatar from "./views/SelectAvatar";
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
+
 export default function HomeMain() {
-  let { userId, type, avatar } = useParams();
-  // debería llegarme por params si es un
-  // "user" con sin avatar o un "partner" o incluso un "admin"
+  let { userId, type, avatar } = useParams(); 
 
   const dispatch = useDispatch();
 
-  // const user = useSelector((state) => state.user);
   const avatarLS = localStorage.getItem("avatar")
 
   const token = localStorage.getItem("token");
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // dispachar la action ¿pero qué voy a escuchar??? No sé si sea userId
-    // console.log('sale la action de traer gyms')
+  useEffect(() => { 
     dispatch(getAllGyms()); 
     if (token) {
       dispatch(getUserGoogleForToken(token));
@@ -43,7 +44,7 @@ export default function HomeMain() {
   }, [userId]);
 
   // Esto es una vista para un usuario sin avatar
-  if (type === "user" && !avatar && !avatarLS) {
+  if (type === "user" && !avatar || !avatarLS) {
     return (
       <div
         style={{
@@ -75,9 +76,14 @@ export default function HomeMain() {
   if (type === "user" && avatar) {
     return (
       <div className={styles.cont}>
+<<<<<<< HEAD
         <Sarch/>  
         <OrderBy/>
            
+=======
+        <Sarch/>
+        <GymsForUsersMap />    
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
         <GymCards/>
         <Paginated />
       </div>
@@ -88,7 +94,11 @@ export default function HomeMain() {
     return (
       <div className={styles.cont}>
         <Sarch/>
+<<<<<<< HEAD
         <OrderBy />    
+=======
+        <GymsForUsersMap /> 
+>>>>>>> 6ce2e49670fcc178db41771c9616db3f18bd8a1f
         <GymCards/>
         <Paginated />
       </div>
@@ -98,8 +108,9 @@ export default function HomeMain() {
   // Esto es una para cliente empresa
   if (type === "partner") {
     return (
-      <div className={styles.mainContainer}>
-        <div className={styles.advertising}>
+      <div>
+        <HomePartner/>
+        {/* <div className={styles.advertising}>
           <Advertising/>
         </div>
         <div className={styles.generalActions}>
@@ -110,26 +121,18 @@ export default function HomeMain() {
         </div>
         <div className={styles.infoFinantial}>
           <IncomesGraph/>
-        </div>
+        </div> */}
       </div>
     );
   } 
 
   // Esto es una para un administrador de sitio
   if (type === "admin") {
+
     return (
       <div>
-        {/* <NavBarProfile /> */}
-        <h3>Qué más quiere ver un usuario Admin en su home???</h3>
-        <PartnerCards />
-        <UserCards />
-        <h3>
-          Vista de la parte financiera, ingresos, egresos, por pagar, por cobrar
-        </h3>
-        <IncomesGraph />
-
-        <h3>Una vista como user</h3>
-        <h3>Una vista como partner</h3>
+      <HomeAdmin/>
+        {/* <PartnerCards /><UserCards /><IncomesGraph /> */}
       </div>
     );
   } 

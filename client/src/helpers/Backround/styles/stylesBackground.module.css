@@ -130,11 +130,11 @@
   animation: slideUp 1s forwards 0.1s;
   transform: rotate(45deg);
   position: absolute;
-  height: 920px;
+  height: 494px;
   width: 520px;
   background: var(--color-primD3);
-  top: -105px;
-  right: 270px;
+  top: -45px;
+  right: 119px;
   border-radius: 0 72px 0 0;
 }
 
@@ -166,17 +166,17 @@
   animation: slideUp 1s forwards 0.1s;
   transform: rotate(45deg);
   position: absolute;
-  height: 400px;
+  height: 331px;
   width: 200px;
   background: var(--color-primD2);
-  top: 420px;
-  right: 50px;
+  top: 422px;
+  right: 19px;
   border-radius: 60px;
 }
 
 @keyframes slideUp {
   0% {
-    transform: translateY(300px) scale(0.2);
+    transform: translateY(200px) scale(0.2);
   }
   100% {
     transform: translateY(0px) scale(1);

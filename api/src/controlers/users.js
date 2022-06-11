@@ -9,6 +9,7 @@ const jwt_decode = require('jwt-decode');
 const bcrypt = require('bcrypt');
 const Address = require('../models/Address');
 const Diseases = require('../models/Diseases')
+const DiseasesType = require('../models/DiseasesType')
 
 async function findUser(userName) {
     try {
@@ -47,13 +48,13 @@ const getUser = async (req, res) => {
         //     .populate('partner')
         const user = await User.aggregate([
             {
-                $match: { _id: ObjectId(id)}
+                $match: { _id: ObjectId(id) }
             },
             {
                 $lookup: {
                     from: "avatars",
                     localField: "avatar",
-                    foreignField: "_id", 
+                    foreignField: "_id",
                     as: "avatar"
                 }
             },
@@ -63,7 +64,7 @@ const getUser = async (req, res) => {
                     localField: "info",
                     foreignField: "_id",
                     as: "info"
-                },                
+                },
             },
             {
                 $lookup: {
@@ -81,8 +82,50 @@ const getUser = async (req, res) => {
                     as: "partner"
                 }
             },
+            {
+                $lookup: {
+                    from: "diseases",
+                    localField: "info.diseases",
+                    foreignField: "_id",
+                    as: "info.diseases"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.diseases",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $project: {
+                    name: 1,
+                    userName: 1,
+                    latitude: 1,
+                    longitude: 1,
+                    active: 1,
+                    secretToken: 1,
+                    type: 1,
+                    avatar: {
+                        _id: 1,
+                        avatarName: 1,
+                    },
+                    info: {
+                        _id: 1,
+                        name: 1,
+                        lastName: 1,
+                        photo: 1,
+                        birthday: 1,
+                        phone: 1,
+                        username: 1,
+                        address: {
+                            _id: 1,
+                            street: 1,
+                        },
+                        diseases: 1
+                    }
+                }
+            }
         ])
-        console.log(user)
         res.json({
             ok: true,
             user
@@ -96,24 +139,62 @@ const getUser = async (req, res) => {
     }
 }
 
+/* const updateUser = async (req, res) => {
+    const { id } = req.params
+    try {
+        const body = req.body
+
+
+        const dataDesease = body.desease
+        const user = await User.findById(id)
+        const allDesease = user.desease
+        const igualesDeseases = allDesease.filter(x => dataDesease.some(y => y.desease === x.desease));
+        const desigualesDesease = dataDesease.filter(x => !allDesease.some(y => y.desease === x.desease));
+
+    } catch (error) {
+        
+    }
+       
+} */
 const updateUser = async (req, res) => {
     const { id } = req.params
     try {
         const body = req.body
 
-        const dataDesease = body.desease
-        const allDesease = await Diseases.find();
-        const igualesDeseases = allDesease.filter(x => dataDesease.some(y => y.desease === x.desease));
-        const desigualesDesease = dataDesease.filter(x => !allDesease.some(y => y.desease === x.desease));
+        const dataDesease = body.desease //! enfermedades body
+        console.log(dataDesease)
 
-        let finallyDesease = []
-        let idDesiguales = []
-        if (desigualesDesease.length > 0) {
-            finallyDesease = await Diseases.create(desigualesDesease)
-            idDesiguales = finallyDesease.map(x => x._id);
+        const findDesTypes = await DiseasesType.find()
+        const fil = findDesTypes.filter(e => dataDesease.includes(e.deseaseName))
+        const deseaseId = fil.map(x => x._id);
+        console.log("mfil", fil)
+        console.log("deseaseId", deseaseId)
+        console.log("findDesTypes", findDesTypes)
+        // const allDesease = await Diseases.find();
+        // const igualesDeseases = allDesease.filter(x => dataDesease.some(y => y.desease === x.desease));
+        // const desigualesDesease = dataDesease.filter(x => !allDesease.some(y => y.desease === x.desease));
+
+        // let finallyDesease = []
+        // let idDesiguales = []
+        // if (desigualesDesease.length > 0) {
+        //     idDesiguales = finallyDesease.map(x => x._id);
+        // }
+        //const diseasesType = await
+
+        /* finallyDesease = await Diseases.create(dataDesease)
+
+        const idDesease = finallyDesease.map(x => x._id); */
+
+        // const concatDesease = [...igualesDeseases.map(x => x._id), ...idDesiguales]
+        const newDiseasesUser = {
+            desease: deseaseId,
+            trainlimits: body.trainlimits,
+            considerations: body.considerations
         }
+        console.log("newDiseasesUser", newDiseasesUser)
 
-        const concatDesease = [...igualesDeseases.map(x => x._id), ...idDesiguales]
+        finallyDesease = await Diseases.create(newDiseasesUser)
+        console.log("finallyDesease", finallyDesease)
 
         const newAddressUser = {
             street: body.street,
@@ -136,6 +217,7 @@ const updateUser = async (req, res) => {
         }
         const idInfo = user.info
         const idAvatar = user.avatar
+        // console.log(body.username)
         const newInfoUser = {
             username: body.username,
             lastName: body.lastname,
@@ -143,11 +225,14 @@ const updateUser = async (req, res) => {
             birthday: body.birthday,
             avatar: idAvatar,
             address: idAddress,
-            diseases: concatDesease,
+            // diseases: concatDesease,
+            diseases: finallyDesease._id,
             gender: body.gender,
             photo: body.photo,
         }
         const updUser = await InfoUser.findByIdAndUpdate(idInfo, newInfoUser, { new: true })
+
+        console.log(updUser)
         res.status(200).json({
             ok: true,
             updUser,
@@ -175,7 +260,6 @@ async function deleteUser(id) {
 const getUserGoogleAccount = async (req, res) => {
     const { token } = req.body;
     const usuario = jwt_decode(token)
-    console.log(req.body)
     const userName = usuario.email
     try {
         const user = await User.aggregate([
@@ -208,63 +292,140 @@ const getUserGoogleAccount = async (req, res) => {
                     preserveNullAndEmptyArrays: true
                 }
             },
-            {
-                $lookup: {
-                    from: "addresses",
-                    localField: "info.address",
-                    foreignField: "_id",
-                    as: "info.address"
-                }
-            },
-            {
-                $unwind: {
-                    path: "$info.address",
-                }
-            },
-            {
-                $lookup: {
-                    from: "diseases",
-                    localField: "info.diseases",
-                    foreignField: "_id",
-                    as: "info.diseases"
-                }
-            },
-            {
-                $unwind: {
-                    path: "$info.diseases",
-                    preserveNullAndEmptyArrays: true
-                }
-            },
+            // {
+            //     $lookup: {
+            //         from: "addresses",
+            //         localField: "info.address",
+            //         foreignField: "_id",
+            //         as: "info.address"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$info.address",
+            //     }
+            // },
             {
                 $project: {
                     name: 1,
                     userName: 1,
-                    // latitude: 0,
-                    // longitude: 0,
-                    active: 1,
-                    secretToken: 1,
-                    type: 1,
-                    avatar: {
-                        _id: 1,
-                        avatarName: 1,
-                    },
+                    latitud: 1,
+                    longitude: 1,
                     info: {
-                        _id: 1,
                         name: 1,
-                        lastName: 1,
                         photo: 1,
-                        birthday: 1,
-                        phone: 1,
-                        username: 1,
-                        address: {
-                            _id: 1,
-                            street: 1,
-                        },
-                        diseases: 1
-                    }
+                        lastName: 1,
+                        address: 1
+                    },
+                    // info: {
+                    //     name: 1,
+                    //     lastName: 1,
+                    //     address: 1
+                    // },
+                    favourite: 1,
+                    type: 1,
+                    avatar: 1
                 }
             }
+            // {
+            //     $lookup: {
+            //         from: "infousers",
+            //         localField: "info",
+            //         foreignField: "_id",
+            //         as: "info"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: '$info',
+            //         preserveNullAndEmptyArrays: true
+            //     }
+            // },
+            // {
+            //     $lookup: {
+            //         from: "addresses",
+            //         localField: "info.address",
+            //         foreignField: "_id",
+            //         as: "info.address"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$info.address",
+            //     }
+            // },
+            // {
+            //     $lookup: {
+            //         from: "diseases",
+            //         localField: "info.diseases",
+            //         foreignField: "_id",
+            //         as: "info.diseases"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$info.diseases",
+            //         preserveNullAndEmptyArrays: true
+            //     }
+            // },
+            // {
+            //     $lookup: {
+            //         from: "diseasestypes",
+            //         localField: "info.diseases.desease",
+            //         foreignField: "_id",
+            //         as: "info.diseases.desease"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$info.diseases.desease",
+            //         preserveNullAndEmptyArrays: true
+            //     }
+            // },
+            // {
+            //     $project: {
+            //         name: 1,
+            //         userName: 1,
+            //         // latitude: 1,
+            //         // longitude: 1,
+            //         active: 1,
+            //         favourite: 1,
+            //         secretToken: 1,
+            //         type: 1,
+            //         avatar: {
+            //             _id: 1,
+            //             avatarName: 1,
+            //         },
+            //         info: {
+            //             _id: 1,
+            //             name: 1,
+            //             lastName: 1,
+            //             gender: 1,
+            //             photo: 1,
+            //             birthday: 1,
+            //             phone: 1,
+            //             username: 1,
+            //             address: {
+            //                 _id: 1,
+            //                 street: 1,
+            //                 floor: 1,
+            //                 neighborhood: 1,
+            //                 apartament: 1,
+            //                 zipCode: 1,
+            //                 address: 1,
+            //                 city: 1,
+            //                 country: 1,
+            //             },
+            //             diseases: {
+            //                 considerations: 1,
+            //                 desease: 1,
+            //                 trainlimits: 1,
+            //             },
+            //         }
+            //     }
+            // }
         ]);
+        console.log("ESTOS SON MIS DATOS", user)
         return res.status(200).json({
             ok: true,
             user: user[0]
@@ -277,10 +438,10 @@ const getUserGoogleAccount = async (req, res) => {
         //     user
         // })
     } catch (error) {
-        console.log("error: ", error);
+        // console.log("error: ", error);
         res.status(500).json({
             ok: false,
-            msg: "Unexpected errorf"
+            msg: "Unexpected error"
         })
     }
 }
@@ -288,6 +449,7 @@ const getUserGoogleAccount = async (req, res) => {
 const googleSignIn = async (req, res) => {
     const googleToken = req.body.tokenId
     const { email, name, given_name, family_name, picture } = req.body.data;
+    console.log(req.body)
     const userName = email;
     try {
         const usuarioDb = await User.findOne({ userName })
@@ -313,7 +475,9 @@ const googleSignIn = async (req, res) => {
             usuario = usuarioDb;
         }
         let newUser = await usuario.save();
-        // console.log (newUser, 'nuevo usuario Google')
+
+        console.log(newUser);
+
         let user = {
             userId: newUser._id, avatar: newUser.avatar, type: newUser.type,
             latitude: newUser.latitude, longitude: newUser.longitude

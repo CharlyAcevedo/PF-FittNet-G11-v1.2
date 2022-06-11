@@ -29,10 +29,42 @@
   justify-content: space-around;
 }
 
+.titleCarrito {
+  font-size: 29px;
+  font-weight: 700;
+}
+
 .contServices {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 20px;
   grid-row-gap: 20px;
+  
+}
+
+.contCarr {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.table {
+  background-color: #fff;
+  display: flex;
+}
+.contServ {
+  padding: 1px 1px 1px 1px;
+}
+
+.titleTable {
+  display: flex;
+}
+
+.contTotalC {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 15px;
+  align-content: center;
+  font-weight: 700;
 }

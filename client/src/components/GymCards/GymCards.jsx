@@ -6,8 +6,6 @@ import GymCard from "../GymCard/GymCard";
 export default function GymsCards() {
   const gyms = useSelector((state) => state.pageToShow);
 
-  console.log(gyms);
-
   return (
     <div className={style.mainBoxCards}>      
       <div className={style.boxCards}>    

@@ -1,23 +1,27 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
+
 import validate from "./validation";
-import avatar from "../../asets/icons/avatar.jpg";
 import styles from "./styles/form.module.css";
 import { updateUserInfo } from "../../redux/actions/index";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import MapUser from "../MapsAndGeo/MapUser";
 import { getAttributeDesease } from "../../redux/actions/index";
+import { InputPrimaryFormUsers } from "../../helpers/Inputs/Inputs.jsx";
+import { ButtonSecondaryDeslice } from "../../helpers/Buttons/Buttons.jsx";
 
 export default function FormUser() {
   const navigate = useNavigate();
 
   const { userId } = useParams();
 
-  const avatar = localStorage.getItem("avatar")
+  const avatar = localStorage.getItem("avatar");
+  const name = localStorage.getItem("name");
+  const type = localStorage.getItem("type");
 
   const deseaseAttribute = useSelector((state) => state.deseaseAttribute);
-  const user = useSelector((state) => state.currentUserDetails);
+  const user = useSelector((state) => state.user);
   console.log("user", user);
   const dispatch = useDispatch();
 
@@ -26,63 +30,54 @@ export default function FormUser() {
   }, []);
 
   const [dese, setDese] = useState({
-    desease: "",
+    desease: [],
     trainlimits: "",
     considerations: "",
   });
   const [input, setInput] = useState({
-    username: "",
     avatar: avatar,
-    lastname: "",
-    phone: "",
-    birthday: "",
-    gender: "",
-    photo: "",
-    address: "",
-    apartment: "",
-    neighborhood: "",
-    city: "",
-    country: "",
-    zipCode: "",
+    lastname: user.info?.lastName ? user.info.lastName : "",
+    phone: user.info?.phone ? user.info.phone : "",
+    birthday: user.info?.birthday ? user.info.birthday : "",
+    gender: user.info?.gender ? user.info.gender : "",
+    photo: user.info?.photo ? user.info.photo : "",
+    address: user.info?.address?.address ? user.info.address.address : "",
+    apartment: user.info?.address?.apartment ? user.info.address.apartment : "",
+    neighborhood: user.info?.address?.neighborhood
+      ? user.info.address.neighborhood
+      : "",
+    city: user.info?.address?.city ? user.info.address.city : "",
+    country: user.info?.address?.country ? user.info.address.country : "",
+    zipCode: user.info?.address?.zipCode ? user.info.address.zipCode : "",
     desease: [],
-
-    /* name: user.name,
-    username: user.username,
-    // avatar: "",
-    lastname: user.lastname,
-    phone: user.phone,
-    birthday: user.birthday,
-    gender: user.gender,
-    photo: user.photo,
-    street: user.street,
-    floor: user.floor,
-    address: user.address,
-    apartment: user.apartment,
-    neighborhood: user.neighborhood,
-    city: user.city,
-    country: user.country,
-    zipCode: user.zipCode, */
+    trainlimits: "",
+    considerations: "",
   });
 
   const [error, setError] = useState({});
 
   function handleOnChange(e) {
-    /* let concatDesease = "";
-    if(e.target.name = "inpDesease"){
-      concatDesease = [...concatDesease + e.target.value ]
-      console.log("concatDesease", concatDesease)
-     
-    }
-    if (e.target.name= "but"){
+    const filtro = input.desease.filter(
+      (d) => d.toLowerCase() === e.target.value.toLowerCase()
+    );
+    if (e.target.name == "selDesease") {
+      if (filtro.length) {
+        alert("deberias agregar una enfermedad diferente");
+      } else {
+        setInput({
+          ...input,
+          desease: [...input.desease, e.target.value],
+        });
+        setError(
+          validate({
+            ...input,
+            desease: [...input.desease, e.target.value],
+          })
+        );
+      }
+    } else if (e.target.name !== "inpDesease" && e.target.name !== "but") {
       setInput({
         ...input,
-        desease: [...input.desease, concatDesease[1]]
-      }); 
-    } */
-    if (e.target.name !== "inpDesease" && e.target.name !== "but") {
-      setInput({
-        ...input,
-
         [e.target.name]: e.target.value,
       });
       setError(
@@ -92,124 +87,27 @@ export default function FormUser() {
         })
       );
     }
-
     console.log("input", input);
-    console.log(error);
-    console.log("target", e.target);
-    //console.log(user);
-  }
-
-  let concatDesease = {};
-  function handleOnChange3(e) {
-    /* const filtrar = input.desease.filter(d =>  d.desease === e.target.value)*/
-
-    const fil = input.desease.filter(
-      (d) => d.desease.toLowerCase() === dese.desease.toLowerCase()
-    );
-    console.log("fil", fil);
-    if (
-      e.target.name == "desease" &&
-      e.target.name !==
-        "but" /* && e.target.name !== "considerations"  && e.target.name !=="trainlimits"  */
-    ) {
-      //concatDesease = [...concatDesease ,  e.target.value ]
-      setDese({
-        ...dese,
-        desease: e.target.value,
-      });
-      console.log("concatDesease", concatDesease);
-      console.log("dese", dese);
-    } else if (dese.desease) {
-      console.log("fil", fil);
-      console.log("estoy dentro");
-      if (fil.length) {
-        alert("deberias agregar una enfemedad diferente");
-        setDese({
-          ...dese,
-          desease: "",
-        });
-        //setDese("no se puede agregar una enfermedad ya agregada")
-      } else {
-        setDese({
-          ...dese,
-          [e.target.name]: e.target.value,
-        });
-        setInput({
-          ...input,
-          desease: [...input.desease, dese],
-        });
-        setDese({
-          desease: "",
-          trainlimits: "",
-          considerations: "",
-        });
-        /* let formulario = document.getElementById('desease');
-          console.log("formulario", formulario)
-           formulario.reset()
-          console.log("formulario.value", formulario.value) */
-      }
-    } else {
-      alert("debes agregar una enfermedad");
-    }
-    console.log("input", input);
-    console.log("dese", dese);
-    console.log("concatDesease", concatDesease);
-    //console.log(error);
-    console.log("target", e);
-  }
-
-  function handleOnChange4(e) {
-    // if (e.target.name === "considerations") {
-    //concatDesease.considerations = e.target.value
-    /* setInput({
-        ...input,
-        [e.target.name]: e.target.value,
-      }); */
-    //}
-    //else if (e.target.name === "trainlimits") {
-    //concatDesease.trainlimits = e.target.value
-    /* setInput({
-        ...input,
-        [e.target.name]: e.target.value,
-      }); */
-    //}
-    setDese({
-      ...dese,
-      [e.target.name]: e.target.value,
-    });
-    console.log("input", input);
-    console.log("concatDesease", concatDesease);
-    //console.log(error);
-    console.log("target", e);
+    console.log("error", error);
+    console.log("e", e);
   }
 
   async function handleOnChange2(e) {
-    /* const imagen = e.target.value
-        const url = URL.fileReader(imagen)
-        console.log(imagen) */
     const preview = document.querySelector("img");
-    console.log("preview", preview);
     const fileInput = document.getElementById("image");
-    console.log("fileInput", fileInput);
     const file = fileInput.files[0];
-    console.log("file", file);
     const reader = await new FileReader();
-    console.log("reader", reader);
     reader.addEventListener(
       "load",
       async function () {
         preview.src = await reader.result;
-        //const srcc = document.querySelector('img').getAttribute('src');
-        //console.log("srcc", srcc)
         setInput({
           ...input,
           photo: preview.src,
         });
-        console.log("preview.src", preview.src);
       },
       false
     );
-    //let valor_src= $("#mitabla img").attr("src");
     if (file) {
       reader.readAsDataURL(file);
     }
@@ -219,15 +117,9 @@ export default function FormUser() {
         [e.target.name]: e.target.value,
       })
     );
-
-    console.log("input", input);
-    //console.log(error);
-    console.log("e.target.value", e.target.result);
   }
 
   function handleSelect(e) {
-    console.log(e);
-
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -238,65 +130,12 @@ export default function FormUser() {
         [e.target.name]: e.target.value,
       })
     );
-    console.log(input);
-    console.log(error);
-  }
-
-  function handleSelectDeseases(e) {
-    const filtro = input.desease.filter(
-      (d) => d.desease.toLowerCase() === e.target.value.toLowerCase()
-    );
-    if (filtro.length) {
-      alert("deberias agregar una enfermedad diferente");
-    } else {
-      setDese({
-        desease: e.target.value,
-      });
-    }
-
-    /* if(!input.desease.includes(e.target.value) && e.target.name !== "inpDesease" 
-       && e.target.name !== "but" && input.desease.length === 0){
-
-    setInput({
-        ...input,
-       desease: [...input.desease, e.target.value]
-    })
-    } */
-
-    /* setError(validate({
-        ...input,
-        types :  [...input.types, e.target.value]
-    }))  */
-    console.log("e.t.name", e.target.name);
-    console.log("concatDes", concatDesease);
-    console.log("value", e.target.value);
-    console.log("filtro", filtro);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(input);
-    console.log("entro aqui");
     dispatch(updateUserInfo(userId, input));
-    // setInput({
-    //   name: "",
-    //   username: "",
-    //   avatar: "",
-    //   lastname: "",
-    //   phone: "",
-    //   birthday: "",
-    //   gender: "",
-    //   photo: "",
-    //   address: "",
-    //   apartment: "",
-    //   neighborhood: "",
-    //   city: "",
-    //   country: "",
-    //   zipCode: "",
-    // });
-    // alert("se modifico el usuario");
-    navigate("/");
-    //history.push('/home')
+    navigate(`/home/${type}/${name}/${userId}/${avatar}`);
   }
 
   function handleDelete(e) {
@@ -307,6 +146,17 @@ export default function FormUser() {
   }
 
   function handleDeleteDse(e) {
+    if (input.desease.length === 1) {
+      setError({
+        ...error,
+        desease:
+          "debes seleccionar las enfermedades que se relacionen con tu condicion",
+      });
+      setInput({
+        ...input,
+        desease: input.desease.filter((c) => c !== e),
+      });
+    }
     setInput({
       ...input,
       desease: input.desease.filter((c) => c !== e),
@@ -314,32 +164,24 @@ export default function FormUser() {
   }
 
   return (
-    <div>
-      <h1>Datos del Usuario</h1>
+    <div style={{ width: "100%" }}>
+      <div className={styles.containerUser}>
+        <h2>Datos del Usuario</h2>
+        <p>
+          Aqui puedes completar los datos de tu información personal, esta
+          información es muy importante para nosotros
+          <br />
+          tanto como lo es para tí, es por eso que la tratarémos con la mayor
+          confidencialidad y discreción,
+          <br />
+          puedes consultar nuestro anuncio de privacidad aqui
+        </p>
+      </div>
 
-      <p>
-        Aqui puedes completar los datos de tu información personal, esta
-        información es muy importante para nosotros
-        <br />
-        tanto como lo es para tí, es por eso que la tratarémos con la mayor
-        confidencialidad y discreción,
-        <br />
-        puedes consultar nuestro anuncio de privacidad aqui
-      </p>
-
-      <form>
-        <div>
-          <label>USERNAME: </label>
-          <input
-            className={error.username ? styles.inputError : styles.input}
-            type="text"
-            placeholder="username"
-            name="username"
-            onChange={(e) => handleOnChange(e)}
-          />
-          {error.username && <p className={styles.parrafo}>{error.username}</p>}
+      <form className={styles.containerFormUser}>
+        <div className={styles.formUserOne}>
           <div>
-            <label>AVATAR: </label>
+            <label style={{ fontWeight: "700" }}>Avatar: </label>
             <select
               className={error.avatar ? styles.inputError : styles.input}
               name="avatar"
@@ -354,33 +196,55 @@ export default function FormUser() {
             </select>
             {error.avatar && <p className={styles.parrafo}>{error.avatar}</p>}
           </div>
-          <div>
-            <label>LASTNAME: </label>
-            <input
-              className={error.lastname ? styles.inputError : styles.input}
-              type="text"
-              name="lastname"
-              onChange={(e) => handleOnChange(e)}
-            />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: ".8rem",
+            }}
+          >
+            <div
+              style={{ display: "flex", alignItems: "center", gap: ".8rem" }}
+            >
+              <label style={{ fontWeight: "700" }}>Apellido: </label>
+              <InputPrimaryFormUsers
+                type="text"
+                placeholder={user.info?.lastName}
+                name="lastname"
+                onChange={(e) => handleOnChange(e)}
+              />
+            </div>
             {error.lastname && (
               <p className={styles.parrafo}>{error.lastname}</p>
             )}
           </div>
-          <div>
-            <label>PHONE: </label>
-            <input
-              className={error.phone ? styles.inputError : styles.input}
-              type="tel"
-              name="phone"
-              onChange={(e) => handleOnChange(e)}
-            />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: ".8rem",
+            }}
+          >
+            <div
+              style={{ display: "flex", alignItems: "center", gap: ".8rem" }}
+            >
+              <label style={{ fontWeight: "700" }}>Telefono: </label>
+              <InputPrimaryFormUsers
+                type="text"
+                placeholder="telefono"
+                name="phone"
+                onChange={(e) => handleOnChange(e)}
+              />
+            </div>
             {error.phone && <p className={styles.parrafo}>{error.phone}</p>}
           </div>
-          <div>
-            <label>BIRTHDAY: </label>
-            <input
-              className={error.birthday ? styles.inputError : styles.input}
+          <div style={{ display: "flex", alignItems: "center", gap: ".8rem" }}>
+            <label style={{ fontWeight: "700" }}>Fecha Nacimiento: </label>
+            <InputPrimaryFormUsers
               type="date"
+              placeholder="DD/MM/AAAA"
               name="birthday"
               onChange={(e) => handleOnChange(e)}
             />
@@ -389,50 +253,83 @@ export default function FormUser() {
             )}
           </div>
           <div>
-            <label>GENDER: </label>
+            <label style={{ fontWeight: "700" }}>Genero: </label>
             <select
               className={error.gender ? styles.inputError : styles.input}
               name="gender"
               onChange={(e) => handleSelect(e)}
             >
               <option id="GEN">--</option>
-              <option value="femenine">femenine</option>
-              <option value="male">male</option>
+              <option value="femenine">femenino</option>
+              <option value="male">masculino</option>
             </select>
           </div>
-          <div>
-            <label>PHOTO: </label>
-            <input
-              type="file"
-              name="photo"
-              id="image"
-              onChange={(e) => handleOnChange2(e)}
-            />
-            {error.photo && <p className={styles.parrafo}>{error.photo}</p>}
-            <div id="result-image">
-              {/* <img src="" id="img-result" onChange={(e) => handleOnChange2(e)}/> */}
+        </div>
+        <div className={styles.containerImageUser}>
+          <div style={{ height: "180px" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: ".8rem",
+                flexDirection: "column",
+                justifyContent: "space-around",
+                height: "100%",
+              }}
+            >
+              <label style={{ fontWeight: "700" }}>Foto Perfil </label>
+              <div className={styles.inputFileContainer}>
+                <label htmlFor="image" className={styles.formLabel}>
+                  <input
+                    type="file"
+                    name="photo"
+                    id="image"
+                    className={styles.inputFile}
+                    onChange={(e) => handleOnChange2(e)}
+                  />
+                  <span className={styles.formText}>Adjunta imagen</span>
+                </label>
+              </div>
             </div>
+            {error.photo && <p className={styles.parrafo}>{error.photo}</p>}
           </div>
-          <div>
+
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}
+          >
             {!input.photo ? (
-              <img src={avatar} width="200px" alt="avatar" />
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqh5pmaPkqtRlk67znEF2s4NADR2URCfOlOQ&usqp=CAU"
+                alt="avatar"
+                style={{ borderRadius: ".6rem" }}
+              />
             ) : (
-              <img src={input.photo} width="200px" alt="tu foto" />
+              <img
+                src={input.photo}
+                alt="tu foto"
+                style={{ borderRadius: ".6rem", width: "200px" }}
+              />
             )}
             {input.photo && (
-              <button type="button" onClick={() => handleDelete()}>
+              <button
+                className={styles.btnQuitarFoto}
+                type="button"
+                onClick={() => handleDelete()}
+              >
                 Quitar foto
               </button>
             )}
           </div>
+        </div>
 
-          <div>
-            <h1>DISEASES</h1>
+        <div className={styles.containerDiseases}>
+          <h2 style={{ color: "#fff" }}>Enfermedades</h2>
 
+          <div className={styles.boxDiseases}>
             <select
-              /* className={!input.types.length? styles.inputError :  styles.input } */ onChange={(
-                e
-              ) => handleSelectDeseases(e)}
+              name="selDesease"
+              onChange={(e) => handleOnChange(e)}
+              className={styles.input}
             >
               <option id="des" disabled>
                 Desease...
@@ -445,13 +342,9 @@ export default function FormUser() {
                 );
               })}
             </select>
-            {/* {(input.types.length === 0 || input.types.length > 2) && (
-                        <p className={styles.parrafo}>{error.types}</p>
-                    )}   */}
-
             {input.desease.map((e) => (
-              <div key={e.desease}>
-                <p>{e.desease}</p>
+              <div key={e}>
+                <p>{e}</p>
                 <button
                   className={styles.btn}
                   type="button"
@@ -461,23 +354,13 @@ export default function FormUser() {
                 </button>
               </div>
             ))}
-
-            <input
-              id="desease"
-              className={error.desease ? styles.inputError : styles.input}
-              type="text"
-              placeholder="inpDesease"
-              name="desease"
-              value={dese.desease}
-              onChange={(e) => handleOnChange3(e)}
-            />
             {error.desease && <p className={styles.parrafo}>{error.desease}</p>}
             <textarea
               className={error.trainlimits ? styles.inputError : styles.input}
               type="text"
-              placeholder="trainlimits"
+              placeholder="limtitaciones"
               name="trainlimits"
-              onChange={(e) => handleOnChange4(e)}
+              onChange={(e) => handleOnChange(e)}
             />
             {error.trainlimits && (
               <p className={styles.parrafo}>{error.trainlimits}</p>
@@ -487,125 +370,144 @@ export default function FormUser() {
                 error.considerations ? styles.inputError : styles.input
               }
               type="text"
-              placeholder="considerations"
+              placeholder="consideraciones"
               name="considerations"
-              onChange={(e) => handleOnChange4(e)}
+              onChange={(e) => handleOnChange(e)}
             />
-            <button
-              name="but"
-              type="button"
-              onClick={(e) => handleOnChange3(e)}
-            >
-              save desease
-            </button>
-            {/*{error.desease && <p className={styles.parrafo}>{error.desease}</p>} */}
             {error.considerations && (
               <p className={styles.parrafo}>{error.considerations}</p>
             )}
           </div>
-          <div>
-            <section>
-              <MapUser />
-            </section>
-            <label>ADDRESS: </label>
+        </div>
+        <div>
+          <section>
+            <MapUser />
+          </section>
+          <div className={styles.containerDirection}>
+            <div>
+              <label style={{ fontWeight: "700", fontSize: "1.4rem" }}>
+                DIRECCION
+              </label>
+            </div>
+            <div className={styles.boxInputDirection}>
+              <div>
+                <InputPrimaryFormUsers
+                  type="number"
+                  placeholder="street"
+                  name="street"
+                  onChange={(e) => handleOnChange(e)}
+                />
+                {error.street && (
+                  <p className={styles.parrafo}>{error.street}</p>
+                )}
 
-            <input
-              className={error.street ? styles.inputError : styles.input}
-              type="number"
-              name="street"
-              placeholder="street"
-              onChange={(e) => handleOnChange(e)}
-            />
-            {error.street && <p className={styles.parrafo}>{error.street}</p>}
-
-            <input
-              className={error.floor ? styles.inputError : styles.input}
-              type="number"
-              name="floor"
-              placeholder="floor"
-              onChange={(e) => handleOnChange(e)}
-            />
-            {error.floor && <p className={styles.parrafo}>{error.floor}</p>}
-            <input
-              className={error.address ? styles.inputError : styles.input}
-              type="text"
-              name="address"
-              placeholder="address"
-              onChange={(e) => handleOnChange(e)}
-            />
-            {error.address && <p className={styles.parrafo}>{error.address}</p>}
-            <input
-              className={error.apartment ? styles.inputError : styles.input}
-              type="number"
-              name="apartment"
-              placeholder="apartment"
-              onChange={(e) => handleOnChange(e)}
-            />
-            {error.apartment && (
-              <p className={styles.parrafo}>{error.apartment}</p>
-            )}
-            <input
-              className={error.neighborhood ? styles.inputError : styles.input}
-              type="text"
-              name="neighborhood"
-              placeholder="neighborhood"
-              onChange={(e) => handleOnChange(e)}
-            />
-            {error.neighborhood && (
-              <p className={styles.parrafo}>{error.neighborhood}</p>
-            )}
-            <input
-              className={error.city ? styles.inputError : styles.input}
-              type="text"
-              name="city"
-              placeholder="city"
-              onChange={(e) => handleOnChange(e)}
-            />
-            {error.city && <p className={styles.parrafo}>{error.city}</p>}
-            <input
-              className={error.country ? styles.inputError : styles.input}
-              type="text"
-              name="country"
-              placeholder="country"
-              onChange={(e) => handleOnChange(e)}
-            />
-            {error.country && <p className={styles.parrafo}>{error.country}</p>}
-            <input
-              className={error.zipCode ? styles.inputError : styles.input}
-              type="number"
-              name="zipCode"
-              placeholder="zipCode"
-              onChange={(e) => handleOnChange(e)}
-            />
-            {error.zipCode && <p className={styles.parrafo}>{error.zipCode}</p>}
+                <InputPrimaryFormUsers
+                  type="number"
+                  placeholder="floor"
+                  name="floor"
+                  onChange={(e) => handleOnChange(e)}
+                />
+                {error.floor && <p className={styles.parrafo}>{error.floor}</p>}
+                <InputPrimaryFormUsers
+                  type="text"
+                  placeholder="address"
+                  name="address"
+                  onChange={(e) => handleOnChange(e)}
+                />
+                {error.address && (
+                  <p className={styles.parrafo}>{error.address}</p>
+                )}
+                <InputPrimaryFormUsers
+                  type="number"
+                  placeholder="apartment"
+                  name="apartment"
+                  onChange={(e) => handleOnChange(e)}
+                />
+                {error.apartment && (
+                  <p className={styles.parrafo}>{error.apartment}</p>
+                )}
+              </div>
+              <div>
+                <InputPrimaryFormUsers
+                  type="text"
+                  placeholder="neighborhood"
+                  name="neighborhood"
+                  onChange={(e) => handleOnChange(e)}
+                />
+                {error.neighborhood && (
+                  <p className={styles.parrafo}>{error.neighborhood}</p>
+                )}
+                <InputPrimaryFormUsers
+                  type="text"
+                  placeholder="city"
+                  name="city"
+                  onChange={(e) => handleOnChange(e)}
+                />
+                {error.city && <p className={styles.parrafo}>{error.city}</p>}
+                <InputPrimaryFormUsers
+                  type="text"
+                  placeholder="country"
+                  name="country"
+                  onChange={(e) => handleOnChange(e)}
+                />
+                {error.country && (
+                  <p className={styles.parrafo}>{error.country}</p>
+                )}
+                <InputPrimaryFormUsers
+                  type="number"
+                  placeholder="zipCode"
+                  name="zipCode"
+                  onChange={(e) => handleOnChange(e)}
+                />
+                {error.zipCode && (
+                  <p className={styles.parrafo}>{error.zipCode}</p>
+                )}
+              </div>
+            </div>
           </div>
-          <div>
-            {error.lastname ||
-            error.phone ||
-            error.birthday ||
-            error.gender ||
-            error.photo ||
-            error.street ||
-            error.floor ||
-            error.address ||
-            error.apartment ||
-            error.neighborhood ||
-            error.city ||
-            error.country ||
-            error.zipCode ? (
-              <button type="submit" disabled>
-                SAVE CHANGES
-              </button>
-            ) : (
-              <button
+        </div>
+        <div>
+          {error.lastname ||
+          error.phone ||
+          error.birthday ||
+          error.gender ||
+          error.photo ||
+          error.street ||
+          error.floor ||
+          error.address ||
+          error.apartment ||
+          error.neighborhood ||
+          error.city ||
+          error.country ||
+          error.desease ||
+          error.trainlimits ||
+          error.considerations ||
+          error.zipCode ? (
+            <div style={{ width: "100%", margin: "0 auto" }}>
+              <ButtonSecondaryDeslice
+                type="submit"
+                title="GUARDAR CAMBIOS"
+                disabled
+              />
+            </div>
+          ) : (
+            <div
+              style={{
+                width: "100%",
+                margin: "0 auto",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <ButtonSecondaryDeslice
                 className={styles.btn}
                 type="submit"
+                title="GUARDAR CAMBIOS"
+                padding=".8rem 1rem"
                 onClick={(e) => handleSubmit(e)}
-              >
-                SAVE CHANGES
-              </button>
-            )}
-          </div>
+              />
+            </div>
+          )}
         </div>
       </form>
     </div>

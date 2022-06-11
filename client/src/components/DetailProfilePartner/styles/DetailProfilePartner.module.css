@@ -1,16 +1,17 @@
 .partnerMainContainer{
-    display: grid;
-    grid-gap: .2em;
-    grid-template-columns: 100%;
-    grid-template-rows: 5% 30% 50% 18% ;
-    text-align: center;
     color: white;
+    padding-top: 20px;
+    padding-left: 20px;
 }
 
-.partnerTitles{
-    border: 2px inset #4b6363;
+.partnerMiniContainer{
+    padding-top: 20px;
 }
+.styles.redirect {
+    padding-left: 20px;
 
+}
+/* 
 .partnerIncomes{
     display: grid;
     grid-template-columns: 60% 40%;
@@ -45,4 +46,4 @@
 
 .partnerLinks{
     border: 2px inset #4b6363;
-}
+} */
