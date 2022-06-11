@@ -11,7 +11,7 @@ import { EditMyServices } from "./ViewsPartner/EditMyServices";
 
 
 export function HomePartner () {
-    const [ view , setView ] = useState("myGyms");
+    const [ view , setView ] = useState("editMyGyms");
 
     let { userId } = useParams();
 
