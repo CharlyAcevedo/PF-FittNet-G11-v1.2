@@ -33,13 +33,13 @@ export default function AllRegister() {
     navigator.geolocation.getCurrentPosition(
       function (position) {
         const payload = {
-          latitud: position.coords.latitude,
-          longitud: position.coords.longitude,
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
         };
         dispatch(setUserGeo(payload));
         setGeoloc({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
+          lat: position.coords.latitude ? position.coords.latitude : geolocation.latitude,
+          lng: position.coords.longitude ? position.coords.longitude : geolocation.longitude,
         });
       },
       function (error) {
@@ -93,11 +93,14 @@ export default function AllRegister() {
           }
           if (res.data.created === false) {
             // window.alert(res.data.message);
-            SweetAlrtTem("Atencion!", res.data.message, "warning");
+            SweetAlrt("Atencion!", res.data.message, "warning");
             setName("");
             setPassword("");
             setError("");
             setEmail("");
+          }
+          if (typeof res.data === 'string') {
+            SweetAlrt(res.data);
           }
         })
         .catch((error) => console.log(error));

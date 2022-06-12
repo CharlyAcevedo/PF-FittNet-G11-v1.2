@@ -55,7 +55,7 @@ const partnerSchema = new mongoose.Schema({
   gyms: {
     type: Array,
     of: mongoose.SchemaTypes.ObjectId,
-    ref: "Gym",
+    ref: "Gyms",
   },
   category: {
     type: mongoose.SchemaTypes.ObjectId,
@@ -71,6 +71,11 @@ const partnerSchema = new mongoose.Schema({
   },
   paidOut: {
     type: Boolean,
+  },
+  status:{
+    type: String,
+    enum: ["Pending", "Payed", "Canceled"],
+    default: "Pending"
   },
   incomes: {
     type: Array,

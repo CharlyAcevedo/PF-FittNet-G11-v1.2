@@ -17,6 +17,8 @@ import Sarch from "../Search/Search";
 import Advertising from "../PartnerHomeComponents/Advertising";
 import ClientsGraph from "../Graphics/GraphClient"
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
+import { HomePartner } from "./HomePartner/HomePartner";
+import GymsForUsersMap from "../MapsAndGeo/GymsForUsers"
 
 
 export default function HomeMain() {
@@ -38,7 +40,7 @@ export default function HomeMain() {
   }, [userId]);
 
   // Esto es una vista para un usuario sin avatar
-  if (type === "user" && !avatar && !avatarLS) {
+  if (type === "user" && !avatar || !avatarLS) {
     return (
       <div
         style={{
@@ -70,7 +72,8 @@ export default function HomeMain() {
   if (type === "user" && avatar) {
     return (
       <div className={styles.cont}>
-        <Sarch/>       
+        <Sarch/>
+        <GymsForUsersMap />    
         <GymCards/>
         <Paginated />
       </div>
@@ -80,7 +83,8 @@ export default function HomeMain() {
   if (type === "user" && avatarLS) {
     return (
       <div className={styles.cont}>
-        <Sarch/>       
+        <Sarch/>
+        <GymsForUsersMap /> 
         <GymCards/>
         <Paginated />
       </div>
@@ -90,8 +94,9 @@ export default function HomeMain() {
   // Esto es una para cliente empresa
   if (type === "partner") {
     return (
-      <div className={styles.mainContainer}>
-        <div className={styles.advertising}>
+      <div>
+        <HomePartner/>
+        {/* <div className={styles.advertising}>
           <Advertising/>
         </div>
         <div className={styles.generalActions}>
@@ -102,7 +107,7 @@ export default function HomeMain() {
         </div>
         <div className={styles.infoFinantial}>
           <IncomesGraph/>
-        </div>
+        </div> */}
       </div>
     );
   } 

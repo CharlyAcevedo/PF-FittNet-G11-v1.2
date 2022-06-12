@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserGeo } from "../../redux/actions/index";
 import styles from "./styles/LoginInit.module.css";
 import jwt_decode from "jwt-decode";
 import {
@@ -10,9 +10,14 @@ import {
   BackgroundOne,
 } from "../../helpers/Backround/Background";
 import { InputPrymary, InputSecond } from "../../helpers/Inputs/Inputs";
-
+import { SweetAlrt } from "../../asets/helpers/sweetalert";
+// , SweetAlrt2, SweetAlrtTem
 
 export default function LoginInit() {
+  const dispatch = useDispatch();
+  const geolocation = useSelector(
+    (state) => state.currentUserDetails.currentGeo
+  );
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // const [googleUser, setGoogleUser] = useState({});
@@ -54,9 +59,10 @@ export default function LoginInit() {
 
       // console.log(finalizacionData.usuario);
       if (!avatar) {
-        return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
+        console.log('entro aqui')
+        navigate(`/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
       } else {
-        return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
+        navigate(`/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
       }
     } else {
       console.log("estas autenticado actualmente");
@@ -99,11 +105,11 @@ export default function LoginInit() {
   // }, [window.google?.accounts]);
 
   async function onSubmit(e) {
-    let userLogin;
+    e.preventDefault();
+    let userLogin = {};
 
     console.log("se está intentando hacer el post");
 
-    e.preventDefault();
 
     if (username && password) {
       userLogin = { username: username, password: password };
@@ -157,7 +163,8 @@ export default function LoginInit() {
         }
       }
       if (typeof login === "string") {
-        setError("usuario o password incorrecta");
+        console.log(login); // qué  me responde el back?
+        SweetAlrt(login);
         setPassword("");
         setUsername("");
       }

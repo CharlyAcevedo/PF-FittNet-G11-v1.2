@@ -150,11 +150,12 @@ const getUser = async (req, res) => {
                             _id: 1,
                             street: 1,
                         },
-                        diseases: {
+                        diseases: 1
+                        /*  {
                             desease: 1,
                             trainlimits: 1,
-                            considerations: 1
-                        }
+                            considerations: 1 
+                        }*/
                     }
                 }
             }
@@ -196,8 +197,8 @@ const updateUser = async (req, res) => {
 
         const dataDesease = body.desease //! enfermedades body
         console.log(dataDesease)
-        
-        const findDesTypes= await DiseasesType.find()
+
+        const findDesTypes = await DiseasesType.find()
         const fil = findDesTypes.filter(e => dataDesease.includes(e.deseaseName))
         const deseaseId = fil.map(x => x._id);
         console.log("mfil", fil)
@@ -220,9 +221,9 @@ const updateUser = async (req, res) => {
 
         // const concatDesease = [...igualesDeseases.map(x => x._id), ...idDesiguales]
         const newDiseasesUser = {
-            desease:deseaseId,
-            trainlimits:body.trainlimits,
-            considerations:body.considerations
+            desease: deseaseId,
+            trainlimits: body.trainlimits,
+            considerations: body.considerations
         }
         console.log("newDiseasesUser", newDiseasesUser)
 
@@ -278,7 +279,7 @@ const updateUser = async (req, res) => {
             msg: "no se pudo actualizar el usuario"
         })
     }
-} 
+}
 
 async function deleteUser(id) {
     try {
@@ -293,7 +294,6 @@ async function deleteUser(id) {
 const getUserGoogleAccount = async (req, res) => {
     const { token } = req.body;
     const usuario = jwt_decode(token)
-    console.log(req.body)
     const userName = usuario.email
     try {
         const user = await User.aggregate([
@@ -326,76 +326,140 @@ const getUserGoogleAccount = async (req, res) => {
                     preserveNullAndEmptyArrays: true
                 }
             },
-            {
-                $lookup: {
-                    from: "addresses",
-                    localField: "info.address",
-                    foreignField: "_id",
-                    as: "info.address"
-                }
-            },
-            {
-                $unwind: {
-                    path: "$info.address",
-                }
-            },
-            {
-                $lookup: {
-                    from: "diseases",
-                    localField: "info.diseases",
-                    foreignField: "_id",
-                    as: "info.diseases"
-                }
-            },
-            {
-                $unwind: {
-                    path: "$info.diseases",
-                    preserveNullAndEmptyArrays: true
-                }
-            },
+            // {
+            //     $lookup: {
+            //         from: "addresses",
+            //         localField: "info.address",
+            //         foreignField: "_id",
+            //         as: "info.address"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$info.address",
+            //     }
+            // },
             {
                 $project: {
                     name: 1,
                     userName: 1,
-                    // latitude: 1,
-                    // longitude: 1,
-                    active: 1,
-                    secretToken: 1,
-                    type: 1,
-                    avatar: {
-                        _id: 1,
-                        avatarName: 1,
-                    },
+                    latitud: 1,
+                    longitude: 1,
                     info: {
-                        _id: 1,
                         name: 1,
-                        lastName: 1,
-                        gender: 1,
                         photo: 1,
-                        birthday: 1,
-                        phone: 1,
-                        username: 1,
-                        address: {
-                            _id: 1,
-                            street: 1,
-                            floor: 1,
-                            neighborhood: 1,
-                            apartament: 1,
-                            zipCode: 1,
-                            address: 1,
-                            city: 1,
-                            country: 1,
-                        },
-                        diseases: {
-                            _id: 1,
-                            desease: 1,
-                            trainlimits: 1,
-                            considerations: 1
-                        }
-                    }
+                        lastName: 1,
+                        address: 1
+                    },
+                    // info: {
+                    //     name: 1,
+                    //     lastName: 1,
+                    //     address: 1
+                    // },
+                    favourite: 1,
+                    type: 1,
+                    avatar: 1
                 }
             }
+            // {
+            //     $lookup: {
+            //         from: "infousers",
+            //         localField: "info",
+            //         foreignField: "_id",
+            //         as: "info"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: '$info',
+            //         preserveNullAndEmptyArrays: true
+            //     }
+            // },
+            // {
+            //     $lookup: {
+            //         from: "addresses",
+            //         localField: "info.address",
+            //         foreignField: "_id",
+            //         as: "info.address"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$info.address",
+            //     }
+            // },
+            // {
+            //     $lookup: {
+            //         from: "diseases",
+            //         localField: "info.diseases",
+            //         foreignField: "_id",
+            //         as: "info.diseases"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$info.diseases",
+            //         preserveNullAndEmptyArrays: true
+            //     }
+            // },
+            // {
+            //     $lookup: {
+            //         from: "diseasestypes",
+            //         localField: "info.diseases.desease",
+            //         foreignField: "_id",
+            //         as: "info.diseases.desease"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$info.diseases.desease",
+            //         preserveNullAndEmptyArrays: true
+            //     }
+            // },
+            // {
+            //     $project: {
+            //         name: 1,
+            //         userName: 1,
+            //         // latitude: 1,
+            //         // longitude: 1,
+            //         active: 1,
+            //         favourite: 1,
+            //         secretToken: 1,
+            //         type: 1,
+            //         avatar: {
+            //             _id: 1,
+            //             avatarName: 1,
+            //         },
+            //         info: {
+            //             _id: 1,
+            //             name: 1,
+            //             lastName: 1,
+            //             gender: 1,
+            //             photo: 1,
+            //             birthday: 1,
+            //             phone: 1,
+            //             username: 1,
+            //             address: {
+            //                 _id: 1,
+            //                 street: 1,
+            //                 floor: 1,
+            //                 neighborhood: 1,
+            //                 apartament: 1,
+            //                 zipCode: 1,
+            //                 address: 1,
+            //                 city: 1,
+            //                 country: 1,
+            //             },
+            //             diseases: {
+            //                 considerations: 1,
+            //                 desease: 1,
+            //                 trainlimits: 1,
+            //             },
+            //         }
+            //     }
+            // }
         ]);
+        console.log("ESTOS SON MIS DATOS", user)
         return res.status(200).json({
             ok: true,
             user: user[0]
@@ -408,7 +472,7 @@ const getUserGoogleAccount = async (req, res) => {
         //     user
         // })
     } catch (error) {
-        console.log("error: ", error);
+        // console.log("error: ", error);
         res.status(500).json({
             ok: false,
             msg: "Unexpected error"
@@ -419,6 +483,7 @@ const getUserGoogleAccount = async (req, res) => {
 const googleSignIn = async (req, res) => {
     const googleToken = req.body.tokenId
     const { email, name, given_name, family_name, picture } = req.body.data;
+    console.log(req.body)
     const userName = email;
     try {
         const usuarioDb = await User.findOne({ userName })
@@ -444,7 +509,9 @@ const googleSignIn = async (req, res) => {
             usuario = usuarioDb;
         }
         let newUser = await usuario.save();
-        // console.log (newUser, 'nuevo usuario Google')
+
+        console.log(newUser);
+
         let user = {
             userId: newUser._id, avatar: newUser.avatar, type: newUser.type,
             latitude: newUser.latitude, longitude: newUser.longitude

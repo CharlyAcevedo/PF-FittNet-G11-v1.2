@@ -19,10 +19,12 @@ const serviceSchema = new mongoose.Schema({
     required: true,
   },
   photo: {
-    type: String,
+    type: Array,
+    of: String,
   },
   profileCategory: {
     type: Array, //debe contener las caracteristicas asociadas de los avatares con el perfil del gym
+    of: String,
   },
 });
 

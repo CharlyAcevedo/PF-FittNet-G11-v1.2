@@ -64,7 +64,7 @@ export default function GymDetail() {
    
         {/* Bloque de info del carrito */}
         <div>
-          <NavBar3 id={[gymDetail]} usuarioId={usuarioId} />
+          <NavBar3 id={[gymDetail]} usuarioId={usuarioId} button={true}/>
         </div>
 
         {/* Detalle servicio */}

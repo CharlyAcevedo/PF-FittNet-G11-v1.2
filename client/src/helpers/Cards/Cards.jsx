@@ -35,7 +35,7 @@ export const CardAvatarAdicional = (props) => {
     e.preventDefault();
     const avatar = { avatar: idAvatar };
 
-    dispatch(postAvatar(userId, avatar));
+    // dispatch(postAvatar(userId, avatar));
     SweetAlrtTem(
       `elegiste el avatar ${name}, ahora vas a ser redirigido a los gimnasios que cumplan con las caracteristicas de este avatar`,
       "success"
@@ -130,7 +130,7 @@ export const CardIcons = (props) => {
 };
 
 export const CardsPlansPartner = (props) => {
-  const { title, Size, busqueda,servicios,gym } = props;
+  const { title, Size, busqueda, servicios, gym } = props;
   return (
     <div className={styles.contPlanPartner}>
       <div className={styles.card}>
