@@ -55,8 +55,7 @@ const userSchema = new mongoose.Schema({
         ref: "InfoUser"
     },
     partner: {
-        type: Array,
-        of: mongoose.SchemaTypes.ObjectId,
+        type: mongoose.SchemaTypes.ObjectId,
         ref: "Partner"
     },
     favourite: {
