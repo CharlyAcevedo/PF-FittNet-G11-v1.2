@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { createService } from "../../redux/actions";
 import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
-import { createService, editService } from "./controlers/Functions";
+import { createOneService, editOneService } from "./controlers/Functions";
 
 export default function Services() {
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ export default function Services() {
     
     console.log('recibe el click y crea un service')
 
-    let newService = await createService (dataForNewService);
+    let newService = await createOneService (dataForNewService);
 
     return newService;
 
@@ -62,7 +62,7 @@ export default function Services() {
     
     console.log('recibe el click y edita un gym')
 
-    let editOneService = await editService (dataForEditService);
+    let editOneService = await editOneService (dataForEditService);
 
     return editOneService;
 
