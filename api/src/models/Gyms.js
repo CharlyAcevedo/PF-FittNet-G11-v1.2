@@ -46,8 +46,7 @@ const gymSchema = new mongoose.Schema({
     required: true,
   },
   email: {
-    type: String,
-    required: true,
+    type: String,   
   },
   uEnd: {
     type: Array,
@@ -60,8 +59,7 @@ const gymSchema = new mongoose.Schema({
     ref: "SocialMedia",
   },
   gymActive: {
-    type: Boolean,
-    required: true,
+    type: Boolean,   
     default: true,
   },
   favourite: {
