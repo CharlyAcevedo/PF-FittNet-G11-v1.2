@@ -1,51 +1,113 @@
 import { useState } from "react";
 import styles from "./style/client.module.css";
-import { gymValidate } from "./controlers/validaciones";
-import { useNavigate } from "react-router-dom";
+// import { gymValidate } from "./controlers/validaciones";
+// import { useNavigate } from "react-router-dom";
 // import { createGym } from "../../redux/actions";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
-import { createGym, editGym } from "./controlers/Functions";
+// import { useDispatch } from "react-redux";
+// import { useParams } from "react-router-dom";
+// import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
+import { createOneGym, editOneGym } from "./controlers/Functions";
 
 export default function UpdateGym() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const params = useParams();
-
-  const [input, setInput] = useState({
-    name: "gym1",
-    price: "33",
-    raiting: "", // no sale del form
-    image: [dsfsdf],
-    address: "2323", 
-    services: [], /// no la voy a poder tocar
-    trainers: [dffdf],
-    logo: "dfdf",
-    phone: "df",
-    email: "dfd",
-    uEnd: [], ///
-    gymActive: "", //
-    idName: "",
-    id: "", // id del gym
-  });
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const params = useParams(); 
   
 
-  // let newGym = {
-  //   name: gyms[i].name,
-  //   price: gyms[i].price,
-  //   raiting: gyms[i].raiting,
-  //   image: gyms[i].image,
-  //   latitude: gyms[i].latitude,
-  //   longitude: gyms[i].longitude,
-  //   trainers: gyms[i].trainers,
-  //   logo: gyms[i].logo,
-  //   phone: gyms[i].phone,
-  //   email: gyms[i].email,
-  //   gymActive: gyms[i].gymActive,
-  //   favourite: gyms[i].favourite,
-  // }
+  const userId = localStorage.getItem('userId');
+
+  const [typeAction, setTypeAcyion] = useState("create");
+  const [name, setName] = useState("");
+  const [photo, setPhoto] = useState("");
+
   const [error, setError] = useState({});
+  const [newGym, setNewGym] = useState({
+    name: "Nombre del gym a crear", //string y es obligatorio - sale del form
+    price: 999, // numero entero o decimal y no es obligatorio - sale del form
+    // rating: // no se manda, por defecto se inicia como un array de numeros
+    image: [], // es un array de imágenes y se inicia en vacio o con elementos
+    latitude: 0, // numero entero o decimal y no es obligatorio
+    longitude: 0, // numero entero o decimal y no es obligatorio
+    // address: // no lo puedo mandar porque se relaciona con otra colección 
+    // y no es obligatorio
+    trainers: [], // lo puedo tocar aunque no es obligatorio. Es un array de strings
+    // que va a guardar los nombres de los instructores.
+    logo: "", // es un string que guarda el enlace a una imagen
+    phone: 12345678, // es un conjunto de numeros enteros y es un campo obligatorio
+    email: "newgym@mail.com", // es un string que guarda el email del gym
+    gymActive: true,
+    favourite: 0, // es un numero entero y se inicia  en cero  
+  });
+
+  // Campos obligatorios - Esto campos tiene que estar o se cae el back
+  // 1 name
+  // 2 price
+  // 3 logo
+  // 4 phone
+
+  let exampleObject =
+  {
+    name: "Nuevo Fittnet", // obligatorio
+    price: 999, // obligatorio   
+    image: [],
+    latitude: 0,
+    longitude: 0,
+    trainers: [],
+    logo: "https://static.vecteezy.com/system/resources/thumbnails/003/108/337/small/fitness-gym-logo-with-strong-athlete-and-barbell-vector.jpg", // obligatorio
+    phone: 155790033, //obligatorio, sin espacios
+    email: "emaildelgym@gmail.com",
+    gymActive: true,
+    favourite: 0,
+  };
+
+
+  // Campos del formulario
+  //----------------------------------------------------------------------
+  // 1 Nombre del Gym *
+  // un campo para el nomre
+
+  // 2 Precio por mes *
+  // un campo para el precio
+
+  // 3 Fotos del gimnasio
+  // esto es un array urls de fotos que se cargan como strings
+  // cccc más botón de quitar o limpiar
+
+  // 4 Entrenadores
+  // esto es un array nombres de entrenadores que se cargan como strings
+  // renderizar cada nombre más botón de quitar o limpiar
+
+
+  // 5 Logo del gym *
+  // un campo para el string de la dirección url de la imagen
+  // renderizar la img cargada en 200x200px
+
+  // 6 Teléfono *
+  // un campo para los números
+
+  // 7 Email
+  // un campo para el correo
+
+  //----------------------------------------------------------------------
+  // Si edito un Gym cargo la ingo en este otro objeto
+  const [editGym, setEditGym] = useState({
+    name: "Nombre del gym a editar",
+    price: 899,
+    image: [],
+    latitude: 0,
+    longitude: 0,
+    trainers: [],
+    logo: "",
+    phone: 0,
+    email: "",
+  })
+  // Campos obligatorios - Esto campos tiene que estar o se cae el back
+  // 1 name
+  // 2 price
+  // 3 logo
+  // 4 phone
+
+
   //----------------------------------------------------------------------------
   // Faltaría tener un select o un switch para saber si se está creando o editando,
   // pero de todas formas usamos el mismo form para las dos cosas (crear y editar)   
@@ -55,435 +117,382 @@ export default function UpdateGym() {
   //----------------------------------------------------------------------------
   // Esta función sirve para crear un gym           
   //----------------------------------------------------------------------------
-  async function onClickCreateGym () {
-    let dataForNewGym = { 
-      userId: { userId: "userId" },
-      dataNewGym: { prop1: "data1", prop2: 2, prop3: [], prop4: {} }
+  async function onClickCreateGym() {
+    let dataForNewGym = {
+      userId: { userId: userId },
+      dataNewGym: newGym
+      // dataNewGym: { prop1: "data1", prop2: 2, prop3: [], prop4: {} }
     };
-    
     // userId: el id del usuario partner que crea el gym
     // dataNewGym: en este objeto va todo lo que obtienen del formulario (el input de arriba)
-    
     console.log('recibe el click y crea un gym')
-
-    let newGym = await createGym (dataForNewGym);
-
-    return newGym;
-
+    let newOnGym = await createOneGym(dataForNewGym);
+    return newOnGym;
   }
 
   //----------------------------------------------------------------------------
   // Esta función sirve para editar la info de un gym       
   //----------------------------------------------------------------------------
 
-  async function onClickEditGym () {
-    let dataForEditGym = { 
+  async function onClickEditGym() {
+    let dataForEditGym = {
       //userId: { userId: "userId" },
       gymId: { gymId: "gymId" },
-      newDataGym: { prop1: "data2", prop2: 3, prop3: ["algo"], prop4: {} }
+      newDataGym: editGym,
+      // newDataGym: { prop1: "data2", prop2: 3, prop3: ["algo"], prop4: {} }
     };
-
     // gymId: el id del gym a editar
     // dataNewGym: en este objeto va todo lo que obtienen del formulario (el input de arriba)
-    
     console.log('recibe el click y edita un gym')
-
-    let editOneGym = await editGym (dataForEditGym);
-
-    return editOneGym;
+    let editOnGym = await editOneGym(dataForEditGym);
+    return editOnGym;
 
   }
 
 
 
-
-
-
-
-
-
-
-
-
- //----------------------------------------------------------------------------
-  //!----------------HANDLECHANGE-----------------------
+  //----------------HANDLECHANGE----------------------------------------------
   function handleChange(e) {
-    setInput(() => {
-      const newInput = {
-        ...input,
-        [e.target.name]: e.target.value,
-        idName: params.name,
-        id: params.id,
-      };
-      const errors = gymValidate(newInput);
-      setError(errors);
-      return newInput;
-    });
-    console.table(input);
-  }
-  //!------------------IMAGE---------------
-  function handleChangeImage(e) {
-    setInput(() => {
-      const newImage = {
-        ...input,
-        image: input.image.includes(e.target.value)
-          ? [...input.image]
-          : [...input.image, e.target.value],
-      };
-
-      return newImage;
-    });
-    console.log(input.image);
-  }
-  //!deleted image
-  function handleDeleteI(e) {
-    setInput({
-      ...input,
-      image: input.image.filter((el) => el !== e.target.value),
-    });
-    console.log("Trainers borrado:", e);
-  }
-
-  //!------------------SERVICES---------------
-  // function handleChangeServices(e) {
-  //   setInput(() => {
-  //     const newServices = {
-  //       ...input,
-  //       services: input.services.includes(e.target.value)
-  //         ? [...input.services]
-  //         : [...input.services, e.target.value],
-  //     };
-  //     return newServices;
-  //   });
-  // }
-  
-  //!deleted services
-
-  // function handleDelete(e) {
-  //   setInput({
-  //     ...input,
-  //     services: input.services.filter((el) => el !== e.target.value),
-  //   });
-  //   console.log("ESTO ES DELET", e);
-  // }
-
-  //!-------------------Trainers-----------------------------
-
-  function handleChangeTrainers(e) {
-    setInput(() => {
-      const newTrainers = {
-        ...input,
-        trainers: input.trainers.includes(e.target.value)
-          ? [...input.trainers]
-          : [...input.trainers, e.target.value],
-      };
-      return newTrainers;
-    });
-  }
-  //!deleted Trainers
-  function handleDeleteT(e) {
-    setInput({
-      ...input,
-      trainers: input.trainers.filter((el) => el !== e.target.value),
-    });
-    console.log("Trainers borrado:", e);
-  }
-  //!------------------uEnd---------------
-  function handleChangeUend(e) {
-    setInput(() => {
-      const newuEnd = {
-        ...input,
-        uEnd: input.uEnd.includes(e.target.value)
-          ? [...input.uEnd]
-          : [...input.uEnd, e.target.value],
-      };
-      return newuEnd;
-    });
-  }
-  //!deleted uEnd
-  function handleDeleteU(e) {
-    setInput({
-      ...input,
-      uEnd: input.uEnd.filter((el) => el !== e.target.value),
-    });
-    console.log("Usuario borrado:", e);
-  }
-  //!------------------SUBMIT------------------------
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (
-      !input.name ||
-      !input.address ||
-      !input.image ||
-      !input.phone ||
-      !input.price ||
-      !input.services ||
-      !input.email
-    ) {
-      return SweetAlrt("Error", "Todos los campos deben estar completos","error")
-      // return alert("Todos los campos deben estar completos!");
-    } else {
-      // dispatch(createGym(input));
-     SweetAlrtTem("Exito! Gym Registrado","success")
-      // alert("Gym Registrado!");
-      setInput({
-        ...input,
-        name: "",
-        price: "",
-        raiting: "",
-        image: [],
-        address: "",
-        services: [],
-        trainers: [],
-        logo: "",
-        phone: "",
-        email: "",
-        uEnd: [],
-        gymActive: "",
+    if (typeAction === "create") {
+      setNewGym(() => {
+        const newInput = {
+          ...newGym,
+          [e.target.name]: e.target.value,
+        };
+        // const errors = gymValidate(newInput);
+        // setError(errors);
+        return newInput;
       });
-      setError({});
-      navigate("/profile/edit/partner/:name/:userId/gym/service");
+      console.table(newGym);
+    }
+
+    if (typeAction === "edit") {
+      setEditGym(() => {
+        const newInput = {
+          ...editGym,
+          [e.target.name]: e.target.value,
+        };
+        // const errors = gymValidate(newInput);
+        // setError(errors);
+        return newInput;
+      });
+      console.table(editGym);
     }
   }
 
-  //!--------------------------------------------------
 
-  const usuarios = ["Pedro", "Carlos", "Fernando", "Esteban", "Luis", "Jessi"];
-  const entrenadores = [
-    "Pedro",
-    "Carlos",
-    "Fernando",
-    "Esteban",
-    "Luis",
-    "Jessi",
-    "gaby",
-    "Seba",
-  ];
-  //?-------------------------------------------
-  //LEER!
-  //SUGERENCIA!!
-  //INSERTAR CODIGO DE ESTILOS EN LOS INPUT DE LA SIGUIENTE MANERA
-  //className={(error.name && styles.inputdanger) || styles.EL-ESTILO-A-AGREGAR}
-  //PARA EVITAR PISAR ESTILOS DE ERRORES.
+  // -----------------------delete Trainer-------------------------------------
+  function handleDeleteT(e) {
+    e.preventDefault();
+    if (typeAction === "create") {
+      setNewGym({
+        ...newGym,
+        trainers: newGym.trainers.filter((el) => el !== e.target.value),
+      });
 
+    }
+    if (typeAction === "edit") {
+      setEditGym({
+        ...editGym,
+        trainers: editGym.trainers.filter((el) => el !== e.target.value),
+      });
+
+    }
+
+  }
+  //------------------------------- Add photo -------------------------------
+  function addTrainer(e) {
+    e.preventDefault();
+
+    if (name && typeAction === "create") {
+
+      if (!newGym.trainers.includes(name)) {
+        // console.log('entra');
+        let newState = [...newGym.trainers]
+        newState.push(name);
+
+        setNewGym({
+          ...newGym,
+          trainers: newState,
+        });
+      }
+    }
+    if (name && typeAction === "edit") {
+      // console.log('entra');
+      if (!editGym.trainers.includes(name)) {
+        let newState = [...editGym.trainers]
+        newState.push(name);
+
+        setEditGym({
+          ...editGym,
+          trainers: newState,
+        });
+      }
+    }
+    setName("");
+    // console.log(editGym.trainers)
+    // console.log(newGym.trainers)
+
+  }
+
+  //----------------------- delete photo --------------------------------------
+  function handleDeletePhoto(e) {
+    e.preventDefault();
+
+    if (typeAction === "create") {
+      setNewGym({
+        ...newGym,
+        image: newGym.image.filter((el) => el !== e.target.value),
+      });
+    }
+
+    if (typeAction === "edit") {
+      setEditGym({
+        ...editGym,
+        image: editGym.image.filter((el) => el !== e.target.value),
+      });
+    }
+
+  }
+
+
+  //----------------------- add photo -----------------------------------------
+
+  function addPhoto(e) {
+    e.preventDefault();
+
+    if (photo && typeAction === "create") {
+
+      if (!newGym.image.includes(photo)) {
+        // console.log('entra');
+        let newState = [...newGym.image]
+        newState.push(photo);
+
+        setNewGym({
+          ...newGym,
+          image: newState,
+        });
+      }
+    }
+    if (photo && typeAction === "edit") {
+
+      if (!editGym.image.includes(photo)) {
+        let newState = [...editGym.image]
+        newState.push(photo);
+
+        setEditGym({
+          ...editGym,
+          image: newState,
+        });
+      }
+    }
+    // console.log(editGym.image)
+    // console.log(newGym.image)
+    setPhoto("");
+
+  }
+
+
+  //-----------------------------------------------------------------------------
   return (
     <div className={styles.editPartnerMainContainer}>
-      <h1>FORMULARIO GYM</h1>
-      <span>
-        Los campos marcados con <strong>*</strong> deben ser completados
-      </span>
+      <h3>FORMULARIO DE {typeAction === "create" ? "CREACIÓN" : "EDICIÓN"} DE GYM</h3>
       <div>
 
-        <p>
-        <button onClick={(e)=>{onClickCreateGym(e)}}>Crear gym de prueba</button>
-        </p>
-        <p>
-          <button onClick={(e)=>{onClickEditGym(e)}}> Editar gym de prueba</button>
-        </p>
+        <button onClick={() => { setTypeAcyion("edit") }}>Editar Gym</button>
+        <p></p>
+        <button onClick={() => { setTypeAcyion("create") }}>Crear Gym</button>
+        <p></p>
+        {typeAction ? typeAction : null}
+
+        <form action="">
+
+          {newGym.logo && (<img className={styles.imageform} src={newGym.logo} alt="Image not found" />)}
+          {editGym.logo && (<img className={styles.imageform} src={editGym.logo} alt="Image not found" />)}
+          <div>
+            <label><strong>*</strong>Logo:</label>
+            <input
+              type="text"
+              value={typeAction === "create" ? newGym.logo : editGym.logo}
+              name="logo"
+              onChange={(e) => handleChange(e)}
+              placeholder="https://logo-gym.jpg"
+            />
+          </div>
+
+          <div>
+            <label>
+              <strong>*</strong>Nombre:{" "}
+            </label>
+            <input
+              className={error.name && styles.inputdanger}
+              type="text"
+              name="name"
+              value={typeAction === "create" ? newGym.name : editGym.name}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="Nombre..."
+            />
+            {error.name && <p className={styles.danger}>{error.name}</p>}
+          </div>
+
+          <div>
+            <label>
+              <strong>*</strong>Mensualidad:{" "}
+            </label>
+            <input
+              className={error.name && styles.inputdanger}
+              type="number"
+              name="price"
+              value={typeAction === "create" ? newGym.price : editGym.price}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="$..."
+            />
+            {error.price && <p className={styles.danger}>{error.price}</p>}
+          </div>
+
+          <div>
+            <label>
+              <strong>*</strong>Telefono:{" "}
+            </label>
+            <input
+              className={error.phone && styles.inputdanger}
+              type="number"
+              name="phone"
+              value={typeAction === "create" ? newGym.phone : editGym.phone}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="+549......"
+            />
+            {error.phone && <p className={styles.danger}>{error.phone}</p>}
+          </div>
+
+          <div>
+            <label>
+              Email:{" "}
+            </label>
+            <input
+              className={error.email && styles.inputdanger}
+              type="email"
+              name="email"
+              value={typeAction === "create" ? newGym.email : editGym.email}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="correo@ejemplo.com"
+            />
+            {error.email && <p className={styles.danger}>{error.email}</p>}
+          </div>
 
 
+          <div>
+            <div>
+              <label>Entrenadores: </label>
+
+              <input
+                className={error.name && styles.inputdanger}
+                type="text"
+                name="names"
+                value={name}
+                onChange={(e) => { setName(e.target.value) }}
+                placeholder="nombre del entrenador"
+              />
+
+              <button onClick={(e) => { addTrainer(e) }}> + </button>
+
+              {error.email && <p className={styles.danger}>{error.email}</p>}
+
+              <ul>
+                <li className={styles.input}>
+                  {newGym.trainers.length && typeAction === "create" ? newGym.trainers.map((e) => (
+                    <div key={e}>
+                      <p>{e} </p>
+                      <button value={e} onClick={(e) => handleDeleteT(e)}>
+                        x
+                      </button>{" "}
+                    </div>
+                  )) : null}
+
+                  {editGym.trainers.length && typeAction === "edit" ? editGym.trainers.map((e) => (
+                    <div key={e}>
+                      <p>{e} </p>
+                      <button value={e} onClick={(e) => handleDeleteT(e)}>
+                        x
+                      </button>{" "}
+                    </div>
+                  )) : null}
+                </li>
+              </ul>
+
+            </div>
+          </div>
+
+          <div>
+            <label>Fotos: </label>
+
+            <input
+              type="text"
+              name="photo"
+              id="image"
+              multiple
+              value={photo}
+              onChange={(e) => { setPhoto(e.target.value) }}
+              placeholder="https://foto-del-gym.jpg"
+            />
+            <button onClick={(e) => { addPhoto(e) }}> + </button>
 
 
+            <ul>
+              <li className={styles.input}>
+                {newGym.image.length && typeAction === "create" ? newGym.image.map((e) => (
+                  <div key={e}>
 
+                    <img className={styles.photoform}
+                      src={e}
+                      key={e}
+                      alt="No Found"
+                    />
+                    <button value={e} onClick={(e) => handleDeletePhoto(e)}>
+                      x
+                    </button>{" "}
+                  </div>
+                )) : null}
+
+                {editGym.image.length && typeAction === "edit" ? editGym.image.map((e) => (
+                  <div key={e}>
+
+                    <img className={styles.photoform}
+                      src={e}
+                      key={e}
+                      alt="No Found"
+                    />
+                    <button value={e} onClick={(e) => handleDeletePhoto(e)}>
+                      x
+                    </button>{" "}
+                  </div>
+                )) : null}
+              </li>
+            </ul>
+
+          </div>
+
+        </form>
 
       </div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            <strong>*</strong>Nombre:{" "}
-          </label>
-          <input
-            className={error.name && styles.inputdanger}
-            type="text"
-            name="name"
-            value={input.name}
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            placeholder="Nombre..."
-          />
-          {error.name && <p className={styles.danger}>{error.name}</p>}
-        </div>
-        <div>
-          <label>
-            <strong>*</strong>Precio:{" "}
-          </label>
-          <input
-            className={error.price && styles.inputdanger}
-            type="number"
-            name="price"
-            value={input.price}
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            placeholder="$..."
-          />
-          {error.price && <p className={styles.danger}>{error.price}</p>}
-        </div>
-        <div>
-          <label>
-            <strong>*</strong>Calificacion:{" "}
-          </label>
-          <input
-            className={error.raiting && styles.inputdanger}
-            type="number"
-            max="5"
-            min="1"
-            name="raiting"
-            value={input.raiting}
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            placeholder="1-5"
-          />
-          {error.raiting && <p className={styles.danger}>{error.raiting}</p>}
-        </div>
-        <div>
-          <label>
-            <strong>*</strong>Direccion:{" "}
-          </label>
-          <input
-            className={error.address && styles.inputdanger}
-            type="text"
-            name="address"
-            value={input.address}
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            placeholder="Direccion"
-          />
-          {error.address && <p className={styles.danger}>{error.address}</p>}
-        </div>
-        <div>
-          <label>
-            <strong>*</strong>Telefono:{" "}
-          </label>
-          <input
-            className={error.phone && styles.inputdanger}
-            type="number"
-            name="phone"
-            value={input.phone}
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            placeholder="+549......"
-          />
-          {error.phone && <p className={styles.danger}>{error.phone}</p>}
-        </div>
-        <div>
-          <label>
-            <strong>*</strong>Email:{" "}
-          </label>
-          <input
-            className={error.email && styles.inputdanger}
-            type="email"
-            name="email"
-            value={input.email}
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            placeholder="correo@ejemplo.com"
-          />
-          {error.email && <p className={styles.danger}>{error.email}</p>}
-        </div>
-        <div>
-          <label>
-            <strong>*</strong>Gym Activo:{" "}
-          </label>
-          <select name="gymActive" onChange={(e) => handleChange(e)}>
-            <option>Activo</option>
-            <option value="true" name="gymActive">
-              On
-            </option>
-            <option value="false" name="gymActive">
-              Off
-            </option>
-          </select>
-        </div>{" "}
-        <div>
-          <label>Usuarios:</label>
-          <select onChange={(e) => handleChangeUend(e)}>
-            {usuarios.map((e) => (
-              <option value={e} key={e}>
-                {e}
-              </option>
-            ))}
-          </select>
-          <ul>
-            <li className={styles.input}>
-              {input.uEnd.map((e) => (
-                <div key={e}>
-                  <p>{e} </p>
-                  <button value={e} onClick={(e) => handleDeleteU(e)}>
-                    x
-                  </button>{" "}
-                </div>
-              ))}{" "}
-            </li>
-          </ul>
-        </div>
-        <div>
-          <label>Entrenadores: </label>
-          <select onChange={(e) => handleChangeTrainers(e)}>
-            {entrenadores.map((e) => (
-              <option value={e} key={e} name="trainers">
-                {e}
-              </option>
-            ))}
-          </select>
-          <ul>
-            <li className={styles.input}>
-              {input.trainers.map((e) => (
-                <div key={e}>
-                  <p>{e} </p>
-                  <button value={e} onClick={(e) => handleDeleteT(e)}>
-                    x
-                  </button>{" "}
-                </div>
-              ))}{" "}
-            </li>
-          </ul>
-        </div>
-        <div>
-          <label>Logo:</label>
-          <input
-            type="file"
-            value={input.logo}
-            name="logo"
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        <div>
-          <label>Fotos: </label>
+      <p></p>
+      {typeAction === "create" &&
+        <button onClick={(e) => { onClickCreateGym(e) }}>Crear gym de prueba</button>
+      }
+      {typeAction === "edit" &&
+        <button onClick={(e) => { onClickEditGym(e) }}> Editar gym de prueba</button>
+      }
 
-          <input
-            value={input.image}
-            onChange={(e) => handleChangeImage(e)}
-            type="file"
-            name="image"
-            id="image"
-            multiple
-          />
-          <ul>
-            <li className={styles.input}>
-              {input.image.map((e) => (
-                <div key={e}>
-                  <p>{e} </p>
-                  <img
-                    src={{ e } || "https://via.placeholder.com/150 "}
-                    key={e}
-                    alt="No Found"
-                  />
-                  <button value={e} onClick={(e) => handleDeleteI(e)}>
-                    x
-                  </button>{" "}
-                </div>
-              ))}{" "}
-            </li>
-          </ul>
-        </div>
-        <button type="submit">Enviar y continuar</button>
-      </form>
     </div>
   );
+
+
 }

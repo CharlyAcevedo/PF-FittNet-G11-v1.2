@@ -14,7 +14,7 @@ import { ButtonHomePA } from "../../../helpers/Buttons/Buttons";
 
 
 export function HomePartner () {
-    const [ view , setView ] = useState("editMyServices");
+    const [ view , setView ] = useState("editMyGyms");
 
 
   let { userId } = useParams();
