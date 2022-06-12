@@ -37,15 +37,28 @@ async function findAllUsers() {
     }
 }
 
+const getUserDetails = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id)
+        .populate('avatar')
+        .populate('favourite')
+
+    const infoUser = await InfoUser.findById(user.info)
+        .populate('diseases')
+        .populate('disease')
+        .populate('address')
+
+        res.json({
+            ok: true,
+            user,
+            infoUser
+        })
+}
+
 const getUser = async (req, res) => {
     const { id } = req.params;
     console.log(id)
     try {
-        // const user = await User.findById(id)
-        //     .populate('avatar')
-        //     .populate('info')
-        //     .populate('info.address')
-        //     .populate('partner')
         const user = await User.aggregate([
             {
                 $match: { _id: ObjectId(id) }

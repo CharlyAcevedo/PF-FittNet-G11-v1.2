@@ -65,20 +65,20 @@ router.post('/gymcreate/:idUser', async (req, res) => {
     } catch (error) {
         res.status(404).send({ error: error.message });
       }
-})
+});
 
-router.post('/createOneGym/', async (req, res) => {
-  console.log(req.body, 'create One Gym')
-
-  const { idUser } = req.body;    
-  try {     
+// router.post('/createOneGym/', async (req, res) => {
+//   console.log(req.body, 'create One Gym')
+  
+//   const { idUser } = req.body;    
+//   try {     
 
     
-      res.status(200).send('create One Gym');
-  } catch (error) {
-      res.status(404).send({ error: error.message });
-    }
-})
+//       res.status(200).send('create One Gym');
+//   } catch (error) {
+//       res.status(404).send({ error: error.message });
+//     }
+// })
 
 
 
