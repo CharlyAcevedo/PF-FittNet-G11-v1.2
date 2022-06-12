@@ -95,7 +95,7 @@ router.post('/createOneGym/', async (req, res) => {
 router.put('/editOneGym/', async (req, res) => {
   console.log(req.body, 'edite One Gym')
 
-  const { gymId, newDataGym } = req.body;
+  const {userId, gymId, newDataGym } = req.body;
 
   try {     
 
@@ -108,44 +108,44 @@ router.put('/editOneGym/', async (req, res) => {
 
 
 
-//----------------------------------------------------------------------------
-// Para crear un solo servicio - envío el id del gym que lo crea y la info 
-// para crear el el servicio
-//----------------------------------------------------------------------------
-// http://localhost:3001/api/partner/gyms/createOneService/
+// //----------------------------------------------------------------------------
+// // Para crear un solo servicio - envío el id del gym que lo crea y la info 
+// // para crear el el servicio
+// //----------------------------------------------------------------------------
+// // http://localhost:3001/api/partner/gyms/createOneService/
 
-router.post('/createOneService/', async (req, res) => {
-  console.log(req.body, 'create One Service')
+// router.post('/createOneService/', async (req, res) => {
+//   console.log(req.body, 'create One Service')
 
-  const { gymId, dataNewService } = req.body;    
-  try {     
-
-    
-      res.status(200).send('create One Service');
-  } catch (error) {
-      res.status(404).send({ error: error.message });
-    }
-})
-
-
-//----------------------------------------------------------------------------
-// Para editar un solo servicio - envío el id del servicio y la nueva info para 
-// editar el servicio
-//----------------------------------------------------------------------------
-// http://localhost:3001/api/partner/gyms/editOneService/
-
-router.put('/editOneService/', async (req, res) => {
-  console.log(req.body, 'edit One Service')
-
-  const { serviceId, newDataService } = req.body;
-
-  try {     
+//   const { gymId, dataNewService } = req.body;    
+//   try {     
 
     
-      res.status(200).send('Edit One Service');
-  } catch (error) {
-      res.status(404).send({ error: error.message });
-    }
-})
+//       res.status(200).send('create One Service');
+//   } catch (error) {
+//       res.status(404).send({ error: error.message });
+//     }
+// })
+
+
+// //----------------------------------------------------------------------------
+// // Para editar un solo servicio - envío el id del servicio y la nueva info para 
+// // editar el servicio
+// //----------------------------------------------------------------------------
+// // http://localhost:3001/api/partner/gyms/editOneService/
+
+// router.put('/editOneService/', async (req, res) => {
+//   console.log(req.body, 'edit One Service')
+
+//   const { serviceId, newDataService } = req.body;
+
+//   try {     
+
+    
+//       res.status(200).send('Edit One Service');
+//   } catch (error) {
+//       res.status(404).send({ error: error.message });
+//     }
+// })
 
 module.exports = router;

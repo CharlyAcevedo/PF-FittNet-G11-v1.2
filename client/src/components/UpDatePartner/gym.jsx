@@ -14,22 +14,37 @@ export default function UpdateGym() {
   const params = useParams();
 
   const [input, setInput] = useState({
-    name: "",
-    price: "",
-    raiting: "",
-    image: [],
-    address: "", 
-    services: [],
-    trainers: [],
-    logo: "",
-    phone: "",
-    email: "",
-    uEnd: [],
-    gymActive: "",
+    name: "gym1",
+    price: "33",
+    raiting: "", // no sale del form
+    image: [dsfsdf],
+    address: "2323", 
+    services: [], /// no la voy a poder tocar
+    trainers: [dffdf],
+    logo: "dfdf",
+    phone: "df",
+    email: "dfd",
+    uEnd: [], ///
+    gymActive: "", //
     idName: "",
-    id: "",
+    id: "", // id del gym
   });
   
+
+  // let newGym = {
+  //   name: gyms[i].name,
+  //   price: gyms[i].price,
+  //   raiting: gyms[i].raiting,
+  //   image: gyms[i].image,
+  //   latitude: gyms[i].latitude,
+  //   longitude: gyms[i].longitude,
+  //   trainers: gyms[i].trainers,
+  //   logo: gyms[i].logo,
+  //   phone: gyms[i].phone,
+  //   email: gyms[i].email,
+  //   gymActive: gyms[i].gymActive,
+  //   favourite: gyms[i].favourite,
+  // }
   const [error, setError] = useState({});
   //----------------------------------------------------------------------------
   // Faltaría tener un select o un switch para saber si se está creando o editando,
@@ -63,6 +78,7 @@ export default function UpdateGym() {
 
   async function onClickEditGym () {
     let dataForEditGym = { 
+      //userId: { userId: "userId" },
       gymId: { gymId: "gymId" },
       newDataGym: { prop1: "data2", prop2: 3, prop3: ["algo"], prop4: {} }
     };

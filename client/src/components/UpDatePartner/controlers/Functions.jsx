@@ -65,7 +65,7 @@ export async function createService(dataForNewService) {
 
     const newService = await axios({
         method: "post",
-        url: "/api/partner/gyms/createOneService",
+        url: "/api/partner/services/createOneService",
         data: dataForNewService,
         headers: { "X-Requested-With": "XMLHttpRequest" },
         withCredentials: true,
@@ -91,7 +91,7 @@ export async function editService(dataForEditService) {
 
     const editService = await axios({
         method: "put",
-        url: "/api/partner/gyms/editOneService/",
+        url: "/api/partner/services/editOneService/",
         data: dataForEditService,
         headers: { "X-Requested-With": "XMLHttpRequest" },
         withCredentials: true,

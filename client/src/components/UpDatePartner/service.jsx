@@ -11,7 +11,7 @@ export default function Services() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [input, setInput] = useState({
-    name: "", // string requerido
+    name: "dfdf", // string requerido
     description: "", // string requerido
     duration: 0, //numero requerido
     price: 0, //numero requerido
