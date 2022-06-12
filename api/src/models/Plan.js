@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoDB = require('mongodb');
 
 const userPlanSchema = new mongoose.Schema({
     planName: {
@@ -7,7 +8,7 @@ const userPlanSchema = new mongoose.Schema({
     },
     services: [String],
     price: {
-        type: String,        
+        type: mongoDB.Decimal128,     
     },
     commission: {
         type: String,
