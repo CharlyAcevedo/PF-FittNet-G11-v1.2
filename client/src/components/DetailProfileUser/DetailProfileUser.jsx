@@ -212,6 +212,7 @@ export default function DetailProfileUser() {
                   <p>
                     Fecha de nacimiento:
                     <span style={{ color: "var(--color-primD1)" }}>
+                      
                       21/01/21{/* {info?.birthday.substring(0, 10)} */}
                     </span>
                   </p>
