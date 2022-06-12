@@ -2,10 +2,11 @@ import { useState } from "react";
 import styles from "./style/client.module.css";
 import { gymValidate } from "./controlers/validaciones";
 import { useNavigate } from "react-router-dom";
-import { createGym } from "../../redux/actions";
+// import { createGym } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
+import { createGym, editGym } from "./controlers/Functions";
 
 export default function UpdateGym() {
   const dispatch = useDispatch();
@@ -30,7 +31,65 @@ export default function UpdateGym() {
   });
   
   const [error, setError] = useState({});
+  //----------------------------------------------------------------------------
+  // Faltaría tener un select o un switch para saber si se está creando o editando,
+  // pero de todas formas usamos el mismo form para las dos cosas (crear y editar)   
+  //----------------------------------------------------------------------------
 
+
+  //----------------------------------------------------------------------------
+  // Esta función sirve para crear un gym           
+  //----------------------------------------------------------------------------
+  async function onClickCreateGym () {
+    let dataForNewGym = { 
+      userId: { userId: "userId" },
+      dataNewGym: { prop1: "data1", prop2: 2, prop3: [], prop4: {} }
+    };
+    
+    // userId: el id del usuario partner que crea el gym
+    // dataNewGym: en este objeto va todo lo que obtienen del formulario (el input de arriba)
+    
+    console.log('recibe el click y crea un gym')
+
+    let newGym = await createGym (dataForNewGym);
+
+    return newGym;
+
+  }
+
+  //----------------------------------------------------------------------------
+  // Esta función sirve para editar la info de un gym       
+  //----------------------------------------------------------------------------
+
+  async function onClickEditGym () {
+    let dataForEditGym = { 
+      gymId: { gymId: "gymId" },
+      newDataGym: { prop1: "data2", prop2: 3, prop3: ["algo"], prop4: {} }
+    };
+
+    // gymId: el id del gym a editar
+    // dataNewGym: en este objeto va todo lo que obtienen del formulario (el input de arriba)
+    
+    console.log('recibe el click y edita un gym')
+
+    let newGym = await editGym (dataForEditGym);
+
+    return newGym;
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+ //----------------------------------------------------------------------------
   //!----------------HANDLECHANGE-----------------------
   function handleChange(e) {
     setInput(() => {
@@ -197,6 +256,21 @@ export default function UpdateGym() {
       <span>
         Los campos marcados con <strong>*</strong> deben ser completados
       </span>
+      <div>
+
+        <p>
+        <button onClick={(e)=>{onClickCreateGym(e)}}>Crear gym de prueba</button>
+        </p>
+        <p>
+          <button onClick={(e)=>{onClickEditGym(e)}}> Editar del gym de prueba</button>
+        </p>
+
+
+
+
+
+
+      </div>
       <form onSubmit={handleSubmit}>
         <div>
           <label>

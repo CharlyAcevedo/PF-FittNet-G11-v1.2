@@ -67,10 +67,15 @@ router.post('/gymcreate/:idUser', async (req, res) => {
       }
 })
 
+//----------------------------------------------------------------------------
+// Para crear un solo gym - envío el id del user y la info para crear el gym
+//----------------------------------------------------------------------------
+// http://localhost:3001/api/partner/gyms/createOneGym
+
 router.post('/createOneGym/', async (req, res) => {
   console.log(req.body, 'create One Gym')
 
-  const { idUser } = req.body;    
+  const { userId, dataNewGym } = req.body;    
   try {     
 
     
@@ -80,6 +85,25 @@ router.post('/createOneGym/', async (req, res) => {
     }
 })
 
+
+//----------------------------------------------------------------------------
+// Para editar un solo gym - envío el id del gym y la info para editar el gym
+//----------------------------------------------------------------------------
+// http://localhost:3001/api/partner/gyms/editOneGym
+
+router.put('/editOneGym/', async (req, res) => {
+  console.log(req.body, 'create One Gym')
+
+  const { gymId, newDataGym } = req.body;
+
+  try {     
+
+    
+      res.status(200).send('create One Gym');
+  } catch (error) {
+      res.status(404).send({ error: error.message });
+    }
+})
 
 
 module.exports = router;
