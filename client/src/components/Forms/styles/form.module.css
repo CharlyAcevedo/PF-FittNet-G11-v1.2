@@ -134,6 +134,11 @@
   align-items: center;
 }
 
+.boxContainerDes {
+  display: flex;
+  flex-direction: column;
+}
+
 .containerDirection {
   display: flex;
   flex-direction: column;
@@ -151,4 +156,46 @@
   align-items: center;
   margin-bottom: 1rem;
   gap: 5rem;
+}
+
+.contDesBenef {
+  display: flex;
+  flex-direction: column;
+}
+
+.deseaseNameWithTip {
+  display: flex;
+  justify-content: space-between;
+  /* width: 15%; */
+  padding: .4rem;
+  align-items: center;
+  margin: 0 auto;
+  gap: .6rem;
+  background-color: var(--color-primD1);
+  color: #fff;
+  border-radius: .6rem;
+}
+
+.containerElecciones {
+  display: flex;
+  width: 70%;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.deseaseBeneficts{
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.171);
+  border-radius: .6rem;
+  width: 90%;
+  padding: .6rem;
+  display: flex;
+  margin: 1rem auto;
+  flex-direction: column;
+}
+
+.btn {
+  font-size: 1.5rem;
+  font-weight: 800;
+  cursor: pointer;
 }

@@ -142,9 +142,11 @@ export default function LoginInit() {
             localStorage.setItem("latitude", latitude.$numberDecimal);
             localStorage.setItem("longitude", longitude.$numberDecimal);
 
-            return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
+            navigate(`/home/${type}/${name}/${userId}`);
           }
-          if (login.avatar._id) {
+
+          console.log(login.avatar)
+          if (login.avatar) {
             console.log(login, " el user");
 
             localStorage.setItem("userId", userId);
@@ -155,7 +157,7 @@ export default function LoginInit() {
             localStorage.setItem("longitude", longitude.$numberDecimal);
 
             let avatarId = avatar._id;
-            return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatarId}`);
+            navigate(`http://localhost:3000/home/${type}/${name}/${userId}/${avatarId}`);
           }
           // ya le paso info por params de quién estamos hablando
         } else {

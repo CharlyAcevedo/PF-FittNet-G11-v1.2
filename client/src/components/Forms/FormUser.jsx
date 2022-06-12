@@ -49,12 +49,15 @@ export default function FormUser() {
     city: user.info?.address.city ? user.info.address.city : "",
     country: user.info?.address.country ? user.info.address.country : "",
     zipCode: user.info?.address.zipCode ? user.info.address.zipCode : "",
-    desease: /* user.info?.diseases.desease ? user.info.diseases.desease : */ [],
-    trainlimits: /* user.info?.diseases.considerations ? user.info.diseases.considerations : */ "",
-    considerations: /* user.info?.diseases.trainlimits ? user.info.diseases.trainlimits :  */"",
-
+    desease:
+      /* user.info?.diseases.desease ? user.info.diseases.desease : */ [],
+    trainlimits:
+      /* user.info?.diseases.considerations ? user.info.diseases.considerations : */ "",
+    considerations:
+      /* user.info?.diseases.trainlimits ? user.info.diseases.trainlimits :  */ "",
   });
 
+  console.log(deseaseAttribute);
   const [error, setError] = useState({});
 
   function handleOnChange(e) {
@@ -118,12 +121,11 @@ export default function FormUser() {
         [e.target.name]: e.target.value,
       })
     );
-    console.log("input", input)
-  console.log("error", error)
-  console.log("e", e)
-  console.log("deseaseAttr", deseaseAttribute)
+    console.log("input", input);
+    console.log("error", error);
+    console.log("e", e);
+    console.log("deseaseAttr", deseaseAttribute);
   }
-  
 
   function handleSelect(e) {
     setInput({
@@ -156,41 +158,40 @@ export default function FormUser() {
   */
   function handleDeleteDse(e) {
     /* if(input.desease.length === 1 && (!input.trainlimits && !input.considerations)) */
-  if (input.desease.length === 1) {
-    if (input.trainlimits || input.considerations) {
-      setError({
-        ...error,
-        desease: "debes seleccionar las enfermedades que se relacionen con tu condicion"
-      })
+    if (input.desease.length === 1) {
+      if (input.trainlimits || input.considerations) {
+        setError({
+          ...error,
+          desease:
+            "debes seleccionar las enfermedades que se relacionen con tu condicion",
+        });
+      }
+      setInput({
+        ...input,
+        desease: input.desease.filter((c) => c !== e),
+      });
+      console.log("e", e);
+      console.log("error", error);
+      console.log("input", input);
     }
     setInput({
       ...input,
       desease: input.desease.filter((c) => c !== e),
     });
-    console.log("e", e)
-    console.log("error", error)
-    console.log("input", input)
   }
-  setInput({
-    ...input,
-    desease: input.desease.filter((c) => c !== e),
-  });
-}
 
-function handleSubmit(e) {
-  e.preventDefault();
-  dispatch(updateUserInfo(userId, input));
-  navigate(`/home/${type}/${name}/${userId}/${avatar}`);
-}
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(updateUserInfo(userId, input));
+    navigate(`/home/${type}/${name}/${userId}/${avatar}`);
+  }
 
-function handleDelete(e) {
-  setInput({
-    ...input,
-    photo: "",
-  });
-}
-
-
+  function handleDelete(e) {
+    setInput({
+      ...input,
+      photo: "",
+    });
+  }
 
   return (
     <div style={{ width: "100%" }}>
@@ -351,92 +352,81 @@ function handleDelete(e) {
           </div>
         </div>
 
-
         <div className={styles.containerDiseases}>
           <h2 style={{ color: "#fff" }}>Enfermedades</h2>
 
-          <div className={styles.boxDiseases}>
-            <select
-              name="selDesease"
-              onChange={(e) => handleOnChange(e)}
-              className={styles.input}
-            >
-              <option id="des" disabled>
-                Desease...
-              </option>
-              {deseaseAttribute.map((e) => {
-                return (
-                  <option value={e.deseaseName} key={e._id}>
-                    {e.deseaseName}{" "}
-                  </option>
-                );
-              })}
-            </select>
-            {/*  {input.desease.map((e) => (
-          <div key={e}>
-            <p>{e}</p>
-            <button
-              className={styles.btn}
-              type="button"
-              onClick={() => handleDeleteDse(e)}
-
-            >
-              <option id="des" disabled>
-                Desease...
-              </option>
-              {deseaseAttribute.map((e) => {
-                return (
-                  <option value={e} key={e}>
-                    {e}{" "}
-                  </option>
-                );
-              })}
-            </select> */}
-            {input.desease.map((e) => (
-              <div key={e}>
-                <p>{e}</p>
-                <button
-                  className={styles.btn}
-                  type="button"
-                  onClick={() => handleDeleteDse(e)}
-                >
-                  x
-                </button>
-              </div>
-            ))}
-            {
-              input.desease.length > 0 && deseaseAttribute.map(e => {
-                return (
-                  input.desease.includes(e.deseaseName) &&
-                  <div key={e._id}>
-                    <li>{e.benefits}</li>
+          <div className={styles.boxContainerDes}>
+            <div className={styles.boxDiseases}>
+              <select
+                name="selDesease"
+                onChange={(e) => handleOnChange(e)}
+                className={styles.input}
+              >
+                <option id="des" disabled>
+                  Desease...
+                </option>
+                {deseaseAttribute.map((e) => {
+                  return (
+                    <option value={e.deseaseName} key={e._id}>
+                      {e.deseaseName}{" "}
+                    </option>
+                  );
+                })}
+              </select>
+              <textarea
+                className={error.trainlimits ? styles.inputError : styles.input}
+                type="text"
+                placeholder="limtitaciones"
+                name="trainlimits"
+                onChange={(e) => handleOnChange(e)}
+              />
+              {error.trainlimits && (
+                <p className={styles.parrafo}>{error.trainlimits}</p>
+              )}
+              <textarea
+                className={
+                  error.considerations ? styles.inputError : styles.input
+                }
+                type="text"
+                placeholder="consideraciones"
+                name="considerations"
+                onChange={(e) => handleOnChange(e)}
+              />
+              {error.considerations && (
+                <p className={styles.parrafo}>{error.considerations}</p>
+              )}
+            </div>
+            {/* <div className={styles.listDesease}> */}
+            <div className={styles.contDesBenef}>
+              <div className={styles.containerElecciones}>
+                {input.desease.map((e) => (
+                  <div className={styles.deseaseNameWithTip} key={e}>
+                    <p>{e}</p>
+                    <div
+                      className={styles.btn}
+                      type="button"
+                      onClick={() => handleDeleteDse(e)}
+                    >
+                      x
+                    </div>
                   </div>
-                )
-              })
-            }
-            {error.desease && <p className={styles.parrafo}>{error.desease}</p>}
-            <textarea
-              className={error.trainlimits ? styles.inputError : styles.input}
-              type="text"
-              placeholder="limtitaciones"
-              name="trainlimits"
-              onChange={(e) => handleOnChange(e)}
-            />
-            {error.trainlimits && (
-              <p className={styles.parrafo}>{error.trainlimits}</p>
-            )}
-            <textarea
-              className={
-                error.considerations ? styles.inputError : styles.input
-              }
-              type="text"
-              placeholder="consideraciones"
-              name="considerations"
-              onChange={(e) => handleOnChange(e)}
-            />
-            {error.considerations && (
-              <p className={styles.parrafo}>{error.considerations}</p>
-            )}
+                ))}
+              </div>
+              {input.desease.length > 0 &&
+                deseaseAttribute.map((e) => {
+                  return (
+                    input.desease.includes(e.deseaseName) && (
+                      <div key={e._id} className={styles.deseaseBeneficts}>
+                        <p style={{color: "var(--color-primD1)", fontSize: "800", textTransform: "uppercase"}}>{e.deseaseName}</p>
+                        <li>{e.benefits}</li>
+                      </div>
+                    )
+                  );
+                })}
+              {error.desease && (
+                <p className={styles.parrafo}>{error.desease}</p>
+              )}
+            </div>
           </div>
         </div>
         <div>
@@ -458,10 +448,7 @@ function handleDelete(e) {
                 name="street"
                 onChange={(e) => handleOnChange(e)}
               />
-              {error.street && (
-                <p className={styles.parrafo}>{error.street}</p>
-              )}
-
+              {error.street && <p className={styles.parrafo}>{error.street}</p>}
 
               <InputPrimaryFormUsers
                 type="number"
@@ -476,23 +463,19 @@ function handleDelete(e) {
                 name="address"
                 onChange={(e) => handleOnChange(e)}
               />
-              {
-                error.address && (
-                  <p className={styles.parrafo}>{error.address}</p>
-                )
-              }
+              {error.address && (
+                <p className={styles.parrafo}>{error.address}</p>
+              )}
               <InputPrimaryFormUsers
                 type="number"
                 placeholder="apartment"
                 name="apartment"
                 onChange={(e) => handleOnChange(e)}
               />
-              {
-                error.apartment && (
-                  <p className={styles.parrafo}>{error.apartment}</p>
-                )
-              }
-            </div >
+              {error.apartment && (
+                <p className={styles.parrafo}>{error.apartment}</p>
+              )}
+            </div>
             <div>
               <InputPrimaryFormUsers
                 type="text"
@@ -529,26 +512,26 @@ function handleDelete(e) {
                 <p className={styles.parrafo}>{error.zipCode}</p>
               )}
             </div>
-          </div >
-        </div >
+          </div>
+        </div>
 
         <div>
           {error.lastname ||
-            error.phone ||
-            error.birthday ||
-            error.gender ||
-            error.photo ||
-            error.street ||
-            error.floor ||
-            error.address ||
-            error.apartment ||
-            error.neighborhood ||
-            error.city ||
-            error.country ||
-            error.desease ||
-            error.trainlimits ||
-            error.considerations ||
-            error.zipCode ? (
+          error.phone ||
+          error.birthday ||
+          error.gender ||
+          error.photo ||
+          error.street ||
+          error.floor ||
+          error.address ||
+          error.apartment ||
+          error.neighborhood ||
+          error.city ||
+          error.country ||
+          error.desease ||
+          error.trainlimits ||
+          error.considerations ||
+          error.zipCode ? (
             <div style={{ width: "100%", margin: "0 auto" }}>
               <ButtonSecondaryDeslice
                 type="submit"
@@ -569,13 +552,13 @@ function handleDelete(e) {
                 className={styles.btn}
                 type="submit"
                 title="GUARDAR CAMBIOS"
-                padding=".8rem 1rem"
+                padding="1rem 1rem"
                 onClick={(e) => handleSubmit(e)}
               />
             </div>
           )}
         </div>
-      </form >
-    </div >
+      </form>
+    </div>
   );
 }

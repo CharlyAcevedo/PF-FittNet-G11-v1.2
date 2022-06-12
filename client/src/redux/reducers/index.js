@@ -37,7 +37,7 @@ const initialState = {
   partnersToShow: [],
   avatars: [],
   pageToShow: [],
-  currentLimit: 9,
+  currentLimit: 6,
   currentPage: 1,
   errors: "",
   products: [],
