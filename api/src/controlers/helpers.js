@@ -97,23 +97,17 @@ const putGymAddresses = async (idGym, gymAddress) => {
     let addressId = gymToAdd.address ? gymToAdd.address : "";
 
     if (!addressId || addressId === "") {
-      console.log("entra aqui por ser nuevo")
       const newAddress = new Address(gymAddress);
       await newAddress.save();
-      console.log(newAddress._id, "id desde nueva direccion")
       addressId = newAddress._id;
     } else {
-      console.log("entra aqui por que si tiene id")
-      console.log(gymAddress)
       delete gymAddress.id
-      console.log(gymAddress)
       const addressUpdated = await Address.findByIdAndUpdate(
         addressId,
         gymAddress,
         { new: true }
       );
     }
-    console.log(addressId, gymAddress)
     const gymUpdated = await Gyms.findByIdAndUpdate(
       idGym,
       { address: addressId },
