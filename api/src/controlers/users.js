@@ -364,7 +364,8 @@ const getUserGoogleAccount = async (req, res) => {
                         lastName: 1,
                         address: 1,
                         phone: 1,
-                        gender: 1
+                        gender: 1,
+                        birthday: 1
                     },
                     // info: {
                     //     name: 1,
@@ -518,6 +519,7 @@ const googleSignIn = async (req, res) => {
                 password: "0xoaudfj203ru09dsfu2390fdsfc90sdf2dfs",
                 type: "user",
                 active: true,
+                partner: 0,
                 info: infoId
             });
         } else {
@@ -538,7 +540,6 @@ const googleSignIn = async (req, res) => {
             usuario,
             googleToken,
             user
-
         })
     } catch (error) {
         console.log("error: ", error);

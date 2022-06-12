@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import styles from "./styles/detailProfile.module.css";
-import { MdLocationOn } from "react-icons/md";
+import { MdLocationOn, MdLocationOff } from "react-icons/md";
 import { useEffect } from "react";
-import { getAllGyms, getUserGoogleForToken } from "../../redux/actions/index";
+import {
+  getAllGyms,
+  getUserGoogleForToken,
+  getGymDetail,
+} from "../../redux/actions/index";
+import { NavBar3 } from "../GymDetail/NavBar3.jsx";
+import { CarritoProfileUser } from "./carritoProfileUser/CarritoProfileUser.jsx";
 
 export default function DetailProfileUser() {
   let { userId } = useParams();
@@ -15,6 +21,7 @@ export default function DetailProfileUser() {
 
   const user = useSelector((state) => state.user);
   const gyms = useSelector((state) => state.gyms);
+  const gymDetail = useSelector((state) => state.gymDetail);
 
   const token = localStorage.getItem("token");
   const type = localStorage.getItem("type");
@@ -35,6 +42,9 @@ export default function DetailProfileUser() {
     }
     if (Object.keys(gyms).length === 0) {
       dispatch(getUserGoogleForToken(token));
+    }
+    if (Object.keys(gymDetail).length === 0) {
+      dispatch(getGymDetail(userId));
     }
   }, []);
 
@@ -81,7 +91,7 @@ export default function DetailProfileUser() {
           <img
             src={info?.photo}
             alt="mi foto"
-            style={{ width: "90%", height: "250px", borderRadius: ".6rem" }}
+            style={{ width: "100%", height: "235px", borderRadius: ".6rem" }}
           />
         </div>
         <div className={styles.infoPerfilUser}>
@@ -112,8 +122,19 @@ export default function DetailProfileUser() {
                   color: "#8a8a8a",
                 }}
               >
-                <MdLocationOn />
-                <p>Salta, AR</p>
+                {info && Object.keys(info?.address).length > 0 ? (
+                  <>
+                    <MdLocationOn style={{ color: "var(--color-primD1)" }} />
+                    <span
+                      style={{ color: "var(--color-primD1)" }}
+                    >{`${info.address.country} - ${info.address.city}`}</span>
+                  </>
+                ) : (
+                  <>
+                    <MdLocationOff />
+                    <span>No agrego direccion</span>
+                  </>
+                )}
               </div>
             </div>
             <div
@@ -142,12 +163,12 @@ export default function DetailProfileUser() {
             >
               Editar mi perfil
             </Link>
-            <a style={{ color: "#fff" }} href={`/updatepassword/${userId}`}>
+            <Link style={{ color: "#fff" }} to={`/updatepassword/${userId}`}>
               Cambiar mi contraseña
-            </a>
-            <a style={{ color: "#fff" }} href={`/deactivate/${userId}`}>
+            </Link>
+            <Link style={{ color: "#fff" }} to={`/deactivate/${userId}`}>
               Borra mi cuenta
-            </a>
+            </Link>
             <span
               style={{ color: "#fff", cursor: "pointer" }}
               onClick={() =>
@@ -157,12 +178,18 @@ export default function DetailProfileUser() {
               Volver
             </span>
           </div>
-          <div style={{ display: "flex" }}>
+          <div
+            style={{
+              width: "97%",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
             <div>
               <div className={styles.infoContactUser}>
-                <h4 style={{ fontWeight: "700", color: "#cecece" }}>
+                <h3 style={{ fontWeight: "700", color: "#cecece" }}>
                   Informacion de contacto
-                </h4>
+                </h3>
                 <div className={styles.contactUser}>
                   <p>
                     Phone:{" "}
@@ -205,18 +232,27 @@ export default function DetailProfileUser() {
                 </div>
               </div>
               <div className={styles.othersInfo}>
-                <h4 style={{ fontWeight: "700", color: "#cecece" }}>
+                <h3 style={{ fontWeight: "700", color: "#cecece" }}>
                   Otra informacion
-                </h4>
+                </h3>
                 <div className={styles.others}>
-                  <p>
-                    Fecha de nacimiento:
-                    <span style={{ color: "var(--color-primD1)" }}>
-                      
-                      21/01/21{/* {info?.birthday.substring(0, 10)} */}
-                    </span>
-                  </p>
-                  <p>
+                  {info && info.birthday ? (
+                    <p style={{ display: "flex", gap: ".4rem" }}>
+                      Fecha de nacimiento:
+                      <span style={{ color: "var(--color-primD1)" }}>
+                        {info?.birthday.substring(0, 10)}
+                      </span>
+                    </p>
+                  ) : (
+                    <p style={{ display: "flex", gap: ".4rem" }}>
+                      Fecha de nacimiento:
+                      <span style={{ color: "var(--color-primD1)" }}>
+                        DD/MM/AA
+                      </span>
+                    </p>
+                  )}
+
+                  <p style={{ display: "flex", gap: ".4rem" }}>
                     Genero:
                     {info && info.gender ? (
                       <span style={{ color: "var(--color-primD1)" }}>
@@ -316,6 +352,24 @@ export default function DetailProfileUser() {
                   </span>
                 </button>
               </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style={{
+                // width: "200px",
+                width: "95%",
+                height: "220px",
+                backgroundColor: "#181818",
+                borderRadius: ".6rem",
+                margin: "1.2rem auto"
+              }}
+            >
+              <CarritoProfileUser
+                id={[gymDetail]}
+                usuarioId={userId}
+                button={true}
+              />
             </div>
           </div>
         </div>

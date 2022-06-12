@@ -83,9 +83,10 @@
 .favoritosGyms {
   margin-top: 1.8rem;
   padding: 1.3rem;
-  background-color: #d1d1d11a;
+  background-color: #181818;
   border-radius: .6rem;
-  width: 30%;
+  width: 40%;
+  height: 378px;
   border: 1px solid rgba(255, 255, 255, 0.048);
 }
 
@@ -104,7 +105,7 @@
 .btnFavourite {
   padding: .7rem 1rem;
   border-radius: .6rem;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(85, 85, 85, 0.2);
   cursor: pointer;
 }
 
