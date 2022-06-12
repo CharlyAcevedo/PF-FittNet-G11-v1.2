@@ -1,8 +1,10 @@
 const router = require("express").Router();
 const routerProfile = require('./profile');
-const routerGyms = require('./gyms')
+const routerGyms = require('./gyms');
+const routerServices = require('./services');
 
-router.use("/gyms", routerGyms); 
+router.use("/gyms", routerGyms);
+router.use("/services", routerServices); 
 router.use("/profile", routerProfile);
 
 router.get("/", async (req, res) => {

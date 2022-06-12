@@ -8,39 +8,40 @@ import GymCards from "../GymCards/GymCards";
 // import PartnerCards from "../PartnerCards/PartnerCards";
 import { getAllGyms, getUserGoogleForToken } from "../../redux/actions";
 import { useDispatch } from "react-redux";
-import IncomesGraph from "../Graphics/Incomes";
+// import IncomesGraph from "../Graphics/Incomes";
 import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
 import styles from "./styles/homeMain.module.css";
-import GeneralActions from "../PartnerHomeComponents/GeneralActions";
+// import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
 import Advertising from "../PartnerHomeComponents/Advertising";
-import ClientsGraph from "../Graphics/GraphClient"
+import ClientsGraph from "../Graphics/GraphClient";
+import OrderBy from "../OrderBy/OrderBy";
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
 import { HomePartner } from "./HomePartner/HomePartner";
-import GymsForUsersMap from "../MapsAndGeo/GymsForUsers"
-
+import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
+// import { CardShop } from "../../helpers/Cards/Cards.jsx";
 
 export default function HomeMain() {
-  let { userId, type, avatar } = useParams(); 
+  let { userId, type, avatar } = useParams();
 
   const dispatch = useDispatch();
 
-  const avatarLS = localStorage.getItem("avatar")
+  const avatarLS = localStorage.getItem("avatar");
 
   const token = localStorage.getItem("token");
 
   const navigate = useNavigate();
 
-  useEffect(() => { 
-    dispatch(getAllGyms()); 
+  useEffect(() => {
+    dispatch(getAllGyms());
     if (token) {
       dispatch(getUserGoogleForToken(token));
-    }// eslint-disable-next-line
+    } // eslint-disable-next-line
   }, [userId]);
 
-  // Esto es una vista para un usuario sin avatar
-  if (type === "user" && !avatar || !avatarLS) {
+  //! Esto es una vista para un usuario sin avatar
+  if ((type === "user" && !avatar) || !avatarLS) {
     return (
       <div
         style={{
@@ -68,34 +69,51 @@ export default function HomeMain() {
     );
   }
 
-  // Esto es una vista para un usuario con avatar
+  //! Esto es una vista para un usuario con avatar
   if (type === "user" && avatar) {
     return (
       <div className={styles.cont}>
-        <Sarch/>
-        <GymsForUsersMap />    
-        <GymCards/>
-        <Paginated />
-      </div>
-    );
-  };
-
-  if (type === "user" && avatarLS) {
-    return (
-      <div className={styles.cont}>
-        <Sarch/>
-        <GymsForUsersMap /> 
-        <GymCards/>
+        <GymsForUsersMap />
+        <div
+          style={{
+            width: "90%",
+            margin: "0 auto",
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Sarch />
+          <OrderBy />
+        </div>
+        <GymCards />
+        {/* <CardShop /> */}
         <Paginated />
       </div>
     );
   }
 
-  // Esto es una para cliente empresa
+  if (type === "user" && avatarLS) {
+    return (
+      <div className={styles.cont}>
+        <GymsForUsersMap />
+        <div>
+          <Sarch />
+          <OrderBy />
+        </div>
+        <GymCards />
+        {/* <CardShop /> */}
+        <Paginated />
+      </div>
+    );
+  }
+
+  //! Esto es una para cliente empresa
   if (type === "partner") {
     return (
       <div>
-        <HomePartner/>
+        <HomePartner />
         {/* <div className={styles.advertising}>
           <Advertising/>
         </div>
@@ -110,16 +128,15 @@ export default function HomeMain() {
         </div> */}
       </div>
     );
-  } 
+  }
 
   // Esto es una para un administrador de sitio
   if (type === "admin") {
-
     return (
       <div>
-      <HomeAdmin/>
+        <HomeAdmin />
         {/* <PartnerCards /><UserCards /><IncomesGraph /> */}
       </div>
     );
-  } 
+  }
 }

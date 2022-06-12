@@ -644,3 +644,313 @@
 .contPlanPartner .card:hover .face2 h2 {
   font-size: 2em;
 }
+
+/* .containerCardShop {
+  position: relative;
+}
+
+.containerCardShop .cardShop {
+  position: relative;
+  width: 320px;
+  height: 450px;
+  background: #232323;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.containerCardShop .cardShop:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #1BBFE9;
+  clip-path: circle(150px at 80% 20%);
+  transition: 0.5s ease-in-out;
+}
+
+.containerCardShop .cardShop:hover:before {
+  clip-path: circle(300px at 80% -20%);
+}
+
+.containerCardShop .cardShop:after {
+  content: "Nike";
+  position: absolute;
+  top: 30%;
+  left: -20%;
+  font-size: 12em;
+  font-weight: 800;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.04);
+
+}
+
+.containerCardShop .cardShop .imgBx {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  transition: .5s;
+}
+
+.containerCardShop .cardShop:hover .imgBx {
+  top: 0%;
+  transform: translateY(-25%);
+} */
+
+/* .containerCardShop .cardShop .imgBx img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(20deg);
+  width: 270px;
+}
+
+.containerCardShop .cardShop .contentBx {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  transition: 1s;
+  z-index: 90;
+}
+
+.containerCardShop .cardShop:hover .contentBx {
+  height: 210px;
+}
+
+.containerCardShop .cardShop .contentBx h2 {
+  position: relative;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.containerCardShop .cardShop .contentBx .sizeCard,
+.containerCardShop .cardShop .contentBx .colorCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 20px;
+    transition: .5s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.containerCardShop .cardShop:hover .contentBx .sizeCard {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: .5s;
+}
+
+.containerCardShop .cardShop:hover .contentBx .colorCard {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: .6s;
+}
+
+.containerCardShop .cardShop .contentBx .sizeCard h3,
+.containerCardShop .cardShop .contentBx .colorCard h3 {
+    color: white;
+    font-weight: 300;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-right: 10px;
+}
+
+.containerCardShop .cardShop .contentBx .sizeCard span {
+  width: 26px;
+  height: 26px;
+  text-align: center;
+  line-height: 26px;
+  font-size: 14px;
+  display: inline-block;
+  color: #111;
+  background: #fff;
+  margin: 0 5px;
+  transition: .5s;
+  color: #111;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.containerCardShop .cardShop .contentBx .sizeCard span:hover {  
+  background: #B90000;
+} */
+
+/* .containerCardShop .cardShop .contentBx .colorCard span {
+  width: 20px;
+  height: 20px;
+  background: #ff0;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.containerCardShop .cardShop .contentBx .colorCard span:nth-child(2) {
+  background: #1BBFE9;
+}
+
+.containerCardShop .cardShop .contentBx .colorCard span:nth-child(3) {
+  background: #1B2FE9;
+}
+
+.containerCardShop .cardShop .contentBx .colorCard span:nth-child(4) {
+  background: #080481;
+}
+
+.containerCardShop .cardShop .contentBx a {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #fff;
+  border-radius: 4px;
+  margin-top: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #111;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: .5s;
+}
+
+.containerCardShop .cardShop:hover .contentBx a {
+  opacity: 1;
+  transform: translateY(0px);
+  transition-delay: .7s;
+}  */
+
+
+.cardShop {
+  position: relative;
+  width: 320px;
+  height: 480px;
+  background: #191919;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.cardShop::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  width: 100%;
+  height: 100%;
+  background: var(--color-primD1);
+  /* box-shadow: 0px 0px 10px rgb(202, 202, 202); */
+  transform: skewY(347deg);
+  transition: 0.5s;
+}
+
+.cardShop:hover::before {
+  box-shadow: 0px 0px 10px rgb(202, 202, 202);
+}
+
+.cardShop:hover::before {
+  top: -70%;
+  transform: skewY(380deg);
+}
+
+.cardShop::after {
+  content: "FITTNET";
+  position: absolute;
+  bottom: 0;
+  left: -20px;
+  right: 20px;
+  font-weight: 800;
+  font-size: 4.7em;
+  color: rgba(34, 34, 34, 0.445);
+}
+
+.cardShop .imgBox {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  z-index: 1;
+}
+/*
+.card .imgBox img {
+    max-width: 100%;
+    
+    transition: .5s;
+}
+
+.card:hover .imgBox img {
+    max-width: 50%;
+      
+}
+*/
+.cardShop {
+  box-shadow: 0px 0px 8px rgba(218, 218, 218, 0.514);
+}
+
+.cardShop .contentBox {
+  position: relative;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.cardShop .contentBox h3 {
+  font-size: 18px;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cardShop .contentBox .priceCard {
+  font-size: 24px;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.cardShop .contentBox .buyCard {
+  position: relative;
+  top: 100px;
+  opacity: 0;
+  padding: 10px 30px;
+  margin-top: 15px;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  background: var(--color-primD1);
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.5s;
+}
+
+.cardShop:hover .contentBox .buyCard {
+  top: 0;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.buyCard:hover {
+  box-shadow: 0px 0px 10px var(--color-primD1);
+}
+
+.mouseCard {
+  height: 210px;
+  width: 212px;
+  margin-top: 2rem;
+  border-radius: 50%;
+}
+
+
+
+
+
+

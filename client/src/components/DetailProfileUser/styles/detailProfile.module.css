@@ -1,8 +1,8 @@
 .containerPerfilUser {
-  width: 90%;
+  width: 80%;
   margin: 1.5rem auto;
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 20% 80%;
 }
 
 .containerPhotoPerfil {

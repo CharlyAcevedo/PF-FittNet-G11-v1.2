@@ -3,7 +3,7 @@
 :root {
   --main-color: #fb6d10;
   --color--logo: #f5978c;
-  --dark-color: #11152a;
+  --dark-color: #191919;
   --light-color: #fff;
 
   --color-backgotund:#212121;
@@ -45,12 +45,13 @@
 body {
   /* font-family: "Poppins", sans-serif; */
   background: rgb(37, 38, 39);
-  background: linear-gradient(
+  /* background: linear-gradient(
     45deg,
     rgba(37, 38, 39, 1) 26%,
     rgba(24, 25, 27, 1) 62%,
     rgba(2, 2, 3, 1) 87%
-  );
+  ); */
+  background: var(--color-backgotund);
 }
 
 App {
