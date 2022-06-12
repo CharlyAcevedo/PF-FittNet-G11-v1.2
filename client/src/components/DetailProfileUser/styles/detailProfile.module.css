@@ -78,6 +78,45 @@
   opacity: 1;
   width: 100%;
 }
+
+
+.favoritosGyms {
+  margin-top: 1.8rem;
+  padding: 1.3rem;
+  background-color: #d1d1d11a;
+  border-radius: .6rem;
+  width: 30%;
+  border: 1px solid rgba(255, 255, 255, 0.048);
+}
+
+.headerFavourite {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.itemGymFavourite {
+  margin-top: .65rem;
+  display: flex;
+  gap: .4rem;
+}
+
+.btnFavourite {
+  padding: .7rem 1rem;
+  border-radius: .6rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.btnFavourit:hover {
+  box-shadow: 0px 0px 8px rgba(165, 24, 24, 0.521);
+}
+
+.titleGymFavorito:hover {
+  color: var(--color-primD1);
+  cursor: pointer;
+  transition: .5s;
+}
 /* 
 .containerInfoPerfil {
   width: 100%;

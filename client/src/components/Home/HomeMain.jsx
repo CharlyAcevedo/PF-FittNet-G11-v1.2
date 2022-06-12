@@ -88,7 +88,6 @@ export default function HomeMain() {
           <OrderBy />
         </div>
         <GymCards />
-        {/* <CardShop /> */}
         <Paginated />
       </div>
     );

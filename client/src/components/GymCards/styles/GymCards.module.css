@@ -10,12 +10,11 @@
   width: 90%;
   color: #fff;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
   font-size: 1.2rem;
-  padding-bottom: 60px;
-  padding-top: 40px;
   text-decoration: none;
   display: flex;
   gap: 7rem;
   flex-wrap: wrap;
-  padding: 20px;
 }

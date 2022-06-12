@@ -326,19 +326,19 @@ const getUserGoogleAccount = async (req, res) => {
                     preserveNullAndEmptyArrays: true
                 }
             },
-            // {
-            //     $lookup: {
-            //         from: "addresses",
-            //         localField: "info.address",
-            //         foreignField: "_id",
-            //         as: "info.address"
-            //     }
-            // },
-            // {
-            //     $unwind: {
-            //         path: "$info.address",
-            //     }
-            // },
+            {
+                $lookup: {
+                    from: "addresses",
+                    localField: "info.address",
+                    foreignField: "_id",
+                    as: "info.address"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.address",
+                }
+            },
             {
                 $project: {
                     name: 1,
@@ -349,7 +349,9 @@ const getUserGoogleAccount = async (req, res) => {
                         name: 1,
                         photo: 1,
                         lastName: 1,
-                        address: 1
+                        address: 1,
+                        phone: 1,
+                        gender: 1
                     },
                     // info: {
                     //     name: 1,

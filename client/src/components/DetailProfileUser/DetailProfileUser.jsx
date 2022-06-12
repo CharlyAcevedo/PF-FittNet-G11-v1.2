@@ -1,29 +1,78 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import styles from "./styles/detailProfile.module.css";
+import { MdLocationOn } from "react-icons/md";
+import { useEffect } from "react";
+import { getAllGyms, getUserGoogleForToken } from "../../redux/actions/index";
 
 export default function DetailProfileUser() {
   let { userId } = useParams();
 
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.user);
-  console.log("user", user)
+  const gyms = useSelector((state) => state.gyms);
 
-  const { info } = user;
+  const token = localStorage.getItem("token");
+  const type = localStorage.getItem("type");
+  const avatar = localStorage.getItem("avatar");
+  const name = localStorage.getItem("name");
 
-   const type = localStorage.getItem('type');
+  const [isOpen, setisOpen] = useState({
+    infoContacto: false,
+    otherInfo: false,
+  });
 
-  const avatar = localStorage.getItem('avatar');
-  
-  const name = localStorage.getItem('name'); 
+  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [currentPage, setCurrentPage] = useState(1);
 
+  useEffect(() => {
+    if (gyms.length === 0) {
+      dispatch(getAllGyms());
+    }
+    if (Object.keys(gyms).length === 0) {
+      dispatch(getUserGoogleForToken(token));
+    }
+  }, []);
 
-  //const { name, userName, type, avatar, info } = user;
+  const { info, favourite } = user;
 
+  const filtroDeMisFavoritos = gyms.filter((x) =>
+    favourite?.some((y) => y === x._id)
+  );
 
-  const avatarId = avatar?._id;
+  const pages = [];
+
+  for (
+    let i = 1;
+    i <= Math.ceil(filtroDeMisFavoritos.length / itemsPerPage);
+    i++
+  ) {
+    pages.push(i);
+  }
+
+  const indexItem = currentPage * itemsPerPage;
+  const indexFirstItem = indexItem - itemsPerPage;
+
+  const currentItemsFavorite = filtroDeMisFavoritos.slice(
+    indexFirstItem,
+    indexItem
+  );
+
+  const handleNext = (e) => {
+    e.preventDefault();
+
+    setCurrentPage((prev) => prev + 1);
+  };
+
+  const handlePrev = (e) => {
+    e.preventDefault();
+
+    setCurrentPage((prev) => prev - 1);
+  };
 
   return (
     <div style={{ width: "100%", height: "85vh" }}>
@@ -63,9 +112,7 @@ export default function DetailProfileUser() {
                   color: "#8a8a8a",
                 }}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                  <path d="M384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192H384z" />
-                </svg>
+                <MdLocationOn />
                 <p>Salta, AR</p>
               </div>
             </div>
@@ -110,46 +157,164 @@ export default function DetailProfileUser() {
               Volver
             </span>
           </div>
-          <div className={styles.infoContactUser}>
-            <h4 style={{ fontWeight: "700", color: "#cecece" }}>
-              Informacion de contacto
-            </h4>
-            <div className={styles.contactUser}>
-              <p>
-                Phone:{" "}
-                <span style={{ color: "var(--color-primD1)" }}>
-                  32452352454{/* {info?.phone} */}
-                </span>
-              </p>
-              <p>
-                Address:{" "}
-                <span style={{ color: "var(--color-primD1)" }}>
-                  Direccion 14, Salta AR - 4400
-                </span>
-              </p>
-              <p>
-                Email:{" "}
-                <span style={{ color: "var(--color-primD1)" }}>
-                  marcelo@gmail.com
-                </span>
-              </p>
+          <div style={{ display: "flex" }}>
+            <div>
+              <div className={styles.infoContactUser}>
+                <h4 style={{ fontWeight: "700", color: "#cecece" }}>
+                  Informacion de contacto
+                </h4>
+                <div className={styles.contactUser}>
+                  <p>
+                    Phone:{" "}
+                    {info?.phone ? (
+                      <span style={{ color: "var(--color-primD1)" }}>
+                        {info.phone}
+                      </span>
+                    ) : (
+                      <span style={{ color: "var(--color-primD1)" }}>
+                        No agrego un numero de contacto
+                      </span>
+                    )}
+                  </p>
+                  <p
+                    style={{
+                      display: "flex",
+                      gap: ".2rem",
+                      alignItems: "center",
+                    }}
+                  >
+                    Address:{" "}
+                    <span style={{ color: "var(--color-primD1)" }}>
+                      {info && Object.keys(info?.address).length > 0 ? (
+                        <span
+                          style={{ color: "var(--color-primD1)" }}
+                        >{`${info.address.country} - ${info.address.city}`}</span>
+                      ) : (
+                        <span style={{ color: "var(--color-primD1)" }}>
+                          No agrego direccion
+                        </span>
+                      )}
+                    </span>
+                  </p>
+                  <p>
+                    Email:{" "}
+                    <span style={{ color: "var(--color-primD1)" }}>
+                      {user.userName}
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div className={styles.othersInfo}>
+                <h4 style={{ fontWeight: "700", color: "#cecece" }}>
+                  Otra informacion
+                </h4>
+                <div className={styles.others}>
+                  <p>
+                    Fecha de nacimiento:
+                    <span style={{ color: "var(--color-primD1)" }}>
+                      21/01/21{/* {info?.birthday.substring(0, 10)} */}
+                    </span>
+                  </p>
+                  <p>
+                    Genero:
+                    {info && info.gender ? (
+                      <span style={{ color: "var(--color-primD1)" }}>
+                        {info.gender}
+                      </span>
+                    ) : (
+                      <span style={{ color: "var(--color-primD1)" }}>
+                        no selecciono un genero
+                      </span>
+                    )}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className={styles.othersInfo}>
-            <h4 style={{ fontWeight: "700", color: "#cecece" }}>
-              Otra informacion
-            </h4>
-            <div className={styles.others}>
-              <p>
-                Fecha de nacimiento:{" "}
+            <div className={styles.favoritosGyms}>
+              <h3 style={{ color: "#fff", textAlign: "center" }}>
+                Mis favoritos
+              </h3>
+              <div className={styles.containerFavourite}>
+                {gyms.length > 0 ? (
+                  currentItemsFavorite.map((x, y) => (
+                    <div
+                      style={{
+                        color: "#f0f0f0",
+                        paddingBottom: ".5rem",
+                        borderBottom: "1px solid var(--color-primD1)",
+                      }}
+                      className={styles.headerFavourite}
+                      key={y}
+                    >
+                      <div className={styles.itemGymFavourite}>
+                        <img
+                          src={x.image}
+                          style={{
+                            width: "68px",
+                            height: "65px",
+                            borderRadius: ".5rem",
+                          }}
+                        />
+                        <span
+                          onClick={() => navigate(`/detail/gym/${x._id}`)}
+                          className={styles.titleGymFavorito}
+                        >
+                          {x.name}
+                        </span>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p
+                    style={{
+                      color: "var(--color-primD1)",
+                      textAlign: "center",
+                      marginTop: "6rem",
+                    }}
+                  >
+                    No contiene favoritos actualmente
+                  </p>
+                )}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  margin: "1.2rem auto 0 auto",
+                  alignItems: "center",
+                  gap: "1rem",
+                  justifyContent: "center",
+                }}
+              >
+                <button
+                  onClick={(e) => handlePrev(e)}
+                  style={{ color: "#000" }}
+                  className={styles.btnFavourite}
+                  disabled={currentPage === pages[0] ? true : false}
+                >
+                  <span
+                    style={{ fontSize: "1.1rem", color: "var(--color-primD1)" }}
+                  >
+                    &laquo;
+                  </span>
+                </button>
                 <span style={{ color: "var(--color-primD1)" }}>
-                  21/01/21{/* {info?.birthday.substring(0, 10)} */}
-                </span>/
-              </p>
-              <p>
-                Genero:{" "}
-                <span style={{ color: "var(--color-primD1)" }}>Masculino</span>
-              </p>
+                  {currentPage}/<span>{pages[pages.length - 1]}</span>
+                </span>
+                <button
+                  onClick={(e) => handleNext(e)}
+                  style={{ color: "#000" }}
+                  className={styles.btnFavourite}
+                  disabled={
+                    currentPage === pages[pages.length - 1] ? true : false
+                  }
+                >
+                  <span
+                    style={{ fontSize: "1.1rem", color: "var(--color-primD1)" }}
+                  >
+                    &raquo;
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
