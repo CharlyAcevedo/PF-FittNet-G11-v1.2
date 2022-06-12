@@ -94,6 +94,24 @@ router.post('/gymcreate/:idUser', async (req, res) => {
 //     partner: newPartnerInfo._id //-------------------------> importante
 //   });
 
+//----------------------------------------------------------------------------
+// Trae los gimnasios de un usuario partner
+//----------------------------------------------------------------------------
+// http:/localhost:3001/api/partner/gyms/mygyms/:userId
+
+router.get("/mygyms/:userId", async (req, res) => {
+
+  let { userId } = req.params;
+  console.log(userId)
+
+  try {
+   
+    res.status(200).send('/allgyms/:userId');
+  } catch (error) {
+    res.status(404).send({ error: error.message });
+  }
+});
+
 
 //----------------------------------------------------------------------------
 // Para crear un solo gym - envío el id del user y la info para crear el gym
@@ -119,7 +137,6 @@ router.post('/createOneGym/', async (req, res) => {
       addNewGym = await Partner.findByIdAndUpdate(idInfoPartner, 
         {$push: {gyms: newGym._id}}, 
         {new: true} );
-
       // console.log(infoPartner.partner, 'estoy en el if');
       // console.log(addNewGym, 'estoy en el if newGym');
       // console.log('create One Gym 3');      
@@ -140,9 +157,6 @@ router.post('/createOneGym/', async (req, res) => {
 // 1 crear el gym
 // 2 guardarlo
 // 3 buscar el partner (userId) y actualizarlo
-
-
-
 
 
 // 1 - En el modelo User cuando es partner
