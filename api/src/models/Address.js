@@ -2,12 +2,10 @@ const mongoose = require('mongoose');
 
 const addressSchema = new mongoose.Schema({
     street: {
-        type: String,
-        required: true,
+        type: String,        
     },
     floor: {
-        type: Number,
-        required: true,
+        type: Number,        
     },
     address: {
         type: String,        

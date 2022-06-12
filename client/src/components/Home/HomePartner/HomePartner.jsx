@@ -12,8 +12,10 @@ import { EditMyServices } from "./ViewsPartner/EditMyServices";
 import style from "./styles/style.module.css";
 import { ButtonHomePA } from "../../../helpers/Buttons/Buttons";
 
-export function HomePartner() {
-  const [view, setView] = useState("myGyms");
+
+export function HomePartner () {
+    const [ view , setView ] = useState("editMyGyms");
+
 
   let { userId } = useParams();
 
