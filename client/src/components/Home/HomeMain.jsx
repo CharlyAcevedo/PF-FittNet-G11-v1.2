@@ -55,6 +55,8 @@ export default function HomeMain() {
         }}
       >
         <SelecAvatar />
+        {/* {console.log("entro a seleccionar el avatar")} */}
+        {/* {console.log(type)} */}
         <div
           style={{
             display: "grid",
@@ -111,10 +113,11 @@ export default function HomeMain() {
   }
 
   //! Esto es una para cliente empresa
-  if (type === "partner" && !avatarLS) {
+  if (type === "partner") {
     return (
       <div>
         <HomePartner />
+        {/* {console.log("entro a la ventana del partner")} */}
         {/* <div className={styles.advertising}>
           <Advertising/>
         </div>
