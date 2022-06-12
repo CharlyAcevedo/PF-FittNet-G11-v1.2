@@ -3,14 +3,15 @@ import styles from "./style/client.module.css";
 import { serviceValidate } from "./controlers/validaciones";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createService } from "../../redux/actions";
+// import { createService } from "../../redux/actions";
 import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
+import { createService, editService } from "./controlers/Functions";
 
 export default function Services() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [input, setInput] = useState({
-    name: "", // string requerido
+    name: "dfdf", // string requerido
     description: "", // string requerido
     duration: 0, //numero requerido
     price: 0, //numero requerido
@@ -18,6 +19,86 @@ export default function Services() {
     profileCategory: [],
   });
   const [error, setError] = useState({});
+  
+  
+  //----------------------------------------------------------------------------
+  // Faltaría tener un select o un switch para saber si se está creando o editando,
+  // pero de todas formas usamos el mismo form para las dos cosas (crear y editar)   
+  //----------------------------------------------------------------------------
+
+
+  //----------------------------------------------------------------------------
+  // Esta función sirve para crear un gym           
+  //----------------------------------------------------------------------------
+  async function onClickCreateService () {
+    let dataForNewService = { 
+      gymId: { gymId: "gymId" },
+      dataNewService: { prop1: "data1", prop2: 2, prop3: [], prop4: {} }
+    };
+    
+    // gymId: el id del gym que crea el servicio
+    // dataNewService: en este objeto va todo lo que obtienen del formulario (el input de arriba)
+    
+    console.log('recibe el click y crea un service')
+
+    let newService = await createService (dataForNewService);
+
+    return newService;
+
+  }
+
+  //----------------------------------------------------------------------------
+  // Esta función sirve para editar la info de un gym       
+  //----------------------------------------------------------------------------
+
+  async function onClickEditService () {
+    let dataForEditService = { 
+      serviceId: { serviceId: "serviceId" },
+      newDataService: { prop1: "data2", prop2: 3, prop3: ["algo"], prop4: {} }
+    };
+
+    // serviceId: el id del service a editar
+    // dataNewService: en este objeto va todo lo que obtienen del formulario (el input de arriba)
+    
+    console.log('recibe el click y edita un gym')
+
+    let editOneService = await editService (dataForEditService);
+
+    return editOneService;
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   //!---------------handleCahnge---------------------
   function handleChange(e) {
@@ -87,7 +168,7 @@ export default function Services() {
       return SweetAlrt("Error","Todos los campos deben estar completos", "error")
       // return alert("Todos los campos deben estar completos!");
     } else {
-      dispatch(createService(input));
+      //dispatch(createService(input));
       SweetAlrtTem("Exito! servicio creado","success")
       // alert("Service creado!");
       setInput({
@@ -109,6 +190,22 @@ export default function Services() {
   return (
     <div className={styles.editPartnerMainContainer}>
       <h1>FORMULARIO DE SERVICIOS</h1>
+      <div>
+
+        <p>
+        <button onClick={(e)=>{onClickCreateService(e)}}>Crear service de prueba</button>
+        </p>
+        <p>
+          <button onClick={(e)=>{onClickEditService(e)}}> Editar service de prueba</button>
+        </p>
+
+
+
+
+
+
+      </div>
+
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nombre: </label>
@@ -184,7 +281,7 @@ export default function Services() {
             ))}
           </select>
           <ul>
-            <li>
+            {/* <li>
               {input.gyms.map((e) => (
                 <div key={e}>
                   <p>{e} </p>
@@ -193,7 +290,7 @@ export default function Services() {
                   </button>{" "}
                 </div>
               ))}{" "}
-            </li>
+            </li> */}
           </ul>
         </div>
         <div>

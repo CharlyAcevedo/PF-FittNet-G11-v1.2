@@ -14,22 +14,37 @@ export default function UpdateGym() {
   const params = useParams();
 
   const [input, setInput] = useState({
-    name: "",
-    price: "",
-    raiting: "",
-    image: [],
-    address: "", 
-    services: [],
-    trainers: [],
-    logo: "",
-    phone: "",
-    email: "",
-    uEnd: [],
-    gymActive: "",
+    name: "gym1",
+    price: "33",
+    raiting: "", // no sale del form
+    image: [dsfsdf],
+    address: "2323", 
+    services: [], /// no la voy a poder tocar
+    trainers: [dffdf],
+    logo: "dfdf",
+    phone: "df",
+    email: "dfd",
+    uEnd: [], ///
+    gymActive: "", //
     idName: "",
-    id: "",
+    id: "", // id del gym
   });
   
+
+  // let newGym = {
+  //   name: gyms[i].name,
+  //   price: gyms[i].price,
+  //   raiting: gyms[i].raiting,
+  //   image: gyms[i].image,
+  //   latitude: gyms[i].latitude,
+  //   longitude: gyms[i].longitude,
+  //   trainers: gyms[i].trainers,
+  //   logo: gyms[i].logo,
+  //   phone: gyms[i].phone,
+  //   email: gyms[i].email,
+  //   gymActive: gyms[i].gymActive,
+  //   favourite: gyms[i].favourite,
+  // }
   const [error, setError] = useState({});
   //----------------------------------------------------------------------------
   // Faltaría tener un select o un switch para saber si se está creando o editando,
@@ -63,6 +78,7 @@ export default function UpdateGym() {
 
   async function onClickEditGym () {
     let dataForEditGym = { 
+      //userId: { userId: "userId" },
       gymId: { gymId: "gymId" },
       newDataGym: { prop1: "data2", prop2: 3, prop3: ["algo"], prop4: {} }
     };
@@ -72,9 +88,9 @@ export default function UpdateGym() {
     
     console.log('recibe el click y edita un gym')
 
-    let newGym = await editGym (dataForEditGym);
+    let editOneGym = await editGym (dataForEditGym);
 
-    return newGym;
+    return editOneGym;
 
   }
 
@@ -207,7 +223,7 @@ export default function UpdateGym() {
       return SweetAlrt("Error", "Todos los campos deben estar completos","error")
       // return alert("Todos los campos deben estar completos!");
     } else {
-      dispatch(createGym(input));
+      // dispatch(createGym(input));
      SweetAlrtTem("Exito! Gym Registrado","success")
       // alert("Gym Registrado!");
       setInput({
@@ -262,7 +278,7 @@ export default function UpdateGym() {
         <button onClick={(e)=>{onClickCreateGym(e)}}>Crear gym de prueba</button>
         </p>
         <p>
-          <button onClick={(e)=>{onClickEditGym(e)}}> Editar del gym de prueba</button>
+          <button onClick={(e)=>{onClickEditGym(e)}}> Editar gym de prueba</button>
         </p>
 
 

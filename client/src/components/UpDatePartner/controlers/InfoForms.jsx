@@ -1,4 +1,26 @@
+// {
+  //   name,
+  //   lastName,
+  //   email,
+  //   phone,
+  //   planType, //debe llegar como un id del plan, si no llega buscar en los datos del usuario
+  //   cbu,
+  //   cuil,
+  //   socialNetworks, //debe llegar como un array de id
+  //   gyms, //debe llegar como un array de id
+  //   category, //debe llegar como un id
+  //   userActive, //si llega seria como bolean
+  //   paymentMethods, //debe llegar como un array de id
+  //   paidOut,
+  //   incomes, //debe llegar como un array de id
+  //   payments, //debe llegar como un array de id
+  // }
 
+
+
+
+
+  
 //-----------------------------------------------------------------------------
 // A la hora de crear un gym mandamos un post a
 //-----------------------------------------------------------------------------
