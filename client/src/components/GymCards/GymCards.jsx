@@ -10,20 +10,26 @@ export default function GymsCards() {
   return (
     <div className={style.mainBoxCards}>
       <div className={style.boxCards}>
-        {/* {gyms.length
+        {gyms.length
           ? gyms.map((x, y) => (
               <CardShop
                 key={y}
                 id={x._id}
-                name={x.name}
+                title={x.name}
                 rating={x.raiting}
                 price={x.price}
-                image={x.image}
+                imagen={x.image}
                 favourite={x.favourite}
               />
             ))
-          : null} */}
-        {gyms.length
+          : gyms.length === 0 && (
+            <img
+              id="loading"
+              src="https://www.sanfranciscohm.com/static/img/loading.gif"
+              alt="loading..."
+            />
+          )}
+        {/* {gyms.length
           ? gyms.map((g) => {
               return (
                 <GymCard
@@ -43,7 +49,7 @@ export default function GymsCards() {
                 src="https://www.sanfranciscohm.com/static/img/loading.gif"
                 alt="loading..."
               />
-            )}
+            )} */}
       </div>
     </div>
   );

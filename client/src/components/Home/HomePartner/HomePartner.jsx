@@ -9,53 +9,75 @@ import { EditMyGyms } from "./ViewsPartner/EditMyGyms";
 import { MyServices } from "./ViewsPartner/MyServices";
 import { EditMyServices } from "./ViewsPartner/EditMyServices";
 
+import style from "./styles/style.module.css";
+import { ButtonHomePA } from "../../../helpers/Buttons/Buttons";
+
 
 export function HomePartner () {
     const [ view , setView ] = useState("editMyServices");
 
-    let { userId } = useParams();
 
-    console.log(userId, 'los params en el home')
+  let { userId } = useParams();
 
+  console.log(userId, "los params en el home");
 
-    
-    return(
-        <div style={{padding: "20px", color: "#fff" }}>
-            <div >
-          
-            </div>
-            <div>
-                <button style={{padding: "5px", marginRight:"30px"}}
-                onClick={(e)=>{setView("plans")}}>Planes y promociones</button>
+  return (
+    <div className={style.content}>
+      <div className={style.contentH}>
+        {/* Bloque de Button */}
+        <div className={style.contButton}>
+          <div className={style.contButtonTop}>
+            <p>Username</p>
+          </div>
 
-                <button style={{padding: "5px", marginRight:"30px"}}
-                onClick={(e)=>{setView("mySales")}}>Mis ventas</button>
+          <div className={style.contButtonH1}>
+          <ButtonHomePA onClick={(e) => {
+                setView("plans");
+              }} title="Planes y promociones"/>
+          </div>
 
-                <button style={{padding: "5px", marginRight:"30px"}}
-                onClick={(e)=>{setView("myClients")}}>Mis clientes</button>
-
-                <button style={{padding: "5px", marginRight:"30px"}} 
-                onClick={(e)=>{setView("myGyms")}}>Mis gimnasios</button>
-
-                <button style={{padding: "5px", marginRight:"30px"}}
-                onClick={(e)=>{setView("editMyGyms")}}>Editar mis gimnasios</button>
-
-                <button style={{padding: "5px", marginRight:"30px"}}
-                onClick={(e)=>{setView("myServices")}}>Mis servicios</button>
-
-                <button style={{padding: "5px", marginRight:"30px"}}
-                onClick={(e)=>{setView("editMyServices")}}>Editar servicios</button>
-            </div>
-           
-            {view === "mySales" && <MySales/>}
-            {view === "myClients" && <MyClients/>}
-            {view === "plans" && <Plans/>}
-            {view === "myGyms" && <MyGyms/>}
-            {view === "editMyGyms" &&  <EditMyGyms/>}
-            {view === "myServices" &&  <MyServices/>}
-            {view === "editMyServices" &&  <EditMyServices/>}         
-            
+          <div className={style.contButtonHg}>
+          <ButtonHomePA onClick={(e) => {
+                setView("mySales");
+              }} title="Mis ventas"/>
+          </div>
+          <div className={style.contButtonHg}>
+          <ButtonHomePA onClick={(e) => {
+                setView("myClients");
+              }} title="Mis clientes"/>
+          </div>
+          <div className={style.contButtonHg}>
+          <ButtonHomePA onClick={(e) => {
+                setView("myGyms");
+              }} title="Mis gimnasios"/>
+          </div>
+          <div className={style.contButtonHg}>
+          <ButtonHomePA onClick={(e) => {
+                setView("editMyGyms");
+              }} title="Editar mis gimnasios"/>
+          </div>
+          <div className={style.contButtonHg}>
+          <ButtonHomePA onClick={(e) => {
+                setView("myServices");
+              }} title="Mis servicios"/>
+          </div>
+          <div className={style.contButtonHg}>
+          <ButtonHomePA onClick={(e) => {
+                setView("editMyServices");
+              }} title="Editar mis servicios"/>
+          </div>
         </div>
-    )   
-
+        {/* Bloque de contenido */}
+        <div className={style.contData}>
+          {view === "mySales" && <MySales />}
+          {view === "myClients" && <MyClients />}
+          {view === "plans" && <Plans />}
+          {view === "myGyms" && <MyGyms />}
+          {view === "editMyGyms" && <EditMyGyms />}
+          {view === "myServices" && <MyServices />}
+          {view === "editMyServices" && <EditMyServices />}
+        </div>
+      </div>
+    </div>
+  );
 }
