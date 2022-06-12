@@ -2,51 +2,85 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { setUserGeo } from "../../redux/actions/index";
 import styles from "./styles/LoginInit.module.css";
 import jwt_decode from "jwt-decode";
-import { getUser } from "../../redux/actions";
+import {
+  BackgroundTwo,
+  BackgroundOne,
+} from "../../helpers/Backround/Background";
+import { InputPrymary, InputSecond } from "../../helpers/Inputs/Inputs";
+import { SweetAlrt } from "../../asets/helpers/sweetalert";
+// , SweetAlrt2, SweetAlrtTem
 
 export default function LoginInit() {
+  const dispatch = useDispatch();
+  const geolocation = useSelector(
+    (state) => state.currentUserDetails.currentGeo
+  );
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [googleUser, setGoogleUser] = useState({});
+  // const [googleUser, setGoogleUser] = useState({});
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
-  const userGoogle = useSelector((state) => state.user);
-
-  console.log(userGoogle);
+  // const userGoogle = useSelector((state) => state.user);
 
   const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleCallbackGoogle = async (response) => {
     const userObject = jwt_decode(response.credential);
-    if (!token) {
+    if (!token || !userId) {
       console.log("ENTRO A GENERAR TOKEN", response.credential);
-      const pruebaGoogle = await axios.post(
-        `/api/google/auth`,
-        {
-          tokenId: response.credential,
-          data: userObject,
-        }
-      );
-      const finalizacionData = await pruebaGoogle.data;
-      console.log("ESTA DATA TRAJO", finalizacionData);
-      dispatch(getUser(finalizacionData.usuario._id));
+      const googleData = await axios.post(`/api/service/google/auth`, {
+        tokenId: response.credential,
+        data: userObject,
+      });
+      const finalizacionData = await googleData.data;
+      // dispatch(getUser(finalizacionData.usuario._id));
       localStorage.setItem("token", response.credential);
       document.getElementById("signInDiv").hidden = true;
-      console.log(googleUser);
+      localStorage.setItem("userId", finalizacionData.user.userId);
+      localStorage.setItem("type", finalizacionData.user.type);
+      localStorage.setItem("avatar", finalizacionData.user.avatar);
+      localStorage.setItem("name", finalizacionData.usuario.name);
+      // localStorage.setItem('latitude',finalizacionData.user.latitude.$numberDecimal)
+      // localStorage.setItem('longitude',finalizacionData.user.longitude.$numberDecimal)
+
+      // localStorage.setItem("type", type)
+      // localStorage.setItem("avatar", avatar._id)
+      // console.log(finalizacionData, ' finalización data')
+
       const { avatar } = finalizacionData.usuario;
+
+      // console.log(finalizacionData.usuario);
       if (!avatar) {
-        return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
+        console.log('entro aqui')
+        navigate(`/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
       } else {
-        return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
+        navigate(`/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
       }
     } else {
-      console.log("estas autenticado actualmente no vas a poder acceder");
+      console.log("estas autenticado actualmente");
+      // const googleData = await axios.post(
+      //   `/api/google/auth`,
+      //   {
+      //     tokenId: response.credential,
+      //     data: userObject,
+      //   }
+      // );
+      // const finalizacionData = await googleData.data;
+      // dispatch(getUser(finalizacionData.usuario._id));
+      // const { avatar } = finalizacionData.usuario;
+      // if (!avatar) {
+      //   return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
+      // } else {
+      //   return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
+      // }
       navigate("/");
     }
   };
@@ -66,58 +100,80 @@ export default function LoginInit() {
         shape: "circle",
       }
     );
+  });
 
-    window.google?.accounts.id.prompt();
+  // }, [window.google?.accounts]);
 
-    setGoogleUser(userGoogle); // eslint-disable-next-line
-  }, [window.google?.accounts]);
-
-  // const handleLogoutGoogle = (e) => {
-  //   e.preventDefault();
-  //   document.getElementById("signInDiv").hidden = false;
-  //   localStorage.removeItem("token");
-  // };
-
-  function onSubmit(e) {
-    let userLogin;
-
-    console.log("está saliendo el post ", userLogin);
-
+  async function onSubmit(e) {
     e.preventDefault();
+    let userLogin = {};
+
+    console.log("se está intentando hacer el post");
+
 
     if (username && password) {
       userLogin = { username: username, password: password };
 
       console.log("está saliendo el post ", userLogin);
 
-      axios
-        .post("/api/login", userLogin)
+      const login = await axios({
+        method: "post",
+        url: "/api/service/login",
+        data: userLogin,
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+        withCredentials: true,
+      })
         .then((res) => {
-          console.log(res.data, "-> viendo qué respondio el post");
-
-          if (res.data.login) {
-            console.log(res.data, " lo que responde el back si se autentica el user" );
-            
-            let { userId, name, type, avatar, active } = res.data;
-
-            if (active === true) { // Si la cuenta está activa
-              if (typeof avatar === "string") {
-                return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatar}`);
-              }
-              // ya le paso info por params de quién estamos hablando
-              return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
-
-            } else {
-              setError("Cuenta inactiva, verifiación de email pendiente");
-            }
-          }
-          if (typeof res.data === "string") {
-            setError("usuario o password incorrecta");
-            setPassword("");
-            setUsername("");
-          }
+          return res.data;
         })
         .catch((error) => console.log(error));
+
+      if (login.login) {
+        console.log(login, " lo que responde el back si se autentica el user");
+
+        let { userId, name, type, avatar, active, latitude, longitude } = login;
+
+        if (active === true) {
+          // Si la cuenta está activa
+          if (!login.avatar) {
+            localStorage.setItem("userId", userId);
+            localStorage.setItem("name", name);
+            localStorage.setItem("type", type);
+            localStorage.setItem("latitude", latitude.$numberDecimal);
+            localStorage.setItem("longitude", longitude.$numberDecimal);
+
+            return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
+          }
+          if (login.avatar._id) {
+            console.log(login, " el user");
+
+            localStorage.setItem("userId", userId);
+            localStorage.setItem("name", name);
+            localStorage.setItem("type", type);
+            localStorage.setItem("avatar", avatar._id);
+            localStorage.setItem("latitude", latitude.$numberDecimal);
+            localStorage.setItem("longitude", longitude.$numberDecimal);
+
+            let avatarId = avatar._id;
+            return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatarId}`);
+          }
+          // ya le paso info por params de quién estamos hablando
+        } else {
+          setError("Cuenta inactiva, verifiación de email pendiente");
+        }
+      }
+      if (typeof login === "string") {
+        console.log(login); // qué  me responde el back?
+        SweetAlrt(login);
+        setPassword("");
+        setUsername("");
+      }
+    }
+    if (!username && password) {
+      setError("No olvide introducir su email");
+    }
+    if (username && !password) {
+      setError("No olvide introducir su contraseña");
     }
   }
 
@@ -140,48 +196,41 @@ export default function LoginInit() {
             </div>
           </div>
           <form className={styles.login}>
-            <div className={styles.loginField}>
-              <input
-                type="email"
-                value={username}
-                name="email"
-                className={styles.loginInput}
-                placeholder="Email"
-                required
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div className="login_field">
-              <input
-                type="password"
-                value={password}
-                name="password"
-                className={styles.loginInput}
-                placeholder="Contraseña"
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+            <InputPrymary
+              type="email"
+              value={username}
+              name="email"
+              placeholder="Email"
+              required
+              onChange={(e) => setUsername(e.target.value)}
+            />
 
-            <p>{error === "" ? null : error}</p>
+            <InputPrymary
+              type="password"
+              value={password}
+              name="password"
+              placeholder="Contraseña"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-            <input
-              className={styles.loginSubmit}
+            <InputSecond
               type="submit"
               value="Ingresar"
               onClick={(e) => onSubmit(e)}
             />
+
             <div id="signInDiv" style={{ paddingTop: "1.5rem" }}></div>
             {/* <button onClick={(e) => handleLogoutGoogle(e)}>Logout</button> */}
+            <p>{error === "" ? null : error}</p>
           </form>
+          <a href="/resetpassword" style={{ padding: "1.5rem", color: "#fff" }}>
+            Olvidé mi contraseña
+          </a>
         </div>
-        <div className={`${styles.screenBackground}`}>
-          <span className={styles.shape4}></span>
-          <span className={styles.shape3}></span>
-          <span className={styles.shape2}></span>
-          <span className={styles.shape1}></span>
-        </div>
+        <BackgroundTwo />
       </div>
+      <BackgroundOne />
     </div>
   );
 }

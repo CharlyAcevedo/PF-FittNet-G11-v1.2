@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-const { regEmail, regWord } = require('../controlers/regExes');
+const mongoDB = require('mongodb');
+const { regEmail, regWord } = require('../controlers/regExes')
+
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -25,14 +27,20 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    latitude: {
+        type: mongoDB.Decimal128,        
+    },
+    longitude: {
+        type: mongoDB.Decimal128,
+    },
     active: {
         type: Boolean,
         required: true,
-        default: false,
+       
     },
     secretToken: {
         type: String,
-        required: true,
+        required: false,
     },      
     type: {
         type: String,
@@ -41,7 +49,6 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Avatar",
-        required: false,
     },
     info: {
         type: mongoose.SchemaTypes.ObjectId,
@@ -50,6 +57,10 @@ const userSchema = new mongoose.Schema({
     partner: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Partner"
+    },
+    favourite: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "gyms"
     },
     createdAt: {
         type: Date,

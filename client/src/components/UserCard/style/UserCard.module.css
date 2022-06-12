@@ -1,0 +1,59 @@
+/* * {
+    padding: 0px;
+} */
+
+.boxSingleCard2 {
+    border: 2px solid #fe09d9;
+    top: 0px;
+    background-color: #FFE35E;
+    margin-right: 2%; 
+    margin-left: 2%;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding: 1%;
+    text-align: center;
+    width: 130px;
+    height: 160px;
+    border-radius: 5px; 
+    color: black; 
+    border: 2px solid #FEAA09;
+    /* position: relative; */
+    display: inline-block;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+}
+.boxCard2 {
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    border: 2px solid #fe09d9;
+    /* position: relative; */
+    bottom: 0px;
+    top: 15px;
+    padding-top: 15px;
+    width: 100px;
+    height: 120px;
+
+    /* min-width: 98%;
+    max-width: 100%;
+    min-height: 50%;
+    max-height: 50%; */
+
+   
+
+}
+.imageCard2 {
+    /* position: absolute; */
+    bottom: 0;
+    left: 3px;
+    right: 0;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    width: 100px;
+    height: 120px;  
+    /* min-width: 90%;
+    max-width: 95%;
+    min-height: 95%;
+    max-height: 98%; */
+}

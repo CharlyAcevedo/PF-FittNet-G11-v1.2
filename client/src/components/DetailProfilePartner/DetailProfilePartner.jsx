@@ -1,53 +1,58 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import NavBarProfile from "../NavBarProfile/NavBarProfile";
+
+import styles from "./styles/DetailProfilePartner.module.css";
+
 export default function DetailProfilePartner() {
-    let { id , userId, name, type } = useParams();
-    // console.log(id, name, type, 'id y name')
+  let { userId, name, type } = useParams();
+  console.log(userId, name, type, 'id y name')
 
-    // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
-    // si le llega este id (de la fomra que lo espera) y si el usuario tiene una
-    // sesión iniciada.
+  // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
+  // si le llega este id (de la fomra que lo espera) y si el usuario tiene una
+  // sesión iniciada.
 
-    // Queda pendiente dispachar una acción para cargar en el estado global
-    // la info del usuario en un objeto. Ejeplo --> State.detailUser = {}
+  // Queda pendiente dispachar una acción para cargar en el estado global
+  // la info del usuario en un objeto. Ejeplo --> State.detailUser = {}
+    
+  return (
+    <div className={styles.partnerMainContainer}>
+      <div className={styles.partnerMiniContainer}>
+        <p>userId: {userId} </p>
+        <p>name: {name} </p>
+        <p>Typo: {type}</p>
+      </div>
 
+      <div className={styles.partnerMiniContainer}>
+        <h3>Detalles de su perfil</h3>
+        <p>En esta seccion usted podrá ver la informacion de su perfil</p>
+        <p>Nombre: {name}</p>
+        <p>Apellido: {null}</p>
+        <p>Email: {null}</p>
+        <p>Telefono: {null}</p>
+        <p>Tipo de plan: {null}</p>
+        <p></p>
+        <p>CBU: {null}</p>
+        <p>Perfil: {null}</p>
+        <p>Usuario activo: {null}</p>
+        <p>Redes Sociales: {null}</p>
+        <p>Metodos de Pago: {null}</p>
+        <p>Categoria: {null}</p>
+        <p></p>
+      </div>
 
-
-    return (
-        
-        <div>
-            <NavBarProfile/> 
-            <p>Id: {id}, name: {name} </p>
-            <p>Typo: {type}</p>
-            <br />
-            <h3>Esta vista corresponde a un cliente empresa o "partner"</h3>
-            <p>Hay que solicitar info para cada una de estás vistas</p>
-            <h3>Gestión de ventas</h3>
-            <p>Mis ventas e historial de ventas</p>
-            <br />
-            <h3>Flujo de fondos</h3>
-            <p>Mi caja</p>
-            <br />
-            <h3>Detalles del perfil</h3>
-            <p>Name: {name}</p>
-            <br />
-            <p>Tipo de plan: {type}</p>
-            <br />
-            <p>Siguitene 2</p>
-            <br />
-            <p>Siguitene 3</p>
-            <br />
-            <p>Siguitene 4</p>
-            <br />
-            <a href={`/updatepassword/${userId}`}>Cambiar mi contraseña</a>
-            <br /> 
-            <a href={`/deactivate/${userId}`}>Borra mi cuenta</a>
-            <br />
-            <a href='/'>Volver</a>
-        </div>
-        
-
-    )
-
+      <div className={styles.partnerMiniContainer}>
+        <a style={{ paddingRight: "20px" }}
+          href={`/profile/edit/${type}/${name}/${userId}`}>Editar mi perfil</a>
+        <a style={{ paddingRight: "20px" }}
+        //   href={`/profile/edit/${type}/${name}/${userId}/gym`}>Editar mis gimnasios </a>
+        // <a style={{ paddingRight: "20px" }}
+          href={`/updatepassword/${userId}`}>Cambiar mi contraseña</a>
+        <a style={{ paddingRight: "20px" }}
+          href={`/deactivate/${userId}`}>Borra mi cuenta</a>
+        <a style={{ paddingRight: "20px" }} href="/">
+          Volver
+        </a>
+      </div>
+    </div>
+  );
 }

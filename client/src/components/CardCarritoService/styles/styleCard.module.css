@@ -1,0 +1,21 @@
+.content {
+ /*  background-color: blue; */
+ border-bottom: 2.5px solid var(--color-primD2);
+ padding: 10px;
+}
+.content .contTitle {
+ /*  background-color: blueviolet; */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  font-weight: 700;
+}
+.content .card {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}

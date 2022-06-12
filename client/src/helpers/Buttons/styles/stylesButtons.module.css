@@ -1,0 +1,254 @@
+/* AQUI VA EL ESTILO DEL BOTON PRIMARIO */
+
+.btnPrimario {
+  font-size: 1.2rem;
+  font-weight: 700;
+  /* color: #1fe8b6; */
+  /* color: #f5c400; */
+  color: #ff004c;
+  /* border: 3px solid #1fe8b6; */
+  border: 3px solid #ff004c;
+  /* border: 3px solid #f5c400; */
+  text-align: center;
+  height: 3rem;
+  border-radius: 26px;
+  line-height: 2.8rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.9s;
+}
+
+.btnPrimario:hover {
+  background-color: #ff004c;
+  /* background-color: #f5c400; */
+  /* background-color: #1fe8b6; */
+  color: rgb(238, 238, 238);
+  transition: all 0.5s;
+}
+
+.btnPrimario::before,
+.btnPrimario::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 26px 0 26px 0;
+  border: inherit;
+  transition: all 0.5s;
+}
+
+.btnPrimario::before {
+  top: -10px;
+  left: -10px;
+  border-width: 3px 0 0 3px;
+}
+
+.btnPrimario::after {
+  bottom: -10px;
+  right: -10px;
+  border-width: 0 3px 3px 0;
+}
+
+.btnPrimario:hover::before,
+.btnPrimario:hover::after {
+  width: calc(100% + 20px);
+  border-radius: 29px;
+  height: calc(100% + 20px);
+}
+
+/* AQUI VA EL ESTILO DEL BOTON PRIMARIO CHICO */
+
+.btnPrimarioSmall {
+  font-size: 1rem;
+  font-weight: 700;
+  /* color: #f5c400; */
+  color: #ff004c;
+  /* color: #1fe8b6; */
+  /* border: 3px solid #f5c400; */
+  border: 3px solid #ff004c;
+  /* border: 3px solid #1fe8b6; */
+  padding: 0 30px;
+  height: 2.2rem;
+  line-height: 2rem;
+  border-radius: 26px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.9s;
+}
+
+.btnPrimarioSmall:hover {
+  /* background-color: #f5c400; */
+  background-color: #ff004c;
+  /* background-color: #1fe8b6; */
+  color: rgb(238, 238, 238);
+  transition: all 0.5s;
+}
+
+.btnPrimarioSmall::before,
+.btnPrimarioSmall::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 26px;
+  border: inherit;
+  transition: all 0.5s;
+}
+
+.btnPrimarioSmall::before {
+  top: -8px;
+  left: -8px;
+  border-width: 3px 0 0 3px;
+}
+
+.btnPrimarioSmall::after {
+  bottom: -8px;
+  right: -8px;
+  border-width: 0 3px 3px 0;
+}
+
+.btnPrimarioSmall:hover::before,
+.btnPrimarioSmall:hover::after {
+  width: calc(100% + 15px);
+  height: calc(100% + 15px);
+}
+
+/* AQUI VAN LOS ESTILOS DEL BUTTON SIMPLE */
+
+.btnSimple {
+  font-size: 1rem;
+  font-weight: 700;
+  /* color: #f5c400; */
+  color: #ff004c;
+  /* color: #fe914c; */
+  /* border: 3px solid #f5c400; */
+  border: 3px solid #ff004c;
+  /* border: 3px solid #fe914c; */
+  height: 2.2rem;
+  line-height: 1.8rem;
+  border-radius: 26px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.9s;
+}
+
+.btnSimple:hover {
+  /* background-color: #f5c400; */
+  background-color: #ff004c;
+  /* background-color: #fe914c; */
+  color: rgb(238, 238, 238);
+  transition: all 0.5s;
+}
+
+/* AQUI VAN LOS ESTILOS DEL BUTTON SECUNDARIO SIMPLE */
+
+.btnSecondarioSimple {
+  font-size: 1.1rem;
+  font-weight: 700;
+  /* background-color: #fe914c; */
+  /* background-color: #f5c400; */
+  background-color: #ff004c;
+  color: rgb(238, 238, 238);
+  height: 2.2rem;
+  line-height: 2.2rem;
+  border-radius: 26px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.9s;
+}
+
+.btnSecondarioSimple:hover {
+  /* color: #fe914c; */
+  color: #f5c400;
+  color: #ff004c;
+  background-color: transparent;
+  /* background-color: rgb(238, 238, 238); */
+  border: 1px solid #ff004c;
+  line-height: 2.1rem;
+  transition: all 0.9s;
+}
+
+/* AQUI ESTA EL BOTON DE BACK */
+
+.btnBack {
+  background-color: #ff004c;
+  color: #fff;
+}
+.btnBack:hover {
+  box-shadow: 0 0 10px #ff004c;
+  cursor: pointer;
+}
+
+/* AQUI ESTA MI BOTTON DESLICE */
+
+.btnDeslice {
+  background-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #ff004c;
+  box-shadow: 0 0 20px #ff004c;
+  color: #ff004c;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.3s ease all;
+  border-radius: 26px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btnDeslice span {
+  position: relative;
+  z-index: 2;
+  font-weight: 900;
+  transition: 0.3s ease all;
+}
+
+.btnDeslice::after {
+  content: "";
+  width: 100%;
+  background-color: #ff004c;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: -100%;
+
+  border-bottom: 80px solid #ff004c;
+  border-right: 80px solid transparent;
+  transition: 0.4s ease-in-out all;
+}
+
+.btnDeslice:hover {
+  color: #fff;
+  transition: 0.4s ease-in-out all;
+}
+
+.btnDeslice:hover::after {
+  left: 0;
+}
+
+.btnDetailGym {
+  font-weight: 700;
+  color: rgb(19, 19, 19);
+  background-color: #fff;
+  border-radius: 0.15rem;
+  padding: 0.2rem 1rem;
+  cursor: pointer;
+}
+
+.btnHomePA {
+  background-color: var(--light-color);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 13px 0px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+.btnHomePA:hover {
+  background-color: var(--color-primD2);
+  color: #fff;
+}

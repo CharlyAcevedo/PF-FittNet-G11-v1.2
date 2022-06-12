@@ -34,14 +34,20 @@ const infoUserSchema = new mongoose.Schema({
     },
     photo: {
         type: String,
-    },  
+    },
+    diseases: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Diseases"
+    },
+    emergenciCallTo: { //contacto de emergencias
+        type: String,
+    },
+    emergenciPhone: { //numero para emergencias
+        type: Number,
+    },
     address: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Address"
-    },
-    avatar: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: "Avatar"
     },
     createdAt: {
         type: Date,
