@@ -46,12 +46,13 @@ export default function FormUser() {
     neighborhood: user.info?.address?.neighborhood
       ? user.info.address.neighborhood
       : "",
-    city: user.info?.address?.city ? user.info.address.city : "",
-    country: user.info?.address?.country ? user.info.address.country : "",
-    zipCode: user.info?.address?.zipCode ? user.info.address.zipCode : "",
-    desease: [],
-    trainlimits: "",
-    considerations: "",
+    city: user.info?.address.city ? user.info.address.city : "",
+    country: user.info?.address.country ? user.info.address.country : "",
+    zipCode: user.info?.address.zipCode ? user.info.address.zipCode : "",
+    desease: /* user.info?.diseases.desease ? user.info.diseases.desease : */ [],
+    trainlimits: /* user.info?.diseases.considerations ? user.info.diseases.considerations : */ "",
+    considerations: /* user.info?.diseases.trainlimits ? user.info.diseases.trainlimits :  */"",
+
   });
 
   const [error, setError] = useState({});
@@ -117,7 +118,12 @@ export default function FormUser() {
         [e.target.name]: e.target.value,
       })
     );
+    console.log("input", input)
+  console.log("error", error)
+  console.log("e", e)
+  console.log("deseaseAttr", deseaseAttribute)
   }
+  
 
   function handleSelect(e) {
     setInput({
@@ -132,36 +138,59 @@ export default function FormUser() {
     );
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    dispatch(updateUserInfo(userId, input));
-    navigate(`/home/${type}/${name}/${userId}/${avatar}`);
-  }
-
-  function handleDelete(e) {
-    setInput({
-      ...input,
-      photo: "",
-    });
-  }
-
-  function handleDeleteDse(e) {
-    if (input.desease.length === 1) {
-      setError({
-        ...error,
-        desease:
-          "debes seleccionar las enfermedades que se relacionen con tu condicion",
-      });
+  /* function handleOnChange(e) {
+    if (e.target.name !== "inpDesease" && e.target.name !== "but") {
       setInput({
         ...input,
-        desease: input.desease.filter((c) => c !== e),
+        [e.target.name]: e.target.value,
       });
+      setError(
+        validate({
+          ...input,
+          [e.target.name]: e.target.value,
+        })
+      );
+    }
+  
+    
+  */
+  function handleDeleteDse(e) {
+    /* if(input.desease.length === 1 && (!input.trainlimits && !input.considerations)) */
+  if (input.desease.length === 1) {
+    if (input.trainlimits || input.considerations) {
+      setError({
+        ...error,
+        desease: "debes seleccionar las enfermedades que se relacionen con tu condicion"
+      })
     }
     setInput({
       ...input,
       desease: input.desease.filter((c) => c !== e),
     });
+    console.log("e", e)
+    console.log("error", error)
+    console.log("input", input)
   }
+  setInput({
+    ...input,
+    desease: input.desease.filter((c) => c !== e),
+  });
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  dispatch(updateUserInfo(userId, input));
+  navigate(`/home/${type}/${name}/${userId}/${avatar}`);
+}
+
+function handleDelete(e) {
+  setInput({
+    ...input,
+    photo: "",
+  });
+}
+
+
 
   return (
     <div style={{ width: "100%" }}>
@@ -322,6 +351,7 @@ export default function FormUser() {
           </div>
         </div>
 
+
         <div className={styles.containerDiseases}>
           <h2 style={{ color: "#fff" }}>Enfermedades</h2>
 
@@ -336,12 +366,32 @@ export default function FormUser() {
               </option>
               {deseaseAttribute.map((e) => {
                 return (
+                  <option value={e.deseaseName} key={e._id}>
+                    {e.deseaseName}{" "}
+                  </option>
+                );
+              })}
+            </select>
+            {/*  {input.desease.map((e) => (
+          <div key={e}>
+            <p>{e}</p>
+            <button
+              className={styles.btn}
+              type="button"
+              onClick={() => handleDeleteDse(e)}
+
+            >
+              <option id="des" disabled>
+                Desease...
+              </option>
+              {deseaseAttribute.map((e) => {
+                return (
                   <option value={e} key={e}>
                     {e}{" "}
                   </option>
                 );
               })}
-            </select>
+            </select> */}
             {input.desease.map((e) => (
               <div key={e}>
                 <p>{e}</p>
@@ -354,6 +404,16 @@ export default function FormUser() {
                 </button>
               </div>
             ))}
+            {
+              input.desease.length > 0 && deseaseAttribute.map(e => {
+                return (
+                  input.desease.includes(e.deseaseName) &&
+                  <div key={e._id}>
+                    <li>{e.benefits}</li>
+                  </div>
+                )
+              })
+            }
             {error.desease && <p className={styles.parrafo}>{error.desease}</p>}
             <textarea
               className={error.trainlimits ? styles.inputError : styles.input}
@@ -383,106 +443,112 @@ export default function FormUser() {
           <section>
             <MapUser />
           </section>
-          <div className={styles.containerDirection}>
-            <div>
-              <label style={{ fontWeight: "700", fontSize: "1.4rem" }}>
-                DIRECCION
-              </label>
-            </div>
-            <div className={styles.boxInputDirection}>
-              <div>
-                <InputPrimaryFormUsers
-                  type="number"
-                  placeholder="street"
-                  name="street"
-                  onChange={(e) => handleOnChange(e)}
-                />
-                {error.street && (
-                  <p className={styles.parrafo}>{error.street}</p>
-                )}
-
-                <InputPrimaryFormUsers
-                  type="number"
-                  placeholder="floor"
-                  name="floor"
-                  onChange={(e) => handleOnChange(e)}
-                />
-                {error.floor && <p className={styles.parrafo}>{error.floor}</p>}
-                <InputPrimaryFormUsers
-                  type="text"
-                  placeholder="address"
-                  name="address"
-                  onChange={(e) => handleOnChange(e)}
-                />
-                {error.address && (
-                  <p className={styles.parrafo}>{error.address}</p>
-                )}
-                <InputPrimaryFormUsers
-                  type="number"
-                  placeholder="apartment"
-                  name="apartment"
-                  onChange={(e) => handleOnChange(e)}
-                />
-                {error.apartment && (
-                  <p className={styles.parrafo}>{error.apartment}</p>
-                )}
-              </div>
-              <div>
-                <InputPrimaryFormUsers
-                  type="text"
-                  placeholder="neighborhood"
-                  name="neighborhood"
-                  onChange={(e) => handleOnChange(e)}
-                />
-                {error.neighborhood && (
-                  <p className={styles.parrafo}>{error.neighborhood}</p>
-                )}
-                <InputPrimaryFormUsers
-                  type="text"
-                  placeholder="city"
-                  name="city"
-                  onChange={(e) => handleOnChange(e)}
-                />
-                {error.city && <p className={styles.parrafo}>{error.city}</p>}
-                <InputPrimaryFormUsers
-                  type="text"
-                  placeholder="country"
-                  name="country"
-                  onChange={(e) => handleOnChange(e)}
-                />
-                {error.country && (
-                  <p className={styles.parrafo}>{error.country}</p>
-                )}
-                <InputPrimaryFormUsers
-                  type="number"
-                  placeholder="zipCode"
-                  name="zipCode"
-                  onChange={(e) => handleOnChange(e)}
-                />
-                {error.zipCode && (
-                  <p className={styles.parrafo}>{error.zipCode}</p>
-                )}
-              </div>
-            </div>
-          </div>
         </div>
+        <div className={styles.containerDirection}>
+          <div>
+            <label style={{ fontWeight: "700", fontSize: "1.4rem" }}>
+              DIRECCION
+            </label>
+          </div>
+          <div className={styles.boxInputDirection}>
+            <div>
+              <InputPrimaryFormUsers
+                type="number"
+                placeholder="street"
+                name="street"
+                onChange={(e) => handleOnChange(e)}
+              />
+              {error.street && (
+                <p className={styles.parrafo}>{error.street}</p>
+              )}
+
+
+              <InputPrimaryFormUsers
+                type="number"
+                placeholder="floor"
+                name="floor"
+                onChange={(e) => handleOnChange(e)}
+              />
+              {error.floor && <p className={styles.parrafo}>{error.floor}</p>}
+              <InputPrimaryFormUsers
+                type="text"
+                placeholder="address"
+                name="address"
+                onChange={(e) => handleOnChange(e)}
+              />
+              {
+                error.address && (
+                  <p className={styles.parrafo}>{error.address}</p>
+                )
+              }
+              <InputPrimaryFormUsers
+                type="number"
+                placeholder="apartment"
+                name="apartment"
+                onChange={(e) => handleOnChange(e)}
+              />
+              {
+                error.apartment && (
+                  <p className={styles.parrafo}>{error.apartment}</p>
+                )
+              }
+            </div >
+            <div>
+              <InputPrimaryFormUsers
+                type="text"
+                placeholder="neighborhood"
+                name="neighborhood"
+                onChange={(e) => handleOnChange(e)}
+              />
+              {error.neighborhood && (
+                <p className={styles.parrafo}>{error.neighborhood}</p>
+              )}
+              <InputPrimaryFormUsers
+                type="text"
+                placeholder="city"
+                name="city"
+                onChange={(e) => handleOnChange(e)}
+              />
+              {error.city && <p className={styles.parrafo}>{error.city}</p>}
+              <InputPrimaryFormUsers
+                type="text"
+                placeholder="country"
+                name="country"
+                onChange={(e) => handleOnChange(e)}
+              />
+              {error.country && (
+                <p className={styles.parrafo}>{error.country}</p>
+              )}
+              <InputPrimaryFormUsers
+                type="number"
+                placeholder="zipCode"
+                name="zipCode"
+                onChange={(e) => handleOnChange(e)}
+              />
+              {error.zipCode && (
+                <p className={styles.parrafo}>{error.zipCode}</p>
+              )}
+            </div>
+          </div >
+        </div >
+
         <div>
           {error.lastname ||
-          error.phone ||
-          error.birthday ||
-          error.gender ||
-          error.photo ||
-          error.street ||
-          error.floor ||
-          error.address ||
-          error.apartment ||
-          error.neighborhood ||
-          error.city ||
-          error.country ||
-          error.desease ||
-          error.trainlimits ||
-          error.considerations ||
-          error.zipCode ? (
+            error.phone ||
+            error.birthday ||
+            error.gender ||
+            error.photo ||
+            error.street ||
+            error.floor ||
+            error.address ||
+            error.apartment ||
+            error.neighborhood ||
+            error.city ||
+            error.country ||
+            error.desease ||
+            error.trainlimits ||
+            error.considerations ||
+            error.zipCode ? (
             <div style={{ width: "100%", margin: "0 auto" }}>
               <ButtonSecondaryDeslice
                 type="submit"
@@ -509,7 +575,7 @@ export default function FormUser() {
             </div>
           )}
         </div>
-      </form>
-    </div>
+      </form >
+    </div >
   );
 }
