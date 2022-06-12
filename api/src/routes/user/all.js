@@ -80,9 +80,9 @@ router.get("/deseases/", async (req, res) =>{
 router.get("/deseasesMap", async (req, res) =>{
     try {
         const resp = await DiseasesType.find()
-        const deseasesTypes = resp.map(e => e.deseaseName)
+       // const deseasesTypes = resp.map(e => e.deseaseName)
         //const desases= new Set(desease)
-    res.status(200).send(deseasesTypes)
+    res.status(200).send(resp)
     } catch (error) {
         res.status(error.status).send({ msg: error.message })
     }

@@ -19,7 +19,7 @@ export default function validate(input) {
 
     if (! /^[a-zA-Z ]*$/.test(input.lastname)) {
         error.lastname = 'solo acepta letras'
-    } else if (input.lastname?.length > 12) {
+    } else if (input.lastname?.length > 15) {
         error.lastname = "superaste el maximo de caracteres"
     }
 
@@ -33,17 +33,17 @@ export default function validate(input) {
         error.birthday = 'dd-mm-aa'
     }
 
-    // if (!/^([0-9])*$/.test(input.street)) {
-    //     error.street = 'solo acepta numeros'
-    // } else if (input.street?.length > 10) {
-    //     error.street = "superaste el maximo de caracteres"
-    // }
+    if (!/^([0-9])*$/.test(input.street)) {
+         error.street = 'solo acepta numeros'
+     } else if (input.street?.length > 10) {
+         error.street = "superaste el maximo de caracteres"
+    }
     
-    // if (!/^([0-9])*$/.test(input.floor)) {
-    //     error.floor = 'solo acepta numeros'
-    // } else if (input.floor?.length > 10) {
-    //     error.floor = "superaste el maximo de caracteres"
-    // }
+    if (!/^([0-9])*$/.test(input.floor)) {
+         error.floor = 'solo acepta numeros'
+    } else if (input.floor?.length > 10) {
+      error.floor = "superaste el maximo de caracteres"
+    }
     if (!input.desease.length && (input.trainlimits.length || input.considerations.length)) {
         error.desease = 'debes seleccionar las enfermedades que se realcionen con tu condicion'
     } 
@@ -82,13 +82,13 @@ export default function validate(input) {
 
     if (! /^[a-zA-Z ]*$/.test(input.city)) {
         error.city = 'solo acepta letras'
-    } else if (input.city?.length > 12) {
+    } else if (input.city?.length > 15) {
         error.city = "superaste el maximo de caracteres"
     }
 
     if (! /^[a-zA-Z ]*$/.test(input.country)) {
         error.country = 'solo acepta letras'
-    } else if (input.country?.length > 12) {
+    } else if (input.country?.length > 15) {
         error.country = "superaste el maximo de caracteres"
     }
 

@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const addressSchema = new mongoose.Schema({
     street: {
         type: String,
-        required: true,
+        
     },
     floor: {
         type: Number,
-        required: true,
+        
     },
     address: {
         type: String,        
