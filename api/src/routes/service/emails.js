@@ -120,7 +120,7 @@ router.post('/emails', async (req, res, next) => {
     if (email && body) { // Una verificación que sea necesria
       await transporter.sendMail({
       from: '"Fittnet - Confirmación de compra" <fittnet.com>', // sender address
-      to: 'jessim.longo@gmail.com', // list of receivers
+      to: email, // list of receivers
       subject: "Confirmación de compra", // Subject line
       html: body
     // html: `<b> Acá va el cuerpo del correo y puede ser un html </b>` // html body

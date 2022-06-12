@@ -28,14 +28,9 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const cart = useSelector((state) => state.cart);
-  const cartPrice = cart.map((c) => c.price.$numberDecimal);
-  const totalPrice = cartPrice
-    .map(function (a) {
-      return parseInt(a);
-    })
-    ?.reduce(function (a, b) {
-      return a + b;
-    });
+  const cartPrice = parseInt (cart.map((c) => c.price.$numberDecimal));
+  const cartQty = parseInt( cart.map((c) => c.qty));
+  const totalPrice = cartPrice* cartQty    
   const usuarioId = localStorage.getItem("userId");
   const name = localStorage.getItem("name");
   const type = localStorage.getItem("type");
@@ -47,7 +42,7 @@ const CheckoutForm = () => {
     quantity: {},
     total: {},
   });
-  const idCart = useSelector((state) => state.getCart);
+  const idCart = useSelector((state) => state.getCart);  
   const [imgBack, setImgBack] = useState(
     Math.floor(Math.random() * (26 - 1) + 1)
   );
@@ -56,15 +51,16 @@ const CheckoutForm = () => {
     "https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/" +
     imgBack +
     ".jpeg";
-  useEffect(() => {
+  useEffect(() => {    
     setStatusCart({
       status: "Payed",
       id: idCart,
-      price: 500,
-      quantity: 2,
-      total: 1000,
+      price: cartPrice,
+      quantity: cartQty,
+      total: totalPrice
     });
-  }, [idCart]);
+    console.log(totalPrice, 'cart de stripe')
+  }, [idCart, cart]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,7 +88,7 @@ const CheckoutForm = () => {
       dispatch(editStatus(statusCart));
       SendEmail(usuarioId, idCart);
       SweetAlrtTem(`Su compra fue realizada con exito ${name}`, "success");
-      //   navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
+      navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
       dispatch(clearCart());
     } else {
       SweetAlrtTem(`Su compra NO fue realizada con exito ${name}`, "error");
