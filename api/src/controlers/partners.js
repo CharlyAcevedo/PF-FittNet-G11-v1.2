@@ -51,6 +51,16 @@ const getPartner = async (req, res) => {
           as: "gyms",
         },
       },
+      
+      // {
+      //   $lookup: {
+      //     from: "gyms",
+      //     localField: "partner.gyms.services",
+      //     foreignField: "_id",
+      //     as: "services",
+      //   },
+      // },
+
     ]);
     // console.log(partner)
     res.json({

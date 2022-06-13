@@ -102,14 +102,23 @@ router.post('/gymcreate/:idUser', async (req, res) => {
 router.get("/mygyms/:userId", async (req, res) => {
 
   let { userId } = req.params;
-  console.log(userId)
+  
+  // console.log(userId)
+
+  let partnerId = userId;
 
   try {
-    let gymsPartner = await Users.findById(userId)
-
+    let infoPartner = await Users.findById(partnerId)
     
+    if (infoPartner.partner){
+      let idInfoPartner = infoPartner.partner;
+
+      allGymPartner = await Partner.findById(idInfoPartner)
+      .populate({path: "gyms", populate:{path: "services"}})
+
+    }   
    
-    res.status(200).json(gymsPartner);
+    res.status(200).json(allGymPartner);
   } catch (error) {
     console.log(error)
     res.status(404).send({ error: error.message });
@@ -198,7 +207,7 @@ router.post('/createOneGym/', async (req, res) => {
 router.put('/editOneGym/', async (req, res) => {
   console.log(req.body, 'edite One Gym')
 
-  const {userId, gymId, newDataGym } = req.body;
+  const { gymId, newDataGym } = req.body;
 
   try {     
 

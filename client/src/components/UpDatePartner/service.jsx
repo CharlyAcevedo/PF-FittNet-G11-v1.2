@@ -2,27 +2,28 @@ import { useState } from "react";
 import styles from "./style/client.module.css";
 //import { serviceValidate } from "./controlers/validaciones";
 import { useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
+import { getMyGyms } from "../../redux/actions"; // --------------LA ACTION
+import { useDispatch } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 // import { createService } from "../../redux/actions";
 // import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { createOneService, editOneService } from "./controlers/Functions";
+import { useEffect } from "react";
 
 export default function Services() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const navigate = useNavigate();
-
-  const dataPartner = useSelector((state) => state.user); 
-  
+  const dataPartner = useSelector((state) => state.myGyms);
   let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
-
+  
+  const [myServices, setMyServices] = useState([]);
   const userId = localStorage.getItem('userId');
 
   const [typeAction, setTypeAcyion] = useState("create");
   // const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
   const [gymId, setGymId] = useState("");
-
+  const [serviceId, setServiceId] = useState("");
 
   const [newService, setNewService] = useState({
     name: "Nombre del servicio", // string requerido
@@ -31,10 +32,8 @@ export default function Services() {
     price: 0, // numero requerido
     photo: [], // Array de strings
     profileCategory: [],
-  });
-  const [error, setError] = useState({});
-
-
+  });  
+  
   const [editService, setEditService] = useState({
     name: "Nuevo nombre", // string requerido
     description: "Nueva descripción del servicio", // string requerido
@@ -43,13 +42,19 @@ export default function Services() {
     photo: [], // Array de strings
     profileCategory: [],
   });
+  
+  const [error, setError] = useState({});
+
+  useEffect(()=>{
+    dispatch(getMyGyms(userId))
+  },[userId]);
 
 
+  function refreshState (e) {
+    e.preventDefault();
+    dispatch(getMyGyms(userId))
 
-  //----------------------------------------------------------------------------
-  // Faltaría tener un select o un switch para saber si se está creando o editando,
-  // pero de todas formas usamos el mismo form para las dos cosas (crear y editar)   
-  //----------------------------------------------------------------------------
+  }
 
 
   //----------------------------------------------------------------------------
@@ -121,13 +126,37 @@ export default function Services() {
   function handleChangeGyms(e) {
     if (e.target.value !== "...") {
       e.preventDefault();
-      setGymId(e.target.value);
-      console.log(e.target.value, ' estoy en el select dentro del if')
+      let value = e.target.value;
+      //
+      // let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
+      console.log(myGyms);
+
+      let filterServices = myGyms.length && myGyms.filter(e => e._id === value);
       
+      setMyServices(filterServices);
+
+      console.log(filterServices, ' los servicios del gym');
+
+
+      setGymId(e.target.value);
+      console.log(e.target.value, ' Service select dentro del if')
+
     } else {
       setGymId("");
     }
-    console.log(e.target.value, ' estoy en el select')
+    console.log(e.target.value, ' Service select')
+  }
+
+  function handleChangeService(e) {
+    if (e.target.value !== "...") {
+      e.preventDefault();
+      setServiceId(e.target.value);
+      console.log(e.target.value, ' Service update select dentro del if ')
+
+    } else {
+      setServiceId("");
+    }
+    console.log(e.target.value, ' Service update en el select')
   }
 
 
@@ -211,17 +240,38 @@ export default function Services() {
         <p></p>
         {typeAction ? typeAction : null}
 
+        <button onClick={(e)=> refreshState(e)}>Recargar</button>
+
         <form action="">
+
           <div>
-            <label><strong>*</strong>Gimnasios: </label>            
+            <label><strong>*</strong>Gimnasio: </label>
             <select onChange={(e) => handleChangeGyms(e)}>
-            <option key="id1">...</option>
+              <option key="id1">...</option>
               {myGyms.length > 0 ? myGyms.map((g) => (
                 <option key={g._id} value={g._id}>{g.name}</option>
               )) : null}
             </select>
             {gymId ? gymId : null}
           </div>
+
+          {typeAction === "edit" ?
+
+            <div>
+              <label><strong>*</strong>Servicio: </label>
+              <select onChange={(e) => handleChangeService(e)}>
+                <option key="id2">...</option>
+                {myServices.length > 0 && myServices[0].services.length > 0 ? myServices[0].services.map((s) => (
+                  <option key={s._id} value={s._id}>{s.name}</option>
+                )) : null}
+              </select>
+              {serviceId ? serviceId : null}
+            </div>
+
+
+            : null}
+
+
 
           <div>
             <label>
@@ -255,7 +305,7 @@ export default function Services() {
             )}
             <p>{typeAction === "create" ? newService.descripcion : editService.descripcion}</p>
           </div>
-          
+
           <div>
             <label>
               <strong>*</strong>Precio:{" "}

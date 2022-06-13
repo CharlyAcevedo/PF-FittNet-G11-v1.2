@@ -8,12 +8,8 @@ import {
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, ADD_TO_CART, REMOVE_FROM_CART,
   SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE,
   CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING, SORT_QUALIFICATION,
-  FILTER_CATEGORY,
-  SORT_PRICE,
-  SEARCH,
-  SORT_DISTANCE,
-  GET_PLANS,
-  GET_PARTNER_ID
+  FILTER_CATEGORY, SORT_PRICE, SEARCH, SORT_DISTANCE, GET_PLANS, GET_PARTNER_ID,
+  GET_MY_GYMS,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -32,6 +28,7 @@ const initialState = {
   },
   currentGymCreated: {},
   gyms: [],
+  myGyms: {},
   gymsToShow: [],
   gymDetail: {},
   partners: [],
@@ -435,6 +432,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         plans: payload
       }
+    case GET_MY_GYMS:
+      return {
+        ...state,
+        myGyms: payload
+      }
+
     default:
       return state;
   }
