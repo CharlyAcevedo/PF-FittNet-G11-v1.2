@@ -12,11 +12,13 @@ export default function Services() {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
 
-  const dataPartner = useSelector((state) => state.user); 
-  
-  let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
+
+  const dataPartner = useSelector((state) => state.user);
+
+  let myGyms = dataPartner && dataPartner.gyms ? dataPartner.gyms : [];
 
   let myServices = [];
+
 
   const userId = localStorage.getItem("userId");
 
