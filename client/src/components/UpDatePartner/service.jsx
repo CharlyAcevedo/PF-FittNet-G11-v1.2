@@ -12,9 +12,9 @@ export default function Services() {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
 
-  const dataPartner = useSelector((state) => state.user);
-
-  let myGyms = dataPartner && dataPartner.gyms ? dataPartner.gyms : [];
+  const dataPartner = useSelector((state) => state.user); 
+  
+  let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
 
   let myServices = [];
 
@@ -44,6 +44,8 @@ export default function Services() {
     photo: [], // Array de strings
     profileCategory: [],
   });
+
+
 
   //----------------------------------------------------------------------------
   // Faltaría tener un select o un switch para saber si se está creando o editando,
@@ -224,14 +226,10 @@ export default function Services() {
               <strong>*</strong>Gimnasio:{" "}
             </label>
             <select onChange={(e) => handleChangeGyms(e)}>
-              <option key="id1">...</option>
-              {myGyms.length > 0
-                ? myGyms.map((g) => (
-                    <option key={g._id} value={g._id}>
-                      {g.name}
-                    </option>
-                  ))
-                : null}
+            <option key="id1">...</option>
+              {myGyms.length > 0 ? myGyms.map((g) => (
+                <option key={g._id} value={g._id}>{g.name}</option>
+              )) : null}
             </select>
             {gymId ? gymId : null}
           </div>
@@ -293,11 +291,7 @@ export default function Services() {
             {error.description && (
               <p className={styles.danger}>{error.description}</p>
             )}
-            <p>
-              {typeAction === "create"
-                ? newService.descripcion
-                : editService.descripcion}
-            </p>
+            <p>{typeAction === "create" ? newService.descripcion : editService.descripcion}</p>
           </div>
 
           <div>

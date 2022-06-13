@@ -86,13 +86,13 @@ router.put('/gymupdate', async (req, res) => {
       console.error(error)
         res.status(404).send({ error: error.message });
       }
-});
+}); 
 
 // Para crear gym
 router.post('/gymcreate/:idUser', async (req, res) => {
     const { idUser } = req.params;    
-    try {     
-
+    try {
+      console.log("llega a la ruta post gymcreate")
         const response = await postGyms(idUser, req.body);
         res.status(200).send(response);
     } catch (error) {

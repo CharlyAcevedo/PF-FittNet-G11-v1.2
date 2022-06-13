@@ -74,7 +74,7 @@ function App() {
             element={<UpdatePartner />}
           />
           <Route
-            path="/profile/edit/partner/:name/:userId/gym"
+            path="/profile/edit/partner/:name/:userId/:gymId"
             element={<UpdateGym />}
           />
           <Route
