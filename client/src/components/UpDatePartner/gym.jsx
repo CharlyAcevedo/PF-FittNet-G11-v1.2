@@ -45,7 +45,7 @@ export default function UpdateGym() {
   // 3 logo
   // 4 phone
 
-  let exampleObject =
+  let exampleObject = // Esto no se está usado
   {
     name: "Nuevo Fittnet", // obligatorio
     price: 999, // obligatorio   
@@ -135,6 +135,8 @@ export default function UpdateGym() {
   //----------------------------------------------------------------------------
 
   async function onClickEditGym() {
+
+
     let dataForEditGym = {
       //userId: { userId: "userId" },
       gymId: { gymId: "gymId" },

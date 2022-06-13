@@ -1,24 +1,46 @@
+
+//   name: {
+//     type: String,
+//     required: true,
+//   },
+//   description: {
+//     type: String, 
+//     required: true,
+//   },
+//   duration: {
+//     type: Number,   
+//   },
+//   price: {
+//     type: mongoDB.Decimal128,
+//     required: true,
+//   },
+//   photo: {
+//     type: Array,
+//     of: String,
+//   },
+//   profileCategory: {
+//     type: Array, //debe contener las caracteristicas asociadas de los avatares con el perfil del gym
+//     of: String,
+//   },
+
+                        
 // {
-  //   name,
-  //   lastName,
-  //   email,
-  //   phone,
-  //   planType, //debe llegar como un id del plan, si no llega buscar en los datos del usuario
-  //   cbu,
-  //   cuil,
-  //   socialNetworks, //debe llegar como un array de id
-  //   gyms, //debe llegar como un array de id
-  //   category, //debe llegar como un id
-  //   userActive, //si llega seria como bolean
-  //   paymentMethods, //debe llegar como un array de id
-  //   paidOut,
-  //   incomes, //debe llegar como un array de id
-  //   payments, //debe llegar como un array de id
-  // }
-
-
-
-
+//   name,
+//   lastName,
+//   email,
+//   phone,
+//   planType, //debe llegar como un id del plan, si no llega buscar en los datos del usuario
+//   cbu,
+//   cuil,
+//   socialNetworks, //debe llegar como un array de id
+//   gyms, //debe llegar como un array de id
+//   category, //debe llegar como un id
+//   userActive, //si llega seria como bolean
+//   paymentMethods, //debe llegar como un array de id
+//   paidOut,
+//   incomes, //debe llegar como un array de id
+//   payments, //debe llegar como un array de id
+// }
 
   
 //-----------------------------------------------------------------------------
