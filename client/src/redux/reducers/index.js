@@ -12,6 +12,7 @@ import {
   SORT_PRICE,
   SEARCH,
   SORT_DISTANCE,
+  GET_PLANS,
   
 } from "../actions/actionTypes";
 
@@ -45,6 +46,7 @@ const initialState = {
   getCart: [],
   deseaseAttribute: [],
   lockAccounts: [],
+  plans : [],
 
 };
 
@@ -422,6 +424,11 @@ case PUT_FAVOURITE:
       return {
         ...state,
       users: payload
+      }
+    case GET_PLANS:
+      return {
+        ...state,
+        plans: payload,
       }      
     default:
       return state;
