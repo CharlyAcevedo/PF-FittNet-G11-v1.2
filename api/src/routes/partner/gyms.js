@@ -1,3 +1,4 @@
+const ObjectId = require('mongoose').Types.ObjectId
 const { Router } = require("express");
 const {
   getAllGyms,
@@ -6,6 +7,11 @@ const {
   getGymById,
   getGymByName
 } = require("../../controlers/gyms");
+
+const Gyms = require("../../models/Gyms");
+const Users = require("../../models/User");
+const Partner = require("../../models/Partner");
+
 
 const router = Router();
 
@@ -65,7 +71,52 @@ router.post('/gymcreate/:idUser', async (req, res) => {
     } catch (error) {
         res.status(404).send({ error: error.message });
       }
-})
+});
+
+// 0 - cuando se crea un partner
+// if (type === "partner") {
+//   const newPartnerInfo = new Partner({ --------> se guarado esto en partner
+//     name: name,
+//     email: username,
+//     userActive: true,
+//     gyms: []
+//   })
+//   await newPartnerInfo.save();
+//   newUser = await Users.create({
+//     userName: username,
+//     name: name,
+//     password: promiseAll[2],
+//     latitude: latitude,
+//     longitude: longitude,
+//     secretToken: promiseAll[1],
+//     active: false,
+//     type: type,
+//     partner: newPartnerInfo._id //-------------------------> importante
+//   });
+
+//----------------------------------------------------------------------------
+// Trae los gimnasios de un usuario partner
+//----------------------------------------------------------------------------
+// http:/localhost:3001/api/partner/gyms/mygyms/:userId
+
+router.get("/mygyms/:userId", async (req, res) => {
+
+  let { userId } = req.params;
+  console.log(userId)
+
+  try {
+    let gymsPartner = await Users.findById(userId)
+
+    
+   
+    res.status(200).json(gymsPartner);
+  } catch (error) {
+    console.log(error)
+    res.status(404).send({ error: error.message });
+  }
+
+});
+
 
 //----------------------------------------------------------------------------
 // Para crear un solo gym - envío el id del user y la info para crear el gym
@@ -73,17 +124,69 @@ router.post('/gymcreate/:idUser', async (req, res) => {
 // http://localhost:3001/api/partner/gyms/createOneGym
 
 router.post('/createOneGym/', async (req, res) => {
-  console.log(req.body, 'create One Gym')
+  console.log(req.body, 'create One Gym 1')
 
-  const { userId, dataNewGym } = req.body;    
-  try {     
+  const { userId, dataNewGym } = req.body;
+  let partnerId = userId.userId;  
+  // console.log(partnerId, 'partener id');
+  try {
+    let addNewGym; 
 
+    const newGym = new Gyms(dataNewGym);
+    await newGym.save();
+    let infoPartner = await Users.findById(partnerId)
     
-      res.status(200).send('create One Gym');
+    if (infoPartner.partner){
+      let idInfoPartner = infoPartner.partner;
+
+      addNewGym = await Partner.findByIdAndUpdate(idInfoPartner, 
+        {$push: {gyms: newGym._id}}, 
+        {new: true} );
+      // console.log(infoPartner.partner, 'estoy en el if');
+      // console.log(addNewGym, 'estoy en el if newGym');
+      // console.log('create One Gym 3');      
+    }
+    
+    if (addNewGym) {
+      return res.status(200).json({message: 'Gimasio creado'});
+      
+    }
+
   } catch (error) {
+      console.log(error, 'create One Gym');
       res.status(404).send({ error: error.message });
     }
 })
+
+// pasos para crear el gym y vincularlo al user
+// 1 crear el gym
+// 2 guardarlo
+// 3 buscar el partner (userId) y actualizarlo
+
+
+// 1 - En el modelo User cuando es partner
+// partner: {
+//   type: Array,
+//   of: mongoose.SchemaTypes.ObjectId,
+//   ref: "Partner" --------------------> hay una referencia al modelo Partner
+// },
+
+// 2 - En el modelo Partner
+// gyms: {
+//   type: Array,
+//   of: mongoose.SchemaTypes.ObjectId,
+//   ref: "Gyms", --------------------> hay una referencia al modelo Gyms
+// },
+
+// 3 - En el modelo Gym
+// services: {
+//   type: Array,
+//   of: mongoose.SchemaTypes.ObjectId,
+//   ref: "Services", ----------------> Hay una referencia al modelo Services
+// }, 
+
+// 4 - Y finalmente está services en el último lugar
+
 
 
 //----------------------------------------------------------------------------

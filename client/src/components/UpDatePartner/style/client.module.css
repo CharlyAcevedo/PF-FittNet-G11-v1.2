@@ -38,3 +38,15 @@
     outline: none;
     border-bottom: 1px solid #644c2d;
 }
+
+.imageform {
+    max-width: 50px;
+    max-height: 50px;
+
+}
+.photoform {
+    max-width: 100px;
+    max-height: 100px;
+
+
+}

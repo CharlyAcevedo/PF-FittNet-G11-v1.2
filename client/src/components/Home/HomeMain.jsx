@@ -23,13 +23,15 @@ import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
 // import { CardShop } from "../../helpers/Cards/Cards.jsx";
 
 export default function HomeMain() {
-  let { userId, type, avatar } = useParams();
+  let { userId } = useParams();
 
   const dispatch = useDispatch();
 
   const avatarLS = localStorage.getItem("avatar");
 
   const token = localStorage.getItem("token");
+
+  const type = localStorage.getItem("type");
 
   const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ export default function HomeMain() {
   }, [userId]);
 
   //! Esto es una vista para un usuario sin avatar
-  if ((type === "user" && !avatar) || !avatarLS) {
+  if (type === "user" && !avatarLS) {
     return (
       <div
         style={{
@@ -53,6 +55,8 @@ export default function HomeMain() {
         }}
       >
         <SelecAvatar />
+        {/* {console.log("entro a seleccionar el avatar")} */}
+        {/* {console.log(type)} */}
         <div
           style={{
             display: "grid",
@@ -70,7 +74,7 @@ export default function HomeMain() {
   }
 
   //! Esto es una vista para un usuario con avatar
-  if (type === "user" && avatar) {
+  if (type === "user" && avatarLS) {
     return (
       <div className={styles.cont}>
         <GymsForUsersMap />
@@ -88,7 +92,6 @@ export default function HomeMain() {
           <OrderBy />
         </div>
         <GymCards />
-        {/* <CardShop /> */}
         <Paginated />
       </div>
     );
@@ -114,6 +117,7 @@ export default function HomeMain() {
     return (
       <div>
         <HomePartner />
+        {/* {console.log("entro a la ventana del partner")} */}
         {/* <div className={styles.advertising}>
           <Advertising/>
         </div>
