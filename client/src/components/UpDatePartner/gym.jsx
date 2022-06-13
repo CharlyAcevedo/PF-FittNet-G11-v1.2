@@ -2,7 +2,9 @@ import { useState } from "react";
 import styles from "./style/client.module.css";
 // import { gymValidate } from "./controlers/validaciones";
 // import { useNavigate } from "react-router-dom";
+
 import { createGym, setGymsGeo } from "../../redux/actions";
+
 // import { useDispatch } from "react-redux";
 // import { useParams } from "react-router-dom";
 // import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";

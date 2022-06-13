@@ -266,37 +266,31 @@ export function getGymDetail(id) {
 }
 
 export function updatePartnerData({
+  id,
   name,
   lastName,
   email,
   phone,
-  planType,
   cbu,
-  profileCategory,
-  userActive,
-  socialMedia,
-  paymentMethods,
-  category,
-  idName,
-  id,
+  cuil,
+  socialNetworks,
+ 
 }) {
   return async (dispatch) => {
     try {
-      const result = await axios.post("ruta", {
+      console.log("ESTA SALIENDO EL FORM DE PARTNER")
+      const result = await axios.put(`/api/partner/profile/edit/${id}`, {
+        id: id,
         name: name,
         lastName: lastName,
         email: email,
         phone: phone,
-        planType: planType,
         cbu: cbu,
-        profileCategory: profileCategory,
-        userActive: userActive,
-        socialMedia: socialMedia,
-        paymentMethods: paymentMethods,
-        category: category,
-        idName: idName,
-        id: id,
+        cuil: cuil,
+        socialNetworks: socialNetworks,
+      
       });
+      console.log("esto es la action",result)
       return dispatch({
         type: POST_PARTNER,
         payload: result.data,
@@ -309,6 +303,7 @@ export function updatePartnerData({
     }
   };
 }
+
 
 
 export function getPartnerDetails(id) {
@@ -326,6 +321,7 @@ export function getPartnerDetails(id) {
       });
     }
   };
+
 };
 
 export function getPlans(){
@@ -370,7 +366,7 @@ export function createService({ //para crear un servicio hay que enviarlo con el
   duration, 
   price, 
   photo,
-  profileCategory,
+  incomes,
 }) {
   return async (dispatch) => {
     try {
@@ -380,7 +376,7 @@ export function createService({ //para crear un servicio hay que enviarlo con el
         duration: duration, //numero requerido
         price: price, //numero requerido
         photo: photo,
-        profileCategory: profileCategory,
+        incomes: incomes,
       });
       return dispatch({
         type: POST_SERVICES,
