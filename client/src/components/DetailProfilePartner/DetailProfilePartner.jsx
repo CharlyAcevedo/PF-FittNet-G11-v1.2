@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { getPartnerDetails } from "../../redux/actions";
 
 import styles from "./styles/DetailProfilePartner.module.css";
 
 export default function DetailProfilePartner() {
   let { userId, name, type } = useParams();
-  console.log(userId, name, type, 'id y name')
-
+  // console.log(userId, name, type, 'id y name')
+  const dispatch = useDispatch();
+  
+  useEffect(()=>{
+    dispatch(getPartnerDetails(userId))// eslint-disable-next-line
+  },[])
+  
+  const partner = useSelector((state) => state.partnerDetails);
+  console.log(partner)
   // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
   // si le llega este id (de la fomra que lo espera) y si el usuario tiene una
   // sesión iniciada.
@@ -22,24 +31,32 @@ export default function DetailProfilePartner() {
         <p>Typo: {type}</p>
       </div>
 
-      <div className={styles.partnerMiniContainer}>
+      {partner.name ? <div className={styles.partnerMiniContainer}>
         <h3>Detalles de su perfil</h3>
         <p>En esta seccion usted podrá ver la informacion de su perfil</p>
-        <p>Nombre: {name}</p>
-        <p>Apellido: {null}</p>
-        <p>Email: {null}</p>
-        <p>Telefono: {null}</p>
-        <p>Tipo de plan: {null}</p>
+        <p>Nombre: {partner.name ? partner.name : name}</p>
+        <p>Apellido: {partner.lastName && partner.lastName}</p>
+        <p>Email: {partner.email ? partner.email : ""}</p>
+        <p>Telefono: {partner.phone && partner.phone}</p>
+        <p>Tipo de plan: {partner.planType && partner.planType.planName}</p>
         <p></p>
-        <p>CBU: {null}</p>
-        <p>Perfil: {null}</p>
-        <p>Usuario activo: {null}</p>
-        <p>Redes Sociales: {null}</p>
-        <p>Metodos de Pago: {null}</p>
-        <p>Categoria: {null}</p>
+        <p>CBU: {partner.cbu && partner.cbu}</p>
+        <p>CUIL: {partner.cuil && partner.cuil}</p>
+        <p>Usuario activo: {partner.userActive && partner.userActive}</p>
+        <div>Redes Sociales: { partner.socialNetworks.length > 0 ? 
+        partner.socialNetworks.map((socNet) => {
+          return (
+            <p key={socNet._id}>{socNet.socialMedia}: {socNet.userSM}</p>
+          )
+        }) : <p>Aun no tiene registradas redes sociales</p>
+      }</div>
+        <div>Metodos de Pago: {partner.paymentMethods.length > 0 ? partner.paymentMethods.map(m => {
+          return (
+            <p key={m}>{m}</p>
+          )
+        }) : <p>Aun no ha registrado ningun metodo de pago</p>}</div>
         <p></p>
-      </div>
-
+      </div> : <div>Loading...</div>}
       <div className={styles.partnerMiniContainer}>
         <a style={{ paddingRight: "20px" }}
           href={`/profile/edit/${type}/${name}/${userId}`}>Editar mi perfil</a>
