@@ -32,12 +32,12 @@ export function gymValidate(input) {
 
 //!--------------------------VALIDACIONES DE PARTNER---------------------------------
 
-export function partnerValidacion(input) {
+export function partnerValidacion(input, target) {
   let error = {};
- if (Number(input.name)) {
+ if (target === "name" && Number(input.name)) {
     error.name = "No puedes Ingresar un numero";
   } 
-  if (Number(input.lastName)) {
+  if (target === "lastName" && Number(input.lastName)) {
     error.lastName = "No puedes ingresar un numero";
   } 
   // if (!regexEmail.test(input.email)) {
@@ -49,8 +49,8 @@ export function partnerValidacion(input) {
   //  if (input.phone.length < 5) {
   //   error.phone = "Ingrese un numero de Telefono Valido!";
   // } 
-   if (regCBU.test(input.cbu)) {
-    error.cbu = "El CBU debe contener numeros";
+   if (target === "cbu" && !regCBU.test(input.cbu)) {
+    error.cbu = "El CBU debe contener 16 numeros";
   } 
   return error;
 }

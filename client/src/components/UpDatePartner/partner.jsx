@@ -24,14 +24,14 @@ export default function UpdatePartner() {
 
   const [name, setName] = useState("");
   const [input, setInput] = useState({
-    name: partner.name ? partner.name : "",
-    lastName: partner.lastName ? partner.lastName : "",
-    email: partner.email ? partner.email : "",
-    phone: partner.phone ? partner.phone : "",
-    cbu: partner.cbu ? partner.cbu : "",
-    ciul: partner.cuil ? partner.cuil : "",
-    gyms: partner.gyms ? partner.gyms : [],
-    socialNetworks: partner.socialNetworks ? partner.socialNetworks : [],
+    name: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    cbu: "",
+    ciul: "",
+    gyms: [],
+    socialNetworks: [],
 
     id: "",
   });
@@ -56,7 +56,7 @@ export default function UpdatePartner() {
 
         id: ID,
       };
-      const errors = partnerValidacion(newInput);
+      const errors = partnerValidacion(newInput, e.target.name);
       setError(errors);
       return newInput;
     });
@@ -114,7 +114,18 @@ export default function UpdatePartner() {
 
     if (stateForm) {
       if (stateForm.form === "true") {
-        dispatch(updatePartnerData(input));
+        let payload = {
+          name: input.name === "" ? partner.name : input.name,
+          lastName: input.lastName === "" ? partner.lastName : input.lastName,
+          email: input.email === "" ? partner.email : input.email,
+          phone: input.phone === "" ? partner.phone : input.phone,
+          cbu: input.cbu === "" ? partner.cbu : input.cbu,
+          ciul: input.cuil === "" ? partner.cuil : input.cuil,
+          gyms: [],
+          socialNetworks: [],
+        };
+        console.log(payload, "lo que se envia")
+        // dispatch(updatePartnerData(input));
         dispatch(getPartnerDetails(userId));
         SweetAlrt("Exito!", "Perfil Editado", "success");
         setInput({
@@ -154,7 +165,7 @@ export default function UpdatePartner() {
       [e.target.name]: e.target.value,
     });
   }
-  console.log(input.name);
+  // console.log(input.name);
 
   //!--------------------------------------------------
 
@@ -231,7 +242,7 @@ export default function UpdatePartner() {
             onChange={(e) => {
               handleChange(e);
             }}
-            max="9999999999999999"
+            max="99999999999999999"
             placeholder={partner.cbu ? partner.cbu : "2590046210320129"}
           />
           {error.cbu && <p className={styles.danger}>{error.cbu}</p>}
