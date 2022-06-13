@@ -8,13 +8,35 @@ const ObjectId = require("mongoose").Types.ObjectId;
 const Plan = require("../models/Plan");
 const SocialMedia = require("../models/SocialMedia");
 const { postGyms } = require("../controlers/gyms")
-const { putSocialMedia } =require("./helpers")
+const { putSocialMedia } = require("./helpers")
 
 
 const getPartner = async (req, res) => {
   const { id } = req.params;
   console.log(id, "esta es la ruta correcta");
   try {
+    // const partnerUser = await User.findById(id)
+    // .populate({
+    //   path: "partner",
+    // })
+    // const gyms = partnerUser.partner.gyms;
+    // const partnerGyms = await Partner.findById(partnerUser.partner._id)
+    // .populate({
+    //   path: "gyms",
+    //   populate: {
+    //     path: "address socialNetworks services"
+    //   }
+    // })
+    // .populate({
+    //   path: "planType socialNetworks"
+    // })
+
+    // const gymsDetails = await gyms.map(async (gym)=> {
+    //   const gymFound = await Gyms.findById(gym).populate("address socialNetworks")
+    //   console.log(gymFound)
+    //   return gymFound
+    // }) //! 
+
     const partner = await User.aggregate([
       {
         $match: { _id: ObjectId(id) },
@@ -149,21 +171,21 @@ const putPartner = async (req, res) => {
     const idPartnerPlan = planType ? planType : user.partner[0].planType;
     const partnerPlan = await Plan.findById(idPartnerPlan); //obtengo el plan del usuario
 
-    if (!partnerPlan){
+    if (!partnerPlan) {
       // si por algo el id del plan no corresponde a alguno de la base termina aqui
       return res.status(404).send({
         msg: "no fue posible encontrar el plan del usuario, intente elegir un plan nuevamente",
       })
     };
 
-      //se envian las redes sociale para su creacion o edicion
+    //se envian las redes sociale para su creacion o edicion
     let sMediaUser = [];
-    if (socialNetworks && Array.isArray(socialNetworks)) { 
+    if (socialNetworks && Array.isArray(socialNetworks)) {
       sMediaUser = await putSocialMedia(id, socialNetworks);
     }
     // console.log(id, gyms[0])
-      // se envian los gyms para su creacion o edicion
-      let partnerGyms = "";
+    // se envian los gyms para su creacion o edicion
+    let partnerGyms = "";
     if (gyms && Array.isArray(gyms) && gyms.length > 0) {
       partnerGyms = await postGyms(id, gyms);
     }
