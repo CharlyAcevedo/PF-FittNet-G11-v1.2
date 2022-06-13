@@ -119,7 +119,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       }
       return {
         ...state,
-        // user: {...state.user, info: payload}
+        user: {...state.user, info: payload}
       };
     case GET_PARTNER_ID:
       return {

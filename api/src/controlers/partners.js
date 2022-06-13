@@ -11,6 +11,9 @@ const { postGyms } = require("../controlers/gyms")
 const { putSocialMedia } =require("./helpers");
 const Gyms = require("../models/Gyms");
 
+const { putSocialMedia } = require("./helpers")
+
+
 
 const getPartner = async (req, res) => {
   const { id } = req.params;
@@ -74,13 +77,27 @@ const getPartner = async (req, res) => {
     //       as: "gyms",
     //     },
     //   },
+    //   {
+    //     $lookup: {
+    //       from: "services",
+    //       localField: "gyms.services",
+    //       foreignField: "_id",
+    //       as: "gyms.services"
+    //     }
+    //   },
+    //   {
+    //     $project: {
+    //       name: 1,
+    //       type: 1,
+    //       gyms: {
+    //         name: 1,
+    //       },
+    //     }
+    //   }
     // ]);
-    // console.log(partner)
     res.json({
       ok: true,
-      // partnerUser,
-      partnerGyms
-      // gymsDetails
+      partner: partnerGyms,
     });
   } catch (error) {
     console.log(error);
@@ -181,18 +198,18 @@ const putPartner = async (req, res) => {
       })
     };
 
-      //se envian las redes sociale para su creacion o edicion
-    // let sMediaUser = [];
-    // if (socialNetworks && Array.isArray(socialNetworks)) { 
-    //   sMediaUser = await putSocialMedia(id, socialNetworks);
-    // }
+    //se envian las redes sociale para su creacion o edicion
+    let sMediaUser = [];
+    if (socialNetworks && Array.isArray(socialNetworks)) {
+      sMediaUser = await putSocialMedia(id, socialNetworks);
+    }
     // console.log(id, gyms[0])
-      // se envian los gyms para su creacion o edicion
-    //   let partnerGyms = "";
-    // if (gyms && Array.isArray(gyms) && gyms.length > 0) {
-    //   partnerGyms = await postGyms(id, gyms);
-    // }
-    console.log(user.partner.lastName)
+    // se envian los gyms para su creacion o edicion
+    let partnerGyms = "";
+    if (gyms && Array.isArray(gyms) && gyms.length > 0) {
+      partnerGyms = await postGyms(id, gyms);
+    }
+
     const newPartner = {
       name: name ? name : user.name,
       lastName: lastName ? lastName : user.partner.lastName ? user.partner.lastName : "",

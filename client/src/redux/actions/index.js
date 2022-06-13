@@ -455,7 +455,7 @@ export const updateUserInfo = (id, body) => async (dispatch) => {
         headers: { "X-Requested-With": "XMLHttpRequest" },
       }
     );
-    console.log(body);
+    console.log(dataNewUser.data);
     dispatch({
       type: PUT_USER_INFO,
       payload: dataNewUser.data.updUser,

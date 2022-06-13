@@ -17,9 +17,9 @@ export function MyGyms() {
     <div className={styles.containMainMyGyms}>
       <div className={styles.headerMyGyms}>
         <h2 style={{ color: "#fff" }}>Mis gimnasios</h2>
-        <div className={styles.listBtn}>
+        {/* <div className={styles.listBtn}>
           <span className={styles.titleBtn}>Crear gimnasio</span>
-        </div>
+        </div> */}
       </div>
       <div className={styles.mainMyGym}>
         {/* <CardGymPartner/> */}

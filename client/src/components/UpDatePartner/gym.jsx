@@ -24,7 +24,7 @@ export default function UpdateGym(props) {
 
   const userId = localStorage.getItem("userId");
 
-  const [typeAction, setTypeAcyion] = useState("create");
+  const [typeAction, setTypeAcyion] = useState("edit");
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
 
@@ -154,7 +154,6 @@ export default function UpdateGym(props) {
   //----------------------------------------------------------------------------
   // Esta función sirve para editar la info de un gym
   //----------------------------------------------------------------------------
-
 
   async function onClickEditGym() {
     let dataForEditGym = {
@@ -309,124 +308,139 @@ export default function UpdateGym(props) {
       {/* <div>latNew{newGym.latitude}, LonNew{newGym.longitude}</div>
       <div>latEdit{editGym.latitude}, LonEdit{editGym.longitude}</div> */}
       <div>
-        <button
-          onClick={() => {
-            setTypeAcyion("edit");
-          }}
-        >
-          Editar Gym
-        </button>
-        <p></p>
-        <button
-          onClick={() => {
-            setTypeAcyion("create");
-          }}
-        >
-          Crear Gym
-        </button>
-        <p></p>
-        {typeAction ? typeAction : null}
+        <div className={styles.headerFormPartnerGym}>
+          <button
+            className={styles.btnCreateEditGym}
+            onClick={() => {
+              setTypeAcyion("edit");
+            }}
+          >
+            Form Editar Gym
+          </button>
+          <p></p>
+          <button
+            className={styles.btnCreateEditGym}
+            onClick={() => {
+              setTypeAcyion("create");
+            }}
+          >
+            Form Crear Gym
+          </button>
+          <p></p>
+        </div>
+        {/* {typeAction ? typeAction : null} */}
 
-        <form action="">
-          {newGym.logo && (
-            <img
-              className={styles.imageform}
-              src={newGym.logo}
-              alt="Gymnasio"
-            />
-          )}
-          {editGym.logo && (
-            <img
-              className={styles.imageform}
-              src={editGym.logo}
-              alt="Logo"
-            />
-          )}
-          <div>
-            <label>
-              <strong>*</strong>Logo:
-            </label>
-            <input
-              type="text"
-              value={typeAction === "create" ? newGym.logo : editGym.logo}
-              name="logo"
-              onChange={(e) => handleChange(e)}
-              placeholder="https://logo-gym.jpg"
-            />
+        <form action="" className={styles.formCrEdGyms}>
+          <div className={styles.formLogo}>
+            {newGym.logo && (
+              <img
+                className={styles.imageform}
+                src={newGym.logo}
+                alt="Image not found"
+              />
+            )}
+            {editGym.logo && (
+              <img
+                className={styles.imageform}
+                src={editGym.logo}
+                alt="Image not found"
+              />
+            )}
+            <div
+              style={{ display: "flex", gap: ".5rem", alignItems: "center" }}
+            >
+              <label>
+                <strong>*</strong>Logo:
+              </label>
+              <input
+                type="text"
+                className={styles.inputImageLogo}
+                value={typeAction === "create" ? newGym.logo : editGym.logo}
+                name="logo"
+                onChange={(e) => handleChange(e)}
+                placeholder="https://logo-gym.jpg"
+              />
+            </div>
           </div>
+          <div className={styles.mainInfoForm}>
+            <div>
+              <label>
+                <strong>*</strong>Nombre:{" "}
+              </label>
+              <input
+                // className={error.name && styles.inputdanger}
+                className={styles.inputImageLogo}
+                type="text"
+                name="name"
+                value={typeAction === "create" ? newGym.name : editGym.name}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                placeholder="Nombre..."
+              />
+              {error.name && <p className={styles.danger}>{error.name}</p>}
+            </div>
 
-          <div>
-            <label>
-              <strong>*</strong>Nombre:{" "}
-            </label>
-            <input
-              className={error.name && styles.inputdanger}
-              type="text"
-              name="name"
-              value={typeAction === "create" ? newGym.name : editGym.name}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="Nombre..."
-            />
-            {error.name && <p className={styles.danger}>{error.name}</p>}
+            <div>
+              <label>
+                <strong>*</strong>Mensualidad:{" "}
+              </label>
+              <input
+                // className={error.name && styles.inputdanger}
+                className={styles.inputImageLogo}
+                type="number"
+                name="price"
+                value={typeAction === "create" ? newGym.price : editGym.price}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                placeholder="$..."
+              />
+              {error.price && <p className={styles.danger}>{error.price}</p>}
+            </div>
           </div>
+          <div className={styles.mainInfoForm}>
+            <div>
+              <label>
+                <strong>*</strong>Telefono:{" "}
+              </label>
+              <input
+                // className={error.phone && styles.inputdanger}
+                className={styles.inputImageLogo}
+                type="number"
+                name="phone"
+                value={typeAction === "create" ? newGym.phone : editGym.phone}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                placeholder="+549......"
+              />
+              {error.phone && <p className={styles.danger}>{error.phone}</p>}
+            </div>
 
-          <div>
-            <label>
-              <strong>*</strong>Mensualidad:{" "}
-            </label>
-            <input
-              className={error.name && styles.inputdanger}
-              type="number"
-              name="price"
-              value={typeAction === "create" ? newGym.price : editGym.price}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="$..."
-            />
-            {error.price && <p className={styles.danger}>{error.price}</p>}
+            <div>
+              <label>Email: </label>
+              <input
+                // className={error.email && styles.inputdanger}
+                className={styles.inputImageLogo}
+                type="email"
+                name="email"
+                value={typeAction === "create" ? newGym.email : editGym.email}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                placeholder="correo@ejemplo.com"
+              />
+              {error.email && <p className={styles.danger}>{error.email}</p>}
+            </div>
           </div>
-
-          <div>
-            <label>
-              <strong>*</strong>Telefono:{" "}
-            </label>
-            <input
-              className={error.phone && styles.inputdanger}
-              type="number"
-              name="phone"
-              value={typeAction === "create" ? newGym.phone : editGym.phone}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="+549......"
-            />
-            {error.phone && <p className={styles.danger}>{error.phone}</p>}
-          </div>
-
-          <div>
-            <label>Email: </label>
-            <input
-              className={error.email && styles.inputdanger}
-              type="email"
-              name="email"
-              value={typeAction === "create" ? newGym.email : editGym.email}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="correo@ejemplo.com"
-            />
-            {error.email && <p className={styles.danger}>{error.email}</p>}
-          </div>
-
           <div>
             <div>
               <label>Entrenadores: </label>
 
               <input
-                className={error.name && styles.inputdanger}
+                // className={error.name && styles.inputdanger}
+                className={styles.inputImageLogo}
                 type="text"
                 name="names"
                 value={name}
@@ -451,7 +465,7 @@ export default function UpdateGym(props) {
                 <li className={styles.input}>
                   {newGym.trainers.length && typeAction === "create"
                     ? newGym.trainers.map((e) => (
-                        <div key={e}>
+                        <div key={e} className={styles.listTrainGym}>
                           <p>{e} </p>
                           <button value={e} onClick={(e) => handleDeleteT(e)}>
                             x
@@ -462,11 +476,13 @@ export default function UpdateGym(props) {
 
                   {editGym.trainers.length && typeAction === "edit"
                     ? editGym.trainers.map((e) => (
-                        <div key={e}>
-                          <p>{e} </p>
-                          <button value={e} onClick={(e) => handleDeleteT(e)}>
-                            x
-                          </button>{" "}
+                        <div key={e} className={styles.listTrainGym}>
+                          <div className={styles.trainersStyle}>
+                            <p style={{marginTop: ".35rem"}}>{e} </p>
+                            <button value={e} onClick={(e) => handleDeleteT(e)}>
+                              x
+                            </button>
+                          </div>
                         </div>
                       ))
                     : null}
@@ -480,6 +496,7 @@ export default function UpdateGym(props) {
 
             <input
               type="text"
+              className={styles.inputImageLogo}
               name="photo"
               id="image"
               multiple
@@ -544,17 +561,18 @@ export default function UpdateGym(props) {
             onClickCreateGym(e);
           }}
         >
-          Crear gym de prueba
+          Crear Gym
         </button>
       )}
       {typeAction === "edit" && (
         <button
+          className={styles.btnCreateEditGym}
           onClick={(e) => {
             onClickEditGym(e);
           }}
         >
           {" "}
-          Editar gym de prueba
+          Editar Gym
         </button>
       )}
     </div>

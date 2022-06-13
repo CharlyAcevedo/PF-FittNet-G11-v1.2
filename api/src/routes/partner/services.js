@@ -9,6 +9,7 @@ const {
 const {
     putService
   } = require("../../controlers/services");
+const Service = require("../../models/Service");
 
 const router = Router();
 
@@ -42,15 +43,26 @@ router.post('/createOneService/', async (req, res) => {
 router.put('/editOneService/', async (req, res) => {
   console.log(req.body, 'edit One Service')
   // serviceId, newDataService 
-  const { userId, gymId, serviceId, newDataService } = req.body;
+  const { serviceId, newDataService } = req.body;
+  let idService = serviceId.serviceId;
 
-    try {     
+  let editeService;
+
+  try {
+    // console.log(idService, 'el id del service a editar')
+    // console.log(newDataService, ' la data del service a editar')
+
+    editeService = await Service.findByIdAndUpdate(idService, 
+      newDataService, {new: true})
   
-      
-        res.status(200).send('Edit One Service');
-    } catch (error) {
-        res.status(404).send({ error: error.message });
-    }
+    // console.log(editeService, 'luego del update')
+
+
+    res.status(200).json({message: 'Servicio actualizado'});
+  } catch (error) {
+    console.log(error);
+    res.status(404).send({ error: error.message });
+  }
 })
 
 
