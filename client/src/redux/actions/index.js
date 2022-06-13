@@ -7,9 +7,9 @@ import {
  GET_ALL_USERS, GET_ALL_PARTNERS, GET_AVATARS, SET_CURRENT_PAGE, SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT, GET_ALL_GYMS, GET_GYM_DETAIL, SET_USER_GEO, POST_USER_GOOGLE,
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, REMOVE_FROM_CART,
-  SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE, 
+  CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE, 
   CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,SORT_QUALIFICATION,
-  FILTER_CATEGORY,  SORT_PRICE,  SEARCH,  SORT_DISTANCE,
+  FILTER_CATEGORY,  SORT_PRICE,  SEARCH,  SORT_DISTANCE, GET_PARTNER_ID
 
 } from "./actionTypes";
 //--------------------------------------------------------------------------------
@@ -156,6 +156,18 @@ export function getAdmin(userId) {
       });
     };
   };
+}
+
+export const getPartner = (idPartner) => async dispatch => {
+  try {
+    const dataPartner = await axios.get(`/api/partner/profile/${idPartner}`)
+    dispatch({
+      type: GET_PARTNER_ID,
+      payload: dataPartner.data.partner
+    })
+  } catch (error) {
+    console.log("error", error)
+  }
 }
 
 
@@ -549,8 +561,6 @@ export function sortByDistance(payload){
 export function clearGymDetail() {
   return {
     type: CLEAR_GYM_DETAIL, payload: {}
-    
-
   }
 }
 

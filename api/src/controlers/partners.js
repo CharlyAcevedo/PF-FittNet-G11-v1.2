@@ -55,7 +55,7 @@ const getPartner = async (req, res) => {
     // console.log(partner)
     res.json({
       ok: true,
-      partner,
+      partner: partner[0],
     });
   } catch (error) {
     console.log(error);

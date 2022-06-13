@@ -23,3 +23,14 @@
     height: 88vh;
     text-align: center;
 }
+
+.imageform {
+    max-width: 50px;
+    max-height: 50px;
+
+}
+.photoform {
+    max-width: 100px;
+    max-height: 100px;
+
+}
