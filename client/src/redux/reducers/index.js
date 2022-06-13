@@ -1,17 +1,14 @@
+// eslint-disable-next-line
 import { Action } from "history";
 import { latBA, lngBA } from "../../asets/helpers/goeDefaults";
 
-import {
-
+import { 
   GET_ALL_USERS, GET_ALL_PARTNERS, GET_AVATARS, SET_CURRENT_PAGE, SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT, GET_ALL_GYMS, GET_GYM_DETAIL, SET_USER_GEO, POST_USER_GOOGLE,
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, ADD_TO_CART, REMOVE_FROM_CART,
   SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE, 
   CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,SORT_QUALIFICATION,
-  FILTER_CATEGORY,
-  SORT_PRICE,
-  SEARCH,
-  SORT_DISTANCE,
+  FILTER_CATEGORY, SORT_PRICE, SEARCH, SORT_DISTANCE, SET_GYMS_GEO, POST_GYM, GET_PARTNER
   
 } from "../actions/actionTypes";
 
@@ -20,21 +17,23 @@ const initialState = {
   user: {}, 
   usersToShow: [],
   currentUserDetails: {
-    name: "",
-    userName: "",
-    password: "",
-    type: "",
-    currentGeo: {
-      latitude: latBA,
-      longitude: lngBA,
-    },
+  },
+  currentGeo: {
+    latitude: latBA,
+    longitude: lngBA,
+  },
+  gymsGeo: {
+    latitude: 0,
+    longitude: 0,
   },
   currentGymCreated: {},
+  gymCreaded: {},
   gyms: [],
   gymsToShow: [],
   gymDetail: {},
   partners: [],
   partnersToShow: [],
+  partnerDetails: {},
   avatars: [],
   pageToShow: [],
   currentLimit: 9,
@@ -57,19 +56,14 @@ export default function rootReducer(state = initialState, { type, payload }) {
           errors: payload.error,
         };
       };
-      console.log(payload, "desde reducer")
       return {
         ...state,
-        currentUserDetails: {
-          ...state.currentUserDetails,
-          currentGeo: {
-            latitude: payload.latitude ? payload.latitude : latBA,
-            longitude: payload.longitude ? payload.longitude : lngBA,
-          },
+        currentGeo: {
+          latitude: payload.latitude ? payload.latitude : latBA,
+          longitude: payload.longitude ? payload.longitude : lngBA,
         },
       };
     case GET_ALL_USERS:
-      console.log(payload, 'en el reducer')
       if (payload.error) {
         return {
           ...state,
@@ -92,6 +86,17 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         partners: payload,
         partnersToShow: payload,
+      };
+    case GET_PARTNER:
+      if (payload.error) {
+        return {
+          ...state,
+          errors: payload.error,
+        };
+      }
+      return {
+        ...state,
+        partnerDetails: payload.partnerGyms,
       };
     case GET_USER_TOKEN_GOOGLE:
       if (payload.error) {
@@ -128,6 +133,31 @@ export default function rootReducer(state = initialState, { type, payload }) {
         gyms: payload,
         gymsToShow: payload,
         pageToShow: newPage1,
+      };
+    case SET_GYMS_GEO:
+      if (payload.error) {
+        return {
+          ...state,
+          errors: payload.error,
+        };
+      };
+      return {
+        ...state,
+        gymsGeo: {
+          latitude: payload.latitude,
+          longitude: payload.longitude,
+        },
+      };
+    case POST_GYM:
+      if (payload.error) {
+        return {
+          ...state,
+          errors: payload.error,
+        };
+      };
+      return {
+        ...state,
+        gymCreaded: payload,
       };
     case SORT_QUALIFICATION:
       const qualification = state.gyms;
@@ -193,7 +223,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
         gymsToShow: sortPrice,
         pageToShow: newPage4,
       };
-
     case SORT_DISTANCE:
       const gym = state.gyms;
       const user = state.user;
@@ -223,7 +252,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
           gymsToShow: dist,
           pageToShow: newPage6,
         };
-      }
+      };
     case FILTER_CATEGORY:
       const category = state.gyms;
       const filtCateg =
@@ -252,7 +281,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
         gymsToShow: buscador,
         pageToShow: newPage5,
       };
-
     case POST_USER_GOOGLE:
       console.log(payload);
       return {
@@ -328,14 +356,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         currentLimit: payload,
       };
-
-
-   case GET_CART:
+    case GET_CART:
       const idCart = payload?payload[payload.length - 1]._id:{}      
       return {
         ...state,
         getCart: idCart
-      }
+      };
     case ADD_TO_CART:
       const item = state.products.find(prod => prod._id === payload.id) //la clase q me matche con el id
       const inCart = state.cart.find(item => item._id === payload.id)
@@ -349,17 +375,15 @@ export default function rootReducer(state = initialState, { type, payload }) {
           )
           : [...state.cart, { ...item, qty: 1 }]
       };
-    
-   case REMOVE_FROM_CART:
+    case REMOVE_FROM_CART:
       return {
         ...state,
         cart: state.cart.map(item =>
-          item._id === payload.id
+          item._id === payload.id // eslint-disable-next-line
             ? { ...item, qty: item.qty ==0?0:item.qty - 1 }
             : item
         )        
       };
-
     case CLEAR_GYM_DETAIL:
       return {
         ...state,
@@ -369,13 +393,13 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         cart: []
-      }
+      };
     case GET_ATTRIBUTE_DESEASE:
       return {
         ...state,
         deseaseAttribute: payload,
       };
-case PUT_FAVOURITE:
+    case PUT_FAVOURITE:
       const objFav = []
       state.pageToShow.forEach(x => {
         if (x._id === payload.gym._id) {
@@ -389,7 +413,7 @@ case PUT_FAVOURITE:
         gyms: objFav,
         gymsToShow: objFav,
         user: {...state.user, favourite: payload.user.favourite}
-      }
+      };
     case GET_ADMIN:
       if (payload.error) {
         return {
@@ -400,7 +424,7 @@ case PUT_FAVOURITE:
       return {
         ...state,
         user: payload
-      }
+      };
     case GET_LOCK_ACCOUNTS:
       if (payload.error) {
         return {
@@ -411,7 +435,7 @@ case PUT_FAVOURITE:
       return {
         ...state,
         lockAccounts: payload
-      }
+      };
     case GET_MARKETING:
       if (payload.error) {
         return {
@@ -422,7 +446,7 @@ case PUT_FAVOURITE:
       return {
         ...state,
       users: payload
-      }      
+      };   
     default:
       return state;
   }

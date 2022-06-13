@@ -44,7 +44,7 @@ export default function LandingInfo() {
   }, []);
 
   useEffect(() => {
-    dispatch(getMarketing());
+    dispatch(getMarketing());// eslint-disable-next-line
   }, []);
 
   const userSistem = useSelector((state) => state.users);

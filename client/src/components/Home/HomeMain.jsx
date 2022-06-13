@@ -6,16 +6,16 @@ import SelecAvatar from "../SelectAvatar/SelectAvatar";
 import GymCards from "../GymCards/GymCards";
 // import UserCards from "../UserCards/UserCards";
 // import PartnerCards from "../PartnerCards/PartnerCards";
-import { getAllGyms, getUserGoogleForToken } from "../../redux/actions";
-import { useDispatch } from "react-redux";
+import { getAllGyms, getUserGoogleForToken, getPartnerDetails } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 // import IncomesGraph from "../Graphics/Incomes";
 import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
 import styles from "./styles/homeMain.module.css";
 // import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
-import Advertising from "../PartnerHomeComponents/Advertising";
-import ClientsGraph from "../Graphics/GraphClient";
+// import Advertising from "../PartnerHomeComponents/Advertising";
+// import ClientsGraph from "../Graphics/GraphClient";
 import OrderBy from "../OrderBy/OrderBy";
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
 import { HomePartner } from "./HomePartner/HomePartner";
@@ -33,13 +33,18 @@ export default function HomeMain() {
 
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     dispatch(getAllGyms());
+    dispatch(getPartnerDetails(userId));
     if (token) {
       dispatch(getUserGoogleForToken(token));
     } // eslint-disable-next-line
   }, [userId]);
-
+  
+  const partnerDetail = useSelector((state)=> state.partnerDetails);
+  partnerDetail && localStorage.setItem("partnerDetail", partnerDetail);
+  
   //! Esto es una vista para un usuario sin avatar
   if ((type === "user" && !avatar) || !avatarLS) {
     return (
@@ -111,6 +116,7 @@ export default function HomeMain() {
 
   //! Esto es una para cliente empresa
   if (type === "partner") {
+
     return (
       <div>
         <HomePartner />

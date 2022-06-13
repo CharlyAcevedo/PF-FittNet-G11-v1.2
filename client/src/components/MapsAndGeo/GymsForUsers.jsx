@@ -1,17 +1,18 @@
 import React, { useMemo, useEffect, useState, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import styles from "./styles/mapGyms.module.css";
-import L from "leaflet";
-import iconMarker from "../../asets/icons/iconMarker.png";
-import MapPin from "../../asets/icons/map-pin.svg";
+// import L from "leaflet";
+// import iconMarker from "../../asets/icons/iconMarker.png";
+// import MapPin from "../../asets/icons/map-pin.svg";
 import CalcDist from "./controlers/calcDist";
 import {ButtonSimple} from "../../helpers/Buttons/Buttons.jsx"
 
 export default function GymsForUsersMap() {
-  const centerCoords = {
+  
+  const [centerCoords, setCenterCoords] = useState({
     lat: 21.0298592,
     lng: -89.6416537,
-  };
+  });
 
   const [lat, setLat] = useState(centerCoords.lat);
   const [lng, setLng] = useState(centerCoords.lng);

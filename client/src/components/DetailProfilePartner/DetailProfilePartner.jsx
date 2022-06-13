@@ -1,12 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import styles from "./styles/DetailProfilePartner.module.css";
 
 export default function DetailProfilePartner() {
   let { userId, name, type } = useParams();
-  console.log(userId, name, type, 'id y name')
+  // console.log(userId, name, type, 'id y name')
 
+  const partner = useSelector((state) => state.partnerDetails);
+
+  console.log(partner)
   // con el id ya podemos solicitar info a nuestro back, el cual solo responderá
   // si le llega este id (de la fomra que lo espera) y si el usuario tiene una
   // sesión iniciada.
@@ -25,11 +29,11 @@ export default function DetailProfilePartner() {
       <div className={styles.partnerMiniContainer}>
         <h3>Detalles de su perfil</h3>
         <p>En esta seccion usted podrá ver la informacion de su perfil</p>
-        <p>Nombre: {name}</p>
-        <p>Apellido: {null}</p>
-        <p>Email: {null}</p>
-        <p>Telefono: {null}</p>
-        <p>Tipo de plan: {null}</p>
+        <p>Nombre: {partner.name ? partner.name : name}</p>
+        <p>Apellido: {partner.lastName && partner.lastName}</p>
+        <p>Email: {partner.email}</p>
+        <p>Telefono: {partner.phone}</p>
+        <p>Tipo de plan: {partner.planType.planName}</p>
         <p></p>
         <p>CBU: {null}</p>
         <p>Perfil: {null}</p>

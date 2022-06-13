@@ -9,7 +9,7 @@ import {
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, REMOVE_FROM_CART,
   CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE, 
   CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,SORT_QUALIFICATION,
-  FILTER_CATEGORY,  SORT_PRICE,  SEARCH,  SORT_DISTANCE,
+  FILTER_CATEGORY,  SORT_PRICE,  SEARCH,  SORT_DISTANCE, SET_GYMS_GEO
 
 } from "./actionTypes";
 //--------------------------------------------------------------------------------
@@ -75,11 +75,11 @@ export function postUser(payload) {
 
 export const getUserGoogleForToken = (payload) => async dispatch => {
   try {
-    console.log(payload);
+    // console.log(payload);
     const userGoogle = await axios.post('/api/service/google/auth/profile', {
       token: payload
     })
-    console.log(userGoogle)
+    // console.log(userGoogle)
     dispatch({
       type: GET_USER_TOKEN_GOOGLE,
       payload: userGoogle.data.user
@@ -202,6 +202,21 @@ export function getLockAccounts() {
 //------PARTNER ACTIONS------(Favor de poner aqui todas las aciones para partners)
 //--------------------------------------------------------------------------------
 
+export function setGymsGeo(payload) {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: SET_GYMS_GEO,
+        payload: payload,
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_GYMS_GEO,
+        payload: { error: err.message },
+      });
+    }
+  };
+}
 
 export function getAllGyms() {
   return async (dispatch) => {
@@ -284,50 +299,36 @@ export function updatePartnerData({
 }
 
 
-export function getPartnerDetails() {
-  
+export function getPartnerDetails(id) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`/api/partner/profile/${id}`);
+      dispatch({
+        type: GET_PARTNER,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_PARTNER,
+        payload: { error: err.message },
+      });
+    }
+  };
 };
 //--------------------------------------------------------------------------------
 
 //------GYMS ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a gimnasios)
 //--------------------------------------------------------------------------------
 export function createGym({
-  name,
-  price,
-  raiting,
-  image,
-  address,
-  services,
-  trainers,
-  logo,
-  phone,
-  email,
-  uEnd,
-  gymActive,
-  idName,
-  id,
+  gymInfo,
+  idUser,
 }) {
   return async (dispatch) => {
-    try {
-      const result = await axios.post("ruta", {
-        name: name,
-        price: price,
-        raiting: raiting,
-        image: image,
-        address: address,
-        services: services,
-        trainers: trainers,
-        logo: logo,
-        phone: phone,
-        email: email,
-        uEnd: uEnd,
-        gymActive: gymActive,
-        idName: idName,
-        id: id,
-      });
+    try {     
+      const response = await axios.put(`/api/partner/gyms/gymcreate/${idUser}`, gymInfo);
       return dispatch({
         type: POST_GYM,
-        payload: result.data,
+        payload: response.data,
       });
     } catch (error) {
       dispatch({
@@ -340,7 +341,8 @@ export function createGym({
 //--------------------------------------------------------------------------------
 //------SERVICE ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a servicios)
 //--------------------------------------------------------------------------------
-export function createService({
+export function createService({ //para crear un servicio hay que enviarlo con el id del usuario 
+                                //y del gym al que se va a setear, igual seria mejor mandarlo junto con el gym
   name, 
   description, 
   duration, 

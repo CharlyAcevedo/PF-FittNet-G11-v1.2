@@ -1,6 +1,7 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getPartnerDetails } from "../../../redux/actions";
 import { MyGyms } from "./ViewsPartner/MyGyms";
 import { MySales } from "./ViewsPartner/MySales";
 import { MyClients } from "./ViewsPartner/MyClients";
@@ -8,18 +9,25 @@ import { Plans } from "./ViewsPartner/Plans";
 import { EditMyGyms } from "./ViewsPartner/EditMyGyms";
 import { MyServices } from "./ViewsPartner/MyServices";
 import { EditMyServices } from "./ViewsPartner/EditMyServices";
-
 import style from "./styles/style.module.css";
 import { ButtonHomePA } from "../../../helpers/Buttons/Buttons";
 
-
 export function HomePartner () {
-    const [ view , setView ] = useState("editMyGyms");
 
-
+  const dispatch = useDispatch()
   let { userId } = useParams();
 
-  console.log(userId, "los params en el home");
+  useEffect(() => {
+    dispatch(getPartnerDetails(userId));// eslint-disable-next-line
+  }, []);
+
+  const partnerDetail = useSelector((state)=> state.partnerDetails)
+  const userDetails = useSelector((state) => state.user)
+
+  const [ view , setView ] = useState("editMyGyms");
+
+
+
 
   return (
     <div className={style.content}>
@@ -27,7 +35,7 @@ export function HomePartner () {
         {/* Bloque de Button */}
         <div className={style.contButton}>
           <div className={style.contButtonTop}>
-            <p>Username</p>
+            {/* <p>{partnerDetail.partnerGyms.name}</p> */}
           </div>
 
           <div className={style.contButtonH1}>
