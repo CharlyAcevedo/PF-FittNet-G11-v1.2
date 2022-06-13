@@ -218,7 +218,7 @@ export default function Services(props) {
 
         <form action="">
           <div>
-            <label>Gimnasios: </label>            
+            <label><strong>*</strong>Gimnasios: </label>            
             <select onChange={(e) => handleChangeGyms(e)}>
             <option key="id1">...</option>
               {myGyms.length > 0 ? myGyms.map((g) => (
@@ -246,7 +246,7 @@ export default function Services(props) {
           </div>
 
           <div>
-            <label>Descripcion: </label>
+            <label><strong>*</strong>Descripcion: </label>
             <input
               className={error.description && styles.inputdanger}
               onChange={(e) => handleChange(e)}
@@ -260,21 +260,7 @@ export default function Services(props) {
             )}
             <text>{typeAction === "create" ? newService.descripcion : editService.descripcion}</text>
           </div>
-
-          <div>
-            <label>Duracion:</label>
-            <input className='inputScore' type="range" name="duration"
-              min="1" max="90" step="1"
-              value={typeAction === "create" ? newService.duration : editService.duration}
-              // onClick={(e) => validateSubmit(e)}
-              onChange={(e) => handleChange(e)}
-            />
-            {typeAction === "create" && newService.duration ? `${newService.duration} minutos` : null}
-            {typeAction === "edit" && editService.duration ? `${editService.duration} minutos` : null}
-
-            {error.duration && <p className={styles.danger}>{error.duration}</p>}
-
-          </div>
+          
           <div>
             <label>
               <strong>*</strong>Precio:{" "}
@@ -293,7 +279,7 @@ export default function Services(props) {
           </div>
 
           <div>
-            <label>Fotos: </label>
+            <label><strong>*</strong>Fotos: </label>
 
             <input
               type="text"
@@ -340,187 +326,21 @@ export default function Services(props) {
             </ul>
           </div>
 
-
-
-
-
-
-
-
-          {/* {newGym.logo && (<img className={styles.imageform} src={newGym.logo} alt="Image not found" />)}
-          {editGym.logo && (<img className={styles.imageform} src={editGym.logo} alt="Image not found" />)}
-           */}
-          {/* <div>
-            <label><strong>*</strong>Logo:</label>
-            <input
-              type="text"
-              value={typeAction === "create" ? newGym.logo : editGym.logo}
-              name="logo"
+          <div>
+            <label>Duracion:</label>
+            <input className='inputScore' type="range" name="duration"
+              min="1" max="90" step="1"
+              value={typeAction === "create" ? newService.duration : editService.duration}
+              // onClick={(e) => validateSubmit(e)}
               onChange={(e) => handleChange(e)}
-              placeholder="https://logo-gym.jpg"
             />
-          </div> */}
+            {typeAction === "create" && newService.duration ? `${newService.duration} minutos` : null}
+            {typeAction === "edit" && editService.duration ? `${editService.duration} minutos` : null}
 
-          {/* <div>
-            <label>
-              <strong>*</strong>Nombre:{" "}
-            </label>
-            <input
-              className={error.name && styles.inputdanger}
-              type="text"
-              name="name"
-              value={typeAction === "create" ? newGym.name : editGym.name}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="Nombre..."
-            />
-            {error.name && <p className={styles.danger}>{error.name}</p>}
-          </div> */}
+            {error.duration && <p className={styles.danger}>{error.duration}</p>}
 
-          {/* <div>
-            <label>
-              <strong>*</strong>Mensualidad:{" "}
-            </label>
-            <input
-              className={error.name && styles.inputdanger}
-              type="number"
-              name="price"
-              value={typeAction === "create" ? newGym.price : editGym.price}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="$..."
-            />
-            {error.price && <p className={styles.danger}>{error.price}</p>}
-          </div> */}
-
-          {/* <div>
-            <label>
-              <strong>*</strong>Telefono:{" "}
-            </label>
-            <input
-              className={error.phone && styles.inputdanger}
-              type="number"
-              name="phone"
-              value={typeAction === "create" ? newGym.phone : editGym.phone}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="+549......"
-            />
-            {error.phone && <p className={styles.danger}>{error.phone}</p>}
-          </div> */}
-
-          {/* <div>
-            <label>
-              Email:{" "}
-            </label>
-            <input
-              className={error.email && styles.inputdanger}
-              type="email"
-              name="email"
-              value={typeAction === "create" ? newGym.email : editGym.email}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="correo@ejemplo.com"
-            />
-            {error.email && <p className={styles.danger}>{error.email}</p>}
-          </div> */}
-
-
-          {/* <div>
-            <div>
-              <label>Entrenadores: </label>
-
-              <input
-                className={error.name && styles.inputdanger}
-                type="text"
-                name="names"
-                value={name}
-                onChange={(e) => { setName(e.target.value) }}
-                placeholder="nombre del entrenador"
-              />
-
-              <button onClick={(e) => { addTrainer(e) }}> + </button>
-
-              {error.email && <p className={styles.danger}>{error.email}</p>}
-
-              <ul>
-                <li className={styles.input}>
-                  {newGym.trainers.length && typeAction === "create" ? newGym.trainers.map((e) => (
-                    <div key={e}>
-                      <p>{e} </p>
-                      <button value={e} onClick={(e) => handleDeleteT(e)}>
-                        x
-                      </button>{" "}
-                    </div>
-                  )) : null}
-
-                  {editGym.trainers.length && typeAction === "edit" ? editGym.trainers.map((e) => (
-                    <div key={e}>
-                      <p>{e} </p>
-                      <button value={e} onClick={(e) => handleDeleteT(e)}>
-                        x
-                      </button>{" "}
-                    </div>
-                  )) : null}
-                </li>
-              </ul>
-
-            </div>
-          </div> */}
-
-          {/* <div>
-            <label>Fotos: </label>
-
-            <input
-              type="text"
-              name="photo"
-              id="image"
-              multiple
-              value={photo}
-              onChange={(e) => { setPhoto(e.target.value) }}
-              placeholder="https://foto-del-gym.jpg"
-            />
-            <button onClick={(e) => { addPhoto(e) }}> + </button>
-
-
-            <ul>
-              <li className={styles.input}>
-                {newGym.image.length && typeAction === "create" ? newGym.image.map((e) => (
-                  <div key={e}>
-
-                    <img className={styles.photoform}
-                      src={e}
-                      key={e}
-                      alt="No Found"
-                    />
-                    <button value={e} onClick={(e) => handleDeletePhoto(e)}>
-                      x
-                    </button>{" "}
-                  </div>
-                )) : null}
-
-                {editGym.image.length && typeAction === "edit" ? editGym.image.map((e) => (
-                  <div key={e}>
-
-                    <img className={styles.photoform}
-                      src={e}
-                      key={e}
-                      alt="No Found"
-                    />
-                    <button value={e} onClick={(e) => handleDeletePhoto(e)}>
-                      x
-                    </button>{" "}
-                  </div>
-                )) : null}
-              </li>
-            </ul>
-
-          </div> */}
-
+          </div>
+          
         </form>
 
       </div>

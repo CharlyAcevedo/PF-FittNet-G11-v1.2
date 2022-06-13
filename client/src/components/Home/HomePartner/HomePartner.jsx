@@ -17,11 +17,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 export function HomePartner() {
   let { userId } = useParams();
-  const [view, setView] = useState("myGyms");
+//  const [view, setView] = useState("myGyms");
 
-
-export function HomePartner () {
-    const [ view , setView ] = useState("editMyServices");
+  const [ view , setView ] = useState("editMyServices");
   const userPartner = useSelector((state) => state.user); 
 
 
