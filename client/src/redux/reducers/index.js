@@ -46,7 +46,7 @@ const initialState = {
   getCart: [],
   deseaseAttribute: [],
   lockAccounts: [],
-  plans : [],
+  plans: [],
 
 };
 
@@ -428,13 +428,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
       }
       return {
         ...state,
-      users: payload
+        users: payload
       }
     case GET_PLANS:
       return {
         ...state,
-        plans: payload,    
-        users: payload
+        plans: payload
       }
     default:
       return state;

@@ -266,7 +266,7 @@ export const CardGymPartner = (props) => {
 
   const navigate = useNavigate();
 
-  const [view, setView] = useState("editMyGyms");
+  const [view, setView] = useState("myGyms");
 
   const userId = localStorage.getItem("userId");
   const type = localStorage.getItem("type");
