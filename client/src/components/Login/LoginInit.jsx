@@ -157,7 +157,7 @@ export default function LoginInit() {
             localStorage.setItem("longitude", longitude.$numberDecimal);
 
             let avatarId = avatar._id;
-            navigate(`http://localhost:3000/home/${type}/${name}/${userId}/${avatarId}`);
+            navigate(`/home/${type}/${name}/${userId}/${avatarId}`);
           }
           // ya le paso info por params de quién estamos hablando
         } else {
