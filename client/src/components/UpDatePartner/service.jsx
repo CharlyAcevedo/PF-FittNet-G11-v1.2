@@ -1,23 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./style/client.module.css";
-import { serviceValidate } from "./controlers/validaciones";
+//import { serviceValidate } from "./controlers/validaciones";
+import { useSelector } from "react-redux";
 // import { useDispatch } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 // import { createService } from "../../redux/actions";
 // import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { createOneService, editOneService } from "./controlers/Functions";
 
-export default function Services(props) {
+export default function Services() {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
 
-  // useEffect(()=>{
-  //   if (props.view === "create") {
-  //     setTypeAcyion("create");
-  //     props.id ? setGymId (props.id) : null;  
-  //   }
-  // })
+  const dataPartner = useSelector((state) => state.user);
 
+  let myGyms = dataPartner && dataPartner.gyms ? dataPartner.gyms : [];
+
+  let myServices = [];
 
   const userId = localStorage.getItem('userId');
 
@@ -25,6 +24,7 @@ export default function Services(props) {
   // const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
   const [gymId, setGymId] = useState("");
+  const [serviceId, setServiceId] = useState("");
 
 
   const [newService, setNewService] = useState({
@@ -47,8 +47,6 @@ export default function Services(props) {
     profileCategory: [],
   });
 
-  let myGyms = [{ name: "gym 1", id: "123" }, { name: "gym 2", id: "234" },
-  { name: "gym 3", id: "345" }];
 
 
   //----------------------------------------------------------------------------
@@ -126,11 +124,30 @@ export default function Services(props) {
   function handleChangeGyms(e) {
     if (e.target.value !== "...") {
       e.preventDefault();
+      let value = e.target.value;
+      //
+      // let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
+      console.log(myGyms);
+
+      myServices = myGyms.length && myGyms.filter(e => e._id === value); 
+
       setGymId(e.target.value);
       console.log(e.target.value, ' estoy en el select dentro del if')
-      
+
     } else {
       setGymId("");
+    }
+    console.log(e.target.value, ' estoy en el select')
+  }
+
+  function handleChangeService(e) {
+    if (e.target.value !== "...") {
+      e.preventDefault();
+      setServiceId(e.target.value);
+      console.log(e.target.value, ' estoy en el select dentro del if')
+
+    } else {
+      setServiceId("");
     }
     console.log(e.target.value, ' estoy en el select')
   }
@@ -217,16 +234,35 @@ export default function Services(props) {
         {typeAction ? typeAction : null}
 
         <form action="">
+
           <div>
-            <label><strong>*</strong>Gimnasios: </label>            
+            <label><strong>*</strong>Gimnasio: </label>
             <select onChange={(e) => handleChangeGyms(e)}>
-            <option key="id1">...</option>
+              <option key="id1">...</option>
               {myGyms.length > 0 ? myGyms.map((g) => (
-                <option key={g.id} value={g.id}>{g.name}</option>
+                <option key={g._id} value={g._id}>{g.name}</option>
               )) : null}
             </select>
             {gymId ? gymId : null}
           </div>
+
+          {typeAction === "edit" ?
+
+            <div>
+              <label><strong>*</strong>Servicio: </label>
+              <select onChange={(e) => handleChangeService(e)}>
+                <option key="id2">...</option>
+                {myServices.length > 0 ? myServices.map((s) => (
+                  <option key={s._id} value={s._id}>{s.name}</option>
+                )) : null}
+              </select>
+              {serviceId ? serviceId : null}
+            </div>
+
+
+            : null}
+
+
 
           <div>
             <label>
@@ -258,9 +294,9 @@ export default function Services(props) {
             {error.description && (
               <p className={styles.danger}>{error.description}</p>
             )}
-            <text>{typeAction === "create" ? newService.descripcion : editService.descripcion}</text>
+            <p>{typeAction === "create" ? newService.descripcion : editService.descripcion}</p>
           </div>
-          
+
           <div>
             <label>
               <strong>*</strong>Precio:{" "}
@@ -340,7 +376,7 @@ export default function Services(props) {
             {error.duration && <p className={styles.danger}>{error.duration}</p>}
 
           </div>
-          
+
         </form>
 
       </div>
