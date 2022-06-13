@@ -10,7 +10,6 @@ import {
   getGymDetail,
 } from "../../redux/actions/index";
 import { NavBar3 } from "../GymDetail/NavBar3.jsx";
-import { CarritoProfileUser } from "./carritoProfileUser/CarritoProfileUser.jsx";
 
 export default function DetailProfileUser() {
   let { userId } = useParams();
@@ -365,10 +364,13 @@ export default function DetailProfileUser() {
                 margin: "1.2rem auto"
               }}
             >
-              <CarritoProfileUser
+              <NavBar3
                 id={[gymDetail]}
                 usuarioId={userId}
                 button={true}
+                background="transparent"
+                color="#fff"
+                align="center"
               />
             </div>
           </div>

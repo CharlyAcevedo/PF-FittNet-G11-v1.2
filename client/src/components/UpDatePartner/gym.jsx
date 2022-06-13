@@ -8,13 +8,14 @@ import styles from "./style/client.module.css";
 // import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { createOneGym, editOneGym } from "./controlers/Functions";
 
-export default function UpdateGym() {
+export default function UpdateGym(props) {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
-  // const params = useParams(); 
-  
+  // const params = useParams();
 
-  const userId = localStorage.getItem('userId');
+  const { idGym } = props;
+
+  const userId = localStorage.getItem("userId");
 
   const [typeAction, setTypeAcyion] = useState("create");
   const [name, setName] = useState("");
@@ -28,7 +29,7 @@ export default function UpdateGym() {
     image: [], // es un array de imágenes y se inicia en vacio o con elementos
     latitude: 0, // numero entero o decimal y no es obligatorio
     longitude: 0, // numero entero o decimal y no es obligatorio
-    // address: // no lo puedo mandar porque se relaciona con otra colección 
+    // address: // no lo puedo mandar porque se relaciona con otra colección
     // y no es obligatorio
     trainers: [], // lo puedo tocar aunque no es obligatorio. Es un array de strings
     // que va a guardar los nombres de los instructores.
@@ -36,7 +37,7 @@ export default function UpdateGym() {
     phone: 12345678, // es un conjunto de numeros enteros y es un campo obligatorio
     email: "newgym@mail.com", // es un string que guarda el email del gym
     gymActive: true,
-    favourite: 0, // es un numero entero y se inicia  en cero  
+    favourite: 0, // es un numero entero y se inicia  en cero
   });
 
   // Campos obligatorios - Esto campos tiene que estar o se cae el back
@@ -45,10 +46,9 @@ export default function UpdateGym() {
   // 3 logo
   // 4 phone
 
-  let exampleObject =
-  {
+  let exampleObject = {
     name: "Nuevo Fittnet", // obligatorio
-    price: 999, // obligatorio   
+    price: 999, // obligatorio
     image: [],
     latitude: 0,
     longitude: 0,
@@ -59,7 +59,6 @@ export default function UpdateGym() {
     gymActive: true,
     favourite: 0,
   };
-
 
   // Campos del formulario
   //----------------------------------------------------------------------
@@ -76,7 +75,6 @@ export default function UpdateGym() {
   // 4 Entrenadores
   // esto es un array nombres de entrenadores que se cargan como strings
   // renderizar cada nombre más botón de quitar o limpiar
-
 
   // 5 Logo del gym *
   // un campo para el string de la dirección url de la imagen
@@ -100,56 +98,53 @@ export default function UpdateGym() {
     logo: "",
     phone: 0,
     email: "",
-  })
+  });
   // Campos obligatorios - Esto campos tiene que estar o se cae el back
   // 1 name
   // 2 price
   // 3 logo
   // 4 phone
 
-
   //----------------------------------------------------------------------------
   // Faltaría tener un select o un switch para saber si se está creando o editando,
-  // pero de todas formas usamos el mismo form para las dos cosas (crear y editar)   
+  // pero de todas formas usamos el mismo form para las dos cosas (crear y editar)
   //----------------------------------------------------------------------------
 
-
   //----------------------------------------------------------------------------
-  // Esta función sirve para crear un gym           
+  // Esta función sirve para crear un gym
   //----------------------------------------------------------------------------
   async function onClickCreateGym() {
     let dataForNewGym = {
       userId: { userId: userId },
-      dataNewGym: newGym
+      dataNewGym: newGym,
       // dataNewGym: { prop1: "data1", prop2: 2, prop3: [], prop4: {} }
     };
     // userId: el id del usuario partner que crea el gym
     // dataNewGym: en este objeto va todo lo que obtienen del formulario (el input de arriba)
-    console.log('recibe el click y crea un gym')
+    console.log("recibe el click y crea un gym");
     let newOnGym = await createOneGym(dataForNewGym);
     return newOnGym;
   }
 
   //----------------------------------------------------------------------------
-  // Esta función sirve para editar la info de un gym       
+  // Esta función sirve para editar la info de un gym
   //----------------------------------------------------------------------------
 
+
   async function onClickEditGym() {
+    console.log("este es el id del gym: ", idGym)
     let dataForEditGym = {
       //userId: { userId: "userId" },
-      gymId: { gymId: "gymId" },
+      gymId: { gymId: idGym },
       newDataGym: editGym,
       // newDataGym: { prop1: "data2", prop2: 3, prop3: ["algo"], prop4: {} }
     };
     // gymId: el id del gym a editar
     // dataNewGym: en este objeto va todo lo que obtienen del formulario (el input de arriba)
-    console.log('recibe el click y edita un gym')
+    console.log("recibe el click y edita un gym");
     let editOnGym = await editOneGym(dataForEditGym);
     return editOnGym;
-
   }
-
-
 
   //----------------HANDLECHANGE----------------------------------------------
   function handleChange(e) {
@@ -180,7 +175,6 @@ export default function UpdateGym() {
     }
   }
 
-
   // -----------------------delete Trainer-------------------------------------
   function handleDeleteT(e) {
     e.preventDefault();
@@ -189,26 +183,22 @@ export default function UpdateGym() {
         ...newGym,
         trainers: newGym.trainers.filter((el) => el !== e.target.value),
       });
-
     }
     if (typeAction === "edit") {
       setEditGym({
         ...editGym,
         trainers: editGym.trainers.filter((el) => el !== e.target.value),
       });
-
     }
-
   }
   //------------------------------- Add photo -------------------------------
   function addTrainer(e) {
     e.preventDefault();
 
     if (name && typeAction === "create") {
-
       if (!newGym.trainers.includes(name)) {
         // console.log('entra');
-        let newState = [...newGym.trainers]
+        let newState = [...newGym.trainers];
         newState.push(name);
 
         setNewGym({
@@ -220,7 +210,7 @@ export default function UpdateGym() {
     if (name && typeAction === "edit") {
       // console.log('entra');
       if (!editGym.trainers.includes(name)) {
-        let newState = [...editGym.trainers]
+        let newState = [...editGym.trainers];
         newState.push(name);
 
         setEditGym({
@@ -232,7 +222,6 @@ export default function UpdateGym() {
     setName("");
     // console.log(editGym.trainers)
     // console.log(newGym.trainers)
-
   }
 
   //----------------------- delete photo --------------------------------------
@@ -252,9 +241,7 @@ export default function UpdateGym() {
         image: editGym.image.filter((el) => el !== e.target.value),
       });
     }
-
   }
-
 
   //----------------------- add photo -----------------------------------------
 
@@ -262,10 +249,9 @@ export default function UpdateGym() {
     e.preventDefault();
 
     if (photo && typeAction === "create") {
-
       if (!newGym.image.includes(photo)) {
         // console.log('entra');
-        let newState = [...newGym.image]
+        let newState = [...newGym.image];
         newState.push(photo);
 
         setNewGym({
@@ -275,9 +261,8 @@ export default function UpdateGym() {
       }
     }
     if (photo && typeAction === "edit") {
-
       if (!editGym.image.includes(photo)) {
-        let newState = [...editGym.image]
+        let newState = [...editGym.image];
         newState.push(photo);
 
         setEditGym({
@@ -289,28 +274,52 @@ export default function UpdateGym() {
     // console.log(editGym.image)
     // console.log(newGym.image)
     setPhoto("");
-
   }
-
 
   //-----------------------------------------------------------------------------
   return (
     <div className={styles.editPartnerMainContainer}>
-      <h3>FORMULARIO DE {typeAction === "create" ? "CREACIÓN" : "EDICIÓN"} DE GYM</h3>
+      <h3>
+        FORMULARIO DE {typeAction === "create" ? "CREACIÓN" : "EDICIÓN"} DE GYM
+      </h3>
       <div>
-
-        <button onClick={() => { setTypeAcyion("edit") }}>Editar Gym</button>
+        <button
+          onClick={() => {
+            setTypeAcyion("edit");
+          }}
+        >
+          Editar Gym
+        </button>
         <p></p>
-        <button onClick={() => { setTypeAcyion("create") }}>Crear Gym</button>
+        <button
+          onClick={() => {
+            setTypeAcyion("create");
+          }}
+        >
+          Crear Gym
+        </button>
         <p></p>
         {typeAction ? typeAction : null}
 
         <form action="">
-
-          {newGym.logo && (<img className={styles.imageform} src={newGym.logo} alt="Image not found" />)}
-          {editGym.logo && (<img className={styles.imageform} src={editGym.logo} alt="Image not found" />)}
+          {newGym.logo && (
+            <img
+              className={styles.imageform}
+              src={newGym.logo}
+              alt="Image not found"
+            />
+          )}
+          {editGym.logo && (
+            <img
+              className={styles.imageform}
+              src={editGym.logo}
+              alt="Image not found"
+            />
+          )}
           <div>
-            <label><strong>*</strong>Logo:</label>
+            <label>
+              <strong>*</strong>Logo:
+            </label>
             <input
               type="text"
               value={typeAction === "create" ? newGym.logo : editGym.logo}
@@ -372,9 +381,7 @@ export default function UpdateGym() {
           </div>
 
           <div>
-            <label>
-              Email:{" "}
-            </label>
+            <label>Email: </label>
             <input
               className={error.email && styles.inputdanger}
               type="email"
@@ -388,7 +395,6 @@ export default function UpdateGym() {
             {error.email && <p className={styles.danger}>{error.email}</p>}
           </div>
 
-
           <div>
             <div>
               <label>Entrenadores: </label>
@@ -398,36 +404,48 @@ export default function UpdateGym() {
                 type="text"
                 name="names"
                 value={name}
-                onChange={(e) => { setName(e.target.value) }}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
                 placeholder="nombre del entrenador"
               />
 
-              <button onClick={(e) => { addTrainer(e) }}> + </button>
+              <button
+                onClick={(e) => {
+                  addTrainer(e);
+                }}
+              >
+                {" "}
+                +{" "}
+              </button>
 
               {error.email && <p className={styles.danger}>{error.email}</p>}
 
               <ul>
                 <li className={styles.input}>
-                  {newGym.trainers.length && typeAction === "create" ? newGym.trainers.map((e) => (
-                    <div key={e}>
-                      <p>{e} </p>
-                      <button value={e} onClick={(e) => handleDeleteT(e)}>
-                        x
-                      </button>{" "}
-                    </div>
-                  )) : null}
+                  {newGym.trainers.length && typeAction === "create"
+                    ? newGym.trainers.map((e) => (
+                        <div key={e}>
+                          <p>{e} </p>
+                          <button value={e} onClick={(e) => handleDeleteT(e)}>
+                            x
+                          </button>{" "}
+                        </div>
+                      ))
+                    : null}
 
-                  {editGym.trainers.length && typeAction === "edit" ? editGym.trainers.map((e) => (
-                    <div key={e}>
-                      <p>{e} </p>
-                      <button value={e} onClick={(e) => handleDeleteT(e)}>
-                        x
-                      </button>{" "}
-                    </div>
-                  )) : null}
+                  {editGym.trainers.length && typeAction === "edit"
+                    ? editGym.trainers.map((e) => (
+                        <div key={e}>
+                          <p>{e} </p>
+                          <button value={e} onClick={(e) => handleDeleteT(e)}>
+                            x
+                          </button>{" "}
+                        </div>
+                      ))
+                    : null}
                 </li>
               </ul>
-
             </div>
           </div>
 
@@ -440,59 +458,78 @@ export default function UpdateGym() {
               id="image"
               multiple
               value={photo}
-              onChange={(e) => { setPhoto(e.target.value) }}
+              onChange={(e) => {
+                setPhoto(e.target.value);
+              }}
               placeholder="https://foto-del-gym.jpg"
             />
-            <button onClick={(e) => { addPhoto(e) }}> + </button>
-
+            <button
+              onClick={(e) => {
+                addPhoto(e);
+              }}
+            >
+              {" "}
+              +{" "}
+            </button>
 
             <ul>
               <li className={styles.input}>
-                {newGym.image.length && typeAction === "create" ? newGym.image.map((e) => (
-                  <div key={e}>
+                {newGym.image.length && typeAction === "create"
+                  ? newGym.image.map((e) => (
+                      <div key={e}>
+                        <img
+                          className={styles.photoform}
+                          src={e}
+                          key={e}
+                          alt="No Found"
+                        />
+                        <button value={e} onClick={(e) => handleDeletePhoto(e)}>
+                          x
+                        </button>{" "}
+                      </div>
+                    ))
+                  : null}
 
-                    <img className={styles.photoform}
-                      src={e}
-                      key={e}
-                      alt="No Found"
-                    />
-                    <button value={e} onClick={(e) => handleDeletePhoto(e)}>
-                      x
-                    </button>{" "}
-                  </div>
-                )) : null}
-
-                {editGym.image.length && typeAction === "edit" ? editGym.image.map((e) => (
-                  <div key={e}>
-
-                    <img className={styles.photoform}
-                      src={e}
-                      key={e}
-                      alt="No Found"
-                    />
-                    <button value={e} onClick={(e) => handleDeletePhoto(e)}>
-                      x
-                    </button>{" "}
-                  </div>
-                )) : null}
+                {editGym.image.length && typeAction === "edit"
+                  ? editGym.image.map((e) => (
+                      <div key={e}>
+                        <img
+                          className={styles.photoform}
+                          src={e}
+                          key={e}
+                          alt="No Found"
+                        />
+                        <button value={e} onClick={(e) => handleDeletePhoto(e)}>
+                          x
+                        </button>{" "}
+                      </div>
+                    ))
+                  : null}
               </li>
             </ul>
-
           </div>
-
         </form>
-
       </div>
       <p></p>
-      {typeAction === "create" &&
-        <button onClick={(e) => { onClickCreateGym(e) }}>Crear gym de prueba</button>
-      }
-      {typeAction === "edit" &&
-        <button onClick={(e) => { onClickEditGym(e) }}> Editar gym de prueba</button>
-      }
-
+      {typeAction === "create" && (
+        <button
+          onClick={(e) => {
+            onClickCreateGym(e);
+          }}
+        >
+          Crear gym de prueba
+        </button>
+      )}
+      {typeAction === "edit" && (
+        <button
+          onClick={(e) => {
+            onClickEditGym(e);
+          }}
+        >
+          {" "}
+          Editar gym de prueba
+        </button>
+      )}
     </div>
   );
-
-
 }
