@@ -1,23 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./style/client.module.css";
-import { serviceValidate } from "./controlers/validaciones";
+//import { serviceValidate } from "./controlers/validaciones";
+import { useSelector } from "react-redux";
 // import { useDispatch } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 // import { createService } from "../../redux/actions";
 // import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { createOneService, editOneService } from "./controlers/Functions";
 
-export default function Services(props) {
+export default function Services() {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
 
-  // useEffect(()=>{
-  //   if (props.view === "create") {
-  //     setTypeAcyion("create");
-  //     props.id ? setGymId (props.id) : null;  
-  //   }
-  // })
-
+  const dataPartner = useSelector((state) => state.user); 
+  
+  let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
 
   const userId = localStorage.getItem('userId');
 
@@ -47,8 +44,6 @@ export default function Services(props) {
     profileCategory: [],
   });
 
-  let myGyms = [{ name: "gym 1", id: "123" }, { name: "gym 2", id: "234" },
-  { name: "gym 3", id: "345" }];
 
 
   //----------------------------------------------------------------------------
@@ -222,7 +217,7 @@ export default function Services(props) {
             <select onChange={(e) => handleChangeGyms(e)}>
             <option key="id1">...</option>
               {myGyms.length > 0 ? myGyms.map((g) => (
-                <option key={g.id} value={g.id}>{g.name}</option>
+                <option key={g._id} value={g._id}>{g.name}</option>
               )) : null}
             </select>
             {gymId ? gymId : null}
@@ -258,7 +253,7 @@ export default function Services(props) {
             {error.description && (
               <p className={styles.danger}>{error.description}</p>
             )}
-            <text>{typeAction === "create" ? newService.descripcion : editService.descripcion}</text>
+            <p>{typeAction === "create" ? newService.descripcion : editService.descripcion}</p>
           </div>
           
           <div>
@@ -340,7 +335,7 @@ export default function Services(props) {
             {error.duration && <p className={styles.danger}>{error.duration}</p>}
 
           </div>
-          
+
         </form>
 
       </div>

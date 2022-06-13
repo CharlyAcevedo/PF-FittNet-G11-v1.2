@@ -19,7 +19,7 @@ export function HomePartner() {
   let { userId } = useParams();
 //  const [view, setView] = useState("myGyms");
 
-  const [ view , setView ] = useState("editMyServices");
+  const [ view , setView ] = useState("plans");
   const userPartner = useSelector((state) => state.user); 
 
 
