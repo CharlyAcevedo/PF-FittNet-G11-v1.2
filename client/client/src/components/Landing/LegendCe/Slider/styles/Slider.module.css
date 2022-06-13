@@ -1,0 +1,23 @@
+.containP{
+position: relative;
+}
+
+.containSlideShow{
+display: flex;
+overflow-x: hidden;
+}
+
+.slide{
+min-width: 100%;
+max-height: 500px;
+width: 50%;
+overflow: hidden;
+transition: .3s ease alt;
+}
+
+.slide img{
+    width: 55%;
+    cursor: pointer;
+} 
+
+
