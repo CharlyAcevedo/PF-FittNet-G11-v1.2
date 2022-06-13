@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./style/client.module.css";
 import { partnerValidacion } from "./controlers/validaciones";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePartnerData } from "../../redux/actions";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { updatePartnerData, getPartnerDetails } from "../../redux/actions";
+import { useNavigate, useParams } from "react-router-dom";
 import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 
 export default function UpdatePartner() {
+  let { userId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
 
+  useEffect(()=>{
+    dispatch(getPartnerDetails(userId))// eslint-disable-next-line
+  },[])
+
+  const partner = useSelector((state) => state.partnerDetails)
   const usuario = useSelector((state) => state.user);
   const gym = useSelector((state) => state.gyms);
 
@@ -19,14 +24,14 @@ export default function UpdatePartner() {
 
   const [name, setName] = useState("");
   const [input, setInput] = useState({
-    name: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    cbu: "",
-    ciul: "",
-    gyms: [],
-    socialNetworks: [],
+    name: partner.name ? partner.name : "",
+    lastName: partner.lastName ? partner.lastName : "",
+    email: partner.email ? partner.email : "",
+    phone: partner.phone ? partner.phone : "",
+    cbu: partner.cbu ? partner.cbu : "",
+    ciul: partner.cuil ? partner.cuil : "",
+    gyms: partner.gyms ? partner.gyms : [],
+    socialNetworks: partner.socialNetworks ? partner.socialNetworks : [],
 
     id: "",
   });
@@ -40,6 +45,7 @@ export default function UpdatePartner() {
   console.log("esto seria el ID", ID);
   console.log("esto serian los gmy", gym);
   console.log("Datos usuario", usuario);
+  console.log("Datos partner", partner);
 
   //!----------------HANDLECHANGE-----------------------
   function handleChange(e) {
@@ -109,6 +115,7 @@ export default function UpdatePartner() {
     if (stateForm) {
       if (stateForm.form === "true") {
         dispatch(updatePartnerData(input));
+        dispatch(getPartnerDetails(userId));
         SweetAlrt("Exito!", "Perfil Editado", "success");
         setInput({
           ...input,
@@ -147,7 +154,7 @@ export default function UpdatePartner() {
       [e.target.name]: e.target.value,
     });
   }
-  console.log(stateForm);
+  console.log(input.name);
 
   //!--------------------------------------------------
 
@@ -166,7 +173,7 @@ export default function UpdatePartner() {
             onChange={(e) => {
               handleChange(e);
             }}
-            placeholder="Nombre..."
+            placeholder={partner.name ? partner.name : "Nombre prueba..."}
           />
           {error.name && <p className={styles.danger}>{error.name}</p>}
         </div>
@@ -180,7 +187,7 @@ export default function UpdatePartner() {
             onChange={(e) => {
               handleChange(e);
             }}
-            placeholder="Apellido..."
+            placeholder={partner.lastName ? partner.lastName : "Apellido..."}
           />
           {error.lastName && <p className={styles.danger}>{error.lastName}</p>}
         </div>
@@ -194,7 +201,7 @@ export default function UpdatePartner() {
             onChange={(e) => {
               handleChange(e);
             }}
-            placeholder="correo@ejemplo.com"
+            placeholder={partner.email ? partner.email : "correo@ejemplo.com"}
           />
           {error.email && <p className={styles.danger}>{error.email}</p>}
         </div>
@@ -208,7 +215,7 @@ export default function UpdatePartner() {
             onChange={(e) => {
               handleChange(e);
             }}
-            placeholder="+549......"
+            placeholder={partner.phone ? partner.phone : "+549......"}
           />
           {error.phone && <p className={styles.danger}>{error.phone}</p>}
         </div>
@@ -225,7 +232,7 @@ export default function UpdatePartner() {
               handleChange(e);
             }}
             max="9999999999999999"
-            placeholder="2590046210320129410056"
+            placeholder={partner.cbu ? partner.cbu : "2590046210320129"}
           />
           {error.cbu && <p className={styles.danger}>{error.cbu}</p>}
         </div>
@@ -242,7 +249,7 @@ export default function UpdatePartner() {
             onChange={(e) => {
               handleChange(e);
             }}
-            placeholder="12349876136"
+            placeholder={partner.cuil ? partner.cuil : "12349876136"}
           />
           {error.cuil && <p className={styles.danger}>{error.cuil}</p>}
         </div>
@@ -280,9 +287,9 @@ export default function UpdatePartner() {
             className={styles.input}
             onChange={(e) => handleChangeGyms(e)}
           >
-            {usuario.gyms?.map((e) => (
-              <option key={e} name={e} value="gyms">
-                {e}
+            {partner.gyms?.map((e) => (
+              <option key={e._id} name={e.name} value="gyms">
+                {e.name}
               </option>
             ))}
           </select>
