@@ -965,13 +965,30 @@
 .mainGymPartner {
   display: flex;
   flex-direction: column;
+  /* justify-content: space-between; */
+  width: 100%;
 }
 
 .mainHeaderPartner {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
 }
+
+.bodyInfoGym {
+  position: relative;
+}
+
+.listTrainers {
+  display: flex;
+  gap: .4rem;
+  /* list-style-type: disc; */
+}
+
+/* .listTrainers li {
+  border-bottom: 1px solid var(--color-primD1);
+} */
 
 
 .mainHeaderPartner h2 {
@@ -1019,5 +1036,19 @@
 }
 
 .btnEditarGym:hover {
+  color: var(--color-primD1);
+}
+
+.btnVolverForGym {
+  background-color: var(--color-primD1);
+  padding: .4rem 1rem;
+  border-radius: .6rem;
+  color: #fff;
+  transition: .6s;
+  cursor: pointer;
+}
+
+.btnVolverForGym:hover {
+  background-color: #fff;
   color: var(--color-primD1);
 }

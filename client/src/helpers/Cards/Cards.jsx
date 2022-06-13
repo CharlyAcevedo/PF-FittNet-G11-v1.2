@@ -279,7 +279,7 @@ export const CardGymPartner = (props) => {
         <div className={styles.containerCardGymPartner}>
           <div className={styles.headerGymPartner}>
             <img
-              src={image}
+              src={image[0]}
               alt="imagen gimnasio"
               style={{ width: "160px", height: "120px", borderRadius: ".6rem" }}
             />
@@ -289,25 +289,28 @@ export const CardGymPartner = (props) => {
               <h2>{title}</h2>
               <span
                 className={styles.btnEditarGym}
-                onClick={() =>
-                  setView("editMyGyms")
-                }
+                onClick={() => setView("editMyGyms")}
               >
                 Editar gimnasio
               </span>
             </div>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae,
-              facere dolores, excepturi maiores omnis accusantium error animi
-              nostrum repellendus, adipisci nihil! Et perferendis libero impedit
-              quos molestiae assumenda culpa veritatis?
-            </p>
+            <div className={styles.bodyInfoGym}>
+              <div style={{display: 'flex', alignItems: 'center', gap: ".4rem"}}>
+                <span>Entrenadores:</span>
+                <ul className={styles.listTrainers}>
+                  {trainers && trainers.map((x, y) => <li key={y}>{y + 1}. {x}</li>)}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       ) : (
+        // </div>
         <>
-          <EditMyGyms idGym={id}/>
-          <button onClick={() => setView("myGyms")} style={{color: "#fff"}}>Volver</button>
+          <EditMyGyms idGym={id} />
+          <button onClick={() => setView("myGyms")} className={styles.btnVolverForGym}>
+            Volver
+          </button>
         </>
       )}
     </>
