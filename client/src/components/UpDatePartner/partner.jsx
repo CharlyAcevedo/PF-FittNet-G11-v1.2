@@ -12,12 +12,12 @@ export default function UpdatePartner() {
   const dispatch = useDispatch();
   const params = useParams();
 
-  const categorias = useSelector((state) => state.gyms);
   const usuario = useSelector((state) => state.user);
   const gym = useSelector((state) => state.gyms);
 
   const [stateForm, setStateForm] = useState({ form: "false" });
 
+  const [name, setName] = useState("");
   const [input, setInput] = useState({
     name: "",
     lastName: "",
@@ -27,9 +27,8 @@ export default function UpdatePartner() {
     ciul: "",
     gyms: [],
     socialNetworks: [],
-    category: [],
-     id: "",
-    
+
+    id: "",
   });
 
   const [error, setError] = useState({});
@@ -48,9 +47,8 @@ export default function UpdatePartner() {
       const newInput = {
         ...input,
         [e.target.name]: e.target.value,
-        
+
         id: ID,
-       
       };
       const errors = partnerValidacion(newInput);
       setError(errors);
@@ -77,43 +75,29 @@ export default function UpdatePartner() {
     console.log("ESTO ES DELET", e);
   }
   //!------------------socialNetworks---------------
-  function handleChangesocialNetworks(e) {
-    setInput(() => {
-      const newsocialNetworks = {
-        ...input,
-        socialNetworks: [...input.socialNetworks, e.target.value]
+  function addSocial(e) {
+    e.preventDefault();
+    if (name) {
+      if (!input.socialNetworks.includes(name)) {
+        let newSocial = [...input.socialNetworks];
+        newSocial.push(name);
+
+        setInput({
+          ...input,
+          socialNetworks: newSocial,
+        });
       }
-      console.log(newsocialNetworks)
-      return newsocialNetworks;
-      //todo: validaciones?
-    });
+    }
+    setName("");
   }
+
   // //!deleted socialNetworks
-  // function handleDeleteS(e) {
-  //   setInput({
-  //     ...input,
-  //     socialNetworks: input.socialNetworks.filter((el) => el !== e.target.value),
-  //   });
-  //   console.log("ESTO ES DELET", e);
-  // }
-  //!------------------Category---------------
-  function handleChangeCategory(e) {
-    setInput(() => {
-      const newCategory = {
-        ...input,
-        category: input.category.includes(e.target.value)
-          ? [...input.category]
-          : [...input.category, e.target.value],
-      };
-      return newCategory;
-      //todo: validaciones?
-    });
-  }
-  //!deleted Category
-  function handleDelete(e) {
+  function handleDeleteSocial(e) {
     setInput({
       ...input,
-      category: input.category.filter((el) => el !== e.target.value),
+      socialNetworks: input.socialNetworks.filter(
+        (el) => el !== e.target.value
+      ),
     });
     console.log("ESTO ES DELET", e);
   }
@@ -136,7 +120,7 @@ export default function UpdatePartner() {
           ciul: "",
           gyms: [],
           socialNetworks: [],
-          category: [],
+
           id: "",
         });
         setError({});
@@ -170,7 +154,7 @@ export default function UpdatePartner() {
   return (
     <div className={styles.editPartnerMainContainer}>
       <h3>Mi Perfil</h3>
-
+<br />
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nombre: </label>
@@ -215,9 +199,7 @@ export default function UpdatePartner() {
           {error.email && <p className={styles.danger}>{error.email}</p>}
         </div>
         <div>
-          <label>
-            Telefono:{" "}
-          </label>
+          <label>Telefono: </label>
           <input
             className={(error.phone && styles.inputdanger) || styles.input}
             type="tel"
@@ -242,6 +224,7 @@ export default function UpdatePartner() {
             onChange={(e) => {
               handleChange(e);
             }}
+            max="9999999999999999"
             placeholder="2590046210320129410056"
           />
           {error.cbu && <p className={styles.danger}>{error.cbu}</p>}
@@ -254,69 +237,40 @@ export default function UpdatePartner() {
             className={(error.ciul && styles.inputdanger) || styles.input}
             type="number"
             name="cuil"
+            max="99999999999"
             value={input.cuil}
             onChange={(e) => {
               handleChange(e);
             }}
-            placeholder="000000000"
+            placeholder="12349876136"
           />
           {error.cuil && <p className={styles.danger}>{error.cuil}</p>}
         </div>
         <div>
           <label>Redes Sociales: </label>
-          <br />
-          Facebook
-          <input
-            value={input.socialNetworks}
-            className={styles.input}
-            onChange={(e) => handleChangesocialNetworks(e)}
-          />
-          <br />
-          Instagram
           <input
             className={styles.input}
-            onChange={(e) => handleChangesocialNetworks(e)}
+            type="text"
+            name="names"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
           />
-          <br />
-          Tweeter
-          <input
-            className={styles.input}
-            onChange={(e) => handleChangesocialNetworks(e)}
-          />
-          <br />
-          Tik Tok
-          <input
-            className={styles.input}
-            onChange={(e) => handleChangesocialNetworks(e)}
-          />
-        </div>
-        <div>
-          <label>Categoria:</label>
-          <select
-            onChange={(e) => handleChangeCategory(e)}
-            className={styles.input}
-          >
-            {categorias.map((e) => (
-              <option
-                className={styles.input}
-                key={e}
-                name="category"
-                value={e}
-              >
-                {e}
-              </option>
-            ))}
-          </select>
+          <button onClick={(e) => addSocial(e)}>Agregar</button>
+
           <ul>
-            <li>
-              {input.category?.map((e) => (
-                <div key={e}>
-                  <p className={styles.input}>{e} </p>
-                  <button value={e} onClick={(e) => handleDelete(e)}>
-                    x
-                  </button>{" "}
-                </div>
-              ))}{" "}
+            <li className={styles.inputLista}>
+              {input.socialNetworks.length
+                ? input.socialNetworks.map((e) => (
+                    <div key={e}>
+                      <p>{e} </p>
+                      <button value={e} onClick={(e) => handleDeleteSocial(e)}>
+                        x
+                      </button>{" "}
+                    </div>
+                  ))
+                : null}
             </li>
           </ul>
         </div>
@@ -334,7 +288,7 @@ export default function UpdatePartner() {
           </select>
           <ul>
             <li>
-              {input.gyms.map((e) => (
+              {input.gyms?.map((e) => (
                 <div key={e.name}>
                   <p>{e.name} </p>
                   <button value={e} onClick={(e) => handleDeleteGyms(e)}>
@@ -345,16 +299,21 @@ export default function UpdatePartner() {
             </li>
           </ul>
         </div>
+        <br />
+        <br />
         <div>
-          <label>Confirmar Datos </label>
+          <label>
+            <strong>Confirmar Datos</strong>{" "}
+          </label>
           <input
-            className={styles.input}
+            className={styles.inputLista}
             type="checkbox"
             onClick={(e) => handleButton(e)}
             name="form"
             value="true"
           />
         </div>
+        <br />
         <br />
         <button type="submit">Enviar Formulario</button>
       </form>

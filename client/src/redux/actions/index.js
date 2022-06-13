@@ -259,7 +259,7 @@ export function updatePartnerData({
   cbu,
   cuil,
   socialNetworks,
-  category,
+ 
 }) {
   return async (dispatch) => {
     try {
@@ -273,7 +273,7 @@ export function updatePartnerData({
         cbu: cbu,
         cuil: cuil,
         socialNetworks: socialNetworks,
-        category: category,
+      
       });
       console.log("esto es la action",result)
       return dispatch({
