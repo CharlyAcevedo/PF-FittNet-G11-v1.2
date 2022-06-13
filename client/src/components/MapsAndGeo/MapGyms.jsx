@@ -7,7 +7,7 @@ import styles from './styles/mapGyms.module.css';
 
 export default function MapGyms() {
 
-  const dispatch = useDispatch
+  const dispatch = useDispatch();
 
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
@@ -44,12 +44,12 @@ export default function MapGyms() {
 
     function handleOnClick(e) {
       e.preventDefault();
-      // dispatch(
-      //   setGymsGeo({
-      //     latitude: lat,
-      //     longitude: lng,
-      //   })
-      // );
+      dispatch(
+        setGymsGeo({
+          latitude: lat,
+          longitude: lng,
+        })
+      );
       SweetAlrtTem("Tu ubicacion ha sido enviada con exito", "success");
     }
     

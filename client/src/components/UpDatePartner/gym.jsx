@@ -114,22 +114,22 @@ export default function UpdateGym(props) {
   // 3 logo
   // 4 phone
 
-  // useEffect(() => {
-  //   setNewGym((prevState) => {
-  //     return {
-  //       ...prevState,
-  //       latitude: gymGeo.latitude,
-  //       longitude: gymGeo.longitude
-  //     }
-  //   });
-  //   setEditGym((prevState) => {
-  //     return {
-  //       ...prevState,
-  //       latitude: gymGeo.latitude,
-  //       longitude: gymGeo.longitude
-  //     }
-  //   })
-  // },[gymGeo])
+  useEffect(() => {
+    setNewGym((prevState) => {
+      return {
+        ...prevState,
+        latitude: gymGeo.latitude,
+        longitude: gymGeo.longitude
+      }
+    });
+    setEditGym((prevState) => {
+      return {
+        ...prevState,
+        latitude: gymGeo.latitude,
+        longitude: gymGeo.longitude
+      }
+    })
+  },[gymGeo])
   //----------------------------------------------------------------------------
   // Faltaría tener un select o un switch para saber si se está creando o editando,
   // pero de todas formas usamos el mismo form para las dos cosas (crear y editar)
