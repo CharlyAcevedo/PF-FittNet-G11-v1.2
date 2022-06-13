@@ -46,7 +46,9 @@ export default function UpdateGym(props) {
   // 3 logo
   // 4 phone
 
-  let exampleObject = {
+
+  let exampleObject = // Esto no se está usado
+  {
     name: "Nuevo Fittnet", // obligatorio
     price: 999, // obligatorio
     image: [],
@@ -132,7 +134,6 @@ export default function UpdateGym(props) {
 
 
   async function onClickEditGym() {
-    console.log("este es el id del gym: ", idGym)
     let dataForEditGym = {
       //userId: { userId: "userId" },
       gymId: { gymId: idGym },

@@ -105,11 +105,16 @@ router.get("/mygyms/:userId", async (req, res) => {
   console.log(userId)
 
   try {
+    let gymsPartner = await Users.findById(userId)
+
+    
    
-    res.status(200).send('/allgyms/:userId');
+    res.status(200).json(gymsPartner);
   } catch (error) {
+    console.log(error)
     res.status(404).send({ error: error.message });
   }
+
 });
 
 

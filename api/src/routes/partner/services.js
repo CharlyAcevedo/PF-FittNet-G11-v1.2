@@ -21,7 +21,7 @@ const router = Router();
 
 router.post('/createOneService/', async (req, res) => {
     console.log(req.body, 'create One Service')
-  
+    // gymId, dataNewService
     const { userId, gymId, dataNewService } = req.body;    
     try {     
   
@@ -41,7 +41,7 @@ router.post('/createOneService/', async (req, res) => {
   
 router.put('/editOneService/', async (req, res) => {
   console.log(req.body, 'edit One Service')
-
+  // serviceId, newDataService 
   const { userId, gymId, serviceId, newDataService } = req.body;
 
     try {     
