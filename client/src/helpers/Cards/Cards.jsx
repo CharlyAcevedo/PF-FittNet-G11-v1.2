@@ -55,7 +55,7 @@ export const CardAvatarAdicional = (props) => {
 
     if (avatarSelect.data.ok === false) {
       // Si el userId es invalido
-      return window.alert(avatarSelect.data.msg);
+      return SweetAlrtTem(`${avatarSelect.data.msg}`,"warning");
     }
 
     let avatarId = avatarSelect

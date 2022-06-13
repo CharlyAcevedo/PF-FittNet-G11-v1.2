@@ -23,3 +23,18 @@
     height: 88vh;
     text-align: center;
 }
+.input {
+    border: black;
+    border-bottom: 1px solid #75022e;
+    padding: 10px;
+    width: 65%;
+    background: transparent;
+    transition: all .25s ease;
+    color:white
+}
+
+
+.input:focus {
+    outline: none;
+    border-bottom: 1px solid #644c2d;
+}

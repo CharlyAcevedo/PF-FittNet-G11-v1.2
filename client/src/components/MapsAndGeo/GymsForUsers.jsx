@@ -6,6 +6,7 @@ import iconMarker from "../../asets/icons/iconMarker.png";
 import MapPin from "../../asets/icons/map-pin.svg";
 import CalcDist from "./controlers/calcDist";
 import {ButtonSimple} from "../../helpers/Buttons/Buttons.jsx"
+import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
 
 export default function GymsForUsersMap() {
   const centerCoords = {
@@ -89,7 +90,7 @@ export default function GymsForUsersMap() {
   );
 
   function handleOnClick() {
-    alert("Tu ubicacion ha sido enviada con exito");
+    SweetAlrtTem("Tu ubicacion ha sido enviada con exito","success");
   }
 
   return (

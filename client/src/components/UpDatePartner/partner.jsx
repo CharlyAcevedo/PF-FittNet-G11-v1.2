@@ -1,34 +1,46 @@
 import { useState } from "react";
 import styles from "./style/client.module.css";
 import { partnerValidacion } from "./controlers/validaciones";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updatePartnerData } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { SweetAlrt } from "../../asets/helpers/sweetalert";
+import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 
 export default function UpdatePartner() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const params = useParams();
+
+  const categorias = useSelector((state) => state.gyms);
+  const usuario = useSelector((state) => state.user);
+  const gym = useSelector((state) => state.gyms);
+
+  const [stateForm, setStateForm] = useState({ form: "false" });
 
   const [input, setInput] = useState({
     name: "",
     lastName: "",
     email: "",
     phone: "",
-    planType: "",
     cbu: "",
-    profileCategory: [],
-    userActive: "",
-    socialMedia: [],
-    paymentMethods: [],
-    category: [],
+    ciul: "",
     gyms: [],
-    idName: "",
-    id: "",
+    socialNetworks: [],
+    category: [],
+     id: "",
+    
   });
+
   const [error, setError] = useState({});
+
+  const ID = params.userId;
+
+  const nameU = params.name;
+
+  console.log("esto seria el ID", ID);
+  console.log("esto serian los gmy", gym);
+  console.log("Datos usuario", usuario);
 
   //!----------------HANDLECHANGE-----------------------
   function handleChange(e) {
@@ -36,8 +48,9 @@ export default function UpdatePartner() {
       const newInput = {
         ...input,
         [e.target.name]: e.target.value,
-        idName: params.name,
-        id: params.id,
+        
+        id: ID,
+       
       };
       const errors = partnerValidacion(newInput);
       setError(errors);
@@ -45,75 +58,44 @@ export default function UpdatePartner() {
     });
     console.table(input);
   }
-  //!------------------paymentMethods---------------
-  function handleChangepaymentMethods(e) {
-    setInput(() => {
-      const newpaymentMethods = {
-        ...input,
-        paymentMethods: input.paymentMethods.includes(e.target.value)
-          ? [...input.paymentMethods]
-          : [...input.paymentMethods, e.target.value],
-      };
 
-      return newpaymentMethods;
-    });
-    console.log(input.paymentMethods);
-  }
-  //!-------------------planType-----------------------------
-  function handleChangeplanType(e) {
+  //!-------------------GYMS-----------------------------
+  function handleChangeGyms(e) {
     setInput(() => {
-      const newplanType = {
+      const newGyms = {
         ...input,
-        planType: e.target.value,
+        gyms: e.target.value,
       };
-      return newplanType;
+      return newGyms;
     });
   }
-  //!------------------profileCategory---------------
-  function handleChangeprofileCategory(e) {
-    setInput(() => {
-      const newprofileCategory = {
-        ...input,
-        profileCategory: input.profileCategory.includes(e.target.value)
-          ? [...input.profileCategory]
-          : [...input.profileCategory, e.target.value],
-      };
-      return newprofileCategory;
-      //todo: validaciones?
-    });
-  }
-  //!deleted profileCategory
-  function handleDeleteP(e) {
+  function handleDeleteGyms(e) {
     setInput({
       ...input,
-      profileCategory: input.profileCategory.filter(
-        (el) => el !== e.target.value
-      ),
+      gyms: input.gyms.filter((el) => el !== e.target.value),
     });
     console.log("ESTO ES DELET", e);
   }
-
-  //!------------------socialMedia---------------
-  function handleChangeSocialMedia(e) {
+  //!------------------socialNetworks---------------
+  function handleChangesocialNetworks(e) {
     setInput(() => {
-      const newSocialMedia = {
+      const newsocialNetworks = {
         ...input,
-        socialMedia: input.socialMedia.includes(e.target.value)
-          ? [...input.socialMedia]
-          : [...input.socialMedia, e.target.value],
-      };
-      return newSocialMedia;
+        socialNetworks: [...input.socialNetworks, e.target.value]
+      }
+      console.log(newsocialNetworks)
+      return newsocialNetworks;
       //todo: validaciones?
     });
   }
-  //!deleted socialMedia
-  function handleDeleteS(e) {
-    setInput({
-      ...input,
-      socialMedia: input.socialMedia.filter((el) => el !== e.target.value),
-    });
-    console.log("ESTO ES DELET", e);
-  }
+  // //!deleted socialNetworks
+  // function handleDeleteS(e) {
+  //   setInput({
+  //     ...input,
+  //     socialNetworks: input.socialNetworks.filter((el) => el !== e.target.value),
+  //   });
+  //   console.log("ESTO ES DELET", e);
+  // }
   //!------------------Category---------------
   function handleChangeCategory(e) {
     setInput(() => {
@@ -135,90 +117,65 @@ export default function UpdatePartner() {
     });
     console.log("ESTO ES DELET", e);
   }
+
   //!------------------SUBMIT------------------------
   function handleSubmit(e) {
     e.preventDefault();
-    if (!input.name || !input.phone || !input.lastName || !input.email) {
-     return SweetAlrt("Atencion!","Todos os campos deben estar completos","warning",true)
-      // return alert("Todos los campos deben estar completos!");
+
+    if (stateForm) {
+      if (stateForm.form === "true") {
+        dispatch(updatePartnerData(input));
+        SweetAlrt("Exito!", "Perfil Editado", "success");
+        setInput({
+          ...input,
+          name: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          cbu: "",
+          ciul: "",
+          gyms: [],
+          socialNetworks: [],
+          category: [],
+          id: "",
+        });
+        setError({});
+        navigate(`/profile/partner/${nameU}/${ID}`);
+      } else {
+        SweetAlrt(
+          "Hace click en 'Confirmar Datos'",
+          "Por seguridad confirma que los datos ingresados son correctos",
+          "info"
+        );
+      }
     } else {
-      dispatch(updatePartnerData(input));
-      SweetAlrt("Exito!", "Perfil Creado", "success")
-      // alert("Perfil creado!");
-      setInput({
-        ...input,
-        name: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        planType: "",
-        cbu: "",
-        profileCategory: [],
-        userActive: "",
-        socialMedia: [],
-        paymentMethods: [],
-        category: [],
-        gyms: [],
-      });
-      setError({});
-      navigate("/profile/partner/:name/:userId/gym");
+      SweetAlrt(
+        "Hace click en 'Confirmar Datos'",
+        "Por seguridad confirma que los datos ingresados son correctos",
+        "info"
+      );
     }
   }
 
+  function handleButton(e) {
+    return setStateForm({
+      ...stateForm,
+      [e.target.name]: e.target.value,
+    });
+  }
+  console.log(stateForm);
+
   //!--------------------------------------------------
-
-  // function iniciarMap() {
-  //   var coord = { lat: -34.5956145, lng: -58.4431949 };
-  //   var map = new google.maps.Map(document.getElementById("map"), {
-  //     zoom: 10,
-  //     center: coord,
-  //   });
-  //   var marker = new google.maps.Marker({
-  //     position: coord,
-  //     map: map,
-  //   });
-  // }
-
-  const socialMEDIA = ["Facebook", "Instagram", "TikTok", "Twitter"];
-  const planTipes = ["Estandar", "premium", "Golden"];
-  const profileCategorys = [
-    "Solitario",
-    "Alegre",
-    "Triste",
-    "Atento",
-    "Imperativo",
-    "Relajado",
-    "Despistado",
-    "Algo",
-  ];
-  const MetodosDePago = [
-    "Debito",
-    "Transferencia",
-    "Deposito",
-    "Tarjeta de Credito",
-  ];
-  const categorias = ["GYM", "Artes Marciales", "Natacion", "Funcional"];
-
-  //?-------------------------------------------
-  //LEER!
-  //SUGERENCIA!!
-  //INSERTAR CODIGO DE ESTILOS EN LOS INPUT DE LA SIGUIENTE MANERA
-  //className={(error.name && styles.inputdanger) || styles.EL-ESTILO-A-AGREGAR}
-  //PARA EVITAR PISAR ESTILOS DE ERRORES.
 
   return (
     <div className={styles.editPartnerMainContainer}>
-      <h3>Editar Mi Perfil</h3>
-      <span>
-        Los campos marcados con <strong>*</strong> deben ser completados
-      </span>
+      <h3>Mi Perfil</h3>
+
       <form onSubmit={handleSubmit}>
         <div>
-          <label>
-            <strong>*</strong>Nombre:{" "}
-          </label>
+          <label>Nombre: </label>
           <input
-            className={error.name && styles.inputdanger}
+            className={(error.name && styles.inputdanger) || styles.input}
             type="text"
             name="name"
             value={input.name}
@@ -230,11 +187,9 @@ export default function UpdatePartner() {
           {error.name && <p className={styles.danger}>{error.name}</p>}
         </div>
         <div>
-          <label>
-            <strong>*</strong>Apellido:{" "}
-          </label>
+          <label>Apellido: </label>
           <input
-            className={error.lastName && styles.inputdanger}
+            className={(error.lastName && styles.inputdanger) || styles.input}
             type="text"
             name="lastName"
             value={input.lastName}
@@ -246,11 +201,9 @@ export default function UpdatePartner() {
           {error.lastName && <p className={styles.danger}>{error.lastName}</p>}
         </div>
         <div>
-          <label>
-            <strong>*</strong>Email:{" "}
-          </label>
+          <label>Email: </label>
           <input
-            className={error.email && styles.inputdanger}
+            className={(error.email && styles.inputdanger) || styles.input}
             type="email"
             name="email"
             value={input.email}
@@ -263,10 +216,10 @@ export default function UpdatePartner() {
         </div>
         <div>
           <label>
-            <strong>*</strong>Telefono:{" "}
+            Telefono:{" "}
           </label>
           <input
-            className={error.phone && styles.inputdanger}
+            className={(error.phone && styles.inputdanger) || styles.input}
             type="tel"
             name="phone"
             value={input.phone}
@@ -279,22 +232,10 @@ export default function UpdatePartner() {
         </div>
         <div>
           <label>
-            <strong>*</strong>Tipo de plan:{" "}
-          </label>
-          <select onChange={(e) => handleChangeplanType(e)}>
-            {planTipes.map((e) => (
-              <option key={e} value={e} name="planType">
-                {e}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>
-            <strong>*</strong>Cbu:{" "}
+            <strong>Cbu:</strong>{" "}
           </label>
           <input
-            className={error.cbu && styles.inputdanger}
+            className={(error.cbu && styles.inputdanger) || styles.input}
             type="number"
             name="cbu"
             value={input.cbu}
@@ -307,95 +248,70 @@ export default function UpdatePartner() {
         </div>
         <div>
           <label>
-            <strong>*</strong>Perfil:{" "}
+            <strong>Cuil:</strong>{" "}
           </label>
-          <select onChange={(e) => handleChangeprofileCategory(e)}>
-            {profileCategorys.map((e) => (
-              <option key={e} value={e} name="profileCategory">
-                {e}
-              </option>
-            ))}
-          </select>
-          <ul>
-            <li className={styles.input}>
-              {input.profileCategory.map((e) => (
-                <div key={e}>
-                  <p>{e} </p>
-                  <button value={e} onClick={(e) => handleDeleteP(e)}>
-                    x
-                  </button>{" "}
-                </div>
-              ))}{" "}
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <label>
-            <strong>*</strong>Usuario activo:{" "}
-          </label>
-          <select name="userActive" onChange={(e) => handleChange(e)}>
-            <option>Activo</option>
-            <option value="true" name="userActive">
-              On
-            </option>
-            <option value="false" name="userActive">
-              Off
-            </option>
-          </select>
+          <input
+            className={(error.ciul && styles.inputdanger) || styles.input}
+            type="number"
+            name="cuil"
+            value={input.cuil}
+            onChange={(e) => {
+              handleChange(e);
+            }}
+            placeholder="000000000"
+          />
+          {error.cuil && <p className={styles.danger}>{error.cuil}</p>}
         </div>
         <div>
-          <label>
-            <strong>*</strong>Redes Sociales:{" "}
-          </label>
-          <select onChange={(e) => handleChangeSocialMedia(e)}>
-            {socialMEDIA?.map((e) => (
-              <option value={e} key={e} name="socialMedia">
-                {e}
-              </option>
-            ))}
-          </select>
-          <ul>
-            <li>
-              {input.socialMedia.map((e) => (
-                <div key={e}>
-                  <p>{e} </p>
-                  <input
-                    type="text"
-                    onChange={(e) => handleChangeSocialMedia(e)}
-                  />
-                  <button value={e} onClick={(e) => handleDeleteS(e)}>
-                    x
-                  </button>{" "}
-                </div>
-              ))}{" "}
-            </li>
-          </ul>
-        </div>
-        <div>
-          <label>Metodos de Pago</label>
-          <select onChange={(e) => handleChangepaymentMethods(e)}>
-            {MetodosDePago.map((e) => (
-              <option key={e} name="paymentMethods" value={e}>
-                {e}
-              </option>
-            ))}
-          </select>
+          <label>Redes Sociales: </label>
+          <br />
+          Facebook
+          <input
+            value={input.socialNetworks}
+            className={styles.input}
+            onChange={(e) => handleChangesocialNetworks(e)}
+          />
+          <br />
+          Instagram
+          <input
+            className={styles.input}
+            onChange={(e) => handleChangesocialNetworks(e)}
+          />
+          <br />
+          Tweeter
+          <input
+            className={styles.input}
+            onChange={(e) => handleChangesocialNetworks(e)}
+          />
+          <br />
+          Tik Tok
+          <input
+            className={styles.input}
+            onChange={(e) => handleChangesocialNetworks(e)}
+          />
         </div>
         <div>
           <label>Categoria:</label>
-          <select onChange={(e) => handleChangeCategory(e)}>
+          <select
+            onChange={(e) => handleChangeCategory(e)}
+            className={styles.input}
+          >
             {categorias.map((e) => (
-              <option key={e} name="category" value={e}>
+              <option
+                className={styles.input}
+                key={e}
+                name="category"
+                value={e}
+              >
                 {e}
               </option>
             ))}
           </select>
           <ul>
             <li>
-              {input.category.map((e) => (
+              {input.category?.map((e) => (
                 <div key={e}>
-                  <p>{e} </p>
+                  <p className={styles.input}>{e} </p>
                   <button value={e} onClick={(e) => handleDelete(e)}>
                     x
                   </button>{" "}
@@ -404,6 +320,42 @@ export default function UpdatePartner() {
             </li>
           </ul>
         </div>
+        <div>
+          <label>Gimnasios: </label>
+          <select
+            className={styles.input}
+            onChange={(e) => handleChangeGyms(e)}
+          >
+            {usuario.gyms?.map((e) => (
+              <option key={e} name={e} value="gyms">
+                {e}
+              </option>
+            ))}
+          </select>
+          <ul>
+            <li>
+              {input.gyms.map((e) => (
+                <div key={e.name}>
+                  <p>{e.name} </p>
+                  <button value={e} onClick={(e) => handleDeleteGyms(e)}>
+                    x
+                  </button>{" "}
+                </div>
+              ))}{" "}
+            </li>
+          </ul>
+        </div>
+        <div>
+          <label>Confirmar Datos </label>
+          <input
+            className={styles.input}
+            type="checkbox"
+            onClick={(e) => handleButton(e)}
+            name="form"
+            value="true"
+          />
+        </div>
+        <br />
         <button type="submit">Enviar Formulario</button>
       </form>
     </div>

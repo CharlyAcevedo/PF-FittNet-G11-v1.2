@@ -10,6 +10,7 @@ import MapUser from "../MapsAndGeo/MapUser";
 import { getAttributeDesease } from "../../redux/actions/index";
 import { InputPrimaryFormUsers } from "../../helpers/Inputs/Inputs.jsx";
 import { ButtonSecondaryDeslice } from "../../helpers/Buttons/Buttons.jsx";
+import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
 
 export default function FormUser() {
   const navigate = useNavigate();
@@ -62,7 +63,7 @@ export default function FormUser() {
     );
     if (e.target.name == "selDesease") {
       if (filtro.length) {
-        alert("deberias agregar una enfermedad diferente");
+        SweetAlrtTem("deberias agregar una enfermedad diferente","info");
       } else {
         setInput({
           ...input,

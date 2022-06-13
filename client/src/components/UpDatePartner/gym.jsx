@@ -17,10 +17,10 @@ export default function UpdateGym() {
     name: "gym1",
     price: "33",
     raiting: "", // no sale del form
-    image: [dsfsdf],
+    image: ["dsfsdf"],
     address: "2323", 
     services: [], /// no la voy a poder tocar
-    trainers: [dffdf],
+    trainers: ["dffdf"],
     logo: "dfdf",
     phone: "df",
     email: "dfd",
