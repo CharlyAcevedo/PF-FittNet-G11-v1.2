@@ -2,7 +2,8 @@ import { useState } from "react";
 import styles from "./style/client.module.css";
 // import { gymValidate } from "./controlers/validaciones";
 // import { useNavigate } from "react-router-dom";
-// import { createGym } from "../../redux/actions";
+
+import { createGym, setGymsGeo } from "../../redux/actions";
 
 // import { useDispatch } from "react-redux";
 // import { useParams } from "react-router-dom";
@@ -90,7 +91,7 @@ export default function UpdateGym(props) {
   // un campo para el correo
 
   //----------------------------------------------------------------------
-  // Si edito un Gym cargo la ingo en este otro objeto
+  // Si edito un Gym cargo la info en este otro objeto
   const [editGym, setEditGym] = useState({
     name: "Nombre del gym a editar",
     price: 899,

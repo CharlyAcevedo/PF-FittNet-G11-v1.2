@@ -8,54 +8,79 @@ const ObjectId = require("mongoose").Types.ObjectId;
 const Plan = require("../models/Plan");
 const SocialMedia = require("../models/SocialMedia");
 const { postGyms } = require("../controlers/gyms")
-const { putSocialMedia } =require("./helpers")
+const { putSocialMedia } =require("./helpers");
+const Gyms = require("../models/Gyms");
 
 
 const getPartner = async (req, res) => {
   const { id } = req.params;
-  console.log(id, "esta es la ruta correcta");
+  // console.log(id, "esta es la ruta correcta");
   try {
-    const partner = await User.aggregate([
-      {
-        $match: { _id: ObjectId(id) },
-      },
-      {
-        $lookup: {
-          from: "partners",
-          localField: "partner",
-          foreignField: "_id",
-          as: "partner",
-        },
-      },
-      {
-        $lookup: {
-          from: "plans",
-          localField: "partner.planType",
-          foreignField: "_id",
-          as: "planType",
-        },
-      },
-      {
-        $lookup: {
-          from: "socialmedias",
-          localField: "partner.socialNetworks",
-          foreignField: "_id",
-          as: "socialNetworks",
-        },
-      },
-      {
-        $lookup: {
-          from: "gyms",
-          localField: "partner.gyms",
-          foreignField: "_id",
-          as: "gyms",
-        },
-      },
-    ]);
+    const partnerUser = await User.findById(id)
+    .populate({
+      path: "partner",
+    })
+    const gyms = partnerUser.partner.gyms;
+    const partnerGyms = await Partner.findById(partnerUser.partner._id)
+    .populate({
+      path: "gyms",
+      populate: {
+        path: "address socialNetworks services"
+      }
+    })
+    .populate({
+      path: "planType socialNetworks"
+    })
+
+    // const gymsDetails = await gyms.map(async (gym)=> {
+    //   const gymFound = await Gyms.findById(gym).populate("address socialNetworks")
+    //   console.log(gymFound)
+    //   return gymFound
+    // })
+
+    // const partner = await User.aggregate([
+    //   {
+    //     $match: { _id: ObjectId(id) },
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "partners",
+    //       localField: "partner",
+    //       foreignField: "_id",
+    //       as: "partner",
+    //     },
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "plans",
+    //       localField: "partner.planType",
+    //       foreignField: "_id",
+    //       as: "planType",
+    //     },
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "socialmedias",
+    //       localField: "partner.socialNetworks",
+    //       foreignField: "_id",
+    //       as: "socialNetworks",
+    //     },
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "gyms",
+    //       localField: "partner.gyms",
+    //       foreignField: "_id",
+    //       as: "gyms",
+    //     },
+    //   },
+    // ]);
     // console.log(partner)
     res.json({
       ok: true,
-      partner: partner[0],
+      // partnerUser,
+      partnerGyms
+      // gymsDetails
     });
   } catch (error) {
     console.log(error);
@@ -157,36 +182,36 @@ const putPartner = async (req, res) => {
     };
 
       //se envian las redes sociale para su creacion o edicion
-    let sMediaUser = [];
-    if (socialNetworks && Array.isArray(socialNetworks)) { 
-      sMediaUser = await putSocialMedia(id, socialNetworks);
-    }
+    // let sMediaUser = [];
+    // if (socialNetworks && Array.isArray(socialNetworks)) { 
+    //   sMediaUser = await putSocialMedia(id, socialNetworks);
+    // }
     // console.log(id, gyms[0])
       // se envian los gyms para su creacion o edicion
-      let partnerGyms = "";
-    if (gyms && Array.isArray(gyms) && gyms.length > 0) {
-      partnerGyms = await postGyms(id, gyms);
-    }
-
+    //   let partnerGyms = "";
+    // if (gyms && Array.isArray(gyms) && gyms.length > 0) {
+    //   partnerGyms = await postGyms(id, gyms);
+    // }
+    console.log(user.partner.lastName)
     const newPartner = {
       name: name ? name : user.name,
-      lastName: lastName ? lastName : user.partner[0].lastName,
+      lastName: lastName ? lastName : user.partner.lastName ? user.partner.lastName : "",
       email: email ? email : user.userName,
-      phone: phone ? phone : user.partner[0].phone,
-      planType: planType ? planType : user.partner[0].planType,
-      cbu: cbu ? cbu : user.partner[0].cbu,
-      cuil: cuil ? cuil : user.partner[0].cuil,
-      category: category ? category : user.partner[0].category,
-      userActive: userActive ? userActive : user.partner[0].userActive,
+      phone: phone ? phone : user.partner.phone ? user.partner.phone : 0,
+      planType: planType ? planType : user.partner.planType ? user.partner.planType : "6296df7d36f26a8c660979e7",
+      cbu: cbu ? cbu : user.partner.cbu ? user.partner.cbu : 1111111111111111,
+      cuil: cuil ? cuil : user.partner.cuil ? user.partner.cuil : 11111111111,
+      // category: category ? category : user.partner.category ? user.partner.category : [],
+      userActive: userActive ? userActive : user.partner.userActive ? user.partner.userActive : false,
       paymentMethods: paymentMethods
         ? paymentMethods
-        : user.partner[0].paymentMethods,
-      paidOut: paidOut ? paidOut : user.partner[0].paidOut,
-      incomes: incomes ? incomes : user.partner[0].incomes,
-      payments: payments ? payments : user.partner[0].paymentMethods,
+        : user.partner.paymentMethods ? user.partner.paymentMethods : [],
+      paidOut: paidOut ? paidOut : user.partner.paidOut ? user.partner.paidOut : false,
+      incomes: incomes ? incomes : user.partner.incomes ? user.partner.incomes : [],
+      payments: payments ? payments : user.partner.payments ? user.partner.payments : [],
     };
     const partnerUpdated = await Partner.findByIdAndUpdate(
-      user.partner[0]._id,
+      user.partner._id,
       newPartner,
       { new: true }
     ).populate("socialNetworks").populate("gyms").populate("planType");
