@@ -1,9 +1,13 @@
 import React, { useMemo, useEffect, useState, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { setGymsGeo } from "../../redux/actions";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import styles from './styles/mapGyms.module.css';
 
 export default function MapGyms() {
+
+  const dispatch = useDispatch
 
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
@@ -38,8 +42,15 @@ export default function MapGyms() {
     []
     );
 
-    function handleOnClick() {
-      SweetAlrtTem('Tu ubicacion ha sido enviada con exito',"success")
+    function handleOnClick(e) {
+      e.preventDefault();
+      // dispatch(
+      //   setGymsGeo({
+      //     latitude: lat,
+      //     longitude: lng,
+      //   })
+      // );
+      SweetAlrtTem("Tu ubicacion ha sido enviada con exito", "success");
     }
     
 

@@ -171,7 +171,7 @@ const putPartner = async (req, res) => {
   try {
     //primero identifica el plan del usuario partner
     const user = await User.findById(id).populate("partner");
-    const idPartnerPlan = planType ? planType : user.partner[0].planType;
+    const idPartnerPlan = planType ? planType : user.partner.planType;
     const partnerPlan = await Plan.findById(idPartnerPlan); //obtengo el plan del usuario
 
     if (!partnerPlan){

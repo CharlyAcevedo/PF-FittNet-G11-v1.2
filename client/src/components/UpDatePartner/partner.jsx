@@ -64,20 +64,21 @@ export default function UpdatePartner() {
   }
 
   //!-------------------GYMS-----------------------------
-  function handleChangeGyms(e) {
-    setInput(() => {
-      const newGyms = {
-        ...input,
-        gyms: e.target.value,
-      };
-      return newGyms;
-    });
-  }
-  function handleDeleteGyms(e) {
-    setInput({
-      ...input,
-      gyms: input.gyms.filter((el) => el !== e.target.value),
-    });
+  // function handleChangeGyms(e) {
+  //   setInput(() => {
+  //     const newGyms = {
+  //       ...input,
+  //       gyms: e.target.value,
+  //     };
+  //     return newGyms;
+  //   });
+  // }
+  function handleEditGyms(e) {
+    navigate(`/profile/edit/partner/${nameU}/${ID}/${e.target.value}`)
+    // setInput({
+    //   ...input,
+    //   gyms: input.gyms.filter((el) => el !== e.target.value),
+    // });
     console.log("ESTO ES DELET", e);
   }
   //!------------------socialNetworks---------------
@@ -115,13 +116,13 @@ export default function UpdatePartner() {
     if (stateForm) {
       if (stateForm.form === "true") {
         let payload = {
+          id: userId,
           name: input.name === "" ? partner.name : input.name,
           lastName: input.lastName === "" ? partner.lastName : input.lastName,
           email: input.email === "" ? partner.email : input.email,
           phone: input.phone === "" ? partner.phone : input.phone,
           cbu: input.cbu === "" ? partner.cbu : input.cbu,
           ciul: input.cuil === "" ? partner.cuil : input.cuil,
-          // gyms: [],
           // socialNetworks: [],
         };
         console.log(payload, "lo que se envia")
@@ -294,7 +295,7 @@ export default function UpdatePartner() {
         </div>
         <div>
           <label>Gimnasios: </label>
-          <select
+          {/* <select
             className={styles.input}
             onChange={(e) => handleChangeGyms(e)}
           >
@@ -303,14 +304,14 @@ export default function UpdatePartner() {
                 {e.name}
               </option>
             ))}
-          </select>
+          </select> */}
           <ul>
             <li>
-              {input.gyms?.map((e) => (
-                <div key={e.name}>
+              {partner.gyms?.map((e) => (
+                <div key={e._id}>
                   <p>{e.name} </p>
-                  <button value={e} onClick={(e) => handleDeleteGyms(e)}>
-                    x
+                  <button value={e._id} onClick={(e) => handleEditGyms(e)}>
+                    Editar
                   </button>{" "}
                 </div>
               ))}{" "}

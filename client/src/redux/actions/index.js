@@ -214,22 +214,6 @@ export function getLockAccounts() {
 //------PARTNER ACTIONS------(Favor de poner aqui todas las aciones para partners)
 //--------------------------------------------------------------------------------
 
-export function setGymsGeo(payload) {
-  return async (dispatch) => {
-    try {
-      dispatch({
-        type: SET_GYMS_GEO,
-        payload: payload,
-      });
-    } catch (err) {
-      dispatch({
-        type: SET_GYMS_GEO,
-        payload: { error: err.message },
-      });
-    }
-  };
-}
-
 export function getAllGyms() {
   return async (dispatch) => {
     try {
@@ -355,7 +339,24 @@ export function createGym({
       });
     }
   };
-}
+};
+
+export function setGymsGeo(payload) {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: SET_GYMS_GEO,
+        payload: payload,
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_GYMS_GEO,
+        payload: { error: err.message },
+      });
+    }
+  };
+};
+
 //--------------------------------------------------------------------------------
 //------SERVICE ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a servicios)
 //--------------------------------------------------------------------------------

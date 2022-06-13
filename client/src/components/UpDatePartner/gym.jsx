@@ -9,6 +9,9 @@ import { createGym, setGymsGeo } from "../../redux/actions";
 // import { useParams } from "react-router-dom";
 // import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { createOneGym, editOneGym } from "./controlers/Functions";
+import MapGyms from "../MapsAndGeo/MapGyms";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export default function UpdateGym(props) {
   // const dispatch = useDispatch();
@@ -16,6 +19,8 @@ export default function UpdateGym(props) {
   // const params = useParams();
 
   const { idGym } = props;
+
+  const gymGeo = useSelector((state) => state.gymsGeo)
 
   const userId = localStorage.getItem("userId");
 
@@ -47,7 +52,7 @@ export default function UpdateGym(props) {
   // 2 price
   // 3 logo
   // 4 phone
-
+  
 
   let exampleObject = // Esto no se está usado
   {
@@ -109,6 +114,22 @@ export default function UpdateGym(props) {
   // 3 logo
   // 4 phone
 
+  // useEffect(() => {
+  //   setNewGym((prevState) => {
+  //     return {
+  //       ...prevState,
+  //       latitude: gymGeo.latitude,
+  //       longitude: gymGeo.longitude
+  //     }
+  //   });
+  //   setEditGym((prevState) => {
+  //     return {
+  //       ...prevState,
+  //       latitude: gymGeo.latitude,
+  //       longitude: gymGeo.longitude
+  //     }
+  //   })
+  // },[gymGeo])
   //----------------------------------------------------------------------------
   // Faltaría tener un select o un switch para saber si se está creando o editando,
   // pero de todas formas usamos el mismo form para las dos cosas (crear y editar)
@@ -285,6 +306,8 @@ export default function UpdateGym(props) {
       <h3>
         FORMULARIO DE {typeAction === "create" ? "CREACIÓN" : "EDICIÓN"} DE GYM
       </h3>
+      {/* <div>latNew{newGym.latitude}, LonNew{newGym.longitude}</div>
+      <div>latEdit{editGym.latitude}, LonEdit{editGym.longitude}</div> */}
       <div>
         <button
           onClick={() => {
@@ -309,14 +332,14 @@ export default function UpdateGym(props) {
             <img
               className={styles.imageform}
               src={newGym.logo}
-              alt="Image not found"
+              alt="Gymnasio"
             />
           )}
           {editGym.logo && (
             <img
               className={styles.imageform}
               src={editGym.logo}
-              alt="Image not found"
+              alt="Logo"
             />
           )}
           <div>
@@ -512,6 +535,7 @@ export default function UpdateGym(props) {
             </ul>
           </div>
         </form>
+        <MapGyms/>
       </div>
       <p></p>
       {typeAction === "create" && (

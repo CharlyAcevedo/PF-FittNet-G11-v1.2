@@ -125,14 +125,14 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         user: payload
-      }
+      };
     case GET_ALL_GYMS:
       if (payload.error) {
         return {
           ...state,
           errors: payload.error,
         };
-      }
+      };
       const newPage1 = payload.slice(payload.offset, payload.limit);
       return {
         ...state,
