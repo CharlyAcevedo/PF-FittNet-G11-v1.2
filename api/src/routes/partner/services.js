@@ -65,12 +65,23 @@ router.put('/editOneService/', async (req, res) => {
   console.log(req.body, 'edit One Service')
   // serviceId, newDataService 
   const { serviceId, newDataService } = req.body;
+  let idService = serviceId.serviceId;
+
+  let editeService;
 
   try {
+    // console.log(idService, 'el id del service a editar')
+    // console.log(newDataService, ' la data del service a editar')
+
+    editeService = await Service.findByIdAndUpdate(idService, 
+      newDataService, {new: true})
+  
+    // console.log(editeService, 'luego del update')
 
 
-    res.status(200).send('Edit One Service');
+    res.status(200).json({message: 'Servicio actualizado'});
   } catch (error) {
+    console.log(error);
     res.status(404).send({ error: error.message });
   }
 })

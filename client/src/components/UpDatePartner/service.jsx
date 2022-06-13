@@ -81,7 +81,7 @@ export default function Services() {
 
   async function onClickEditService() {
     let dataForEditService = {
-      serviceId: { serviceId: "serviceId" },
+      serviceId: { serviceId: serviceId },
       newDataService: editService
     };
 
@@ -137,9 +137,9 @@ export default function Services() {
 
       console.log(filterServices, ' los servicios del gym');
 
-
+      // Seteamos el id del servicio
       setGymId(e.target.value);
-      console.log(e.target.value, ' Service select dentro del if')
+      // console.log(e.target.value, ' Service select dentro del if')
 
     } else {
       setGymId("");
@@ -150,8 +150,9 @@ export default function Services() {
   function handleChangeService(e) {
     if (e.target.value !== "...") {
       e.preventDefault();
+      // Seteamos el id del servicio
       setServiceId(e.target.value);
-      console.log(e.target.value, ' Service update select dentro del if ')
+      // console.log(e.target.value, ' Service update select dentro del if ')
 
     } else {
       setServiceId("");
