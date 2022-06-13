@@ -71,7 +71,7 @@ router.post('/gymcreate/:idUser', async (req, res) => {
     } catch (error) {
         res.status(404).send({ error: error.message });
       }
-})
+});
 
 // 0 - cuando se crea un partner
 // if (type === "partner") {

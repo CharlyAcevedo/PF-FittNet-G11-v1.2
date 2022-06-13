@@ -13,7 +13,8 @@ async function getAllGyms() {
   try {
     const response = await Gims.find({})
       .populate("address")
-      .populate("services");
+      .populate("services")
+      .populate("socialNetworks");
     return response;
   } catch (error) {
     console.log(error.message);
@@ -25,7 +26,8 @@ async function getGymById(id) {
   try {
     const response = await Gims.findById({ _id: id })
       .populate("address")
-      .populate("services");
+      .populate("services")
+      .populate("socialNetworks");
     return response;
   } catch (error) {
     console.log(error.message);
@@ -35,7 +37,10 @@ async function getGymById(id) {
 
 async function getGymByName(name) {
   try {
-    const response = await Gims.find(name);
+    const response = await Gims.find(name)
+    .populate("address")
+    .populate("services")
+    .populate("socialNetworks");
     return response;
   } catch (error) {
     console.log(error.message);
