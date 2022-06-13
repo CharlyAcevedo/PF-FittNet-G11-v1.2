@@ -121,11 +121,11 @@ export default function UpdatePartner() {
           phone: input.phone === "" ? partner.phone : input.phone,
           cbu: input.cbu === "" ? partner.cbu : input.cbu,
           ciul: input.cuil === "" ? partner.cuil : input.cuil,
-          gyms: [],
-          socialNetworks: [],
+          // gyms: [],
+          // socialNetworks: [],
         };
         console.log(payload, "lo que se envia")
-        // dispatch(updatePartnerData(input));
+        dispatch(updatePartnerData(payload));
         dispatch(getPartnerDetails(userId));
         SweetAlrt("Exito!", "Perfil Editado", "success");
         setInput({
