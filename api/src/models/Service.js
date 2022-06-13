@@ -11,8 +11,7 @@ const serviceSchema = new mongoose.Schema({
     required: true,
   },
   duration: {
-    type: Number,
-    required: true,
+    type: Number,   
   },
   price: {
     type: mongoDB.Decimal128,

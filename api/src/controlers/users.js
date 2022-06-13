@@ -37,15 +37,28 @@ async function findAllUsers() {
     }
 }
 
+const getUserDetails = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id)
+        .populate('avatar')
+        .populate('favourite')
+
+    const infoUser = await InfoUser.findById(user.info)
+        .populate('diseases')
+        .populate('disease')
+        .populate('address')
+
+        res.json({
+            ok: true,
+            user,
+            infoUser
+        })
+}
+
 const getUser = async (req, res) => {
     const { id } = req.params;
     console.log(id)
     try {
-        // const user = await User.findById(id)
-        //     .populate('avatar')
-        //     .populate('info')
-        //     .populate('info.address')
-        //     .populate('partner')
         const user = await User.aggregate([
             {
                 $match: { _id: ObjectId(id) }
@@ -96,6 +109,35 @@ const getUser = async (req, res) => {
                     preserveNullAndEmptyArrays: true
                 }
             },
+            /* {
+                $lookup: {
+                    from: "diseasestypes",
+                    localField: "info.diseases.desease",
+                    foreignField: "_id",
+                    as: "info.diseases"
+
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.diseases.desease",
+                    preserveNullAndEmptyArrays: true
+                }
+            }, */
+            {
+                $lookup: {
+                    from: "diseasestypes",
+                    localField: "info.diseases.desease",
+                    foreignField: "_id",
+                    as: "info.diseases.desease"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.diseases.desease",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
             {
                 $project: {
                     name: 1,
@@ -122,6 +164,11 @@ const getUser = async (req, res) => {
                             street: 1,
                         },
                         diseases: 1
+                        /*  {
+                            desease: 1,
+                            trainlimits: 1,
+                            considerations: 1 
+                        }*/
                     }
                 }
             }
@@ -292,19 +339,19 @@ const getUserGoogleAccount = async (req, res) => {
                     preserveNullAndEmptyArrays: true
                 }
             },
-            // {
-            //     $lookup: {
-            //         from: "addresses",
-            //         localField: "info.address",
-            //         foreignField: "_id",
-            //         as: "info.address"
-            //     }
-            // },
-            // {
-            //     $unwind: {
-            //         path: "$info.address",
-            //     }
-            // },
+            {
+                $lookup: {
+                    from: "addresses",
+                    localField: "info.address",
+                    foreignField: "_id",
+                    as: "info.address"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.address",
+                }
+            },
             {
                 $project: {
                     name: 1,
@@ -315,7 +362,10 @@ const getUserGoogleAccount = async (req, res) => {
                         name: 1,
                         photo: 1,
                         lastName: 1,
-                        address: 1
+                        address: 1,
+                        phone: 1,
+                        gender: 1,
+                        birthday: 1
                     },
                     // info: {
                     //     name: 1,
@@ -469,6 +519,7 @@ const googleSignIn = async (req, res) => {
                 password: "0xoaudfj203ru09dsfu2390fdsfc90sdf2dfs",
                 type: "user",
                 active: true,
+                partner: 0,
                 info: infoId
             });
         } else {
@@ -489,7 +540,6 @@ const googleSignIn = async (req, res) => {
             usuario,
             googleToken,
             user
-
         })
     } catch (error) {
         console.log("error: ", error);
