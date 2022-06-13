@@ -9,8 +9,7 @@ import {
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, REMOVE_FROM_CART,
   CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE, 
   CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,SORT_QUALIFICATION,
-  FILTER_CATEGORY,  SORT_PRICE,  SEARCH,  SORT_DISTANCE, GET_PARTNER_ID
-
+  FILTER_CATEGORY,  SORT_PRICE,  SEARCH,  SORT_DISTANCE, GET_PLANS, GET_PARTNER_ID
 } from "./actionTypes";
 //--------------------------------------------------------------------------------
 //------USER SERVICE ACTIONS------(favor de poner todas las aciones referentes a service en general todos los usuarios aqui)
@@ -299,6 +298,16 @@ export function updatePartnerData({
 export function getPartnerDetails() {
   
 };
+
+export function getPlans(){
+  return async (dispatch) =>{
+    const plans = await axios.get('/api/service/plans/all')
+    dispatch({
+      type: GET_PLANS,
+      payload: plans.data
+    })
+  }
+}; 
 //--------------------------------------------------------------------------------
 
 //------GYMS ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a gimnasios)

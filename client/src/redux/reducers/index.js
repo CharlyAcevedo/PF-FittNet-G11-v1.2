@@ -12,8 +12,8 @@ import {
   SORT_PRICE,
   SEARCH,
   SORT_DISTANCE,
+  GET_PLANS,
   GET_PARTNER_ID
-
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -46,6 +46,7 @@ const initialState = {
   getCart: [],
   deseaseAttribute: [],
   lockAccounts: [],
+  plans : [],
 
 };
 
@@ -427,6 +428,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
       }
       return {
         ...state,
+      users: payload
+      }
+    case GET_PLANS:
+      return {
+        ...state,
+        plans: payload,    
         users: payload
       }
     default:
