@@ -339,19 +339,19 @@ const getUserGoogleAccount = async (req, res) => {
                     preserveNullAndEmptyArrays: true
                 }
             },
-            // {
-            //     $lookup: {
-            //         from: "addresses",
-            //         localField: "info.address",
-            //         foreignField: "_id",
-            //         as: "info.address"
-            //     }
-            // },
-            // {
-            //     $unwind: {
-            //         path: "$info.address",
-            //     }
-            // },
+            {
+                $lookup: {
+                    from: "addresses",
+                    localField: "info.address",
+                    foreignField: "_id",
+                    as: "info.address"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.address",
+                }
+            },
             {
                 $project: {
                     name: 1,
@@ -362,7 +362,10 @@ const getUserGoogleAccount = async (req, res) => {
                         name: 1,
                         photo: 1,
                         lastName: 1,
-                        address: 1
+                        address: 1,
+                        phone: 1,
+                        gender: 1,
+                        birthday: 1
                     },
                     // info: {
                     //     name: 1,
@@ -516,6 +519,7 @@ const googleSignIn = async (req, res) => {
                 password: "0xoaudfj203ru09dsfu2390fdsfc90sdf2dfs",
                 type: "user",
                 active: true,
+                partner: 0,
                 info: infoId
             });
         } else {
@@ -536,7 +540,6 @@ const googleSignIn = async (req, res) => {
             usuario,
             googleToken,
             user
-
         })
     } catch (error) {
         console.log("error: ", error);

@@ -120,7 +120,7 @@ export default function LandingInfo() {
         <div className={style.contPlanPartner}>
           <CardsPlansPartner
             title="STANDARD"
-            busqueda="10%"
+            busqueda="20%"
             gym="Hasta 1 GYM"
             servicios="5 servicios por GYM"
             Size="2em"

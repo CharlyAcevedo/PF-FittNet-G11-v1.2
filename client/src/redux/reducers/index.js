@@ -8,13 +8,13 @@ import {
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, ADD_TO_CART, REMOVE_FROM_CART,
   SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE, 
   CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,SORT_QUALIFICATION,
-  FILTER_CATEGORY, SORT_PRICE, SEARCH, SORT_DISTANCE, SET_GYMS_GEO, POST_GYM, GET_PARTNER
-  
+  FILTER_CATEGORY, SORT_PRICE, SEARCH, SORT_DISTANCE, SET_GYMS_GEO, POST_GYM, GET_PARTNER,
+  GET_PLANS, GET_PARTNER_ID
 } from "../actions/actionTypes";
 
 const initialState = {
   users: [], // Acá guardo mis users de la página
-  user: {}, 
+  user: {},
   usersToShow: [],
   currentUserDetails: {
   },
@@ -36,7 +36,7 @@ const initialState = {
   partnerDetails: {},
   avatars: [],
   pageToShow: [],
-  currentLimit: 9,
+  currentLimit: 6,
   currentPage: 1,
   errors: "",
   products: [],
@@ -44,6 +44,7 @@ const initialState = {
   getCart: [],
   deseaseAttribute: [],
   lockAccounts: [],
+  plans: [],
 
 };
 
@@ -120,6 +121,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         // user: {...state.user, info: payload}
       };
+    case GET_PARTNER_ID:
+      return {
+        ...state,
+        user: payload
+      }
     case GET_ALL_GYMS:
       if (payload.error) {
         return {
@@ -164,23 +170,23 @@ export default function rootReducer(state = initialState, { type, payload }) {
       const all =
         payload === "ascendente"
           ? qualification.sort(function (a, b) {
-              if (b.raiting > a.raiting) {
-                return -1;
-              }
-              if (a.raiting > b.raiting) {
-                return 1;
-              }
-              return 0;
-            })
+            if (b.raiting > a.raiting) {
+              return -1;
+            }
+            if (a.raiting > b.raiting) {
+              return 1;
+            }
+            return 0;
+          })
           : qualification.sort(function (a, b) {
-              if (a.raiting > b.raiting) {
-                return -1;
-              }
-              if (b.raiting > a.raiting) {
-                return 1;
-              }
-              return 0;
-            });
+            if (a.raiting > b.raiting) {
+              return -1;
+            }
+            if (b.raiting > a.raiting) {
+              return 1;
+            }
+            return 0;
+          });
       const newPage2 = all.slice(payload.offset, payload.limit);
       return {
         ...state,
@@ -192,31 +198,31 @@ export default function rootReducer(state = initialState, { type, payload }) {
       const sortPrice =
         payload === "ascendente"
           ? price.sort((a, b) => {
-              if (
-                Number(b.price.$numberDecimal) > Number(a.price.$numberDecimal)
-              ) {
-                return -1;
-              }
-              if (
-                Number(a.price.$numberDecimal) > Number(b.price.$numberDecimal)
-              ) {
-                return 1;
-              }
-              return 0;
-            })
+            if (
+              Number(b.price.$numberDecimal) > Number(a.price.$numberDecimal)
+            ) {
+              return -1;
+            }
+            if (
+              Number(a.price.$numberDecimal) > Number(b.price.$numberDecimal)
+            ) {
+              return 1;
+            }
+            return 0;
+          })
           : price.sort((a, b) => {
-              if (
-                Number(a.price.$numberDecimal) > Number(b.price.$numberDecimal)
-              ) {
-                return -1;
-              }
-              if (
-                Number(b.price.$numberDecimal) > Number(a.price.$numberDecimal)
-              ) {
-                return 1;
-              }
-              return 0;
-            });
+            if (
+              Number(a.price.$numberDecimal) > Number(b.price.$numberDecimal)
+            ) {
+              return -1;
+            }
+            if (
+              Number(b.price.$numberDecimal) > Number(a.price.$numberDecimal)
+            ) {
+              return 1;
+            }
+            return 0;
+          });
       const newPage4 = sortPrice.slice(payload.offset, payload.limit);
       return {
         ...state,
@@ -231,11 +237,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
       const dist =
         (Math.pow(
           gym.map((e) => Number(e.longitude.$numberDecimal)) -
-            Number(user.longitude.$numberDecimal)
+          Number(user.longitude.$numberDecimal)
         ) +
           Math.pow(
             gym.map((e) => Number(e.latitude.$numberDecimal)) -
-              Number(user.latitude.$numberDecimal)
+            Number(user.latitude.$numberDecimal)
           )) **
         0.5;
       console.log("Esto es la distancia de los GYM: ", dist);
@@ -259,8 +265,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
         payload === "all"
           ? category
           : category.filter((e) =>
-              e.services.map((e) => e.name).includes(payload)
-            );
+            e.services.map((e) => e.name).includes(payload)
+          );
       console.log("Esto es en redux", filtCateg);
       const newPage3 = filtCateg.slice(payload.offset, payload.limit);
       return {
@@ -272,8 +278,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
       const searc = state.gyms;
       const buscador = payload
         ? searc.filter((e) =>
-            e.name.toLowerCase().includes(payload.toLowerCase())
-          )
+          e.name.toLowerCase().includes(payload.toLowerCase())
+        )
         : searc;
       const newPage5 = buscador.slice(payload.offset, payload.limit);
       return {
@@ -357,7 +363,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         currentLimit: payload,
       };
     case GET_CART:
-      const idCart = payload?payload[payload.length - 1]._id:{}      
+      const idCart = payload ? payload[payload.length - 1]._id : {}
       return {
         ...state,
         getCart: idCart
@@ -379,10 +385,10 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         cart: state.cart.map(item =>
-          item._id === payload.id // eslint-disable-next-line
-            ? { ...item, qty: item.qty ==0?0:item.qty - 1 }
+          item._id === payload.id
+            ? { ...item, qty: item.qty == 0 ? 0 : item.qty - 1 }
             : item
-        )        
+        )
       };
     case CLEAR_GYM_DETAIL:
       return {
@@ -412,8 +418,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
         pageToShow: objFav,
         gyms: objFav,
         gymsToShow: objFav,
-        user: {...state.user, favourite: payload.user.favourite}
-      };
+        user: { ...state.user, favourite: payload.user.favourite }
+      }
     case GET_ADMIN:
       if (payload.error) {
         return {
@@ -445,8 +451,13 @@ export default function rootReducer(state = initialState, { type, payload }) {
       }
       return {
         ...state,
-      users: payload
-      };   
+        users: payload
+      }
+    case GET_PLANS:
+      return {
+        ...state,
+        plans: payload
+      }
     default:
       return state;
   }

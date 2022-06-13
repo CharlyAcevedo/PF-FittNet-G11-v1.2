@@ -3,22 +3,22 @@
   width: 100%;
   background: linear-gradient(
     75deg,
-    #5c5c5c2a 0%,
-    #fffcf528 44%,
-    #f0e8d71f 100%
+    #5c5c5c0e 0%,
+    #fffcf510 44%,
+    #f0e8d70e 100%
   );
   text-decoration: none;
   z-index: 10;
 }
+
 a{
     text-decoration: none;
-    color: #abaf9a;
+    color: #acacac;
 }
 
 .navBarProfile {
   width: 90%;
   margin: 0 auto;
-  /* height: 3.5rem; */
   display: flex;
   color: #fff;
   align-items: center;
@@ -33,7 +33,6 @@ a{
 
 .titleNavBar h3 {
   font-size: 1.3rem;
-  /* background: linear-gradient(var(--color-prim), #f74177); */
   color: #fff;
   background-clip: text;
   -webkit-background-clip: text;
@@ -97,29 +96,3 @@ a{
   width: 60%;
   opacity: 1;
 }
-
-/* .listNavBar{
-    display: inline-block;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-    text-align: right;
-    text-decoration: none;
-}
-
-.itemsNavBarProfile {
-    font-size: 1rem;
-    float: left;
-    margin-right: .5em;
-    margin-left: .5em; 
-    padding: 0 6px;
-    border-radius: 2rem;
-    margin-top: 0px;
-    text-align:center;
-    justify-content:center;
-    cursor: pointer;
-    text-decoration: none;
-} 
-.nameProfile {
-    cursor: default;    
-} */

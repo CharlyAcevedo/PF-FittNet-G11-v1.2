@@ -7,16 +7,6 @@ export default function validate(input) {
        error.name = 'solo acepta letras'
    } */
 
-    // if (input.username?.length > 15) {
-    //     error.username = 'superaste el maximo de caracteres'
-    // } else if (! /^[a-zA-Z ]*$/.test(input.username)) {
-    //     error.username = 'solo acepta letras'
-    // }
-
-    // if (!input.avatar){
-    //     error.avatar = 'un avatar es requerido'
-    // }
-
     if (! /^[a-zA-Z ]*$/.test(input.lastname)) {
         error.lastname = 'solo acepta letras'
     } else if (input.lastname?.length > 15) {
@@ -33,17 +23,17 @@ export default function validate(input) {
         error.birthday = 'dd-mm-aa'
     }
 
-    if (!/^([0-9])*$/.test(input.street)) {
-         error.street = 'solo acepta numeros'
-     } else if (input.street?.length > 10) {
-         error.street = "superaste el maximo de caracteres"
-    }
+    // if (!/^([0-9])*$/.test(input.street)) {
+    //      error.street = 'solo acepta numeros'
+    //  } else if (input.street?.length > 10) {
+    //      error.street = "superaste el maximo de caracteres"
+    // }
     
-    if (!/^([0-9])*$/.test(input.floor)) {
-         error.floor = 'solo acepta numeros'
-    } else if (input.floor?.length > 10) {
-      error.floor = "superaste el maximo de caracteres"
-    }
+    // if (!/^([0-9])*$/.test(input.floor)) {
+    //      error.floor = 'solo acepta numeros'
+    // } else if (input.floor?.length > 10) {
+    //   error.floor = "superaste el maximo de caracteres"
+    // }
     if (!input.desease.length && (input.trainlimits.length || input.considerations.length)) {
         error.desease = 'debes seleccionar las enfermedades que se realcionen con tu condicion'
     } 

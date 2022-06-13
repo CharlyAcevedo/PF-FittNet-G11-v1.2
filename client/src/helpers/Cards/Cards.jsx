@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { postAvatar, updateFavouriteGym } from "../../redux/actions/index";
 
-
 import axios from "axios";
 
 import styles from "./styles/stylesCards.module.css";
 import { useEffect } from "react";
 import { IoIosHeart } from "react-icons/io";
 import { AiFillStar, AiOutlineShoppingCart } from "react-icons/ai";
+import { useState } from "react";
+import { EditMyGyms } from "../../components/Home/HomePartner/ViewsPartner/EditMyGyms.jsx";
 
 export const CardAvatares = (props) => {
   const { image } = props;
@@ -27,7 +28,6 @@ export const CardAvatares = (props) => {
     </div>
   );
 };
-
 
 export const CardAvatarAdicional = (props) => {
   // El id del avatar llega por props
@@ -193,7 +193,14 @@ export const CardShop = (props) => {
               />
             )}
           </div>
-          <span style={{ display: "flex", alignItems: "center", gap: ".1rem", fontWeight: "700"}}>
+          <span
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: ".1rem",
+              fontWeight: "700",
+            }}
+          >
             {rating}
             <AiFillStar style={{ color: "#FEAA09", marginTop: ".2rem" }} />
           </span>
@@ -239,5 +246,70 @@ export const CardsPlansPartner = (props) => {
         </div>
       </div>
     </div>
+  );
+};
+
+export const CardGymPartner = (props) => {
+  const {
+    title,
+    onClick,
+    id,
+    price,
+    image,
+    services,
+    trainers,
+    logo,
+    phone,
+    email,
+    favorito,
+  } = props;
+
+  const navigate = useNavigate();
+
+  const [view, setView] = useState("myGyms");
+
+  const userId = localStorage.getItem("userId");
+  const type = localStorage.getItem("type");
+  const name = localStorage.getItem("name");
+  // const [view, setView] = useState("");`
+
+  return (
+    <>
+      {view !== "editMyGyms" ? (
+        <div className={styles.containerCardGymPartner}>
+          <div className={styles.headerGymPartner}>
+            <img
+              src={image}
+              alt="imagen gimnasio"
+              style={{ width: "160px", height: "120px", borderRadius: ".6rem" }}
+            />
+          </div>
+          <div className={styles.mainGymPartner}>
+            <div className={styles.mainHeaderPartner}>
+              <h2>{title}</h2>
+              <span
+                className={styles.btnEditarGym}
+                onClick={() =>
+                  setView("editMyGyms")
+                }
+              >
+                Editar gimnasio
+              </span>
+            </div>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae,
+              facere dolores, excepturi maiores omnis accusantium error animi
+              nostrum repellendus, adipisci nihil! Et perferendis libero impedit
+              quos molestiae assumenda culpa veritatis?
+            </p>
+          </div>
+        </div>
+      ) : (
+        <>
+          <EditMyGyms idGym={id}/>
+          <button onClick={() => setView("myGyms")} style={{color: "#fff"}}>Volver</button>
+        </>
+      )}
+    </>
   );
 };

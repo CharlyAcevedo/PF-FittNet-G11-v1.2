@@ -6,6 +6,7 @@
 .select {
   font: 400 14px/1.3 sans-serif;
   -webkit-appearance: none;
+  cursor: pointer;
   appearance: none;
   color: white;
   line-height: 1.5;

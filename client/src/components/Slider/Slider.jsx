@@ -1,56 +1,51 @@
-import React, {useRef, useEffect} from 'react';
-import style from '../Slider/styles/Slider.module.css'
-import benefits from '../../asets/images/benefits.jpg'
-import benefits1 from '../../asets/images/benefits(1).jpg'
-
+import React, { useRef, useEffect } from "react";
+import style from "../Slider/styles/Slider.module.css";
+import benefits from "../../asets/images/benefits.jpg";
+import benefits1 from "../../asets/images/benefits(1).jpg";
 
 export default function Slider() {
-    const slideshow = useRef(null)                                             //se guarda dentro de current!
-    const intervalSlideShow = useRef(null)
-
-    const next = () =>{
-        if (slideshow.current.children.length > 0){
-            
-            const firstElement = slideshow.current.children[0];
-            //transicion
-            slideshow.current.style.transition = `500ms ease-out all`
-            //obtengo tamaño
-            const sizeSlide = slideshow.current.children[0].offsetWidth;
-            slideshow.current.style.transform = `translateX(-${sizeSlide}px)`
-
-            const transition = () => {
-            //reinicio posicion
-            slideshow.current.style.transition = 'none';
-            slideshow.current.style.transform = `translateX(0)`;
-            slideshow.current.appendChild(firstElement)
-            slideshow.current.removeEventListener('transitionend', transition)
-            }
-            //event para cuando termina la animacion
-            slideshow.current.addEventListener('transitionend', transition)
-        }
-    }
-
-    useEffect(() =>{
-     intervalSlideShow.current = setInterval(() => {
-           next()
-        }, 6000)
-  
-        slideshow.current.addEventListener('mouseenter', () =>{ 
-            clearInterval(intervalSlideShow.current)
-        });
-        slideshow.current.addEventListener('mouseleave', () =>{ 
-            intervalSlideShow.current = setInterval(() => {
-                next()
-             }, 6000)
-        })
-},[]) 
-
-    return(
-     <div className={style.containP}>
-         <div className={style.containSlideShow} ref={slideshow}>
-         <div className={style.slide}> <img src={benefits} alt= '' /></div>
-         <div className={style.slide}> <img src={benefits1} alt= '' /></div>
-         </div>
-     </div>
-    )
+  return (
+    <div className={style.containP}>
+      <div className={style.wrapper}>
+        <h1>BENEFICIOS</h1>
+        <div className={style.timeline}>
+          <dl className={style.timelineentry}>
+            <dt className={style.timelineentrytitle}>Contenido Publicitario</dt>
+            <dd className={style.timelineentrydetail}>
+              Podras otorgar visibilidad a tu marca, aumentando tus ventas y
+              ganancias, tambien generaras nuevos clientes aprovechando la
+              imagen positiva o apunta a consumidores especificos
+            </dd>
+          </dl>
+          <dl className={style.timelineentry}>
+            <dt className={style.timelineentrytitle}>Perfil actualizado</dt>
+            <dd className={style.timelineentrydetail}>
+              Mantendrás a los usuarios informados de tus promociones, novedades
+              y productos ofrecidos!
+            </dd>
+          </dl>
+          <dl className={style.timelineentry}>
+            <dt className={style.timelineentrytitle}>Libertad financiera</dt>
+            <dd className={style.timelineentrydetail}>
+              Generarás ganancias que nunca imaginaste sin preocuparte por
+              gestionar tus cobranzas!
+            </dd>
+          </dl>
+          <dl className={style.timelineentry}>
+            <dt className={style.timelineentrytitle}>Comunidad </dt>
+            <dd className={style.timelineentrydetail}>
+              Formaras parte de una comunidad destacada por su nivel de servicio
+              , atención y calidad. muchos usuarios ya confían en nosotros!
+            </dd>
+          </dl>
+          <dl className={style.timelineentry}>
+            <dt className={style.timelineentrytitle}>Alcance</dt>
+            <dd className={style.timelineentrydetail}>
+              Podras gestionar tus gimnasios y servicios que ofreces de manera facil y sencilla.
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  );
 }
