@@ -5,6 +5,7 @@ import { useState } from "react";
 import { getLockAccounts } from "../../../../redux/actions";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { SweetAlrt, SweetAlrtTem } from "../../../../asets/helpers/sweetalert";
 const { regexEmail } = require('../../../../asets/helpers/regexValidators');
 // Necesito un form con un input, un botón de agregar y otro de quitar
 // Necesito una lista los correos baneados 
@@ -40,9 +41,9 @@ export default function BlockAccount() {
                 .then((res) => {
                     console.log(res.data);
                     if (res.data === null) {
-                        return window.alert(`No puede agregar dos veces la misma cuenta.`)
+                        return SweetAlrtTem(`No puede agregar dos veces la misma cuenta.`,"warning")
                     }
-                    window.alert(`Cuenta ${res.data.userName} agregada con éxito.`)
+                   SweetAlrt("Exito!",`Cuenta ${res.data.userName} agregada con éxito.`,"success")
                     setSubmit(true)    
                 })
                 .catch((error) => console.log(error));
@@ -65,9 +66,9 @@ export default function BlockAccount() {
                 .then((res) => {
                     console.log(res.data);
                     if (res.data === null) {
-                        return window.alert(`Cuenta inexistente.`)
+                        return SweetAlrtTem(`Cuenta inexistente.`,"info")
                     }
-                    window.alert(`Cuenta ${res.data.userName} quitada con éxito.`)
+                    SweetAlrt("Exito!",`Cuenta ${res.data.userName} quitada con éxito.`,"success")
                     setSubmit(true)
                 })
                 .catch((error) => console.log(error));
