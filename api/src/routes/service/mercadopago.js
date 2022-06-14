@@ -3,7 +3,6 @@ const mercadopago = require('mercadopago')
 const { Router } = require("express");
 const router = Router();
 
-
 require("dotenv").config();
 const { ACCESS_TOKEN } = process.env;
 

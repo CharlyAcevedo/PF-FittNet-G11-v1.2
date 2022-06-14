@@ -19,7 +19,11 @@ export const POST_PARTNER = "POST_PARTNER"; //llama al back para crear setear lo
 export const POST_GYM = "POST_GYM"; //llama al back para crear un gymnasio del partner
 export const POST_SERVICES = "POST_SERVICES"; // crea un servicio
 export const GET_PARTNER = "GET_PARTNER"; // llama al back para traer infomación del partner
+<<<<<<< HEAD
 export const GET_MY_GYMS = "GET_MY_GYMS"; // llama al back para traer los gyms del partner y sus servicios asociados.
+=======
+export const SET_GYMS_GEO = "SET_GYMS_GEO"; // setea en el estado de redux la geolocalizacion del gym que se edita o crea
+>>>>>>> fa043e3447d116c4478528b354ad5386180a32dd
 
 // Constantes relacionadas a api/admin
 export const GET_ALL_USERS = "GET_ALL_USERS"; //llama al back para traerse todos los usuarios

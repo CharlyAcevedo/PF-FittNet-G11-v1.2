@@ -15,8 +15,11 @@ export default function Services() {
   // const navigate = useNavigate();
   const dataPartner = useSelector((state) => state.myGyms);
   let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
-  
+  let filterServices = [];
+  let dataEditService;
+
   const [myServices, setMyServices] = useState([]);
+  const [dataService, setDataService] = useState({}); // A ver si puedo tomar la info
   const userId = localStorage.getItem('userId');
 
   const [typeAction, setTypeAcyion] = useState("create");
@@ -32,8 +35,8 @@ export default function Services() {
     price: 0, // numero requerido
     photo: [], // Array de strings
     profileCategory: [],
-  });  
-  
+  });
+
   const [editService, setEditService] = useState({
     name: "Nuevo nombre", // string requerido
     description: "Nueva descripción del servicio", // string requerido
@@ -42,15 +45,15 @@ export default function Services() {
     photo: [], // Array de strings
     profileCategory: [],
   });
-  
+
   const [error, setError] = useState({});
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getMyGyms(userId))
-  },[userId]);
+  }, [userId]);
 
 
-  function refreshState (e) {
+  function refreshState(e) {
     e.preventDefault();
     dispatch(getMyGyms(userId))
 
@@ -131,8 +134,8 @@ export default function Services() {
       // let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
       console.log(myGyms);
 
-      let filterServices = myGyms.length && myGyms.filter(e => e._id === value);
-      
+      filterServices = myGyms.length && myGyms.filter(e => e._id === value);
+
       setMyServices(filterServices);
 
       console.log(filterServices, ' los servicios del gym');
@@ -153,6 +156,8 @@ export default function Services() {
       // Seteamos el id del servicio
       setServiceId(e.target.value);
       // console.log(e.target.value, ' Service update select dentro del if ')
+      dataEditService = myServices;
+      console.log(dataEditService, 'luego de seleccionar un sevice')
 
     } else {
       setServiceId("");
@@ -241,7 +246,7 @@ export default function Services() {
         <p></p>
         {typeAction ? typeAction : null}
 
-        <button onClick={(e)=> refreshState(e)}>Recargar</button>
+        <button onClick={(e) => refreshState(e)}>Recargar</button>
 
         <form action="">
 

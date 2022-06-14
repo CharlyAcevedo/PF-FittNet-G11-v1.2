@@ -58,8 +58,7 @@ export function NavBar3({ id, usuarioId, button, background, color, align }) {
   return (
     <div className={style.contCarr} style={{backgroundColor: background, color: color}}>
       <p className={style.titleCarrito} style={{textAlign: align}}>CARRITO DE COMPRAS</p>
-      <div className={style.tablePadre}>
-        {console.log(cart)}
+      <div className={style.tablePadre}>        
         <CardServices title="true" />
         {cart.map((e) => {
           return (

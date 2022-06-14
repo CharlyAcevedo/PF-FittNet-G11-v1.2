@@ -1,6 +1,7 @@
 //!----------------VALIDACIONES DE INPUT---------------------
 import { regexEmail, regexName, regPhrase } from '../../../asets/helpers/regexValidators'
-
+const regCBU = /^[0-9]{16}\b/;
+const regCUIL = /^[0-9]{11}\b/;
 //!--------------------------------VALIDACIONES GYM----------------------
 export function gymValidate(input) {
   let error = {};
@@ -31,33 +32,26 @@ export function gymValidate(input) {
 
 //!--------------------------VALIDACIONES DE PARTNER---------------------------------
 
-export function partnerValidacion(input) {
+export function partnerValidacion(input, target) {
   let error = {};
-  if (!input.name) {
-    error.name = "El nombre es requerido";
-  } else if (Number(input.name)) {
+ if (target === "name" && Number(input.name)) {
     error.name = "No puedes Ingresar un numero";
-  } else if (!input.lastName) {
-    error.lastName = "El Apellido es requerido";
-  } else if (Number(input.lastName)) {
+  } 
+  if (target === "lastName" && Number(input.lastName)) {
     error.lastName = "No puedes ingresar un numero";
-  } else if (!input.email) {
-    error.email = "El Email es requerido";
-  } else if (!regexEmail.test(input.email)) {
-    error.email = "Email Invalido";
-  } else if (!input.phone) {
-    error.phone = "El Numero de Telefono es requerido";
-  } else if (!Number(input.phone)) {
-    error.phone = "Solo se Permiten valores Numericos";
-  } else if (input.phone.length < 5) {
-    error.phone = "Ingrese un numero de Telefono Valido!";
-  } else if (!input.cbu) {
-    error.cbu = "Debe Ingresar el CBU";
-  } else if (!Number(input.cbu)) {
-    error.cbu = "El CBU debe contener numeros";
-  } else if (input.cbu.length !== 22) {
-    error.cbu = "CBU invalido, recorda que son 22 dígitos que componen el CBU";
-  }
+  } 
+  // if (!regexEmail.test(input.email)) {
+  //   error.email = "Email Invalido";
+  // } 
+  // if (!Number(input.phone)) {
+  //   error.phone = "Solo se Permiten valores Numericos";
+  // } 
+  //  if (input.phone.length < 5) {
+  //   error.phone = "Ingrese un numero de Telefono Valido!";
+  // } 
+   if (target === "cbu" && !regCBU.test(input.cbu)) {
+    error.cbu = "El CBU debe contener 16 numeros";
+  } 
   return error;
 }
 

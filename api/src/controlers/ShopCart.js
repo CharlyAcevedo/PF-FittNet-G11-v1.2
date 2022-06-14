@@ -5,8 +5,8 @@ const Service = require('../models/Service')
 
 const getShopCart = async (req, res) => {
     try {
-        
-        const response = await ShopCart.aggregate([            
+
+        const response = await ShopCart.aggregate([
             { $lookup: { from: 'gyms', localField: 'gyms', foreignField: '_id', as: 'gyms' } },
             { $unwind: { path: '$gyms', preserveNullAndEmptyArrays: true } },
 
@@ -25,6 +25,7 @@ const getShopCart = async (req, res) => {
 
 const postCart = async (req, res) => {
     const { gym, services, user } = req.body
+    console.log()
     try {
         const newShopCart = await ShopCart.create({
             gyms: gym,
@@ -39,16 +40,34 @@ const postCart = async (req, res) => {
 }
 
 const updateCart = async (req, res) => {
-    const { status, id, price, quantity, total } = req.body
+    console.log(req.body, 'esto es update stripe')
+    // {
+    // userId: '629ce3fb748e4a864f6c4f98',
+    // serviceId: '6292c055d6ce532bbb79c133',
+    // gymId: '6293ffed8ef1b21bf94b0581',
+    // nameService: 'Yoga',
+    // price: '500',
+    // quantity: 1,
+    // total: 500,
+    // status: 'payed'
+    //   }
+    let promesas = req.body
+    // for(let i = 0; i<req.body.length; i++){
+    //     const updatedShopCart = ShopCart.create({
+    //         user: req.body.userId[i],
+    //         services: req.body.serviceId[i],
+    //         gyms: req.body.gymId[i],
+    //         price: req.body.price[i],
+    //         quantity: req.body.quantity[i],
+    //         total: req.body.total[i],
+    //         status: 'Payed',
+    //     })
+    //     promesas.push(updatedShopCart)
+    // }
     try {
-        const updatedShopCart = await ShopCart.findByIdAndUpdate(id, {
-            status: status,
-            price: price,
-            quantity: quantity,
-            total: total
-        })
-        console.log(id)
-        res.send(updatedShopCart)
+        const updatedShopCart = await ShopCart.create(promesas)
+        console.log(updatedShopCart, 'promesas sobre el bidet')        
+        res.json(updatedShopCart)
     } catch (error) {
         console.log(error.message)
         return error.message

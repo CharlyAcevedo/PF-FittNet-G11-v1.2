@@ -68,19 +68,33 @@ router.post('/emails', async (req, res, next) => {
   // http://localhost:3001/api/service/emails/fer_0144@hotmail.com
 
   // Recordar que userName es un email
-  const { userId, saleId } = req.body;
-  console.log(req.body)
-
+  // let userId = req.body.user
+  // let serviceId = req.body.service[0]
+  // let gymId = req.body.gyms[0]
+  // let _id = req.body._id
+  // {
+  //   user: '629ce3fb748e4a864f6c4f98',
+  //   gyms: [ '6293ffed8ef1b21bf94b0581' ],
+  //   services: [ '6292c055d6ce532bbb79c133' ],
+  //   quantity: 1,
+  //   price: { '$numberDecimal': '500' },
+  //   total: { '$numberDecimal': '500' },
+  //   status: 'Payed',
+  //   _id: '62a842d05e18d894130e0ed4',
+  //   __v: 0
+  // }
   // Si recibo id del user lo podría buscar en la base de datos y sacar la info 
   // de name, product, quantity y price de su carrito.
-  if (!isValidObjectId(userId) || !isValidObjectId(saleId)) {
+  if (!isValidObjectId(usuarioId) || !isValidObjectId(gymId)) {
     return res.send('User id o sale id no valido')
   }
-
+  console.log(statusClient,'statusclient')
   const dataSale = await ShopCart.aggregate([
     {
-      $match: { _id: ObjectId(saleId) }
+      $match: { user: ObjectId(usuarioId)},
+      $match: { gyms: ObjectId(gymId) }
     },
+    
     { $lookup: { from: 'gyms', localField: 'gyms', foreignField: '_id', as: 'gyms' } },
     { $unwind: { path: '$gyms', preserveNullAndEmptyArrays: true } },
 
@@ -90,7 +104,20 @@ router.post('/emails', async (req, res, next) => {
     { $lookup: { from: 'services', localField: 'services', foreignField: '_id', as: 'services' } },
     { $unwind: { path: '$services', preserveNullAndEmptyArrays: true } },
     { $project: { _id: 1, user: { name: 1, userName: 1 }, gyms: { name: 1, phone: 1 }, services: { name: 1 }, price: 1, quantity: 1 } }
-  ])  
+  ])
+  console.log(dataSale, 'datasale')
+
+  // [
+  //   {
+  //     _id: new ObjectId("62a835ff7ba246421cef53a1"),
+  //     user: { name: 'fredito', userName: 'largelescano@gmail.com' 
+  // },
+  //     gyms: { name: "Charly's Gym & Fitness", phone: 345345345 }, 
+  //     services: { name: 'Yoga' },
+  //     quantity: 4,
+  //     price: new Decimal128("500")
+  //   }
+  // ]
 
   // if (!regEmail.test(email)) { // Testeo que sea un email
   //   return res.send('El valor recibido no es un email');
@@ -104,7 +131,7 @@ router.post('/emails', async (req, res, next) => {
   //   price: new Decimal128("500"),
   //   quantity: 2
   // }
-  
+
   const { user, gyms, services, price, quantity } = dataSale[0]
   const { name, phone } = gyms
   const nameserv = services.name
@@ -114,20 +141,20 @@ router.post('/emails', async (req, res, next) => {
   // const { name, userName} = user
   // let body = createBodyEmail(name, product, quantity, price, phone, gyms);
   // Este body lo mandaría al item html
-  console.log('correoenviad2')
+  // console.log('correoenviad2', body)
 
   try {
     if (email && body) { // Una verificación que sea necesria
       await transporter.sendMail({
-      from: '"Fittnet - Confirmación de compra" <fittnet.com>', // sender address
-      to: 'jessim.longo@gmail.com', // list of receivers
-      subject: "Confirmación de compra", // Subject line
-      html: body
-    // html: `<b> Acá va el cuerpo del correo y puede ser un html </b>` // html body
-    });
-    console.log('correoenviado3')
-    res.json({ sended: true, message: 'Correo enviado con éxito' });
-    // Si hay que responder al front para confirmar que el correo fue enviado     
+        from: '"Fittnet - Confirmación de compra" <fittnet.com>', // sender address
+        to: email, // list of receivers
+        subject: "Confirmación de compra", // Subject line
+        html: body
+        // html: `<b> Acá va el cuerpo del correo y puede ser un html </b>` // html body
+      });
+      console.log('correoenviado3')
+      res.json({ sended: true, message: 'Correo enviado con éxito' });
+      // Si hay que responder al front para confirmar que el correo fue enviado     
     }
 
   } catch (error) {

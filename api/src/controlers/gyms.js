@@ -51,7 +51,13 @@ async function getGymByName(name) {
 async function postGyms(idUser, gyms) {
   // idUser - id del usario que crea el gym
   // gym arreglo de objetos (gyms) con propiedades y valores de cada gym a crear
-  try {
+  try { 
+    console.log("si llega aqui", Object.keys(gyms))
+    if(Object.keys(gyms).length === 0) return {      
+      Ok: false,
+      msg: "No se recibio info del Gym, por lo que no se realizo ninguna acción"
+    }
+    console.log("no paso por el if")
     const userToAddGym = await User.findById({ _id: idUser }).populate(
       "partner"
     ); //trae el usuario
@@ -79,17 +85,17 @@ async function postGyms(idUser, gyms) {
         if (!gyms[i].id) { //pasan aqui los gyms sin id, es decir son nuevos a crear
           let newGym = {
             name: gyms[i].name,
-            price: gyms[i].price,
-            raiting: gyms[i].raiting,
-            image: gyms[i].image,
+            price: gyms[i].price ? gyms[i].price : 0,
+            raiting: gyms[i].raiting ? gyms[i].raiting : 0,
+            image: gyms[i].image ? gyms[i].image : "",
             latitude: gyms[i].latitude,
             longitude: gyms[i].longitude,
-            trainers: gyms[i].trainers,
-            logo: gyms[i].logo,
-            phone: gyms[i].phone,
-            email: gyms[i].email,
-            gymActive: gyms[i].gymActive,
-            favourite: gyms[i].favourite,
+            trainers: gyms[i].trainers ? gyms[i].trainers : [],
+            logo: gyms[i].logo ? gyms[i].logo : "",
+            phone: gyms[i].phone ? gyms[i].phone : 0,
+            email: gyms[i].email ? gyms[i].email : "",
+            gymActive: gyms[i].gymActive ? gyms[i].gymActive : true,
+            favourite: gyms[i].favourite ? gyms[i].favourite : 0,
           };
           gymsToAdd = gymsToAdd + 1;
           notEquals.push(newGym);
@@ -182,17 +188,17 @@ async function postGyms(idUser, gyms) {
             );
             let newGym = {
               name: gyms[i].name,
-              price: gyms[i].price,
-              raiting: gyms[i].raiting,
-              image: gyms[i].image,
+              price: gyms[i].price ? gyms[i].price : 0,
+              raiting: gyms[i].raiting ? gyms[i].raiting : 0,
+              image: gyms[i].image ? gyms[i].image : "",
               latitude: gyms[i].latitude,
               longitude: gyms[i].longitude,
-              trainers: gyms[i].trainers,
-              logo: gyms[i].logo,
-              phone: gyms[i].phone,
-              email: gyms[i].email,
-              gymActive: gyms[i].gymActive,
-              favourite: gyms[i].favourite,
+              trainers: gyms[i].trainers ? gyms[i].trainers : [],
+              logo: gyms[i].logo ? gyms[i].logo : "",
+              phone: gyms[i].phone ? gyms[i].phone : 0,
+              email: gyms[i].email ? gyms[i].email : "",
+              gymActive: gyms[i].gymActive ? gyms[i].gymActive : true,
+              favourite: gyms[i].favourite ? gyms[i].favourite : 0,
             };
             gymsToAdd = gymsToAdd + 1; //cuenta los gyms a agregar que no tiene ya el usuario en la base
             notEquals.push(newGym); //agrega a la lista el nuevo gym a crear o setear
@@ -204,13 +210,20 @@ async function postGyms(idUser, gyms) {
       }
     } //termina la primera fase, aqui ya deben quedar guardados los cambios a gyms que ya tenia el partner seteados
 
+    
     let canCreate = gymsPermited - currentGymsNumber; //calcula cuantos gyms mas se pueden crear
 
     if (canCreate <= 0) { //entra aqui si ya no puede crear nuevos gyms
       if (gymsToAdd <= 0) { //checa si hay gyms por crear
-        return "Se actualizo su informacion del gym satisfactoriamente"; //si no tiene mas por agregar
+        return {
+          Ok: true,
+          msg:"Se actualizo la informacion satisfactoriamente"
+        }; //si no tiene mas por agregar
       } else {
-        return "No puede crear mas gimnasios, revise o actualize su plan"; //si quedaron sin agregar
+        return {
+          Ok: false,
+          msg:"No puede crear mas gimnasios, revise o actualize su plan"
+        }; //si quedaron sin agregar
       }
     } else if (canCreate < gymsToAdd) { //entra aqui si tiene mas gyms de los que puede crear
       let cutGyms = gymsToAdd - canCreate; //creo una variable numerica para ver cuantos gyms puede crear
@@ -269,13 +282,27 @@ async function postGyms(idUser, gyms) {
     );
     return {
       Ok: true,
-      msg: "Gyms actualizados correctamente",
+      msg: "Se actualizo la informacion satisfactoriamente",
       newPartner,
       gymsCreated
     };
   } catch (error) {
     console.log(error.message);
     return error.message;
+  }
+}
+
+const updateClientGym = async (req, res) => {
+  const { id, client } = req.body
+  try {
+      const updatedGymClient = await Gims.findByIdAndUpdate(id, {
+         client: client
+      })      
+      console.log(updatedGymClient, 'esto es updateclient')
+      res.send(updatedGymClient)
+  } catch (error) {
+      console.log(error.message)
+      return error.message
   }
 }
 
@@ -342,4 +369,4 @@ const updateFavGym = async (req, res) => {
 }
 
 
-module.exports = { getAllGyms, postGyms, saveGyms, getGymById, getGymByName, updateFavGym }
+module.exports = { getAllGyms, postGyms, saveGyms, getGymById, getGymByName, updateFavGym, updateClientGym }

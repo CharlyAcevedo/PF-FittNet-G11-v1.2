@@ -11,6 +11,7 @@ const {
 const Gyms = require("../../models/Gyms");
 const Users = require("../../models/User");
 const Partner = require("../../models/Partner");
+const { findByIdAndUpdate } = require('../../models/Gyms');
 
 
 const router = Router();
@@ -24,6 +25,33 @@ router.get("/allgyms", async (req, res) => {
     res.status(404).send({ error: error.message });
   }
 });
+
+// router.get("/mygyms/:userId", async (req, res) => {
+
+//   let { userId } = req.params;
+  
+//   // console.log(userId)
+
+//   let partnerId = userId;
+
+//   try {
+//     let infoPartner = await Users.findById(partnerId)
+    
+//     if (infoPartner.partner){
+//       let idInfoPartner = infoPartner.partner;
+
+//       allGymPartner = await Partner.findById(idInfoPartner)
+//       .populate({path: "gyms", populate:{path: "services"}})
+
+//     }   
+   
+//     res.status(200).json(allGymPartner);
+//   } catch (error) {
+//     console.log(error)
+//     res.status(404).send({ error: error.message });
+//   }
+
+// });
 
 // Para solicitar info de un gym por su id
 // router.get("/:id", async (req, res) => { 
@@ -51,26 +79,39 @@ router.get('/gymbyname', async (req, res) => {
 
 // Para actualizar un gym
 router.put('/gymupdate', async (req, res) => {
-  try {
-    const { id, data } = req.body
-    const response = await saveGyms(id, data);
-    res.status(200).send(response);
+    try {        
+        const { id, data } = req.body
+        const response = await saveGyms(id, data);
+        res.status(200).send(response);
+    } catch (error) {
+      console.error(error)
+        res.status(404).send({ error: error.message });
+      }
+}); 
+
+router.put('/gymsupdate', async (req, res) => {
+  try {        
+    console.log(req.body)
+      const { id2, client } = req.body
+      const response = await Gyms.findByIdAndUpdate(id2, {clients:client},{new:true});      
+      res.status(200).send('exitopa');
   } catch (error) {
-    console.error(error)
-    res.status(404).send({ error: error.message });
-  }
+    console.error('error')
+      res.status(404).send({ error: error.message });
+    }
 });
+
 
 // Para crear gym
 router.post('/gymcreate/:idUser', async (req, res) => {
-  const { idUser } = req.params;
-  try {
-
-    const response = await postGyms(idUser, req.body);
-    res.status(200).send(response);
-  } catch (error) {
-    res.status(404).send({ error: error.message });
-  }
+    const { idUser } = req.params;    
+    try {
+      console.log("llega a la ruta post gymcreate")
+        const response = await postGyms(idUser, req.body);
+        res.status(200).send(response);
+    } catch (error) {
+        res.status(404).send({ error: error.message });
+      }
 });
 
 
@@ -192,6 +233,7 @@ router.put('/editOneGym/', async (req, res) => {
 
   console.log(req.body, ' la data del gym a editar')
 
+
   try {
     editeGym = await Gyms.findByIdAndUpdate(idGym,
       newDataGym, { new: true })
@@ -200,6 +242,7 @@ router.put('/editOneGym/', async (req, res) => {
 
 
     res.status(200).json({ message: 'Gimnasio actualizado' });
+
   } catch (error) {
     console.log(error);
     res.status(404).send({ error: error.message });

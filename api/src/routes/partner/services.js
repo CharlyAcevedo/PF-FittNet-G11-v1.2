@@ -6,12 +6,14 @@ const {
   getGymById,
   getGymByName,
 } = require("../../controlers/gyms");
+
 const { putService } = require("../../controlers/services");
 
 const Gyms = require("../../models/Gyms");
 const Users = require("../../models/User");
 const Partner = require("../../models/Partner");
 const Service = require("../../models/Service");
+
 
 
 const router = Router();
