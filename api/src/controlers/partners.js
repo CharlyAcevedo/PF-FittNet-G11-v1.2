@@ -8,7 +8,7 @@ const ObjectId = require("mongoose").Types.ObjectId;
 const Plan = require("../models/Plan");
 const SocialMedia = require("../models/SocialMedia");
 const { postGyms } = require("../controlers/gyms")
-const { putSocialMedia } =require("./helpers");
+// const { putSocialMedia } =require("./helpers");
 const Gyms = require("../models/Gyms");
 
 

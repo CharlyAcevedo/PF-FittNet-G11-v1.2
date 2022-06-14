@@ -55,12 +55,12 @@ export default function MapGyms() {
     
 
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.titleContainer}>
+    <div className={styles.mainContainerMapGyms}>
+      <div className={styles.mainTitleMapGym}>
       <h3>Donde se encuentra su Gimnasio</h3>
       <p>Mueva el marcador azul hasta encontrar la ubicacion deseada y luego de click en el boton de envio</p>
       </div>
-      <div className={styles.mapContainer} id="map">
+      <div className={styles.mapGymContainer} id="map">
         {lat === null || lng === null ? <div>Loading...</div>
         : <MapContainer
           center={[lat, lng]}
@@ -82,7 +82,7 @@ export default function MapGyms() {
           </Marker>
         </MapContainer>}
       </div>
-      <div><button onClick={handleOnClick}>Agregar Ubicación</button></div>
+      <div><button className={styles.btnMapGyms} onClick={handleOnClick}>Agregar Ubicación</button></div>
       <div>La ubicacion actual es: Latitud: {lat}, Longitud: {lng}</div>
     </div>
   );
