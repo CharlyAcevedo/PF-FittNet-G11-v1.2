@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const session = require("express-session");
 const passport = require("passport");
 const Strategy = require("passport-local").Strategy;
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
 const { findUser } = require("./controlers/users");
@@ -13,7 +13,7 @@ require("dotenv").config();
 const routes = require("./routes/index.js");
 const { CORS_URL, SECRET } = process.env || "http://localhost:3000";
 
-require('./db.js');
+require("./db.js");
 
 const server = express();
 
@@ -31,7 +31,7 @@ server.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
     CORS_URL ? CORS_URL : "http://localhost:3000"
-  ); // update to match the domain you will make the request from
+  );
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
@@ -45,6 +45,7 @@ server.use((req, res, next) => {
 
 passport.use(
   new Strategy(function (username, password, done) {
+    console.log('paso uno de la autenticación')
     findUser({userName: username}) //busca en mongoDB el usuario
       .then((user) => {
         if (!user) {
@@ -54,12 +55,12 @@ passport.use(
           // Voy a hacer la comparación y evaluar el resultado
           bcrypt.compare(password, user.password )          
           .then((res) => {
-            console.log(res, 'la respuesta de la promesa')
+            // console.log(res, 'la respuesta de la promesa')
             if(res === false) { // No hay coincidencia entre las password
               return done(null, false);
             }
             if(res === true) { // Si hay coincidencia entre las password
-              console.log(user, res, ' user en la 54');
+              // console.log(user, res, ' user en la 54');
               return done(null, user);
             }
           })        
@@ -74,10 +75,12 @@ passport.use(
 
 
 passport.serializeUser(function(user, done) {
+  console.log('paso dos de la autenticación')
   done(null, user._id);
 });
 
 passport.deserializeUser(function(_id, done) {  
+  console.log('paso tres de la autenticación')
   findUser({_id: _id})
   .then((user) => {
       done(null, user);
@@ -105,7 +108,7 @@ server.use((req, res, next) => {
   next();
 });
 server.get('/login',  (req, res) => {
-    res.send('Email o contraseña incorrecta');
+    res.send('Username o contraseña incorrecta');
 });
 
 

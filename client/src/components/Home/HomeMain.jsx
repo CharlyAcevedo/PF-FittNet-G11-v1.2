@@ -1,36 +1,49 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import Logout from "../Logout/Logout";
+// import Logout from "../Logout/Logout";
 import SelecAvatar from "../SelectAvatar/SelectAvatar";
 import GymCards from "../GymCards/GymCards";
-import UserCards from "../UserCards/UserCards";
-import NavBarProfile from "../NavBarProfile/NavBarProfile";
-import PartnerCards from "../PartnerCards/PartnerCards";
-import { getAllGyms } from "../../redux/actions";
+// import UserCards from "../UserCards/UserCards";
+// import PartnerCards from "../PartnerCards/PartnerCards";
+import { getAllGyms, getUserGoogleForToken } from "../../redux/actions";
 import { useDispatch } from "react-redux";
-import IncomesGraph from "../Graphics/Incomes";
+// import IncomesGraph from "../Graphics/Incomes";
 import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
+import styles from "./styles/homeMain.module.css";
+// import GeneralActions from "../PartnerHomeComponents/GeneralActions";
+import Sarch from "../Search/Search";
+import Advertising from "../PartnerHomeComponents/Advertising";
+import ClientsGraph from "../Graphics/GraphClient";
+import OrderBy from "../OrderBy/OrderBy";
+import HomeAdmin from "./HomeAdmin/HomeAdmin";
+import { HomePartner } from "./HomePartner/HomePartner";
+import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
+// import { CardShop } from "../../helpers/Cards/Cards.jsx";
 
-// import SelectAvatar from "./views/SelectAvatar";
 export default function HomeMain() {
-  let { userId, type, avatar } = useParams();
-  // debería llegarme por params si es un
-  // "user" con sin avatar o un "partner" o incluso un "admin"
+  let { userId } = useParams();
 
   const dispatch = useDispatch();
+
+  const avatarLS = localStorage.getItem("avatar");
+
+  const token = localStorage.getItem("token");
+
+  const type = localStorage.getItem("type");
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // dispachar la action ¿pero qué voy a escuchar??? No sé si sea userId
-    // console.log('sale la action de traer gyms')
-    dispatch(getAllGyms()); // eslint-disable-next-line
+    dispatch(getAllGyms());
+    if (token) {
+      dispatch(getUserGoogleForToken(token));
+    } // eslint-disable-next-line
   }, [userId]);
 
-  // Esto es una vista para un usuario sin avatar
-  if (type === "user" && !avatar) {
+  //! Esto es una vista para un usuario sin avatar
+  if (type === "user" && !avatarLS) {
     return (
       <div
         style={{
@@ -42,38 +55,81 @@ export default function HomeMain() {
         }}
       >
         <SelecAvatar />
+        {/* {console.log("entro a seleccionar el avatar")} */}
+        {/* {console.log(type)} */}
         <div
           style={{
             display: "grid",
             alignItems: "center",
           }}
         >
-          <ButtonBack title="Volver" padding=".5rem 2rem" onClick={() => navigate('/')}/>
+          <ButtonBack
+            title="Volver"
+            padding=".5rem 2rem"
+            onClick={() => navigate("/")}
+          />
         </div>
       </div>
     );
   }
 
-  // Esto es una vista para un usuario con avatar
-  if (type === "user" && avatar) {
+  //! Esto es una vista para un usuario con avatar
+  if (type === "user" && avatarLS) {
     return (
-      <div>
-        <NavBarProfile />
-        <Paginated />
+      <div className={styles.cont}>
+        <GymsForUsersMap />
+        <div
+          style={{
+            width: "90%",
+            margin: "0 auto",
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Sarch />
+          <OrderBy />
+        </div>
         <GymCards />
+        <Paginated />
       </div>
     );
   }
 
-  // Esto es una para cliente empresa
+  if (type === "user" && avatarLS) {
+    return (
+      <div className={styles.cont}>
+        <GymsForUsersMap />
+        <div>
+          <Sarch />
+          <OrderBy />
+        </div>
+        <GymCards />
+        {/* <CardShop /> */}
+        <Paginated />
+      </div>
+    );
+  }
+
+  //! Esto es una para cliente empresa
   if (type === "partner") {
     return (
       <div>
-        <NavBarProfile />
-        <h3>Qué más quiero ver como Ciente Empresa cuando llego a home???</h3>
-        <IncomesGraph />
-        <UserCards />
-        <h4>Promociones y descuentos</h4>
+        <HomePartner />
+        {/* {console.log("entro a la ventana del partner")} */}
+        {/* <div className={styles.advertising}>
+          <Advertising/>
+        </div>
+        <div className={styles.generalActions}>
+          <GeneralActions/>
+        </div>
+        <div className={styles.infoClients}>
+          <ClientsGraph />
+        </div>
+        <div className={styles.infoFinantial}>
+          <IncomesGraph/>
+        </div> */}
       </div>
     );
   }
@@ -82,17 +138,8 @@ export default function HomeMain() {
   if (type === "admin") {
     return (
       <div>
-        <NavBarProfile />
-        <h3>Qué más quiere ver un usuario Admin en su home???</h3>
-        <PartnerCards />
-        <UserCards />
-        <h3>
-          Vista de la parte financiera, ingresos, egresos, por pagar, por cobrar
-        </h3>
-        <IncomesGraph />
-
-        <h3>Una vista como user</h3>
-        <h3>Una vista como partner</h3>
+        <HomeAdmin />
+        {/* <PartnerCards /><UserCards /><IncomesGraph /> */}
       </div>
     );
   }

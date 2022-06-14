@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 
 const socialMediaSchema = new mongoose.Schema({
-    SocialMedia: {
+    socialMedia: {
         type: String,
         required: true,
     },
-    userSM: String,
+    userSM: {
+        type: String,
+        required: true,
+    }
 });
 
 module.exports = mongoose.model('SocialMedia', socialMediaSchema);

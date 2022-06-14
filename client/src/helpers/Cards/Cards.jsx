@@ -1,22 +1,28 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { postAvatar } from "../../redux/actions/index";
+import { useDispatch, useSelector } from "react-redux";
+
+import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
+import { postAvatar, updateFavouriteGym } from "../../redux/actions/index";
+
+import axios from "axios";
 
 import styles from "./styles/stylesCards.module.css";
+import { useEffect } from "react";
+import { IoIosHeart } from "react-icons/io";
+import { AiFillStar, AiOutlineShoppingCart } from "react-icons/ai";
+import { useState } from "react";
+import { EditMyGyms } from "../../components/Home/HomePartner/ViewsPartner/EditMyGyms.jsx";
 
 export const CardAvatares = (props) => {
-  const { border, color, boxShadow, image } = props;
+  const { image } = props;
 
   const estiloPruebaImage = {
     backgroundImage: `url(${image})`,
-    // width: "120px",
-    // height: "120px",
   };
 
   return (
     <div className={styles.containerCardAvatares}>
-      {/* <img src={image} alt="alt-foto" style={{width: "155px", height: "120px"}}/> */}
       <div style={estiloPruebaImage}></div>
       <span style={{}}></span>
     </div>
@@ -24,23 +30,59 @@ export const CardAvatares = (props) => {
 };
 
 export const CardAvatarAdicional = (props) => {
+  // El id del avatar llega por props
   const { name, image, features, id, userId, typeuser, nameUser, icono } =
     props;
 
-  const dispatch = useDispatch();
-
   const navigate = useNavigate();
-
-  const handleUdpateAvatar = (idAvatar, e) => {
+  const dispatch = useDispatch();
+  async function handleUdpateAvatar(idAvatar, e) {
     e.preventDefault();
     const avatar = { avatar: idAvatar };
-    dispatch(postAvatar(userId, avatar));
-    alert(
-      `elegiste el avatar ${name}, ahora vas a ser redirigido a los gimnasios que cumplan con las caracteristicas de este avatar`
+
+    // dispatch(postAvatar(userId, avatar));
+    SweetAlrtTem(
+      `elegiste el avatar ${name}, ahora vas a ser redirigido a los gimnasios que cumplan con las caracteristicas de este avatar`,
+      "success"
     );
     console.log("se agrego el avatar al usuario");
     navigate(`/home/${typeuser}/${nameUser}/${userId}/${idAvatar}`);
-  };
+
+    let avatarSelect = await postAvatar(userId, avatar);
+
+    // Hay que avaluar la respuesta y retornar un swit altert
+    // console.log(avatarSelect, 'Respuesta a avatarSelect')
+
+    if (avatarSelect.data.ok === false) {
+      // Si el userId es invalido
+      return window.alert(avatarSelect.data.msg);
+    }
+
+    let avatarId = avatarSelect
+      ? avatarSelect.data.UserUpdateAvatar.avatar
+      : null;
+
+    console.log(avatarSelect, "avatar selected id");
+
+    localStorage.setItem("avatar", avatarId);
+
+    navigate(`/home/${typeuser}/${nameUser}/${userId}/${avatarId}`);
+  }
+
+  async function postAvatar(userId, avatar) {
+    try {
+      const dataUdpateAvatar = await axios.put(
+        `/api/user/avatar/${userId}`,
+        avatar
+      );
+
+      console.log(dataUdpateAvatar);
+
+      return dataUdpateAvatar;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const estiloIcono = {
     content: "",
@@ -79,5 +121,195 @@ export const CardAvatarAdicional = (props) => {
         </div>
       </div>
     </div>
+  );
+};
+
+export const CardIcons = (props) => {
+  const { img, num } = props;
+  return (
+    <div className={styles.cardIcons}>
+      <img src={img} alt="" />
+      <p>{num}</p>
+    </div>
+  );
+};
+
+export const CardShop = (props) => {
+  const { title, imagen, price, rating, favourite, id } = props;
+
+  const avatar = localStorage.getItem("avatar");
+
+  const userId = localStorage.getItem("userId");
+
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const handleFavouriteClick = (e, gymId) => {
+    e.preventDefault();
+    if (avatar) {
+      dispatch(updateFavouriteGym(gymId, userId));
+    } else {
+      console.log(
+        "no se pudo agregar a favorito por que aun no estas registrado"
+      );
+    }
+  };
+
+  return (
+    <div className={styles.cardShop}>
+      <div className={styles.imgBox}>
+        <img src={imagen} alt="mouse corsair" className={styles.mouseCard} />
+      </div>
+
+      <div className={styles.contentBox}>
+        <h3 style={{ color: "var(--color-primD1)" }}>{title}</h3>
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: ".2rem" }}>
+            <span
+              style={{
+                color: "#dadada",
+                fontWeight: "700",
+                fontSize: "1.27rem",
+              }}
+            >
+              {favourite}
+            </span>
+            {user.favourite?.some((x) => x === id) ? (
+              <IoIosHeart
+                onClick={(e) => handleFavouriteClick(e, props.id)}
+                style={{ color: "red", cursor: "pointer", marginTop: ".2rem" }}
+              />
+            ) : (
+              <IoIosHeart
+                onClick={(e) => handleFavouriteClick(e, props.id)}
+                style={{
+                  color: "#868686",
+                  cursor: "pointer",
+                  marginTop: ".2rem",
+                }}
+              />
+            )}
+          </div>
+          <span
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: ".1rem",
+              fontWeight: "700",
+            }}
+          >
+            {rating}
+            <AiFillStar style={{ color: "#FEAA09", marginTop: ".2rem" }} />
+          </span>
+        </div>
+        <h2 className={styles.priceCard}>
+          <small>{price.$numberDecimal}</small> €
+        </h2>
+        <div
+          className={styles.buyCard}
+          onClick={() => navigate(`/detail/gym/${id}`)}
+        >
+          <AiOutlineShoppingCart style={{ width: "30px", height: "30px" }} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const CardsPlansPartner = (props) => {
+  const { title, Size, busqueda, servicios, gym } = props;
+  return (
+    <div className={styles.contPlanPartner}>
+      <div className={styles.card}>
+        <div className={styles.face1}>
+          <div className={styles.content}>
+            <span className={styles.stars}></span>
+            <div className={styles.plan}>
+              <ul>
+                <li>{busqueda} de visibilidad</li>
+                <li>Panel de control</li>
+                <li>Historial de ventas</li>
+                <li>Gestios de GYM</li>
+                <li>Gestios de servicios</li>
+                <li>{gym}</li>
+                <li>{servicios}</li>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className={styles.face2}>
+          <h2 style={{ fontSize: Size }}>{title}</h2>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const CardGymPartner = (props) => {
+  const {
+    title,
+    onClick,
+    id,
+    price,
+    image,
+    services,
+    trainers,
+    logo,
+    phone,
+    email,
+    favorito,
+  } = props;
+
+  const navigate = useNavigate();
+
+  const [view, setView] = useState("myGyms");
+
+  const userId = localStorage.getItem("userId");
+  const type = localStorage.getItem("type");
+  const name = localStorage.getItem("name");
+  // const [view, setView] = useState("");`
+
+  return (
+    <>
+      {view !== "editMyGyms" ? (
+        <div className={styles.containerCardGymPartner}>
+          <div className={styles.headerGymPartner}>
+            <img
+              src={image}
+              alt="imagen gimnasio"
+              style={{ width: "160px", height: "120px", borderRadius: ".6rem" }}
+            />
+          </div>
+          <div className={styles.mainGymPartner}>
+            <div className={styles.mainHeaderPartner}>
+              <h2>{title}</h2>
+              <span
+                className={styles.btnEditarGym}
+                onClick={() =>
+                  setView("editMyGyms")
+                }
+              >
+                Editar gimnasio
+              </span>
+            </div>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae,
+              facere dolores, excepturi maiores omnis accusantium error animi
+              nostrum repellendus, adipisci nihil! Et perferendis libero impedit
+              quos molestiae assumenda culpa veritatis?
+            </p>
+          </div>
+        </div>
+      ) : (
+        <>
+          <EditMyGyms idGym={id}/>
+          <button onClick={() => setView("myGyms")} style={{color: "#fff"}}>Volver</button>
+        </>
+      )}
+    </>
   );
 };

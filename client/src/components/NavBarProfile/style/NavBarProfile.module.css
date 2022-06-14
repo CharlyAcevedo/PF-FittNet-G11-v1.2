@@ -1,40 +1,98 @@
 .boxNavBarProfile {
-    position: fixed;
-    margin: auto;
-    width: 100%;
-    height: 5.5vh;
-    background: #fcfcfc;
-    background: linear-gradient(180deg, #f0e8d7ed 0%, #fffcf5 44%, #f0e8d7ed 100%);
-    border: 2px solid #f0e8d7ed;
-    text-decoration: none;
-    margin-bottom: 0;
-    z-index: 10;
+  margin: 0 auto;
+  width: 100%;
+  background: linear-gradient(
+    75deg,
+    #5c5c5c0e 0%,
+    #fffcf510 44%,
+    #f0e8d70e 100%
+  );
+  text-decoration: none;
+  z-index: 10;
 }
 
-.listNavBar{
-    display: inline-block;
-    overflow: hidden;
+a{
+    text-decoration: none;
+    color: #acacac;
+}
+
+.navBarProfile {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  color: #fff;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.titleNavBar {
+    display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: right;
-    text-decoration: none;
+    gap: 1.8rem;
 }
 
-.itemsNavBarProfile {
-    font-size: 1rem;
-    float: left;
-    margin-right: .5em;
-    margin-left: .5em; 
-    padding: 0 6px;
-    border-radius: 2rem;
-    margin-top: 0px;
-    text-align:center;
-    justify-content:center;
+.titleNavBar h3 {
+  font-size: 1.3rem;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  animation: text 5s linear infinite;
+}
+
+.logoutNavBarProfile {
+    text-transform: uppercase;
+    font-weight: 700;
     cursor: pointer;
-    text-decoration: none;
-    /* border: 1px solid #D05353; */
-    color: #707D28;
-} 
-.nameProfile {
-    cursor: default;    
+    transition: .3s;
+}
+
+.logoutNavBarProfile:hover {
+    color: var(--color-prim);
+}
+
+
+.boxListaNavBarProfile {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.boxListaNavBarProfile a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #fff;
+  position: relative;
+}
+
+.boxListaNavBarProfile a::before,
+.boxListaNavBarProfile a::after {
+  content: "";
+  border-bottom: 2px solid var(--color-prim);
+  position: absolute;
+  transition: .5s;
+  opacity: 0;
+}
+
+.boxListaNavBarProfile a::before {
+  bottom: -4px;
+  width: 70%;
+  right: 0;
+}
+
+.boxListaNavBarProfile a::after {
+  bottom: -10px;
+  width: 40%;
+  left: 0;
+}
+
+.boxListaNavBarProfile a:hover::before {
+  width: 90%;
+  opacity: 1;
+}
+
+.boxListaNavBarProfile a:hover::after {
+  width: 60%;
+  opacity: 1;
 }

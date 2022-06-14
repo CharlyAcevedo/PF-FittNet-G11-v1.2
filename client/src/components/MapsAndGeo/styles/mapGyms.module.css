@@ -1,15 +1,66 @@
 .mainContainer{
     display: flex;
     flex-direction: column;
-    width: 100vw;
-    height: 100vh;
     align-items: center;
     justify-content: center;
     text-align: center;
+    color: white;
+}
+
+.mainTitle{
+    /* background-color: #a09e98bb; */
+    padding: 1rem;
+    border-radius: .6rem;
+    color: #fff;
+    border: 1px solid var(--color-primD1);
 }
 
 .mapContainer{
-    width: 80vw;
+    margin: 1rem auto;
+    width: 70vw;
     height: 70vh;
-    background-color: rgb(100, 180, 255);
+}
+
+.ubicationDiv{
+    /* background-color: #a09e98bb; */
+    border: 1px solid var(--color-primD1);
+    color: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.btnMapSend{
+    background-color: var(--color-primD1);
+    border-radius: 5px;
+    padding: .8rem 1rem;
+    margin: 1rem auto;
+    color: #fff;
+    font-weight: 700;
+    border-style: outset;
+    cursor: pointer;
+    transition: .9s;
+}
+
+.btnMapSend:hover{
+    background-color: #fff;
+    color: var(--color-primD1);
+    font-weight: 700;
+    border-radius: 5px;
+    padding: .8rem 1rem;
+    margin: 1rem auto;
+}
+
+.btnMapSend:active{
+    border-style: inset;
+}
+
+.alertDiv{
+    background-color: #f8e4d4bb;
+    border-radius: 10px;
+    padding: .5em .5em;    
+}
+
+.titleContainer {
+    margin: 1rem auto;
+    font-size: 1.1rem;
 }

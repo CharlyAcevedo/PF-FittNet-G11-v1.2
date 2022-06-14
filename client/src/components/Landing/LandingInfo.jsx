@@ -1,4 +1,7 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { getUserGoogleForToken, getMarketing } from "../../redux/actions/index";
 import {
   ButtonPrimary,
   ButtonSecondaryDeslice,
@@ -7,37 +10,49 @@ import {
   CardPromoBalance,
   CardPromoBulk,
 } from "./componentsLanding/componentsLanding.jsx";
-import { Link, useNavigate } from "react-router-dom";
-import { setUserGeo } from "../../redux/actions/index";
+// import { CardGymsAdicional } from "../../helpers/Cards/Cards.jsx";
 import style from "../Landing/styles/Landing.module.css";
-import { useDispatch } from "react-redux";
+import { CardIcons, CardsPlansPartner } from "../../helpers/Cards/Cards";
+import userIcon from "../../asets/icons/users.svg";
+import actividadesIcon from "../../asets/icons/trending-up.svg";
+import startIcon from "../../asets/icons/star.svg";
+import mapIcon from "../../asets/icons/map-pin.svg";
 
 export default function LandingInfo() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
+  const user = useSelector((state) => state.user);
+
+  const token = localStorage.getItem("token");
+
+  const name = localStorage.getItem("name");
+
+  const type = localStorage.getItem("type");
+
+  const idUser = localStorage.getItem("userId");
+
+  const avatar = localStorage.getItem("avatar");
+
+  // const idUser = localStorage.getItem("userId")
+
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        const payload = {
-          latitud: position.coords.latitude,
-          longitud: position.coords.longitude,
-        };
-        dispatch(setUserGeo(payload));
-      },
-      function (error) {
-        console.log(error);
-      },
-      {
-        enableHighAccuracy: true,
-      }
-    ); // eslint-disable-next-line
+    if (token) {
+      dispatch(getUserGoogleForToken(token));
+    } // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    dispatch(getMarketing());
+  }, []);
+
+  const userSistem = useSelector((state) => state.users);
+  const cantUser = userSistem.length;
   return (
     // <div>
     <div className={style.container}>
+      {console.log(userSistem)}
       <div className={style.contPrim}>
         <div className={style.contElempadre}>
           <div className={style.contElem}>
@@ -48,9 +63,25 @@ export default function LandingInfo() {
               </h1>
               <br />
               <br />
-              <Link to="/login">
-                <button className={style.btn}>Empezá aquí</button>
-              </Link>
+              {!idUser ? (
+                <Link to="/login">
+                  <button className={style.btn}>Empezá aquí</button>
+                </Link>
+              ) : avatar ? (
+                <ButtonSecondaryDeslice
+                  title="Ir a home"
+                  padding="1.1rem 5rem"
+                  onClick={() =>
+                    navigate(`/home/${type}/${name}/${idUser}/${avatar}}`)
+                  }
+                />
+              ) : (
+                <ButtonSecondaryDeslice
+                  title="Ir a home"
+                  padding="1.1rem 5rem"
+                  onClick={() => navigate(`/home/${type}/${name}/${idUser}`)}
+                />
+              )}
             </div>
             <div className={`${style.screenBackground}`}>
               <span className={style.shapeTop1}></span>
@@ -70,15 +101,53 @@ export default function LandingInfo() {
           <div className={style.containerBtnPromos}>
             <ButtonPrimary
               title="Conocé nuestras promos"
-              padding="0 4.5rem"
+              padding="0 1rem"
               onClick={() => navigate("/userprices")}
             />
           </div>
+        </div>
+        <div className={style.contDat}>
+          <CardIcons img={startIcon} num="5" />
+          <CardIcons img={userIcon} num={cantUser} />
+          <CardIcons img={mapIcon} num="1.4 Km" />
+          <CardIcons img={actividadesIcon} num="20" />
         </div>
         <div className={style.promosUsuarios}>
           <CardPromoBalance />
           <CardPromoBulk />
         </div>
+        {/* Bloque de cards partner */}
+        <div className={style.contPlanPartner}>
+          <CardsPlansPartner
+            title="STANDARD"
+            busqueda="20%"
+            gym="Hasta 1 GYM"
+            servicios="5 servicios por GYM"
+            Size="2em"
+          />
+          <CardsPlansPartner
+            title="PREMIUM"
+            busqueda="30%"
+            gym="Hasta 5 GYM"
+            servicios="10 servicios por GYM"
+            Size="2em"
+          />
+          <CardsPlansPartner
+            title="GOLDEN"
+            busqueda="50%"
+            gym="Hasta 50 GYM"
+            servicios="50 servicios en GYM"
+            Size="2em"
+          />
+        </div>
+        <div className={style.containerBtnPromos}>
+          <ButtonPrimary
+            title="MAS INFO"
+            padding="0 1rem"
+            onClick={() => navigate("/legendCe")}
+          />
+        </div>
+        <br />
         <div className={style.hero}>
           <h1
             style={{
@@ -93,11 +162,27 @@ export default function LandingInfo() {
           </h1>
           <h1 className={style.texto}>FITTNET</h1>
           <div style={{ marginBottom: "2rem" }}>
-            <ButtonSecondaryDeslice
-              padding="1.5rem 5rem"
-              title="Empeza aqui"
-              onClick={() => navigate("/login")}
-            />
+            {!idUser ? (
+              <ButtonSecondaryDeslice
+                padding="1.5rem 5rem"
+                title="Empeza aqui"
+                onClick={() => navigate("/login")}
+              />
+            ) : user.avatar ? (
+              <ButtonSecondaryDeslice
+                title="Ir a home"
+                padding="1.1rem 5rem"
+                onClick={() =>
+                  navigate(`/home/${type}/${name}/${idUser}/${avatar}}`)
+                }
+              />
+            ) : (
+              <ButtonSecondaryDeslice
+                title="Ir a home"
+                padding="1.1rem 5rem"
+                onClick={() => navigate(`/home/${type}/${name}/${idUser}`)}
+              />
+            )}
           </div>
         </div>
       </div>

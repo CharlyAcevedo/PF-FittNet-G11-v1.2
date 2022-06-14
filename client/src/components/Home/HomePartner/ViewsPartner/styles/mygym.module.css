@@ -1,0 +1,33 @@
+.containMainMyGyms {
+    padding: 1rem 2rem;
+}
+
+.headerMyGyms {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-primD1);
+    padding-bottom: .7rem;
+}
+
+.headerMyGyms h2 {
+    text-transform: uppercase;
+} 
+
+.titleBtn {
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: 1px solid var(--color-primD1);
+    padding: .2rem 1rem;
+    border-radius: .6rem;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.titleBtn:hover{
+    background-color: var(--color-primD1);
+    color: #fff;
+}
+
+/* style={{color: "#fff", fontWeight: "600", textTransform: "uppercase"}} */

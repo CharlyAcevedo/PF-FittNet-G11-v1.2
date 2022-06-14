@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./styles/stylesButtons.module.css";
 
 //? Boton primario - es el boton principal con el tamaño normal
@@ -85,3 +85,24 @@ export const ButtonSecondaryDeslice = (props) => {
     </div>
   );
 };
+
+export const ButtonDetailGym = (props) => {
+  const {onClick, title, padding } = props;
+
+  return (
+    <div onClick={onClick} style={{padding: padding}} className={styles.btnDetailGym}>
+      {title}
+    </div>
+  )
+}
+
+export const ButtonHomePA = (props) => {
+  const {onClick, title, padding } = props;
+
+  return (
+    <div className={styles.btnHomePA} onClick={onClick} style={{padding: padding}} >
+      {title}
+    </div>
+  )
+}
+

@@ -2,13 +2,16 @@ const mongoose = require('mongoose');
 
 const diseaseSchema = new mongoose.Schema({
     desease: {
-        type: String,
+        type: Array,
+        of: mongoose.SchemaTypes.ObjectId, 
         required: true,
     },
-    trainlimits: {
-        type: Array,
-        //array de strings con los limitantes de entrenamiento o riesgos para entrenar
-    }
+    trainlimits: { //limitantes de entrenamiento
+        type: String,
+    },
+    considerations: { //consideraciones especiales
+        type: String,        
+    },
 })
 
 module.exports = mongoose.model('Diseases', diseaseSchema)

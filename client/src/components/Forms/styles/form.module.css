@@ -1,0 +1,201 @@
+.input {
+  padding: 0.5rem;
+  font-size: 0.7rem;
+  background-color: transparent;
+  color: #fff;
+  border-style: groove;
+  cursor: pointer;
+  border-radius: 0.6rem;
+  box-shadow: 1px 0px 5px var(--color-primD1);
+  text-shadow: 0px 0px 1px rgba(66, 66, 66, 0.75);
+}
+
+.input:focus {
+  outline: none;
+  /* background: transparent; */
+  background-color: var(--color-primD1);
+}
+
+.parrafo {
+  color: red;
+}
+
+.inputError {
+  padding: 5px;
+  font-size: 11px;
+  border-width: 2px;
+  border-color: #ff0101;
+  background-color: #ffffff;
+  color: #000000;
+  border-style: groove;
+  border-radius: 11px;
+  box-shadow: 1px 0px 22px rgba(255, 0, 0, 0.64);
+  text-shadow: 0px 0px 5px rgb(255, 1, 1);
+}
+
+.containerUser {
+  width: 90%;
+  margin: 1.5rem auto 1rem auto;
+  text-align: center;
+  color: #fff;
+}
+
+.containerFormUser {
+  width: 90%;
+  margin: 2rem auto;
+}
+
+.formUserOne {
+  display: flex;
+  border: 1px solid var(--color-primD1);
+  border-radius: 1rem;
+  height: 100px;
+  color: #fff;
+  padding: 1rem;
+  gap: 2rem;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.containerImageUser {
+  color: #fff;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+}
+
+.inputFileContainer {
+  position: relative;
+}
+
+.inputFile {
+  position: absolute;
+  left: -1000px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.formLabel {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 30px;
+  background-color: var(--color-primD1);
+  border-radius: 35px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.formText {
+  font-weight: 600;
+  font-size: 18px;
+  color: #fff;
+}
+
+.formLabel:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(222, 0, 0, 0.5);
+}
+
+.btnQuitarFoto {
+  border: none;
+  color: #fff;
+  background-color: var(--color-primD1);
+  padding: 1rem;
+  cursor: pointer;
+  font-weight: 700;
+  border-radius: 35px;
+  transition: 0.3s;
+}
+
+.btnQuitarFoto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(222, 0, 0, 0.5);
+}
+
+.containerDiseases {
+  border-radius: 0.7rem;
+  width: 70%;
+  margin: 2rem auto;
+  padding: 1.1rem;
+  text-align: center;
+  border: 1px solid var(--color-primD1);
+}
+
+.boxDiseases {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.1rem auto;
+  align-items: center;
+}
+
+.boxContainerDes {
+  display: flex;
+  flex-direction: column;
+}
+
+.containerDirection {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 1.2rem auto;
+  padding: 1rem;
+  align-items: center;
+  border: 1px solid var(--color-primD1);
+  border-radius: .7rem;
+  color: #fff;
+}
+
+.boxInputDirection {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 5rem;
+}
+
+.contDesBenef {
+  display: flex;
+  flex-direction: column;
+}
+
+.deseaseNameWithTip {
+  display: flex;
+  justify-content: space-between;
+  /* width: 15%; */
+  padding: .4rem;
+  align-items: center;
+  margin: 0 auto;
+  gap: .6rem;
+  background-color: var(--color-primD1);
+  color: #fff;
+  border-radius: .6rem;
+}
+
+.containerElecciones {
+  display: flex;
+  width: 70%;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.deseaseBeneficts{
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.171);
+  border-radius: .6rem;
+  width: 90%;
+  padding: .6rem;
+  display: flex;
+  margin: 1rem auto;
+  flex-direction: column;
+}
+
+.btn {
+  font-size: 1.5rem;
+  font-weight: 800;
+  cursor: pointer;
+}

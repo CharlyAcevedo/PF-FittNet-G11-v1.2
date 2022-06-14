@@ -227,3 +227,28 @@
 .btnDeslice:hover::after {
   left: 0;
 }
+
+.btnDetailGym {
+  font-weight: 700;
+  color: rgb(19, 19, 19);
+  background-color: #fff;
+  border-radius: 0.15rem;
+  padding: 0.2rem 1rem;
+  cursor: pointer;
+}
+
+.btnHomePA {
+  background-color: var(--light-color);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 13px 0px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+.btnHomePA:hover {
+  background-color: var(--color-primD2);
+  color: #fff;
+}
