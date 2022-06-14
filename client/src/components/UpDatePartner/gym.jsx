@@ -20,7 +20,7 @@ export default function UpdateGym(props) {
 
   const { idGym } = props;
 
-  const gymGeo = useSelector((state) => state.gymsGeo)
+  const gymGeo = useSelector((state) => state.gymsGeo);
 
   const userId = localStorage.getItem("userId");
 
@@ -52,22 +52,22 @@ export default function UpdateGym(props) {
   // 2 price
   // 3 logo
   // 4 phone
-  
 
-  let exampleObject = // Esto no se está usado
-  {
-    name: "Nuevo Fittnet", // obligatorio
-    price: 999, // obligatorio
-    image: [],
-    latitude: 0,
-    longitude: 0,
-    trainers: [],
-    logo: "https://static.vecteezy.com/system/resources/thumbnails/003/108/337/small/fitness-gym-logo-with-strong-athlete-and-barbell-vector.jpg", // obligatorio
-    phone: 155790033, //obligatorio, sin espacios
-    email: "emaildelgym@gmail.com",
-    gymActive: true,
-    favourite: 0,
-  };
+  let exampleObject =
+    // Esto no se está usado
+    {
+      name: "Nuevo Fittnet", // obligatorio
+      price: 999, // obligatorio
+      image: [],
+      latitude: 0,
+      longitude: 0,
+      trainers: [],
+      logo: "https://static.vecteezy.com/system/resources/thumbnails/003/108/337/small/fitness-gym-logo-with-strong-athlete-and-barbell-vector.jpg", // obligatorio
+      phone: 155790033, //obligatorio, sin espacios
+      email: "emaildelgym@gmail.com",
+      gymActive: true,
+      favourite: 0,
+    };
 
   // Campos del formulario
   //----------------------------------------------------------------------
@@ -119,17 +119,17 @@ export default function UpdateGym(props) {
       return {
         ...prevState,
         latitude: gymGeo.latitude,
-        longitude: gymGeo.longitude
-      }
+        longitude: gymGeo.longitude,
+      };
     });
     setEditGym((prevState) => {
       return {
         ...prevState,
         latitude: gymGeo.latitude,
-        longitude: gymGeo.longitude
-      }
-    })
-  },[gymGeo])
+        longitude: gymGeo.longitude,
+      };
+    });
+  }, [gymGeo]);
   //----------------------------------------------------------------------------
   // Faltaría tener un select o un switch para saber si se está creando o editando,
   // pero de todas formas usamos el mismo form para las dos cosas (crear y editar)
@@ -451,6 +451,7 @@ export default function UpdateGym(props) {
               />
 
               <button
+                className={styles.btnAgregarFotos}
                 onClick={(e) => {
                   addTrainer(e);
                 }}
@@ -462,7 +463,7 @@ export default function UpdateGym(props) {
               {error.email && <p className={styles.danger}>{error.email}</p>}
 
               <ul>
-                <li className={styles.input}>
+                <li>
                   {newGym.trainers.length && typeAction === "create"
                     ? newGym.trainers.map((e) => (
                         <div key={e} className={styles.listTrainGym}>
@@ -478,7 +479,7 @@ export default function UpdateGym(props) {
                     ? editGym.trainers.map((e) => (
                         <div key={e} className={styles.listTrainGym}>
                           <div className={styles.trainersStyle}>
-                            <p style={{marginTop: ".35rem"}}>{e} </p>
+                            <p style={{ marginTop: ".35rem" }}>{e} </p>
                             <button value={e} onClick={(e) => handleDeleteT(e)}>
                               x
                             </button>
@@ -507,6 +508,7 @@ export default function UpdateGym(props) {
               placeholder="https://foto-del-gym.jpg"
             />
             <button
+              className={styles.btnAgregarFotos}
               onClick={(e) => {
                 addPhoto(e);
               }}
@@ -516,17 +518,27 @@ export default function UpdateGym(props) {
             </button>
 
             <ul>
-              <li className={styles.input}>
+              <li
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: ".3rem",
+                }}
+              >
                 {newGym.image.length && typeAction === "create"
                   ? newGym.image.map((e) => (
-                      <div key={e}>
+                      <div key={e} className={styles.listfotosGym}>
                         <img
                           className={styles.photoform}
                           src={e}
                           key={e}
                           alt="No Found"
                         />
-                        <button value={e} onClick={(e) => handleDeletePhoto(e)}>
+                        <button
+                          value={e}
+                          className={styles.btnFotosGym}
+                          onClick={(e) => handleDeletePhoto(e)}
+                        >
                           x
                         </button>{" "}
                       </div>
@@ -535,14 +547,18 @@ export default function UpdateGym(props) {
 
                 {editGym.image.length && typeAction === "edit"
                   ? editGym.image.map((e) => (
-                      <div key={e}>
+                      <div key={e} lassName={styles.listfotosGym}>
                         <img
                           className={styles.photoform}
                           src={e}
                           key={e}
                           alt="No Found"
                         />
-                        <button value={e} onClick={(e) => handleDeletePhoto(e)}>
+                        <button
+                          value={e}
+                          className={styles.btnFotosGym}
+                          onClick={(e) => handleDeletePhoto(e)}
+                        >
                           x
                         </button>{" "}
                       </div>
@@ -552,11 +568,14 @@ export default function UpdateGym(props) {
             </ul>
           </div>
         </form>
-        <MapGyms/>
+        <div style={{ marginTop: "1rem" }}>
+          <MapGyms />
+        </div>
       </div>
       <p></p>
       {typeAction === "create" && (
         <button
+          className={styles.btnCreateEditGym}
           onClick={(e) => {
             onClickCreateGym(e);
           }}
