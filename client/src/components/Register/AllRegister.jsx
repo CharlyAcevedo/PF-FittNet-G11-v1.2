@@ -10,7 +10,7 @@ import {
   BackgroundTwo,
   BackgroundOne,
 } from "../../helpers/Backround/Background";
-import { SweetAlrt, SweetAlrt2, SweetAlrtTem } from "../../asets/helpers/sweetalert";
+import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 
 export default function AllRegister() {
   const dispatch = useDispatch();
