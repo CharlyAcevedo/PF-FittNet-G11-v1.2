@@ -2,25 +2,22 @@ import { useState } from "react";
 import styles from "./style/client.module.css";
 //import { serviceValidate } from "./controlers/validaciones";
 import { useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
+import { getMyGyms } from "../../redux/actions"; // --------------LA ACTION
+import { useDispatch } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 // import { createService } from "../../redux/actions";
 // import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { createOneService, editOneService } from "./controlers/Functions";
+import { useEffect } from "react";
 
 export default function Services() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const navigate = useNavigate();
+  const dataPartner = useSelector((state) => state.myGyms);
+  let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
 
-
-  const dataPartner = useSelector((state) => state.user);
-
-  let myGyms = dataPartner && dataPartner.gyms ? dataPartner.gyms : [];
-
-  let myServices = [];
-
-
-  const userId = localStorage.getItem("userId");
+  const [myServices, setMyServices] = useState([]);
+  const userId = localStorage.getItem('userId');
 
   const [typeAction, setTypeAcyion] = useState("create");
   // const [name, setName] = useState("");
@@ -36,7 +33,6 @@ export default function Services() {
     photo: [], // Array de strings
     profileCategory: [],
   });
-  const [error, setError] = useState({});
 
   const [editService, setEditService] = useState({
     name: "Nuevo nombre", // string requerido
@@ -47,46 +43,55 @@ export default function Services() {
     profileCategory: [],
   });
 
+  const [error, setError] = useState({});
+
+  useEffect(() => {
+    dispatch(getMyGyms(userId))
+  }, [userId]);
+
+
+  function refreshState(e) {
+    e.preventDefault();
+    dispatch(getMyGyms(userId))
+
+  }
 
 
   //----------------------------------------------------------------------------
-  // Faltaría tener un select o un switch para saber si se está creando o editando,
-  // pero de todas formas usamos el mismo form para las dos cosas (crear y editar)
-  //----------------------------------------------------------------------------
-
-  //----------------------------------------------------------------------------
-  // Esta función sirve para crear un gym
+  // Esta función sirve para crear un gym           
   //----------------------------------------------------------------------------
   async function onClickCreateService() {
     let dataForNewService = {
       gymId: { gymId: gymId },
-      dataNewService: newService,
+      dataNewService: newService
     };
 
     // gymId: el id del gym que crea el servicio
     // dataNewService: en este objeto va todo lo que obtienen del formulario (el input de arriba)
 
-    console.log("recibe el click y crea un service");
+    console.log('recibe el click y crea un service')
     let newOnService = await createOneService(dataForNewService);
     return newOnService;
+
   }
 
   //----------------------------------------------------------------------------
-  // Esta función sirve para editar la info de un gym
+  // Esta función sirve para editar la info de un gym       
   //----------------------------------------------------------------------------
 
   async function onClickEditService() {
     let dataForEditService = {
-      serviceId: { serviceId: "serviceId" },
-      newDataService: editService,
+      serviceId: { serviceId: serviceId },
+      newDataService: editService
     };
 
     // serviceId: el id del service a editar
     // dataNewService: en este objeto va todo lo que obtienen del formulario (el input de arriba)
 
-    console.log("recibe el click y edita un gym");
+    console.log('recibe el click y edita un gym')
     let editOnService = await editOneService(dataForEditService);
     return editOnService;
+
   }
 
   //----------------HANDLECHANGE----------------------------------------------
@@ -126,34 +131,44 @@ export default function Services() {
       // let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
       console.log(myGyms);
 
-      myServices = myGyms.length && myGyms.filter((e) => e._id === value);
+      let filterServices = myGyms.length && myGyms.filter(e => e._id === value);
 
+      setMyServices(filterServices);
+
+      console.log(filterServices, ' los servicios del gym');
+
+      // Seteamos el id del servicio
       setGymId(e.target.value);
-      console.log(e.target.value, " estoy en el select dentro del if");
+      // console.log(e.target.value, ' Service select dentro del if')
+
     } else {
       setGymId("");
     }
-    console.log(e.target.value, " estoy en el select");
+    console.log(e.target.value, ' Service select')
   }
 
   function handleChangeService(e) {
     if (e.target.value !== "...") {
       e.preventDefault();
+      // Seteamos el id del servicio
       setServiceId(e.target.value);
-      console.log(e.target.value, " estoy en el select dentro del if");
+      // console.log(e.target.value, ' Service update select dentro del if ')
+
     } else {
       setServiceId("");
     }
-    console.log(e.target.value, " estoy en el select");
+    console.log(e.target.value, ' Service update en el select')
   }
+
 
   function addPhoto(e) {
     e.preventDefault();
 
     if (photo && typeAction === "create") {
+
       if (!newService.photo.includes(photo)) {
         // console.log('entra');
-        let newState = [...newService.photo];
+        let newState = [...newService.photo]
         newState.push(photo);
 
         setNewService({
@@ -163,8 +178,9 @@ export default function Services() {
       }
     }
     if (photo && typeAction === "edit") {
+
       if (!editService.photo.includes(photo)) {
-        let newState = [...editService.photo];
+        let newState = [...editService.photo]
         newState.push(photo);
 
         setEditService({
@@ -176,6 +192,7 @@ export default function Services() {
     // console.log(editGym.image)
     // console.log(newGym.image)
     setPhoto("");
+
   }
 
   //----------------------- delete photo --------------------------------------
@@ -195,40 +212,43 @@ export default function Services() {
         photo: editService.photo.filter((el) => el !== e.target.value),
       });
     }
+
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
+
     <div className={styles.editPartnerMainContainer}>
-      <h3>
-        FORMULARIO DE {typeAction === "create" ? "CREACIÓN" : "EDICIÓN"} DE
-        PRODUCTO O SERVICIO
-      </h3>
+      <h3>FORMULARIO DE {typeAction === "create" ? "CREACIÓN" : "EDICIÓN"} DE PRODUCTO O SERVICIO</h3>
       <div>
-        <button
-          onClick={() => {
-            setTypeAcyion("edit");
-          }}
-        >
-          Editar Gym
-        </button>
+
+        <button onClick={() => { setTypeAcyion("edit") }}>Editar Gym</button>
         <p></p>
-        <button
-          onClick={() => {
-            setTypeAcyion("create");
-          }}
-        >
-          Crear Gym
-        </button>
+        <button onClick={() => { setTypeAcyion("create") }}>Crear Gym</button>
         <p></p>
         {typeAction ? typeAction : null}
 
+        <button onClick={(e) => refreshState(e)}>Recargar</button>
+
         <form action="">
+
           <div>
-            <label>
-              <strong>*</strong>Gimnasio:{" "}
-            </label>
+            <label><strong>*</strong>Gimnasio: </label>
             <select onChange={(e) => handleChangeGyms(e)}>
-            <option key="id1">...</option>
+              <option key="id1">...</option>
               {myGyms.length > 0 ? myGyms.map((g) => (
                 <option key={g._id} value={g._id}>{g.name}</option>
               )) : null}
@@ -236,24 +256,23 @@ export default function Services() {
             {gymId ? gymId : null}
           </div>
 
-          {typeAction === "edit" ? (
+          {typeAction === "edit" ?
+
             <div>
-              <label>
-                <strong>*</strong>Servicio:{" "}
-              </label>
+              <label><strong>*</strong>Servicio: </label>
               <select onChange={(e) => handleChangeService(e)}>
                 <option key="id2">...</option>
-                {myServices.length > 0
-                  ? myServices.map((s) => (
-                      <option key={s._id} value={s._id}>
-                        {s.name}
-                      </option>
-                    ))
-                  : null}
+                {myServices.length > 0 && myServices[0].services.length > 0 ? myServices[0].services.map((s) => (
+                  <option key={s._id} value={s._id}>{s.name}</option>
+                )) : null}
               </select>
               {serviceId ? serviceId : null}
             </div>
-          ) : null}
+
+
+            : null}
+
+
 
           <div>
             <label>
@@ -263,9 +282,7 @@ export default function Services() {
               className={error.name && styles.inputdanger}
               type="text"
               name="name"
-              value={
-                typeAction === "create" ? newService.name : editService.name
-              }
+              value={typeAction === "create" ? newService.name : editService.name}
               onChange={(e) => {
                 handleChange(e);
               }}
@@ -275,17 +292,11 @@ export default function Services() {
           </div>
 
           <div>
-            <label>
-              <strong>*</strong>Descripcion:{" "}
-            </label>
+            <label><strong>*</strong>Descripcion: </label>
             <input
               className={error.description && styles.inputdanger}
               onChange={(e) => handleChange(e)}
-              value={
-                typeAction === "create"
-                  ? newService.description
-                  : editService.description
-              }
+              value={typeAction === "create" ? newService.description : editService.description}
               type="text"
               name="description"
               placeholder="Una breve descripcion..."
@@ -304,9 +315,7 @@ export default function Services() {
               className={error.name && styles.inputdanger}
               type="number"
               name="price"
-              value={
-                typeAction === "create" ? newService.price : editService.price
-              }
+              value={typeAction === "create" ? newService.price : editService.price}
               onChange={(e) => {
                 handleChange(e);
               }}
@@ -316,9 +325,7 @@ export default function Services() {
           </div>
 
           <div>
-            <label>
-              <strong>*</strong>Fotos:{" "}
-            </label>
+            <label><strong>*</strong>Fotos: </label>
 
             <input
               type="text"
@@ -326,107 +333,71 @@ export default function Services() {
               id="image"
               multiple
               value={photo}
-              onChange={(e) => {
-                setPhoto(e.target.value);
-              }}
+              onChange={(e) => { setPhoto(e.target.value) }}
               placeholder="https://foto-del-gym.jpg"
             />
-            <button
-              onClick={(e) => {
-                addPhoto(e);
-              }}
-            >
-              {" "}
-              +{" "}
-            </button>
+            <button onClick={(e) => { addPhoto(e) }}> + </button>
+
 
             <ul>
               <li className={styles.input}>
-                {newService.photo.length && typeAction === "create"
-                  ? newService.photo.map((e) => (
-                      <div key={e}>
-                        <img
-                          className={styles.photoform}
-                          src={e}
-                          key={e}
-                          alt="No Found"
-                        />
-                        <button value={e} onClick={(e) => handleDeletePhoto(e)}>
-                          x
-                        </button>
-                      </div>
-                    ))
-                  : null}
+                {newService.photo.length && typeAction === "create" ? newService.photo.map((e) => (
+                  <div key={e}>
 
-                {editService.photo.length && typeAction === "edit"
-                  ? editService.photo.map((e) => (
-                      <div key={e}>
-                        <img
-                          className={styles.photoform}
-                          src={e}
-                          key={e}
-                          alt="No Found"
-                        />
-                        <button value={e} onClick={(e) => handleDeletePhoto(e)}>
-                          x
-                        </button>
-                      </div>
-                    ))
-                  : null}
+                    <img className={styles.photoform}
+                      src={e}
+                      key={e}
+                      alt="No Found"
+                    />
+                    <button value={e} onClick={(e) => handleDeletePhoto(e)}>
+                      x
+                    </button>{" "}
+                  </div>
+                )) : null}
+
+                {editService.photo.length && typeAction === "edit" ? editService.photo.map((e) => (
+                  <div key={e}>
+
+                    <img className={styles.photoform}
+                      src={e}
+                      key={e}
+                      alt="No Found"
+                    />
+                    <button value={e} onClick={(e) => handleDeletePhoto(e)}>
+                      x
+                    </button>{" "}
+                  </div>
+                )) : null}
               </li>
             </ul>
           </div>
 
           <div>
             <label>Duracion:</label>
-            <input
-              className="inputScore"
-              type="range"
-              name="duration"
-              min="1"
-              max="90"
-              step="1"
-              value={
-                typeAction === "create"
-                  ? newService.duration
-                  : editService.duration
-              }
+            <input className='inputScore' type="range" name="duration"
+              min="1" max="90" step="1"
+              value={typeAction === "create" ? newService.duration : editService.duration}
               // onClick={(e) => validateSubmit(e)}
               onChange={(e) => handleChange(e)}
             />
-            {typeAction === "create" && newService.duration
-              ? `${newService.duration} minutos`
-              : null}
-            {typeAction === "edit" && editService.duration
-              ? `${editService.duration} minutos`
-              : null}
+            {typeAction === "create" && newService.duration ? `${newService.duration} minutos` : null}
+            {typeAction === "edit" && editService.duration ? `${editService.duration} minutos` : null}
 
-            {error.duration && (
-              <p className={styles.danger}>{error.duration}</p>
-            )}
+            {error.duration && <p className={styles.danger}>{error.duration}</p>}
+
           </div>
+
         </form>
+
       </div>
       <p></p>
-      {typeAction === "create" && (
-        <button
-          onClick={(e) => {
-            onClickCreateService(e);
-          }}
-        >
-          Crear servicio de prueba
-        </button>
-      )}
-      {typeAction === "edit" && (
-        <button
-          onClick={(e) => {
-            onClickEditService(e);
-          }}
-        >
-          {" "}
-          Editar servicio de prueba
-        </button>
-      )}
+      {typeAction === "create" &&
+        <button onClick={(e) => { onClickCreateService(e) }}>Crear servicio de prueba</button>
+      }
+      {typeAction === "edit" &&
+        <button onClick={(e) => { onClickEditService(e) }}> Editar servicio de prueba</button>
+      }
+
     </div>
   );
 }
