@@ -467,10 +467,12 @@ export default function UpdateGym(props) {
                   {newGym.trainers.length && typeAction === "create"
                     ? newGym.trainers.map((e) => (
                         <div key={e} className={styles.listTrainGym}>
-                          <p>{e} </p>
-                          <button value={e} onClick={(e) => handleDeleteT(e)}>
-                            x
-                          </button>{" "}
+                          <div className={styles.trainersStyle}>
+                            <p>{e} </p>
+                            <button value={e} onClick={(e) => handleDeleteT(e)}>
+                              x
+                            </button>{" "}
+                          </div>
                         </div>
                       ))
                     : null}

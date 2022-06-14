@@ -210,6 +210,7 @@ async function postGyms(idUser, gyms) {
       }
     } //termina la primera fase, aqui ya deben quedar guardados los cambios a gyms que ya tenia el partner seteados
 
+    
     let canCreate = gymsPermited - currentGymsNumber; //calcula cuantos gyms mas se pueden crear
 
     if (canCreate <= 0) { //entra aqui si ya no puede crear nuevos gyms
@@ -291,6 +292,20 @@ async function postGyms(idUser, gyms) {
   }
 }
 
+const updateClientGym = async (req, res) => {
+  const { id, client } = req.body
+  try {
+      const updatedGymClient = await Gims.findByIdAndUpdate(id, {
+         client: client
+      })      
+      console.log(updatedGymClient, 'esto es updateclient')
+      res.send(updatedGymClient)
+  } catch (error) {
+      console.log(error.message)
+      return error.message
+  }
+}
+
 async function saveGyms(id, data) {
   let newServices = await data.map((s) => {
     let sToPush = Service.findById({ _id: s });
@@ -354,4 +369,4 @@ const updateFavGym = async (req, res) => {
 }
 
 
-module.exports = { getAllGyms, postGyms, saveGyms, getGymById, getGymByName, updateFavGym }
+module.exports = { getAllGyms, postGyms, saveGyms, getGymById, getGymByName, updateFavGym, updateClientGym }
