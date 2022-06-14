@@ -47,7 +47,7 @@ const initialState = {
   deseaseAttribute: [],
   lockAccounts: [],
   plans: [],
-
+  allCart:[]
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -283,6 +283,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         gymDetail: payload,
         products: payload.services,
       };
+
     case POST_AVATAR:
       return {
         ...state,
@@ -341,7 +342,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
       const idCart = payload ? payload[payload.length - 1]._id : {}
       return {
         ...state,
-        getCart: idCart
+        getCart: idCart,
+        allCart: payload
       }
     case ADD_TO_CART:
       const item = state.products.find(prod => prod._id === payload.id) //la clase q me matche con el id

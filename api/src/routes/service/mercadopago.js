@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const mercadopago = require('mercadopago')
 const { Router } = require("express");
 const router = Router();
-const Order = require('../../models/Order');
 
 require("dotenv").config();
 const { ACCESS_TOKEN } = process.env;
