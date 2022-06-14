@@ -64,6 +64,10 @@ const gymSchema = new mongoose.Schema({
   },
   favourite: {
     type: Number,
+  },
+  clients: {
+    type: Array,
+    of: String,    
   }
 });
 

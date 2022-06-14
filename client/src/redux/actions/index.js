@@ -472,8 +472,7 @@ export const updateUserInfo = (id, body) => async (dispatch) => {
 export const getCart = () => {
   try {
     return async (dispatch) => {
-      const getCart = await axios.get('/api/shopcart')
-      console.log(getCart.data)
+      const getCart = await axios.get('/api/shopcart')      
       return dispatch({
         type: GET_CART,
         payload: getCart.data
@@ -523,11 +522,48 @@ export const postCart = (body) => {
 }
 
 export function editStatus(statusCart) {
-  return (dispatch) => {
-    const put = axios.put('/api/shopcart', statusCart)
+  console.log(statusCart, 'statuscart')
+  return async (dispatch) => {    
+    const put = await axios({
+      method: "put",
+      url: "/api/shopcart",
+      data: statusCart,
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+      withCredentials: true,
+    })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((error) => console.log(error));
     return put
   };
 }
+
+export function updateClientGym(body){
+  return async (dispatch) => {
+    const put = await axios.put('/api/partner/gyms/gymsupdate', body)    
+    return put
+  }
+}
+
+// export const updateFavouriteGym = (id, user) => async (dispatch) => {
+//   try {
+//     const newFavourite = await axios.put(
+//       `/api/user/profile/update/favourite/${id}`,
+//       {
+//         favourite: 1,
+//         idUser: user,
+//       }
+//     );
+//     dispatch({
+//       type: PUT_FAVOURITE,
+//       payload: newFavourite.data,
+//     });
+//   } catch (error) {
+//     console.log("error: ", error);
+//   }
+
+// }
 
 export function clearCart() {
   return ({

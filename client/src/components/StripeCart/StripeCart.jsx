@@ -12,7 +12,7 @@ import { NavBar3 } from "../GymDetail/NavBar3";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
-import { clearCart, editStatus, getCart } from "../../redux/actions";
+import { clearCart, editStatus, getCart, updateClientGym } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import { SendEmail } from "./SendEmail";
 import { BackgroundOne } from "../../helpers/Backround/Background";
@@ -28,25 +28,24 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const cart = useSelector((state) => state.cart);
-  const cartPrice = cart.map((c) => c.price.$numberDecimal);
-  const totalPrice = cartPrice
-    .map(function (a) {
-      return parseInt(a);
-    })
-    ?.reduce(function (a, b) {
-      return a + b;
-    });
+  const allcart = useSelector((state) => state.gymDetail)
+  // const cartPrice = parseInt(cart.map(c => c.price.$numberDecimal))  
+  // const cartQty = parseInt(cart.map(c => c.qty))
+  // const totalPrice = cartPrice * cartQty  
+  const totalPrice = cart.reduce((c, b) => parseInt(c.price.$numberDecimal * c.qty) + parseInt(b.price.$numberDecimal * b.qty))
   const usuarioId = localStorage.getItem("userId");
   const name = localStorage.getItem("name");
   const type = localStorage.getItem("type");
   const avatar = localStorage.getItem("avatar");
-  const [statusCart, setStatusCart] = useState({
-    status: "",
-    id: {},
-    price: {},
-    quantity: {},
-    total: {},
+
+
+  const [statusClient, setStatusClient] = useState({
+    id2: allcart._id,
+    client: name
   });
+
+  const gymId = allcart._id
+  console.log(statusClient, 'allcart')
   const idCart = useSelector((state) => state.getCart);
   const [imgBack, setImgBack] = useState(
     Math.floor(Math.random() * (26 - 1) + 1)
@@ -56,17 +55,46 @@ const CheckoutForm = () => {
     "https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/" +
     imgBack +
     ".jpeg";
-  useEffect(() => {
-    setStatusCart({
-      status: "Payed",
-      id: idCart,
-      price: 500,
-      quantity: 2,
-      total: 1000,
-    });
-  }, [idCart]);
+  // useEffect(() => {
+  //   setStatusCart({
+  //     status: "Payed",
+  //     id: idCart,
+  //     price: cartPrice,
+  //     quantity: cartQty,
+  //     total: cartPrice * cartQty,
+  //   });        
+  //   console.log(statusCart, 'esto es partnergyms')
+  // }, [idCart, name]);
+  // var compra = [ {_id: "id1", name:"yoga", price: 700, qty: 2},{_id: "id2", name:"boxeo", price:500, qty: 1 } ];
+
+  async function functionEditStatus(detalle) {
+    const put = await axios({
+      method: "put",
+      url: "/api/shopcart",
+      data: detalle,
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+      withCredentials: true,
+    })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((error) => console.log(error));
+    console.log(put, 'put')
+    return put
+  }
+
 
   const handleSubmit = async (e) => {
+    var detalle = cart.map((c) => ({
+      user: usuarioId,
+      services: c._id,
+      gyms: statusClient.id2,
+      price: c.price.$numberDecimal,
+      quantity: c.qty,
+      total: c.qty * c.price.$numberDecimal,
+      status: "Payed"
+    }))
+
     e.preventDefault();
     // const inputsito = document.querySelector('#card-element')
     // const inputFull = inputsito.classList.contains('StripeElement--complete')
@@ -76,8 +104,7 @@ const CheckoutForm = () => {
     // console.log(input2)
     // if (!inputFull) {
     //     return SweetAlrt("*Valid card number is required ")
-    // }
-    console.log("Usuario name", name);
+    // }    
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
@@ -88,11 +115,20 @@ const CheckoutForm = () => {
         //const response = await axios.post('/api/checkout', {
         id,
         amount: totalPrice * 10,
-      }).data;
-      dispatch(editStatus(statusCart));
-      SendEmail(usuarioId, idCart);
+      })
+        .then((response) => {
+          console.log(response, 'respuesta')
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      console.log(detalle, 'statuscart')
+      let edit = await functionEditStatus(detalle);
+      dispatch(updateClientGym(statusClient));
+      SendEmail(edit);
+      console.log(idCart, ' idcart mail')
       SweetAlrtTem(`Su compra fue realizada con exito ${name}`, "success");
-      //   navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
+      navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
       dispatch(clearCart());
     } else {
       SweetAlrtTem(`Su compra NO fue realizada con exito ${name}`, "error");

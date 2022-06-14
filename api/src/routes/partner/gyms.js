@@ -11,6 +11,7 @@ const {
 const Gyms = require("../../models/Gyms");
 const Users = require("../../models/User");
 const Partner = require("../../models/Partner");
+const { findByIdAndUpdate } = require('../../models/Gyms');
 
 
 const router = Router();
@@ -87,6 +88,19 @@ router.put('/gymupdate', async (req, res) => {
         res.status(404).send({ error: error.message });
       }
 }); 
+
+router.put('/gymsupdate', async (req, res) => {
+  try {        
+    console.log(req.body)
+      const { id2, client } = req.body
+      const response = await Gyms.findByIdAndUpdate(id2, {clients:client},{new:true});      
+      res.status(200).send('exitopa');
+  } catch (error) {
+    console.error('error')
+      res.status(404).send({ error: error.message });
+    }
+});
+
 
 // Para crear gym
 router.post('/gymcreate/:idUser', async (req, res) => {
