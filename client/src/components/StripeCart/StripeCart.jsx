@@ -12,7 +12,12 @@ import { NavBar3 } from "../GymDetail/NavBar3";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
-import { clearCart, editStatus, getCart, updateClientGym } from "../../redux/actions";
+import {
+  clearCart,
+  editStatus,
+  getCart,
+  updateClientGym,
+} from "../../redux/actions";
 import { Link } from "react-router-dom";
 import { SendEmail } from "./SendEmail";
 import { BackgroundOne } from "../../helpers/Backround/Background";
@@ -28,24 +33,43 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const cart = useSelector((state) => state.cart);
-  const allcart = useSelector((state) => state.gymDetail)
-  // const cartPrice = parseInt(cart.map(c => c.price.$numberDecimal))  
+  const allcart = useSelector((state) => state.gymDetail);
+  const user = useSelector((state) => state.user);
+  
+  localStorage.setItem('phone', allcart.phone)  
+  localStorage.setItem('nameGym', allcart.name)  
+  // const cartPrice = parseInt(cart.map(c => c.price.$numberDecimal))
   // const cartQty = parseInt(cart.map(c => c.qty))
-  // const totalPrice = cartPrice * cartQty  
-  const totalPrice = cart.reduce((c, b) => parseInt(c.price.$numberDecimal * c.qty) + parseInt(b.price.$numberDecimal * b.qty))
+  // const totalPrice = cartPrice * cartQty
+  // co`nst totalPrice = cart.reduce(
+  //   (c, b) =>
+  //     parseInt(c.price.$numberDecimal * c.qty) +
+  //     parseInt(b.price.$numberDecimal * b.qty)
+  // );`
+
+  console.log(allcart)
   const usuarioId = localStorage.getItem("userId");
   const name = localStorage.getItem("name");
+  // const email = localStorage.getItem("email");
+  const { userName, info } = user;
+  // const {name}
+
+  const username = info.name;
   const type = localStorage.getItem("type");
   const avatar = localStorage.getItem("avatar");
 
-
   const [statusClient, setStatusClient] = useState({
     id2: allcart._id,
-    client: name
+    client: name,
   });
 
-  const gymId = allcart._id
-  console.log(statusClient, 'allcart')
+  const [statusGym, setStatusGim] = useState({
+    nameGim: allcart.name,
+    phonmeGim: allcart.phone
+  })
+
+  const gymId = allcart._id;
+  console.log(statusClient, "allcart");
   const idCart = useSelector((state) => state.getCart);
   const [imgBack, setImgBack] = useState(
     Math.floor(Math.random() * (26 - 1) + 1)
@@ -62,7 +86,7 @@ const CheckoutForm = () => {
   //     price: cartPrice,
   //     quantity: cartQty,
   //     total: cartPrice * cartQty,
-  //   });        
+  //   });
   //   console.log(statusCart, 'esto es partnergyms')
   // }, [idCart, name]);
   // var compra = [ {_id: "id1", name:"yoga", price: 700, qty: 2},{_id: "id2", name:"boxeo", price:500, qty: 1 } ];
@@ -79,10 +103,17 @@ const CheckoutForm = () => {
         return res.data;
       })
       .catch((error) => console.log(error));
-    console.log(put, 'put')
-    return put
+    console.log(put, "put");
+    return put;
   }
 
+  const gymName = localStorage.getItem("nameGym")
+  const phoneGym = localStorage.getItem("phone")
+
+  // let detailGym = {
+  //   gymN,
+  //   phoneGym,
+  // }
 
   const handleSubmit = async (e) => {
     var detalle = cart.map((c) => ({
@@ -92,8 +123,28 @@ const CheckoutForm = () => {
       price: c.price.$numberDecimal,
       quantity: c.qty,
       total: c.qty * c.price.$numberDecimal,
-      status: "Payed"
-    }))
+      status: "Payed",
+    }));
+
+    var saleDetail = cart.map((c) => ({
+      sericesName: c.name,
+      gymName: allcart.name,
+      price: c.price.$numberDecimal,
+      quantity: c.qty,
+      total: c.qty * c.price.$numberDecimal,
+    }));
+
+    const det = {
+      userDetail: {
+        username: username,
+        email: userName,
+      },
+      gymDetail: {
+        gymName: statusGym.nameGim,
+        phoneGym: statusGym.phonmeGim
+      },
+      saleDetail: saleDetail,
+    };
 
     e.preventDefault();
     // const inputsito = document.querySelector('#card-element')
@@ -104,29 +155,30 @@ const CheckoutForm = () => {
     // console.log(input2)
     // if (!inputFull) {
     //     return SweetAlrt("*Valid card number is required ")
-    // }    
+    // }
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
     });
     if (!error) {
       const { id } = paymentMethod;
-      await axios.post("/api/checkout", {
-        //const response = await axios.post('/api/checkout', {
-        id,
-        amount: totalPrice * 10,
-      })
+      await axios
+        .post("/api/checkout", {
+          //const response = await axios.post('/api/checkout', {
+          id,
+          amount: 2000 * 10,
+        })
         .then((response) => {
-          console.log(response, 'respuesta')
+          console.log(response, "respuesta");
         })
         .catch((error) => {
-          console.log(error)
-        })
-      console.log(detalle, 'statuscart')
+          console.log(error);
+        });
+      console.log(detalle, "statuscart");
       let edit = await functionEditStatus(detalle);
-      dispatch(updateClientGym(statusClient));
-      SendEmail(edit);
-      console.log(idCart, ' idcart mail')
+      dispatch(updateClientGym(detalle));
+      SendEmail(det);
+      console.log(idCart, " idcart mail");
       SweetAlrtTem(`Su compra fue realizada con exito ${name}`, "success");
       navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
       dispatch(clearCart());

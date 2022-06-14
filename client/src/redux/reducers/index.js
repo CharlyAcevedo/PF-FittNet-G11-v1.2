@@ -1,15 +1,15 @@
 // eslint-disable-next-line
-import { Action } from "history";
+// import { Action } from "history";
 import { latBA, lngBA } from "../../asets/helpers/goeDefaults";
 
 import { 
   GET_ALL_USERS, GET_ALL_PARTNERS, GET_AVATARS, SET_CURRENT_PAGE, SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT, GET_ALL_GYMS, GET_GYM_DETAIL, SET_USER_GEO, POST_USER_GOOGLE,
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, ADD_TO_CART, REMOVE_FROM_CART,
-  SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE, 
+  CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE, 
   CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,SORT_QUALIFICATION,
   FILTER_CATEGORY, SORT_PRICE, SEARCH, SORT_DISTANCE, SET_GYMS_GEO, POST_GYM, GET_PARTNER,
-  GET_PLANS, GET_PARTNER_ID
+  GET_PLANS, GET_PARTNER_ID, GET_MY_GYMS
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -29,6 +29,7 @@ const initialState = {
   currentGymCreated: {},
   gymCreaded: {},
   gyms: [],
+  myGyms: {},
   gymsToShow: [],
   gymDetail: {},
   partners: [],
@@ -89,15 +90,16 @@ export default function rootReducer(state = initialState, { type, payload }) {
         partnersToShow: payload,
       };
     case GET_PARTNER:
-      if (payload.error) {
-        return {
-          ...state,
-          errors: payload.error,
-        };
-      }
+      console.log(payload, 'llega al reducer')
+      // if (payload.error) {
+      //   return {
+      //     ...state,
+      //     errors: payload.error,
+      //   };
+      // }
       return {
         ...state,
-        partnerDetails: payload.partnerGyms,
+        partnerDetails: payload,
       };
     case GET_USER_TOKEN_GOOGLE:
       if (payload.error) {
@@ -122,6 +124,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
         user: {...state.user, info: payload}
       };
     case GET_PARTNER_ID:
+      if (payload.error) {
+        return {
+          ...state,
+          errors: payload.error,
+        };
+      };
       return {
         ...state,
         user: payload
@@ -459,6 +467,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         plans: payload
+      }
+    case GET_MY_GYMS:
+      return {
+        ...state,
+        myGyms: payload
       }
     default:
       return state;

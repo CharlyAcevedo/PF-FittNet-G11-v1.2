@@ -4,13 +4,13 @@ import {
  
 
   POST_USER,POST_GYM,POST_SERVICES,POST_PARTNER, ADD_TO_CART, DELETE_DESEASE, GET_PARTNER,
- GET_ALL_USERS, GET_ALL_PARTNERS, GET_AVATARS, SET_CURRENT_PAGE, SET_PAGE_NUMBER,
+  GET_ALL_USERS, GET_ALL_PARTNERS, GET_AVATARS, SET_CURRENT_PAGE, SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT, GET_ALL_GYMS, GET_GYM_DETAIL, SET_USER_GEO, POST_USER_GOOGLE,
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, REMOVE_FROM_CART,
   CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE, 
   CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,SORT_QUALIFICATION,
   FILTER_CATEGORY,  SORT_PRICE,  SEARCH,  SORT_DISTANCE, SET_GYMS_GEO,
-  GET_PLANS, GET_PARTNER_ID
+  GET_PLANS, GET_PARTNER_ID, GET_MY_GYMS
 } from "./actionTypes";
 //--------------------------------------------------------------------------------
 //------USER SERVICE ACTIONS------(favor de poner todas las aciones referentes a service en general todos los usuarios aqui)
@@ -165,8 +165,12 @@ export const getPartner = (idPartner) => async dispatch => {
       type: GET_PARTNER_ID,
       payload: dataPartner.data.partner
     })
-  } catch (error) {
-    console.log("error", error)
+  } catch (err) {
+    dispatch({
+      type: GET_PARTNER_ID,
+      payload: { error: err.message },
+    });
+    
   }
 }
 
@@ -213,6 +217,30 @@ export function getLockAccounts() {
 //--------------------------------------------------------------------------------
 //------PARTNER ACTIONS------(Favor de poner aqui todas las aciones para partners)
 //--------------------------------------------------------------------------------
+export function getMyGyms(partnerId) { 
+  // Esta ruta la consume el admin (va a estar protegida), y me trae información del
+  // perfil del admin que la solicita
+  return async (dispatch) => {
+    try {
+      const parternGyms = await axios({
+        method: "get", url: `/api/partner/gyms/mygyms/${partnerId}`,
+        headers: { "X-Requested-With": "XMLHttpRequest" }, withCredentials: true
+      });
+      console.log(parternGyms.data, "actions");
+      
+      dispatch({
+        type: GET_MY_GYMS,
+        payload: parternGyms.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_MY_GYMS,
+        payload: { error: err.message },
+      });
+    };
+  };
+}
+
 
 export function getAllGyms() {
   return async (dispatch) => {
@@ -292,11 +320,12 @@ export function updatePartnerData({
 
 export function getPartnerDetails(id) {
   return async (dispatch) => {
+    console.log('sale la accion de los detalles del partner')
     try {
       const response = await axios.get(`/api/partner/profile/${id}`);
       dispatch({
         type: GET_PARTNER,
-        payload: response.data,
+        payload: response.data.partner,
       });
     } catch (err) {
       dispatch({

@@ -60,8 +60,6 @@ export default function HomeMain() {
         }}
       >
         <SelecAvatar />
-        {/* {console.log("entro a seleccionar el avatar")} */}
-        {/* {console.log(type)} */}
         <div
           style={{
             display: "grid",
@@ -111,7 +109,6 @@ export default function HomeMain() {
           <OrderBy />
         </div>
         <GymCards />
-        {/* <CardShop /> */}
         <Paginated />
       </div>
     );
