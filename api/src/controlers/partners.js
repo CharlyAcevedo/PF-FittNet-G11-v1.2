@@ -11,7 +11,6 @@ const { postGyms } = require("../controlers/gyms")
 const { putSocialMedia } =require("./helpers");
 const Gyms = require("../models/Gyms");
 
-const { putSocialMedia } = require("./helpers")
 
 
 
@@ -34,67 +33,6 @@ const getPartner = async (req, res) => {
     .populate({
       path: "planType socialNetworks"
     })
-
-    // const gymsDetails = await gyms.map(async (gym)=> {
-    //   const gymFound = await Gyms.findById(gym).populate("address socialNetworks")
-    //   console.log(gymFound)
-    //   return gymFound
-    // })
-
-    // const partner = await User.aggregate([
-    //   {
-    //     $match: { _id: ObjectId(id) },
-    //   },
-    //   {
-    //     $lookup: {
-    //       from: "partners",
-    //       localField: "partner",
-    //       foreignField: "_id",
-    //       as: "partner",
-    //     },
-    //   },
-    //   {
-    //     $lookup: {
-    //       from: "plans",
-    //       localField: "partner.planType",
-    //       foreignField: "_id",
-    //       as: "planType",
-    //     },
-    //   },
-    //   {
-    //     $lookup: {
-    //       from: "socialmedias",
-    //       localField: "partner.socialNetworks",
-    //       foreignField: "_id",
-    //       as: "socialNetworks",
-    //     },
-    //   },
-    //   {
-    //     $lookup: {
-    //       from: "gyms",
-    //       localField: "partner.gyms",
-    //       foreignField: "_id",
-    //       as: "gyms",
-    //     },
-    //   },
-    //   {
-    //     $lookup: {
-    //       from: "services",
-    //       localField: "gyms.services",
-    //       foreignField: "_id",
-    //       as: "gyms.services"
-    //     }
-    //   },
-    //   {
-    //     $project: {
-    //       name: 1,
-    //       type: 1,
-    //       gyms: {
-    //         name: 1,
-    //       },
-    //     }
-    //   }
-    // ]);
     res.json({
       ok: true,
       partner: partnerGyms,

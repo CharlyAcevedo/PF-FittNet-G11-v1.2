@@ -4,17 +4,17 @@ const mongoDB = require('mongodb');
 const shopCartSchema = new mongoose.Schema({
     user: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: "User",
+        ref: "Users",
     },
     gyms: {
         type: Array,
         of: mongoose.SchemaTypes.ObjectId,
-        ref: "Gym",
+        ref: "Gyms",
     },
     services: {
         type: Array,
         of: mongoose.SchemaTypes.ObjectId,
-        ref: "Service",
+        ref: "Services",
     },
     quantity: {
         type: Number
@@ -28,10 +28,18 @@ const shopCartSchema = new mongoose.Schema({
     status: {
         type: String,        
         default: "Pending"
+    },
+    createdAt: {
+        type: Date,
+        required: true,
+        inmutable: true,
+        default: () => Date.now(),
+    },
+    updatedAt: {
+        type: Date,
+        required: true,
+        default: () => Date.now(),
     }
-
-    //array de objetos(services) con las props nombre,detalle,precio
-
 });
 
 module.exports = mongoose.model('ShopCart', shopCartSchema);
