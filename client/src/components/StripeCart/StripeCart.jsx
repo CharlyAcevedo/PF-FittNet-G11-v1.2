@@ -54,7 +54,7 @@ const CheckoutForm = () => {
   const { userName, info } = user;
   // const {name}
 
-  const username = info.name;
+  const username = info && info.name;
   const type = localStorage.getItem("type");
   const avatar = localStorage.getItem("avatar");
 
