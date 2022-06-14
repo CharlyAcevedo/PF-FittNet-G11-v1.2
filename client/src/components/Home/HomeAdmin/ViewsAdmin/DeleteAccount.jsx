@@ -1,6 +1,7 @@
 import React from "react"
 import { useState } from "react"
 import axios from "axios";
+import { SweetAlrt, SweetAlrtTem } from "../../../../asets/helpers/sweetalert";
 
 export default function DeteleteAccount() {
     const [userId, setUserId] = useState("");
@@ -21,7 +22,7 @@ export default function DeteleteAccount() {
                 .catch((error) => console.log(error))
             
             console.log(getUser, 'la respuesta del back')
-            if (getUser === null) return window.alert('Id no encontrado')
+            if (getUser === null) return SweetAlrtTem('Id no encontrado',"error")
             // if (getUser.user === null) return window.alert('Id no encontrado')
             setUser(getUser);
         }
@@ -47,9 +48,9 @@ export default function DeteleteAccount() {
                 .catch((error) => console.log(error))
             
             console.log(userDelete, 'si lo borra responde')
-            if (userDelete === undefined) return window.alert("No se pudo eliminar el usuario")    
+            if (userDelete === undefined) return SweetAlrtTem("No se pudo eliminar el usuario","error")    
                 
-            window.alert(`${userDelete.name} ha sido eliminado con éxito`)
+            SweetAlrt("Exito!",`${userDelete.name} ha sido eliminado con éxito`,"success")
             setUserId("");
             setUser({});
 

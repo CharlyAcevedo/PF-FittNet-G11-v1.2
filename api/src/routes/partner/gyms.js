@@ -26,6 +26,33 @@ router.get("/allgyms", async (req, res) => {
   }
 });
 
+// router.get("/mygyms/:userId", async (req, res) => {
+
+//   let { userId } = req.params;
+  
+//   // console.log(userId)
+
+//   let partnerId = userId;
+
+//   try {
+//     let infoPartner = await Users.findById(partnerId)
+    
+//     if (infoPartner.partner){
+//       let idInfoPartner = infoPartner.partner;
+
+//       allGymPartner = await Partner.findById(idInfoPartner)
+//       .populate({path: "gyms", populate:{path: "services"}})
+
+//     }   
+   
+//     res.status(200).json(allGymPartner);
+//   } catch (error) {
+//     console.log(error)
+//     res.status(404).send({ error: error.message });
+//   }
+
+// });
+
 // Para solicitar info de un gym por su id
 // router.get("/:id", async (req, res) => { 
 //  ---> Tiene conficto con la anterior porque espera un id
@@ -60,7 +87,7 @@ router.put('/gymupdate', async (req, res) => {
       console.error(error)
         res.status(404).send({ error: error.message });
       }
-});
+}); 
 
 router.put('/gymsupdate', async (req, res) => {
   try {        
@@ -78,8 +105,8 @@ router.put('/gymsupdate', async (req, res) => {
 // Para crear gym
 router.post('/gymcreate/:idUser', async (req, res) => {
     const { idUser } = req.params;    
-    try {     
-
+    try {
+      console.log("llega a la ruta post gymcreate")
         const response = await postGyms(idUser, req.body);
         res.status(200).send(response);
     } catch (error) {
@@ -212,12 +239,20 @@ router.post('/createOneGym/', async (req, res) => {
 router.put('/editOneGym/', async (req, res) => {
   console.log(req.body, 'edite One Gym')
 
-  const {userId, gymId, newDataGym } = req.body;
+  const { gymId, newDataGym } = req.body;
+  let idGym = gymId.gymId;
+  let editeGym;
 
-  try {     
+  console.log(req.body, ' la data del gym a editar')
+
+  try {
+    editeGym = await Gyms.findByIdAndUpdate(idGym, 
+    newDataGym, {new: true})
+    
+    console.log(editeGym, 'luego del update')
 
     
-      res.status(200).send('Edit One Gym');
+      res.status(200).json({message: 'Gimnasio actualizado'});
   } catch (error) {
       res.status(404).send({ error: error.message });
     }

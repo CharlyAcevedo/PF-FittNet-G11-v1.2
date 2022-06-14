@@ -5,6 +5,7 @@ import { updateFavouriteGym } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import { IoIosHeart } from "react-icons/io";
 import { AiFillStar, AiOutlineShoppingCart } from "react-icons/ai";
+import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
 
 export default function GymCard(props) {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function GymCard(props) {
     if (userId) {
       dispatch(updateFavouriteGym(gymId, userId));
     } else {
-      alert("no puedes agregar a favorito si no estas logueado");
+      SweetAlrtTem("No puedes agregar a favorito si no estas logueado","info");
     }
   };
 

@@ -48,11 +48,11 @@ const getUserDetails = async (req, res) => {
         .populate('disease')
         .populate('address')
 
-        res.json({
-            ok: true,
-            user,
-            infoUser
-        })
+    res.json({
+        ok: true,
+        user,
+        infoUser
+    })
 }
 
 const getUser = async (req, res) => {
@@ -254,17 +254,25 @@ const updateUser = async (req, res) => {
             zipCode: body.zipCode
         }
         const user = await User.findById(id)
-        let idAddress = user.address ? user.address : null;
+
+
+
+        const idInfo = user.info
+        const idAvatar = user.avatar
+        const infoUsuario = await InfoUser.findById(idInfo);
+
+        let idAddress = infoUsuario.address ? infoUsuario.address : null
+
         if (idAddress === null) {
+            console.log("estoy en crear una nueva direccion")
             const addressUser = new Address(newAddressUser)
             await addressUser.save()
             idAddress = addressUser._id
         } else {
+            console.log("estoy en editar un nueva direccion")
             await Address.findByIdAndUpdate(idAddress, newAddressUser, { new: true })
         }
-        const idInfo = user.info
-        const idAvatar = user.avatar
-        // console.log(body.username)
+
         const newInfoUser = {
             username: body.username,
             lastName: body.lastname,
@@ -277,9 +285,15 @@ const updateUser = async (req, res) => {
             gender: body.gender,
             photo: body.photo,
         }
-        const updUser = await InfoUser.findByIdAndUpdate(idInfo, newInfoUser, { new: true })
 
-        console.log(updUser)
+        const updUser = await InfoUser.findByIdAndUpdate(idInfo, newInfoUser, { new: true })
+        .populate("address");
+        
+
+        // const userInfo = await User.findById(updUser._id)
+        // .populate("info")
+        // .populate("address")
+
         res.status(200).json({
             ok: true,
             updUser,
@@ -519,7 +533,7 @@ const googleSignIn = async (req, res) => {
                 password: "0xoaudfj203ru09dsfu2390fdsfc90sdf2dfs",
                 type: "user",
                 active: true,
-                partner: 0,
+                // partner: 0,
                 info: infoId
             });
         } else {

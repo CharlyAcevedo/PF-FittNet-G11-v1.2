@@ -55,7 +55,7 @@ export const CardAvatarAdicional = (props) => {
 
     if (avatarSelect.data.ok === false) {
       // Si el userId es invalido
-      return window.alert(avatarSelect.data.msg);
+      return SweetAlrtTem(`${avatarSelect.data.msg}`, "warning");
     }
 
     let avatarId = avatarSelect
@@ -157,11 +157,20 @@ export const CardShop = (props) => {
       );
     }
   };
+  console.log(imagen);
 
   return (
     <div className={styles.cardShop}>
       <div className={styles.imgBox}>
-        <img src={imagen} alt="mouse corsair" className={styles.mouseCard} />
+        <img
+          src={
+            imagen.length > 0
+              ? imagen[0]
+              : "https://i0.wp.com/votoenblanco.com.mx/wp-content/uploads/2021/12/IMG_7680.jpg?fit=972%2C648&ssl=1"
+          }
+          alt="imagen gym"
+          className={styles.mouseCard}
+        />
       </div>
 
       <div className={styles.contentBox}>
@@ -279,7 +288,7 @@ export const CardGymPartner = (props) => {
         <div className={styles.containerCardGymPartner}>
           <div className={styles.headerGymPartner}>
             <img
-              src={image}
+              src={image[0]}
               alt="imagen gimnasio"
               style={{ width: "160px", height: "120px", borderRadius: ".6rem" }}
             />
@@ -289,25 +298,38 @@ export const CardGymPartner = (props) => {
               <h2>{title}</h2>
               <span
                 className={styles.btnEditarGym}
-                onClick={() =>
-                  setView("editMyGyms")
-                }
+                onClick={() => setView("editMyGyms")}
               >
                 Editar gimnasio
               </span>
             </div>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae,
-              facere dolores, excepturi maiores omnis accusantium error animi
-              nostrum repellendus, adipisci nihil! Et perferendis libero impedit
-              quos molestiae assumenda culpa veritatis?
-            </p>
+            <div className={styles.bodyInfoGym}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: ".4rem" }}
+              >
+                <span>Entrenadores:</span>
+                <ul className={styles.listTrainers}>
+                  {trainers &&
+                    trainers.map((x, y) => (
+                      <li key={y}>
+                        {y + 1}. {x}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       ) : (
+        // </div>
         <>
-          <EditMyGyms idGym={id}/>
-          <button onClick={() => setView("myGyms")} style={{color: "#fff"}}>Volver</button>
+          <EditMyGyms idGym={id} />
+          <button
+            onClick={() => setView("myGyms")}
+            className={styles.btnVolverForGym}
+          >
+            Volver
+          </button>
         </>
       )}
     </>

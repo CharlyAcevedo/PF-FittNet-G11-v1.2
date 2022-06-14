@@ -2,11 +2,16 @@ import { useState } from "react";
 import styles from "./style/client.module.css";
 // import { gymValidate } from "./controlers/validaciones";
 // import { useNavigate } from "react-router-dom";
-// import { createGym } from "../../redux/actions";
+
+import { createGym, setGymsGeo } from "../../redux/actions";
+
 // import { useDispatch } from "react-redux";
 // import { useParams } from "react-router-dom";
 // import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { createOneGym, editOneGym } from "./controlers/Functions";
+import MapGyms from "../MapsAndGeo/MapGyms";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export default function UpdateGym(props) {
   // const dispatch = useDispatch();
@@ -15,9 +20,11 @@ export default function UpdateGym(props) {
 
   const { idGym } = props;
 
+  const gymGeo = useSelector((state) => state.gymsGeo);
+
   const userId = localStorage.getItem("userId");
 
-  const [typeAction, setTypeAcyion] = useState("create");
+  const [typeAction, setTypeAcyion] = useState("edit");
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
 
@@ -46,21 +53,21 @@ export default function UpdateGym(props) {
   // 3 logo
   // 4 phone
 
-
-  let exampleObject = // Esto no se está usado
-  {
-    name: "Nuevo Fittnet", // obligatorio
-    price: 999, // obligatorio
-    image: [],
-    latitude: 0,
-    longitude: 0,
-    trainers: [],
-    logo: "https://static.vecteezy.com/system/resources/thumbnails/003/108/337/small/fitness-gym-logo-with-strong-athlete-and-barbell-vector.jpg", // obligatorio
-    phone: 155790033, //obligatorio, sin espacios
-    email: "emaildelgym@gmail.com",
-    gymActive: true,
-    favourite: 0,
-  };
+  let exampleObject =
+    // Esto no se está usado
+    {
+      name: "Nuevo Fittnet", // obligatorio
+      price: 999, // obligatorio
+      image: [],
+      latitude: 0,
+      longitude: 0,
+      trainers: [],
+      logo: "https://static.vecteezy.com/system/resources/thumbnails/003/108/337/small/fitness-gym-logo-with-strong-athlete-and-barbell-vector.jpg", // obligatorio
+      phone: 155790033, //obligatorio, sin espacios
+      email: "emaildelgym@gmail.com",
+      gymActive: true,
+      favourite: 0,
+    };
 
   // Campos del formulario
   //----------------------------------------------------------------------
@@ -89,7 +96,7 @@ export default function UpdateGym(props) {
   // un campo para el correo
 
   //----------------------------------------------------------------------
-  // Si edito un Gym cargo la ingo en este otro objeto
+  // Si edito un Gym cargo la info en este otro objeto
   const [editGym, setEditGym] = useState({
     name: "Nombre del gym a editar",
     price: 899,
@@ -107,6 +114,22 @@ export default function UpdateGym(props) {
   // 3 logo
   // 4 phone
 
+  useEffect(() => {
+    setNewGym((prevState) => {
+      return {
+        ...prevState,
+        latitude: gymGeo.latitude,
+        longitude: gymGeo.longitude,
+      };
+    });
+    setEditGym((prevState) => {
+      return {
+        ...prevState,
+        latitude: gymGeo.latitude,
+        longitude: gymGeo.longitude,
+      };
+    });
+  }, [gymGeo]);
   //----------------------------------------------------------------------------
   // Faltaría tener un select o un switch para saber si se está creando o editando,
   // pero de todas formas usamos el mismo form para las dos cosas (crear y editar)
@@ -131,7 +154,6 @@ export default function UpdateGym(props) {
   //----------------------------------------------------------------------------
   // Esta función sirve para editar la info de un gym
   //----------------------------------------------------------------------------
-
 
   async function onClickEditGym() {
     let dataForEditGym = {
@@ -283,125 +305,142 @@ export default function UpdateGym(props) {
       <h3>
         FORMULARIO DE {typeAction === "create" ? "CREACIÓN" : "EDICIÓN"} DE GYM
       </h3>
+      {/* <div>latNew{newGym.latitude}, LonNew{newGym.longitude}</div>
+      <div>latEdit{editGym.latitude}, LonEdit{editGym.longitude}</div> */}
       <div>
-        <button
-          onClick={() => {
-            setTypeAcyion("edit");
-          }}
-        >
-          Editar Gym
-        </button>
-        <p></p>
-        <button
-          onClick={() => {
-            setTypeAcyion("create");
-          }}
-        >
-          Crear Gym
-        </button>
-        <p></p>
-        {typeAction ? typeAction : null}
+        <div className={styles.headerFormPartnerGym}>
+          <button
+            className={styles.btnCreateEditGym}
+            onClick={() => {
+              setTypeAcyion("edit");
+            }}
+          >
+            Form Editar Gym
+          </button>
+          <p></p>
+          <button
+            className={styles.btnCreateEditGym}
+            onClick={() => {
+              setTypeAcyion("create");
+            }}
+          >
+            Form Crear Gym
+          </button>
+          <p></p>
+        </div>
+        {/* {typeAction ? typeAction : null} */}
 
-        <form action="">
-          {newGym.logo && (
-            <img
-              className={styles.imageform}
-              src={newGym.logo}
-              alt="Image not found"
-            />
-          )}
-          {editGym.logo && (
-            <img
-              className={styles.imageform}
-              src={editGym.logo}
-              alt="Image not found"
-            />
-          )}
-          <div>
-            <label>
-              <strong>*</strong>Logo:
-            </label>
-            <input
-              type="text"
-              value={typeAction === "create" ? newGym.logo : editGym.logo}
-              name="logo"
-              onChange={(e) => handleChange(e)}
-              placeholder="https://logo-gym.jpg"
-            />
+        <form action="" className={styles.formCrEdGyms}>
+          <div className={styles.formLogo}>
+            {newGym.logo && (
+              <img
+                className={styles.imageform}
+                src={newGym.logo}
+                alt="Image not found"
+              />
+            )}
+            {editGym.logo && (
+              <img
+                className={styles.imageform}
+                src={editGym.logo}
+                alt="Image not found"
+              />
+            )}
+            <div
+              style={{ display: "flex", gap: ".5rem", alignItems: "center" }}
+            >
+              <label>
+                <strong>*</strong>Logo:
+              </label>
+              <input
+                type="text"
+                className={styles.inputImageLogo}
+                value={typeAction === "create" ? newGym.logo : editGym.logo}
+                name="logo"
+                onChange={(e) => handleChange(e)}
+                placeholder="https://logo-gym.jpg"
+              />
+            </div>
           </div>
+          <div className={styles.mainInfoForm}>
+            <div>
+              <label>
+                <strong>*</strong>Nombre:{" "}
+              </label>
+              <input
+                // className={error.name && styles.inputdanger}
+                className={styles.inputImageLogo}
+                type="text"
+                name="name"
+                value={typeAction === "create" ? newGym.name : editGym.name}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                placeholder="Nombre..."
+              />
+              {error.name && <p className={styles.danger}>{error.name}</p>}
+            </div>
 
-          <div>
-            <label>
-              <strong>*</strong>Nombre:{" "}
-            </label>
-            <input
-              className={error.name && styles.inputdanger}
-              type="text"
-              name="name"
-              value={typeAction === "create" ? newGym.name : editGym.name}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="Nombre..."
-            />
-            {error.name && <p className={styles.danger}>{error.name}</p>}
+            <div>
+              <label>
+                <strong>*</strong>Mensualidad:{" "}
+              </label>
+              <input
+                // className={error.name && styles.inputdanger}
+                className={styles.inputImageLogo}
+                type="number"
+                name="price"
+                value={typeAction === "create" ? newGym.price : editGym.price}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                placeholder="$..."
+              />
+              {error.price && <p className={styles.danger}>{error.price}</p>}
+            </div>
           </div>
+          <div className={styles.mainInfoForm}>
+            <div>
+              <label>
+                <strong>*</strong>Telefono:{" "}
+              </label>
+              <input
+                // className={error.phone && styles.inputdanger}
+                className={styles.inputImageLogo}
+                type="number"
+                name="phone"
+                value={typeAction === "create" ? newGym.phone : editGym.phone}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                placeholder="+549......"
+              />
+              {error.phone && <p className={styles.danger}>{error.phone}</p>}
+            </div>
 
-          <div>
-            <label>
-              <strong>*</strong>Mensualidad:{" "}
-            </label>
-            <input
-              className={error.name && styles.inputdanger}
-              type="number"
-              name="price"
-              value={typeAction === "create" ? newGym.price : editGym.price}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="$..."
-            />
-            {error.price && <p className={styles.danger}>{error.price}</p>}
+            <div>
+              <label>Email: </label>
+              <input
+                // className={error.email && styles.inputdanger}
+                className={styles.inputImageLogo}
+                type="email"
+                name="email"
+                value={typeAction === "create" ? newGym.email : editGym.email}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                placeholder="correo@ejemplo.com"
+              />
+              {error.email && <p className={styles.danger}>{error.email}</p>}
+            </div>
           </div>
-
-          <div>
-            <label>
-              <strong>*</strong>Telefono:{" "}
-            </label>
-            <input
-              className={error.phone && styles.inputdanger}
-              type="number"
-              name="phone"
-              value={typeAction === "create" ? newGym.phone : editGym.phone}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="+549......"
-            />
-            {error.phone && <p className={styles.danger}>{error.phone}</p>}
-          </div>
-
-          <div>
-            <label>Email: </label>
-            <input
-              className={error.email && styles.inputdanger}
-              type="email"
-              name="email"
-              value={typeAction === "create" ? newGym.email : editGym.email}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="correo@ejemplo.com"
-            />
-            {error.email && <p className={styles.danger}>{error.email}</p>}
-          </div>
-
           <div>
             <div>
               <label>Entrenadores: </label>
 
               <input
-                className={error.name && styles.inputdanger}
+                // className={error.name && styles.inputdanger}
+                className={styles.inputImageLogo}
                 type="text"
                 name="names"
                 value={name}
@@ -412,6 +451,7 @@ export default function UpdateGym(props) {
               />
 
               <button
+                className={styles.btnAgregarFotos}
                 onClick={(e) => {
                   addTrainer(e);
                 }}
@@ -423,25 +463,29 @@ export default function UpdateGym(props) {
               {error.email && <p className={styles.danger}>{error.email}</p>}
 
               <ul>
-                <li className={styles.input}>
+                <li>
                   {newGym.trainers.length && typeAction === "create"
                     ? newGym.trainers.map((e) => (
-                        <div key={e}>
-                          <p>{e} </p>
-                          <button value={e} onClick={(e) => handleDeleteT(e)}>
-                            x
-                          </button>{" "}
+                        <div key={e} className={styles.listTrainGym}>
+                          <div className={styles.trainersStyle}>
+                            <p>{e} </p>
+                            <button value={e} onClick={(e) => handleDeleteT(e)}>
+                              x
+                            </button>{" "}
+                          </div>
                         </div>
                       ))
                     : null}
 
                   {editGym.trainers.length && typeAction === "edit"
                     ? editGym.trainers.map((e) => (
-                        <div key={e}>
-                          <p>{e} </p>
-                          <button value={e} onClick={(e) => handleDeleteT(e)}>
-                            x
-                          </button>{" "}
+                        <div key={e} className={styles.listTrainGym}>
+                          <div className={styles.trainersStyle}>
+                            <p style={{ marginTop: ".35rem" }}>{e} </p>
+                            <button value={e} onClick={(e) => handleDeleteT(e)}>
+                              x
+                            </button>
+                          </div>
                         </div>
                       ))
                     : null}
@@ -455,6 +499,7 @@ export default function UpdateGym(props) {
 
             <input
               type="text"
+              className={styles.inputImageLogo}
               name="photo"
               id="image"
               multiple
@@ -465,6 +510,7 @@ export default function UpdateGym(props) {
               placeholder="https://foto-del-gym.jpg"
             />
             <button
+              className={styles.btnAgregarFotos}
               onClick={(e) => {
                 addPhoto(e);
               }}
@@ -474,17 +520,27 @@ export default function UpdateGym(props) {
             </button>
 
             <ul>
-              <li className={styles.input}>
+              <li
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: ".3rem",
+                }}
+              >
                 {newGym.image.length && typeAction === "create"
                   ? newGym.image.map((e) => (
-                      <div key={e}>
+                      <div key={e} className={styles.listfotosGym}>
                         <img
                           className={styles.photoform}
                           src={e}
                           key={e}
                           alt="No Found"
                         />
-                        <button value={e} onClick={(e) => handleDeletePhoto(e)}>
+                        <button
+                          value={e}
+                          className={styles.btnFotosGym}
+                          onClick={(e) => handleDeletePhoto(e)}
+                        >
                           x
                         </button>{" "}
                       </div>
@@ -493,14 +549,18 @@ export default function UpdateGym(props) {
 
                 {editGym.image.length && typeAction === "edit"
                   ? editGym.image.map((e) => (
-                      <div key={e}>
+                      <div key={e} lassName={styles.listfotosGym}>
                         <img
                           className={styles.photoform}
                           src={e}
                           key={e}
                           alt="No Found"
                         />
-                        <button value={e} onClick={(e) => handleDeletePhoto(e)}>
+                        <button
+                          value={e}
+                          className={styles.btnFotosGym}
+                          onClick={(e) => handleDeletePhoto(e)}
+                        >
                           x
                         </button>{" "}
                       </div>
@@ -510,25 +570,30 @@ export default function UpdateGym(props) {
             </ul>
           </div>
         </form>
+        <div style={{ marginTop: "1rem" }}>
+          <MapGyms />
+        </div>
       </div>
       <p></p>
       {typeAction === "create" && (
         <button
+          className={styles.btnCreateEditGym}
           onClick={(e) => {
             onClickCreateGym(e);
           }}
         >
-          Crear gym de prueba
+          Crear Gym
         </button>
       )}
       {typeAction === "edit" && (
         <button
+          className={styles.btnCreateEditGym}
           onClick={(e) => {
             onClickEditGym(e);
           }}
         >
           {" "}
-          Editar gym de prueba
+          Editar Gym
         </button>
       )}
     </div>

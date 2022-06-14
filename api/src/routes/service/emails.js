@@ -141,7 +141,7 @@ router.post('/emails', async (req, res, next) => {
   // const { name, userName} = user
   // let body = createBodyEmail(name, product, quantity, price, phone, gyms);
   // Este body lo mandaría al item html
-  console.log('correoenviad2')
+  // console.log('correoenviad2', body)
 
   try {
     if (email && body) { // Una verificación que sea necesria
