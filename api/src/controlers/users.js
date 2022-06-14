@@ -533,7 +533,7 @@ const googleSignIn = async (req, res) => {
                 password: "0xoaudfj203ru09dsfu2390fdsfc90sdf2dfs",
                 type: "user",
                 active: true,
-                partner: 0,
+                // partner: 0,
                 info: infoId
             });
         } else {

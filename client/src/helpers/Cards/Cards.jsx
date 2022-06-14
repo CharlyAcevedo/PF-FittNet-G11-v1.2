@@ -55,7 +55,7 @@ export const CardAvatarAdicional = (props) => {
 
     if (avatarSelect.data.ok === false) {
       // Si el userId es invalido
-      return SweetAlrtTem(`${avatarSelect.data.msg}`,"warning");
+      return SweetAlrtTem(`${avatarSelect.data.msg}`, "warning");
     }
 
     let avatarId = avatarSelect
@@ -157,11 +157,20 @@ export const CardShop = (props) => {
       );
     }
   };
+  console.log(imagen);
 
   return (
     <div className={styles.cardShop}>
       <div className={styles.imgBox}>
-        <img src={imagen} alt="mouse corsair" className={styles.mouseCard} />
+        <img
+          src={
+            imagen.length > 0
+              ? imagen[0]
+              : "https://i0.wp.com/votoenblanco.com.mx/wp-content/uploads/2021/12/IMG_7680.jpg?fit=972%2C648&ssl=1"
+          }
+          alt="imagen gym"
+          className={styles.mouseCard}
+        />
       </div>
 
       <div className={styles.contentBox}>
@@ -295,10 +304,17 @@ export const CardGymPartner = (props) => {
               </span>
             </div>
             <div className={styles.bodyInfoGym}>
-              <div style={{display: 'flex', alignItems: 'center', gap: ".4rem"}}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: ".4rem" }}
+              >
                 <span>Entrenadores:</span>
                 <ul className={styles.listTrainers}>
-                  {trainers && trainers.map((x, y) => <li key={y}>{y + 1}. {x}</li>)}
+                  {trainers &&
+                    trainers.map((x, y) => (
+                      <li key={y}>
+                        {y + 1}. {x}
+                      </li>
+                    ))}
                 </ul>
               </div>
             </div>
@@ -308,7 +324,10 @@ export const CardGymPartner = (props) => {
         // </div>
         <>
           <EditMyGyms idGym={id} />
-          <button onClick={() => setView("myGyms")} className={styles.btnVolverForGym}>
+          <button
+            onClick={() => setView("myGyms")}
+            className={styles.btnVolverForGym}
+          >
             Volver
           </button>
         </>

@@ -92,7 +92,7 @@ const CheckoutForm = () => {
       dispatch(editStatus(statusCart));
       SendEmail(usuarioId, idCart);
       SweetAlrtTem(`Su compra fue realizada con exito ${name}`, "success");
-      //   navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
+        navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
       dispatch(clearCart());
     } else {
       SweetAlrtTem(`Su compra NO fue realizada con exito ${name}`, "error");

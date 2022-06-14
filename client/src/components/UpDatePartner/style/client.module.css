@@ -137,3 +137,36 @@
     width: 30px;
     border-radius: 0 .6rem .6rem 0;
 }
+
+.listfotosGym {
+    display: flex;
+    justify-content: center;
+    width: 15%;
+    margin: 0 auto;
+    /* flex-direction: column; */
+}
+
+.btnFotosGym {
+    background-color: var(--color-primD1);
+    color: #fff;
+    width: 100%;
+    cursor: pointer;
+}
+
+.btnFotosGym:hover {
+    box-shadow: 0px 0px 4px var(--color-primD1);
+}
+
+.btnAgregarFotos {
+    background-color: var(--color-primD1);
+    color: #fff;
+    font-weight: 700;
+    height: 25px;
+    border-radius: 0 .6rem .6rem 0;
+    width: 20px;
+    cursor: pointer;
+}
+
+.btnAgregarFotos:hover {
+    box-shadow: 0px 0px 4px var(--color-primD1);
+}
