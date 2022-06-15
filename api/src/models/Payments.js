@@ -10,8 +10,9 @@ const paymentSchema = new mongoose.Schema({
     description: {
         type: String,
     },
-    amount: {
-        type: mongoDB.Decimal128,
+    plan: {
+        type:  mongoose.SchemaTypes.ObjectId,
+        ref: "Plan",
         required: true,
     },
     payDate: {
