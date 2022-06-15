@@ -71,7 +71,6 @@ function isValidObjectId(id) {
 
 router.post('/emails', async (req, res, next) => {
 
-  console.log(req.body)
 
   // const { user, gyms, services, price, quantity } = dataSale[0]
   // const { name, phone } = gyms
@@ -79,32 +78,38 @@ router.post('/emails', async (req, res, next) => {
   // const username = user.name
   // const email = user.userName
 
-  const { userDetail, gymDetail, saleDetail } = req.body
+  // const { userDetail, gymDetail, saleDetail } = req.body
 
-  const { username, email } = userDetail //? -> username: nombre y apellido 
+  // const { username, email } = userDetail //? -> username: nombre y apellido 
 
-  const { gymName, phoneGym } = gymDetail
-  // ! let body = createBodyEmail(name, nameserv, quantity, price, phone, username);
-  let body = createBodyEmail(username, gymName, phoneGym, saleDetail);
+
+  // const { gymName, phoneGym } = gymDetail
+  // // ! let body = createBodyEmail(name, nameserv, quantity, price, phone, username);
+  // let body = createBodyEmail(username, gymName, phoneGym, saleDetail);
   // const { name, userName} = user
   // let body = createBodyEmail(name, product, quantity, price, phone, gyms);
   // Este body lo mandaría al item html
   // console.log('correoenviad2', body)
 
+  // try {
+  //   if (email && body) { // Una verificación que sea necesria
+  //     await transporter.sendMail({
+  //       from: '"Fittnet - Confirmación de compra" <fittnet.com>', // sender address
+  //       to: email, // list of receivers
+  //       subject: "Confirmación de compra", // Subject line
+  //       html: body
+  //       // html: `<b> Acá va el cuerpo del correo y puede ser un html </b>` // html body
+  //     });
+  //     console.log('correoenviado3')
+  //     res.json({ sended: true, message: 'Correo enviado con éxito' });
+  //     // Si hay que responder al front para confirmar que el correo fue enviado     
+  //   }
   try {
-    if (email && body) { // Una verificación que sea necesria
-      await transporter.sendMail({
-        from: '"Fittnet - Confirmación de compra" <fittnet.com>', // sender address
-        to: email, // list of receivers
-        subject: "Confirmación de compra", // Subject line
-        html: body
-        // html: `<b> Acá va el cuerpo del correo y puede ser un html </b>` // html body
-      });
-      console.log('correoenviado3')
-      res.json({ sended: true, message: 'Correo enviado con éxito' });
-      // Si hay que responder al front para confirmar que el correo fue enviado     
-    }
-
+    console.log(req.body)
+    res.json({
+      ok: true,
+      msg: "esta todo ok"
+    })
   } catch (error) {
     console.log(error)
     res.json({ sended: false, message: 'Ocurrió un error y el correo no ha sido envíado' });

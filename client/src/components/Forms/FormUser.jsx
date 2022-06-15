@@ -47,9 +47,9 @@ export default function FormUser() {
     neighborhood: user.info?.address?.neighborhood
       ? user.info.address.neighborhood
       : "",
-    city: user.info?.address.city ? user.info.address.city : "",
-    country: user.info?.address.country ? user.info.address.country : "",
-    zipCode: user.info?.address.zipCode ? user.info.address.zipCode : "",
+    city: user.info?.address?.city ? user.info.address.city : "",
+    country: user.info?.address?.country ? user.info.address.country : "",
+    zipCode: user.info?.address?.zipCode ? user.info.address.zipCode : "",
     desease:
       /* user.info?.diseases.desease ? user.info.diseases.desease : */ [],
     trainlimits:
@@ -67,7 +67,7 @@ export default function FormUser() {
     );
     if (e.target.name == "selDesease") {
       if (filtro.length) {
-        SweetAlrtTem("deberias agregar una enfermedad diferente","info");
+        SweetAlrtTem("deberias agregar una enfermedad diferente", "info");
       } else {
         setInput({
           ...input,
@@ -418,7 +418,15 @@ export default function FormUser() {
                   return (
                     input.desease.includes(e.deseaseName) && (
                       <div key={e._id} className={styles.deseaseBeneficts}>
-                        <p style={{color: "var(--color-primD1)", fontSize: "800", textTransform: "uppercase"}}>{e.deseaseName}</p>
+                        <p
+                          style={{
+                            color: "var(--color-primD1)",
+                            fontSize: "800",
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          {e.deseaseName}
+                        </p>
                         <li>{e.benefits}</li>
                       </div>
                     )

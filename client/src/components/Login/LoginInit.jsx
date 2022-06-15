@@ -65,12 +65,11 @@ export default function LoginInit() {
       console.log(avatar)
       if (!avatar) {
         console.log('entro aqui')
-        // navigate(`/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
+        navigate(`/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
       } else {
-        // navigate(`/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
+        navigate(`/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
       }
     } else {
-      console.log("estas autenticado actualmente");
       // const googleData = await axios.post(
       //   `/api/google/auth`,
       //   {

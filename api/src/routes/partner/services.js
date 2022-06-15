@@ -11,6 +11,8 @@ const {
   } = require("../../controlers/services");
 const Service = require("../../models/Service");
 
+const Gyms = require("../../models/Gyms");
+
 const router = Router();
 
 

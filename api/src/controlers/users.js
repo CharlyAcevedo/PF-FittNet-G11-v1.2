@@ -287,8 +287,8 @@ const updateUser = async (req, res) => {
         }
 
         const updUser = await InfoUser.findByIdAndUpdate(idInfo, newInfoUser, { new: true })
-        .populate("address");
-        
+            .populate("address");
+
 
         // const userInfo = await User.findById(updUser._id)
         // .populate("info")
@@ -323,74 +323,23 @@ const getUserGoogleAccount = async (req, res) => {
     const usuario = jwt_decode(token)
     const userName = usuario.email
     try {
-        const user = await User.aggregate([
-            { $match: { userName: userName } },
-            {
-                $lookup: {
-                    from: "avatars",
-                    localField: "avatar",
-                    foreignField: "_id",
-                    as: "avatar"
-                }
-            },
-            {
-                $unwind: {
-                    path: '$avatar',
-                    preserveNullAndEmptyArrays: true
-                }
-            },
-            {
-                $lookup: {
-                    from: "infousers",
-                    localField: "info",
-                    foreignField: "_id",
-                    as: "info"
-                }
-            },
-            {
-                $unwind: {
-                    path: '$info',
-                    preserveNullAndEmptyArrays: true
-                }
-            },
-            {
-                $lookup: {
-                    from: "addresses",
-                    localField: "info.address",
-                    foreignField: "_id",
-                    as: "info.address"
-                }
-            },
-            {
-                $unwind: {
-                    path: "$info.address",
-                }
-            },
-            {
-                $project: {
-                    name: 1,
-                    userName: 1,
-                    latitud: 1,
-                    longitude: 1,
-                    info: {
-                        name: 1,
-                        photo: 1,
-                        lastName: 1,
-                        address: 1,
-                        phone: 1,
-                        gender: 1,
-                        birthday: 1
-                    },
-                    // info: {
-                    //     name: 1,
-                    //     lastName: 1,
-                    //     address: 1
-                    // },
-                    favourite: 1,
-                    type: 1,
-                    avatar: 1
-                }
-            }
+        
+        // const user = await User.aggregate([
+        //     { $match: { userName: userName } },
+            // {
+            //     $lookup: {
+            //         from: "avatars",
+            //         localField: "avatar",
+            //         foreignField: "_id",
+            //         as: "avatar"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: '$avatar',
+            //         preserveNullAndEmptyArrays: true
+            //     }
+            // },
             // {
             //     $lookup: {
             //         from: "infousers",
@@ -419,80 +368,126 @@ const getUserGoogleAccount = async (req, res) => {
             //     }
             // },
             // {
-            //     $lookup: {
-            //         from: "diseases",
-            //         localField: "info.diseases",
-            //         foreignField: "_id",
-            //         as: "info.diseases"
-            //     }
-            // },
-            // {
-            //     $unwind: {
-            //         path: "$info.diseases",
-            //         preserveNullAndEmptyArrays: true
-            //     }
-            // },
-            // {
-            //     $lookup: {
-            //         from: "diseasestypes",
-            //         localField: "info.diseases.desease",
-            //         foreignField: "_id",
-            //         as: "info.diseases.desease"
-            //     }
-            // },
-            // {
-            //     $unwind: {
-            //         path: "$info.diseases.desease",
-            //         preserveNullAndEmptyArrays: true
-            //     }
-            // },
-            // {
             //     $project: {
             //         name: 1,
             //         userName: 1,
-            //         // latitude: 1,
+            //         // latitud: 1,
             //         // longitude: 1,
-            //         active: 1,
-            //         favourite: 1,
-            //         secretToken: 1,
-            //         type: 1,
-            //         avatar: {
-            //             _id: 1,
-            //             avatarName: 1,
-            //         },
-            //         info: {
-            //             _id: 1,
-            //             name: 1,
-            //             lastName: 1,
-            //             gender: 1,
-            //             photo: 1,
-            //             birthday: 1,
-            //             phone: 1,
-            //             username: 1,
-            //             address: {
-            //                 _id: 1,
-            //                 street: 1,
-            //                 floor: 1,
-            //                 neighborhood: 1,
-            //                 apartament: 1,
-            //                 zipCode: 1,
-            //                 address: 1,
-            //                 city: 1,
-            //                 country: 1,
-            //             },
-            //             diseases: {
-            //                 considerations: 1,
-            //                 desease: 1,
-            //                 trainlimits: 1,
-            //             },
-            //         }
-            //     }
+            //         info: 1,
+                    //             // info: {
+                    //             //     name: 1,
+                    //             //     lastName: 1,
+                    //             //     address: 1
+                    //             // },
+                    //             favourite: 1,
+                    //             type: 1,
+                    //             avatar: 1
+                    //         }
+                    //     }
+                    // {
+                    //     $lookup: {
+                    //         from: "infousers",
+                    //         localField: "info",
+                    //         foreignField: "_id",
+                    //         as: "info"
+                    //     }
+                    // },
+                    // {
+                    //     $unwind: {
+                    //         path: '$info',
+                    //         preserveNullAndEmptyArrays: true
+                    //     }
+                    // },
+                    // {
+                    //     $lookup: {
+                    //         from: "addresses",
+                    //         localField: "info.address",
+                    //         foreignField: "_id",
+                    //         as: "info.address"
+                    //     }
+                    // },
+                    // {
+                    //     $unwind: {
+                    //         path: "$info.address",
+                    //     }
+                    // },
+                    // {
+                    //     $lookup: {
+                    //         from: "diseases",
+                    //         localField: "info.diseases",
+                    //         foreignField: "_id",
+                    //         as: "info.diseases"
+                    //     }
+                    // },
+                    // {
+                    //     $unwind: {
+                    //         path: "$info.diseases",
+                    //         preserveNullAndEmptyArrays: true
+                    //     }
+                    // },
+                    // {
+                    //     $lookup: {
+                    //         from: "diseasestypes",
+                    //         localField: "info.diseases.desease",
+                    //         foreignField: "_id",
+                    //         as: "info.diseases.desease"
+                    //     }
+                    // },
+                    // {
+                    //     $unwind: {
+                    //         path: "$info.diseases.desease",
+                    //         preserveNullAndEmptyArrays: true
+                    //     }
+                    // },
+                    // {
+                    //     $project: {
+                    //         name: 1,
+                    //         userName: 1,
+                    //         // latitude: 1,
+                    //         // longitude: 1,
+                    //         active: 1,
+                    //         favourite: 1,
+                    //         secretToken: 1,
+                    //         type: 1,
+                    //         avatar: {
+                    //             _id: 1,
+                    //             avatarName: 1,
+                    //         },
+                    //         info: {
+                    //             _id: 1,
+                    //             name: 1,
+                    //             lastName: 1,
+                    //             gender: 1,
+                    //             photo: 1,
+                    //             birthday: 1,
+                    //             phone: 1,
+                    //             username: 1,
+                    //             address: {
+                    //                 _id: 1,
+                    //                 street: 1,
+                    //                 floor: 1,
+                    //                 neighborhood: 1,
+                    //                 apartament: 1,
+                    //                 zipCode: 1,
+                    //                 address: 1,
+                    //                 city: 1,
+                    //                 country: 1,
+                    //             },
+                    //             diseases: {
+                    //                 considerations: 1,
+                    //                 desease: 1,
+                    //                 trainlimits: 1,
+                    //             },
+                    //         }
+                // }
             // }
-        ]);
-        console.log("ESTOS SON MIS DATOS", user)
+        // ]);
+        const user = await User.findOne({userName: userName})
+        .populate({path: "info", populate: {path: "address"}})
+        .populate({path: "avatar"})
         return res.status(200).json({
             ok: true,
-            user: user[0]
+            user: user
         })
         // const user = await User.findOne({ userName })
         //     .populate('avatar', 'avatarName')
