@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getPartnerDetails } from "../../redux/actions";
+import { getUser } from "../../redux/actions";
 
 import styles from "./styles/DetailProfilePartner.module.css";
 
@@ -9,8 +10,10 @@ export default function DetailProfilePartner() {
   let { userId, name, type } = useParams();
   // console.log(userId, name, type, 'id y name')
   const dispatch = useDispatch();
+  console.log (userId, ' user Id de params')
   
   useEffect(()=>{
+    dispatch(getUser(userId))
     dispatch(getPartnerDetails(userId))// eslint-disable-next-line
   },[])
   
