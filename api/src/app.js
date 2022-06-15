@@ -112,7 +112,7 @@ server.get('/login',  (req, res) => {
 });
 
 
-server.use("/", routes);
+server.use("/", routes); //! http://localhost:3000/
 
 // --- --- Error catching endware.
 server.use((err, req, res, next) => {

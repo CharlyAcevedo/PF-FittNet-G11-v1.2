@@ -3,15 +3,29 @@ const ShopCart = require("../models/ShopCart");
 const Gyms = require("../models/Gyms");
 const Service = require("../models/Service");
 const User = require("../models/User");
+const Partner = require("../models/Partner");
 
-const getPartnerSales = async (id) => {
+const getPartnerSales = async (idUser) => {
   try {
-    console.log("si entro a la funcion", id)
-    const partnerSales = await ShopCart.find({ gyms: id, status: "Payed" })
-    .populate({
-        path: "user gyms services"
-    })
-    return partnerSales
+    console.log("si entro a la funcion", idUser);
+    const userPartner = await User.findById(idUser);
+    const partner = await Partner.findById(userPartner.partner);
+    const gyms = partner.gyms
+    const sales = [];
+    if(gyms.length > 0){
+      for(let i = 0; i < gyms.length; i++){
+        const gymSales = await ShopCart.find({ gyms: gyms[i], status: "Payed" })
+        .populate({
+          path: "user gyms services"
+        })
+        sales.push(gymSales);
+      }
+    }
+    // const partnerSales = await ShopCart.find({ gyms: id, status: "Payed" })
+    // .populate({
+    //     path: "user gyms services"
+    // })
+    return sales
     // const response = await ShopCart.aggregate([
     //     { $lookup: { from: 'gyms', localField: 'gyms', foreignField: '_id', as: 'gyms' } },
     //     { $unwind: { path: '$gyms', preserveNullAndEmptyArrays: true } },

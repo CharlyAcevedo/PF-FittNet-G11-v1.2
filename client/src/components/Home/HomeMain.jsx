@@ -21,6 +21,7 @@ import HomeAdmin from "./HomeAdmin/HomeAdmin";
 import { HomePartner } from "./HomePartner/HomePartner";
 import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
 // import { CardShop } from "../../helpers/Cards/Cards.jsx";
+import { getUser } from "../../redux/actions";
 
 export default function HomeMain() {
   let { userId } = useParams();
@@ -35,10 +36,16 @@ export default function HomeMain() {
 
   const navigate = useNavigate();
 
+   
+  // useEffect(()=>{
+  //   dispatch(getUser(userId))
+
+  // },[userId])
+
   
   useEffect(() => {
     dispatch(getAllGyms());
-    dispatch(getPartnerDetails(userId));
+    dispatch(getUser(userId));
     if (token) {
       dispatch(getUserGoogleForToken(token));
     } // eslint-disable-next-line
@@ -60,8 +67,6 @@ export default function HomeMain() {
         }}
       >
         <SelecAvatar />
-        {/* {console.log("entro a seleccionar el avatar")} */}
-        {/* {console.log(type)} */}
         <div
           style={{
             display: "grid",
@@ -111,7 +116,6 @@ export default function HomeMain() {
           <OrderBy />
         </div>
         <GymCards />
-        {/* <CardShop /> */}
         <Paginated />
       </div>
     );

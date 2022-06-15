@@ -67,13 +67,13 @@ router.get("/gymbyid/:id", async (req, res) => {
 
 // Para solicitar info de un gym con su name
 router.get('/gymbyname', async (req, res) => {
-    try {
-        const { name } = req.query;
-        const response = await getGymByName(name);
-        res.status(200).send(response);
-    } catch (error) {
-        res.status(404).send({ error: error.message });
-      }
+  try {
+    const { name } = req.query;
+    const response = await getGymByName(name);
+    res.status(200).send(response);
+  } catch (error) {
+    res.status(404).send({ error: error.message });
+  }
 });
 
 // Para actualizar un gym
@@ -100,26 +100,6 @@ router.post('/gymcreate/:idUser', async (req, res) => {
       }
 });
 
-// 0 - cuando se crea un partner
-// if (type === "partner") {
-//   const newPartnerInfo = new Partner({ --------> se guarado esto en partner
-//     name: name,
-//     email: username,
-//     userActive: true,
-//     gyms: []
-//   })
-//   await newPartnerInfo.save();
-//   newUser = await Users.create({
-//     userName: username,
-//     name: name,
-//     password: promiseAll[2],
-//     latitude: latitude,
-//     longitude: longitude,
-//     secretToken: promiseAll[1],
-//     active: false,
-//     type: type,
-//     partner: newPartnerInfo._id //-------------------------> importante
-//   });
 
 //----------------------------------------------------------------------------
 // Trae los gimnasios de un usuario partner
@@ -129,14 +109,23 @@ router.post('/gymcreate/:idUser', async (req, res) => {
 router.get("/mygyms/:userId", async (req, res) => {
 
   let { userId } = req.params;
-  console.log(userId)
+
+  // console.log(userId)
+
+  let partnerId = userId;
 
   try {
-    let gymsPartner = await Users.findById(userId)
+    let infoPartner = await Users.findById(partnerId)
 
-    
-   
-    res.status(200).json(gymsPartner);
+    if (infoPartner.partner) {
+      let idInfoPartner = infoPartner.partner;
+
+      allGymPartner = await Partner.findById(idInfoPartner)
+        .populate({ path: "gyms", populate: { path: "services" } })
+
+    }
+
+    res.status(200).json(allGymPartner);
   } catch (error) {
     console.log(error)
     res.status(404).send({ error: error.message });
@@ -154,35 +143,33 @@ router.post('/createOneGym/', async (req, res) => {
   console.log(req.body, 'create One Gym 1')
 
   const { userId, dataNewGym } = req.body;
-  let partnerId = userId.userId;  
+  let partnerId = userId.userId;
   // console.log(partnerId, 'partener id');
   try {
-    let addNewGym; 
+    let addNewGym;
 
     const newGym = new Gyms(dataNewGym);
     await newGym.save();
     let infoPartner = await Users.findById(partnerId)
-    
-    if (infoPartner.partner){
+
+    if (infoPartner.partner) {
       let idInfoPartner = infoPartner.partner;
 
-      addNewGym = await Partner.findByIdAndUpdate(idInfoPartner, 
-        {$push: {gyms: newGym._id}}, 
-        {new: true} );
-      // console.log(infoPartner.partner, 'estoy en el if');
+      addNewGym = await Partner.findByIdAndUpdate(idInfoPartner,
+        { $push: { gyms: newGym._id } },
+        { new: true });
       // console.log(addNewGym, 'estoy en el if newGym');
-      // console.log('create One Gym 3');      
+  
     }
-    
+
     if (addNewGym) {
-      return res.status(200).json({message: 'Gimasio creado'});
-      
+      return res.status(200).json({ message: 'Gimasio creado' });
     }
 
   } catch (error) {
-      console.log(error, 'create One Gym');
-      res.status(404).send({ error: error.message });
-    }
+    console.log(error, 'create One Gym');
+    res.status(404).send({ error: error.message });
+  }
 })
 
 // pasos para crear el gym y vincularlo al user
@@ -231,59 +218,21 @@ router.put('/editOneGym/', async (req, res) => {
 
   console.log(req.body, ' la data del gym a editar')
 
+
   try {
-    editeGym = await Gyms.findByIdAndUpdate(idGym, 
-    newDataGym, {new: true})
-    
+    editeGym = await Gyms.findByIdAndUpdate(idGym,
+      newDataGym, { new: true })
+
     console.log(editeGym, 'luego del update')
 
-    
-      res.status(200).json({message: 'Gimnasio actualizado'});
+
+    res.status(200).json({ message: 'Gimnasio actualizado' });
   } catch (error) {
-      res.status(404).send({ error: error.message });
-    }
+    console.log(error);
+    res.status(404).send({ error: error.message });
+  }
 })
 
 
-
-// //----------------------------------------------------------------------------
-// // Para crear un solo servicio - envío el id del gym que lo crea y la info 
-// // para crear el el servicio
-// //----------------------------------------------------------------------------
-// // http://localhost:3001/api/partner/gyms/createOneService/
-
-// router.post('/createOneService/', async (req, res) => {
-//   console.log(req.body, 'create One Service')
-
-//   const { gymId, dataNewService } = req.body;    
-//   try {     
-
-    
-//       res.status(200).send('create One Service');
-//   } catch (error) {
-//       res.status(404).send({ error: error.message });
-//     }
-// })
-
-
-// //----------------------------------------------------------------------------
-// // Para editar un solo servicio - envío el id del servicio y la nueva info para 
-// // editar el servicio
-// //----------------------------------------------------------------------------
-// // http://localhost:3001/api/partner/gyms/editOneService/
-
-// router.put('/editOneService/', async (req, res) => {
-//   console.log(req.body, 'edit One Service')
-
-//   const { serviceId, newDataService } = req.body;
-
-//   try {     
-
-    
-//       res.status(200).send('Edit One Service');
-//   } catch (error) {
-//       res.status(404).send({ error: error.message });
-//     }
-// })
 
 module.exports = router;

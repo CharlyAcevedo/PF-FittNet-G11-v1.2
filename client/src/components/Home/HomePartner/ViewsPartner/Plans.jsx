@@ -10,21 +10,22 @@ export function Plans () {
 const plan = useSelector((state) => state.plans);
 const dispatch = useDispatch();
 const [datos, setDatos] = useState('');
+const idPartner = useSelector((state) => state.user)
 
 useEffect(() => {
     dispatch(getPlans())
 }, [])
 
 async function onSubmit (value){
-    let data;
+    let data = []
     if(value === 'Premium'){
-        data = plan[0]
+        data = [plan[0], idPartner._id]
     }
     if(value === 'Golden'){
-        data = plan[2]
+        data = [plan[2], idPartner._id]
     }
     if(value === 'Standar'){
-        data = plan[1]
+        data = [plan[1], idPartner._id]
     }
     await axios({
         method: "post",

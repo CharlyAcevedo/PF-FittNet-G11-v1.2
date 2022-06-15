@@ -6,12 +6,18 @@ const {
   getGymById,
   getGymByName,
 } = require("../../controlers/gyms");
-const {
-    putService
-  } = require("../../controlers/services");
+
+const { putService } = require("../../controlers/services");
+
+const Gyms = require("../../models/Gyms");
+const Users = require("../../models/User");
+const Partner = require("../../models/Partner");
 const Service = require("../../models/Service");
 
+
+
 const router = Router();
+
 
 
 //----------------------------------------------------------------------------
@@ -21,25 +27,44 @@ const router = Router();
 // http://localhost:3001/api/partner/services/createOneService/
 
 router.post('/createOneService/', async (req, res) => {
-    console.log(req.body, 'create One Service')
-    // gymId, dataNewService
-    const { userId, gymId, dataNewService } = req.body;    
-    try {     
-  
-      
-        res.status(200).send('create One Service');
-    } catch (error) {
-        res.status(404).send({ error: error.message });
+  // gymId, dataNewService
+  const { gymId, dataNewService } = req.body;
+
+  let idGym = gymId.gymId
+
+
+  console.log(req.body, 'el body que recibo')
+
+  try {
+    let addNewService;
+    const newService = new Service(dataNewService);
+    await newService.save();
+
+    // Ver si hay que agregar una verificación o validación
+
+    addNewService = await Gyms.findByIdAndUpdate(idGym,
+      { $push: { services: newService._id } },
+      { new: true });
+
+    console.log(addNewService, ' cuado creo y agrego el servicio al gym');
+
+    if (addNewService) {
+      return res.status(200).json({ message: 'Servicio creado' });
     }
+
+  } catch (error) {
+    console.log(error)
+    res.status(404).send({ error: error.message });
+  }
 })
-  
-  
+
+
 //----------------------------------------------------------------------------
 // Para editar un solo servicio - envío el id del servicio y la nueva info para 
 // editar el servicio
 //----------------------------------------------------------------------------
 // http://localhost:3001/api/partner/services/editOneService/
-  
+
 router.put('/editOneService/', async (req, res) => {
   console.log(req.body, 'edit One Service')
   // serviceId, newDataService 
