@@ -247,6 +247,37 @@ export default function Services() {
 
   }
 
+  // function validatePlanServices (userPlan, partnerGyms) {
+  //   // userPlan es un string o un booleano-> false || "Premium" ||  
+  //   // "Estandar" || "Golden"
+  //   // parnerGys -> Es un arreglo de objetos (un objeto por cada gym)
+  //   let planType;
+  //   let maxGyms;
+  //   if (userPlan === false ) { // si el usuario no tiene plan
+  //     return `La cuenta no tiene asignado un plan, no puede crear un gimnasios`;      
+  //   }
+  //   planType = userPlan.planName;
+  //   maxGyms = userPlan.gymsPermited
+  //   // console.log(planType, maxGyms, 'plan del user y cantidad de gyms')
+    
+  //   // if (planType === "Estandar" && partnerGyms.length === 1 ) { // Máximo un gym, nada más
+  //   if (planType === "Estandar" && partnerGyms.length === Number(maxGyms) ) { // De pruebaa, el que vale es el que sigue
+  //     return `La cuenta Estandar solo permite crear un gimnasio,
+  //     si desea crear más de un gimnasio debería cambiar de plan.`;
+  //   }
+  //   if (planType === "Premium" && partnerGyms.length === Number(maxGyms) ) {      
+  //     return `La cuenta Premium solo permite crear hasta cinco gimnasio,
+  //     si desea crear más gimnasios debería cambiar de plan.`;
+  //   }
+  //   if (planType === "Golden" && partnerGyms.length === Number(maxGyms) ) {     
+  //     return `La cuenta Golden le permite crear un máximo de cincuenta gimnasios,
+  //     no es posible crear más gimnasios.`;
+  //   }    
+
+  //   return true;    
+
+  // }
+
 
 
 
@@ -268,11 +299,11 @@ export default function Services() {
       <div>
 
       {typeAction === "edit" ? 
-        <button onClick={() => { setTypeAcyion("create") }}>Ir a crear Gym</button>
+        <button onClick={() => { setTypeAcyion("create") }}>Ir a crear Servicio</button>
         : null  }
 
       {typeAction === "edit" ? null :
-        <button onClick={() => { setTypeAcyion("edit") }}>Ir a editar Gym</button>
+        <button onClick={() => { setTypeAcyion("edit") }}>Ir a editar Servicio</button>
       }
 
         <p></p>
