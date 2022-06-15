@@ -1,7 +1,9 @@
-import React from "react";
-// import LogoFit from '../../asets/images/logo_fitnet.jpg';
+import React, { useEffect } from "react";
 import styles from './styles/Incomes.module.css'
 import { Bar } from 'react-chartjs-2';
+import { getMySales, getUser } from "../../redux/actions";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -23,7 +25,18 @@ import {
 
 export default function ClientsGraph(){
 
+  let { userId } = useParams();
     
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(getUser(userId))
+    dispatch(getMySales(userId))// eslint-disable-next-line
+  },[userId])
+
+  const mySales = useSelector((state) => state.partnerSales)
+
+
 
     const data = {
         labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo"],
@@ -54,7 +67,7 @@ export default function ClientsGraph(){
           },
           title: {
             display: true,
-            text: 'Clientes por Gimnasio',
+            text: 'Mis Clientes',
           },
         },
       };
@@ -63,7 +76,7 @@ export default function ClientsGraph(){
         <div className={styles.mainContainer}>
             <div className={styles.graphContainer}>
             <h2>Clientes Inscritos</h2>
-            <Bar  data={data} options={options}/>
+            {mySales ? <Bar  data={data} options={options}/> : "Loading..."}
             <div><button className={styles.btnDetails}>Ver Detalles</button></div>
             </div>
         </div>
