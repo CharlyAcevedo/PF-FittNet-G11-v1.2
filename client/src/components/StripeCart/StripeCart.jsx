@@ -70,8 +70,9 @@ const CheckoutForm = () => {
 
   // const { userName, info } = user;
   // const {name}
-  // console.log(info, 'la parte que rompe')
-  // const username = info.name;
+
+
+
   const type = localStorage.getItem("type");
   const avatar = localStorage.getItem("avatar");
 

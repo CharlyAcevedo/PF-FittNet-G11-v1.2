@@ -22,7 +22,7 @@ router.use('/', routerGoogleAuth) //ruta /api/service/google/auth post
 router.use('/plans', routerPlans) //ruta /api/service/plans get, post, put, para ver, crear y editar los planes de partner
 router.use('/', routerMarketing) //ruta /api/service/
 router.use('/', routeEmails); //ruta /api/service/emails --> para enviar correos
-router.use('/', routeMercadopago) //ruta api/service/mercadopago --> para MP
+router.use('/mercadopago', routeMercadopago) //ruta api/service/mercadopago --> para MP
 
 
 router.get('/', async (req, res) => {
