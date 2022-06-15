@@ -36,7 +36,7 @@ export function getUser(userId) { //----------------------------- nano ////----
   console.log('sale la acción con id', userId)
   return async (dispatch) => {
     try {
-      //-------------------------> `/api/user/getuser/${userId}`
+      //-------------------------> `/api/user/profile/${userId}`
       const response = await axios.get(
         `/api/user/profile/${userId}`,
         {
@@ -45,7 +45,7 @@ export function getUser(userId) { //----------------------------- nano ////----
       )     
       dispatch({
         type: GET_USER,
-        payload: response.data.user[0],
+        payload: response.data.user,
       });
     } catch (err) {
       dispatch({

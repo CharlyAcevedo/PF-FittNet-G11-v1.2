@@ -32,26 +32,26 @@ export default function UpdateGym(props) {
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
 
-  const [gymId, setGymId] = useState("");//------------------------- El Id
+  const [gymId, setGymId] = useState(""); //------------------------- El Id
 
   const [error, setError] = useState({});
-   const [newGym, setNewGym] = useState({
-     name: "", //string y es obligatorio - sale del form
-     price: "", // numero entero o decimal y no es obligatorio - sale del form
-     // rating: // no se manda, por defecto se inicia como un array de numeros
-     image: [], // es un array de imágenes y se inicia en vacio o con elementos
-     latitude: 0, // numero entero o decimal y no es obligatorio
-     longitude: 0, // numero entero o decimal y no es obligatorio
-     // address: // no lo puedo mandar porque se relaciona con otra colección
-     // y no es obligatorio
-     trainers: [], // lo puedo tocar aunque no es obligatorio. Es un array de strings
-     // que va a guardar los nombres de los instructores.
-     logo: "", // es un string que guarda el enlace a una imagen
-     phone: "", // es un conjunto de numeros enteros y es un campo obligatorio
-     email: "", // es un string que guarda el email del gym
-     gymActive: true,
-     favourite: 0, // es un numero entero y se inicia  en cero
-   });
+  const [newGym, setNewGym] = useState({
+    name: "", //string y es obligatorio - sale del form
+    price: "", // numero entero o decimal y no es obligatorio - sale del form
+    // rating: // no se manda, por defecto se inicia como un array de numeros
+    image: [], // es un array de imágenes y se inicia en vacio o con elementos
+    latitude: 0, // numero entero o decimal y no es obligatorio
+    longitude: 0, // numero entero o decimal y no es obligatorio
+    // address: // no lo puedo mandar porque se relaciona con otra colección
+    // y no es obligatorio
+    trainers: [], // lo puedo tocar aunque no es obligatorio. Es un array de strings
+    // que va a guardar los nombres de los instructores.
+    logo: "", // es un string que guarda el enlace a una imagen
+    phone: "", // es un conjunto de numeros enteros y es un campo obligatorio
+    email: "", // es un string que guarda el email del gym
+    gymActive: true,
+    favourite: 0, // es un numero entero y se inicia  en cero
+  });
 
   // Campos obligatorios - Esto campos tiene que estar o se cae el back
   // 1 name
@@ -75,16 +75,14 @@ export default function UpdateGym(props) {
       favourite: 0,
     };
 
+  useEffect(() => {
+    dispatch(getMyGyms(userId));
+  }, [userId]);
 
-    useEffect(() => {
-      dispatch(getMyGyms(userId))
-    }, [userId]);
-  
-  
-    function refreshState(e) {
-      e.preventDefault();
-      dispatch(getMyGyms(userId))
-    }
+  function refreshState(e) {
+    e.preventDefault();
+    dispatch(getMyGyms(userId));
+  }
 
   // Campos del formulario
   //----------------------------------------------------------------------
@@ -236,7 +234,6 @@ export default function UpdateGym(props) {
     }
   }
 
-
   // -----------------------delete Trainer-------------------------------------
   function handleDeleteT(e) {
     e.preventDefault();
@@ -355,13 +352,11 @@ export default function UpdateGym(props) {
       // Seteamos el id del servicio
       setGymId(e.target.value);
       // console.log(e.target.value, ' Service select dentro del if')
-
     } else {
       setGymId("");
     }
-    console.log(e.target.value, ' Service select')
+    console.log(e.target.value, " Service select");
   }
-
 
   //-----------------------------------------------------------------------------
   return (
@@ -373,43 +368,12 @@ export default function UpdateGym(props) {
       <div>latEdit{editGym.latitude}, LonEdit{editGym.longitude}</div> */}
       <div>
         <div className={styles.headerFormPartnerGym}>
-<<<<<<< HEAD
-          
-        <button  className={styles.btnCreateEditGym}
-        onClick={(e) => 
-        refreshState(e)}>Recargar
-        </button>
-          
-          {typeAction === 'edit' ?
-            <button
-              className={styles.btnCreateEditGym}
-              onClick={() => {
-                setTypeAcyion("create");
-              }}
-            >
-              Ir a crear Gym
-            </button>
-          : null}
-
-          {typeAction === 'edit' ? null :
-            <button
-              className={styles.btnCreateEditGym}
-              onClick={() => {
-                setTypeAcyion("edit");
-              }}
-            >
-              Ir a editar Gym
-            </button>
-          }
-
-=======
           <button
             className={styles.btnCreateEditGym}
             onClick={(e) => refreshState(e)}
           >
             Recargar
           </button>
->>>>>>> e40b12153c27f5ce51b84740136543a20d82bc4f
 
           <p></p>
 
@@ -452,42 +416,25 @@ export default function UpdateGym(props) {
 
             {typeAction === "create" ? newGym.price : editGym.price}
 
+            {typeAction === "create" ? null : (
+              <div>
+                <label>
+                  <strong>*</strong>Gimnasio:{" "}
+                </label>
+                <select onChange={(e) => handleChangeGyms(e)}>
+                  <option key="id1">...</option>
+                  {myGyms.length > 0
+                    ? myGyms.map((g) => (
+                        <option key={g._id} value={g._id}>
+                          {g.name}
+                        </option>
+                      ))
+                    : null}
+                </select>
 
-            {typeAction === "create" ? null :
-            
-            <div>
-<<<<<<< HEAD
-            <label><strong>*</strong>Gimnasio: </label>
-            <select onChange={(e) => handleChangeGyms(e)}>
-              <option key="id1">...</option>
-              {myGyms.length > 0 ? myGyms.map((g) => (
-                <option key={g._id} value={g._id}>{g.name}</option>
-              )) : null}
-            </select>
-          </div>}
-
-
-            {/* {gymId ? gymId : null} */}
-
-
-
-=======
-              <label>
-                <strong>*</strong>Gimnasio:{" "}
-              </label>
-              <select onChange={(e) => handleChangeGyms(e)}>
-                <option key="id1">...</option>
-                {myGyms.length > 0
-                  ? myGyms.map((g) => (
-                      <option key={g._id} value={g._id}>
-                        {g.name}
-                      </option>
-                    ))
-                  : null}
-              </select>
-              {gymId ? gymId : null}
-            </div>
->>>>>>> e40b12153c27f5ce51b84740136543a20d82bc4f
+                {gymId ? gymId : null}
+              </div>
+            )}
           </div>
           <div className={styles.mainInfoForm}>
             <div>

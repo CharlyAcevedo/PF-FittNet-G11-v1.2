@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Logout from "../Logout/Logout";
-import { getUserGoogleForToken } from "../../redux/actions/index";
+import { getUserGoogleForToken, getUser } from "../../redux/actions/index";
 import style from "./style/NavBarProfile.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback } from "react";
@@ -29,10 +29,13 @@ export default function NavBarProfile() {
   const instantCallback = useCallback(dispatch, [dispatch])
 
   useEffect(() => {
+    if (!token) {
+      dispatch(getUser(userId));
+    }
     if (token) {
       instantCallback(getUserGoogleForToken(token));
     }
-  }, [instantCallback, token]);
+  }, [instantCallback, token, userId]);
 
   return (
     <div className={style.boxNavBarProfile}>

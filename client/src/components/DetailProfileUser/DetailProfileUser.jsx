@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import styles from "./styles/detailProfile.module.css";
@@ -36,22 +36,22 @@ export default function DetailProfileUser() {
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const instantCallback = useCallback(dispatch, [dispatch]);
+
   useEffect(() => {
-    if (gyms.length === 0) {
-      dispatch(getAllGyms());
+    if (!token) {
+      dispatch(getUser(userId));
     }
-    if (userId) {
-      dispatch(getUser(userId))
-      
-    }  
-    if (Object.keys(gyms).length === 0) {
-    // if (!user.length) {
-      dispatch(getUserGoogleForToken(token));
+    if (token) {
+      instantCallback(getUserGoogleForToken(token));
+    }
+    if (gyms.length === 0) {
+      instantCallback(getAllGyms());
     }
     if (Object.keys(gymDetail).length === 0) {
-      dispatch(getGymDetail(userId));
+      instantCallback(getGymDetail(userId));
     }
-  }, [userId]);
+  }, [userId, instantCallback]);
 
   const { info, favourite } = user;
 
@@ -127,7 +127,7 @@ export default function DetailProfileUser() {
                   color: "#8a8a8a",
                 }}
               >
-                {info?.address  ? (
+                {info?.address ? (
                   <>
                     <MdLocationOn style={{ color: "var(--color-primD1)" }} />
                     <span
@@ -217,7 +217,7 @@ export default function DetailProfileUser() {
                   >
                     Address:{" "}
                     <span style={{ color: "var(--color-primD1)" }}>
-                      { info?.address  ? (
+                      {info?.address ? (
                         <span
                           style={{ color: "var(--color-primD1)" }}
                         >{`${info.address.country} - ${info.address.city}`}</span>
@@ -362,12 +362,11 @@ export default function DetailProfileUser() {
           <div>
             <div
               style={{
-                // width: "200px",
                 width: "95%",
                 height: "220px",
                 backgroundColor: "#181818",
                 borderRadius: ".6rem",
-                margin: "1.2rem auto"
+                margin: "1.2rem auto",
               }}
             >
               <NavBar3
@@ -381,13 +380,6 @@ export default function DetailProfileUser() {
             </div>
           </div>
         </div>
-        {/* <h3>Historial de compras</h3>
-        <p>Mis compras</p>
-        <h3>Detalles del perfil</h3>
-        <p>Name: {name}</p>
-        <p>Tipo de plan: </p>
-        <p>Siguitene 2</p>
-        <p>Siguitene 3</p> */}
       </div>
     </div>
   );
