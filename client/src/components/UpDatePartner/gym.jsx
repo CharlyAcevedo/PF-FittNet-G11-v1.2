@@ -7,26 +7,35 @@ import { createGym, setGymsGeo } from "../../redux/actions";
 
 import { getMyGyms } from "../../redux/actions"; // --------------LA ACTION
 import { useDispatch } from "react-redux";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { createOneGym, editOneGym } from "./controlers/Functions";
 import MapGyms from "../MapsAndGeo/MapGyms";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { getUser } from "../../redux/actions";
 
 export default function UpdateGym(props) {
   const dispatch = useDispatch();
   // const navigate = useNavigate();
-  // const params = useParams();
-
+ 
   const { idGym } = props;
 
   const gymGeo = useSelector((state) => state.gymsGeo);
+
+  const userInfo = useSelector((state) => state.user);
+  let userPlan = userInfo.planType ? userInfo.planType : false;
+
+  console.log(userPlan, ' el plan del partner') // false si no tiene plan
+
 
   const userId = localStorage.getItem("userId");
 
   const dataPartner = useSelector((state) => state.myGyms);
   let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
+
+  console.log(myGyms, ' los gyms del partner') // false si no tiene plan
+
 
   const [typeAction, setTypeAcyion] = useState("create");
   const [name, setName] = useState("");
@@ -78,6 +87,7 @@ export default function UpdateGym(props) {
 
     useEffect(() => {
       dispatch(getMyGyms(userId))
+      dispatch(getUser(userId))
     }, [userId]);
   
   
@@ -179,10 +189,48 @@ export default function UpdateGym(props) {
   // pero de todas formas usamos el mismo form para las dos cosas (crear y editar)
   //----------------------------------------------------------------------------
 
+  function validatePlanGyms (userPlan, partnerGyms) {
+    // userPlan es un string o un objeto -> false || { } ||  
+    // Si es objeto trae info del plan y la cantidad de gyms
+    // parnerGys -> Es un arreglo de objetos (un objeto por cada gym)
+    let planType;
+    let maxGyms;
+    if (userPlan === false ) { // si el usuario no tiene plan
+      return `La cuenta no tiene asignado un plan, no puede crear un gimnasios`;      
+    }
+    planType = userPlan.planName;
+    maxGyms = userPlan.gymsPermited
+    // console.log(planType, maxGyms, 'plan del user y cantidad de gyms')
+    
+    // if (planType === "Estandar" && partnerGyms.length === 1 ) { // Máximo un gym, nada más
+    if (planType === "Standar" && partnerGyms.length === Number(maxGyms) ) { // De pruebaa, el que vale es el que sigue
+      return `La cuenta Estandar solo permite crear un gimnasio,
+      si desea crear más de un gimnasio debería cambiar de plan.`;
+    }
+    if (planType === "Premium" && partnerGyms.length === Number(maxGyms) ) {      
+      return `La cuenta Premium solo permite crear hasta cinco gimnasio,
+      si desea crear más gimnasios debería cambiar de plan.`;
+    }
+    if (planType === "Golden" && partnerGyms.length === Number(maxGyms) ) {     
+      return `La cuenta Golden le permite crear un máximo de cincuenta gimnasios,
+      no es posible crear más gimnasios.`;
+    }    
+
+    return true;    
+
+  }
+
   //----------------------------------------------------------------------------
   // Esta función sirve para crear un gym
   //----------------------------------------------------------------------------
   async function onClickCreateGym() {
+    // Acá debe estar la validación de catidad de gyms =)
+    let validate = await validatePlanGyms (userPlan, myGyms ) // Lla a la función validadora de plan y gyms
+    
+    if (typeof validate === 'string' ) {
+      return SweetAlrt(validate)
+    }
+
     if (
       error.name ||
       error.logo ||
@@ -203,7 +251,14 @@ export default function UpdateGym(props) {
       // dataNewGym: en este objeto va todo lo que obtienen del formulario (el input de arriba)
       console.log("recibe el click y crea un gym");
       let newOnGym = await createOneGym(dataForNewGym);
-      SweetAlrt("Exito", "Gym creado", "success");
+
+      if (newOnGym) {
+        SweetAlrt("Exito", "Gimnasio creado", "success");
+        dispatch(getMyGyms(userId))
+      } else {
+        SweetAlrt("Ocurrió un error y el gimnasio no fue creado", "error");
+      }     
+
      setNewGym({
      name: "", 
      price: "",     
@@ -217,6 +272,7 @@ export default function UpdateGym(props) {
      gymActive: true,
      favourite: 0, 
    });
+
       return newOnGym;
     }
   }
@@ -233,7 +289,7 @@ export default function UpdateGym(props) {
     } else {
       let dataForEditGym = {
         //userId: { userId: "userId" },
-        gymId: { gymId: idGym },
+        gymId: { gymId: gymId || idGym },
         newDataGym: editGym,
         // newDataGym: { prop1: "data2", prop2: 3, prop3: ["algo"], prop4: {} }
       };
@@ -275,7 +331,7 @@ export default function UpdateGym(props) {
       });
       console.log(newGym);
     }
-    console.log(error);
+    // console.log(error);
 
     if (typeAction === "edit") {
       setEditGym(() => {
@@ -512,7 +568,7 @@ export default function UpdateGym(props) {
           </div>}
 
 
-            {/* {gymId ? gymId : null} */}
+            {gymId ? gymId : null}
 
 
 
