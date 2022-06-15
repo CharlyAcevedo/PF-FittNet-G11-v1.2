@@ -205,7 +205,7 @@ function createBodyEmail(username, gymName, phoneGym, saleDetail) {
             <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
               <table border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td align="center" style="border-radius: 3px;" bgcolor="#7c72dc"><p target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 5px 25px; border-radius: 2px; border: 1px solid #7c72dc; display: inline-block;">TOTAL $ ${precioTotal}</P></td>
+                    <td align="center" style="border-radius: 3px;" bgcolor="#f74177"><p target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 5px 25px; border-radius: 2px; border: 1px solid #f74177; display: inline-block;">TOTAL $ ${precioTotal}</P></td>
                 </tr>
               </table>
             </td>
@@ -254,7 +254,7 @@ function createBodyEmail(username, gymName, phoneGym, saleDetail) {
             <table border="0" cellpadding="0" cellspacing="0" width="580" >
                 <!-- HEADLINE -->
                 <tr>
-                  <td bgcolor="#C6C2ED" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                  <td bgcolor="#ff83a8" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
                     <h2 style="font-size: 20px; font-weight: 400; color: #111111; margin: 0;">Necesitas ayuda?</h2>
                     <p style="margin: 0;" target="_blank" style="color: #ff2767;">Comunicate con nosotros via mails</p>
                   </td>
