@@ -28,7 +28,7 @@ export default function UpdateGym(props) {
   const dataPartner = useSelector((state) => state.myGyms);
   let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
 
-  const [typeAction, setTypeAcyion] = useState("edit");
+  const [typeAction, setTypeAcyion] = useState("create");
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
 
@@ -356,24 +356,32 @@ export default function UpdateGym(props) {
         onClick={(e) => 
         refreshState(e)}>Recargar
         </button>
+          
+          {typeAction === 'edit' ?
+            <button
+              className={styles.btnCreateEditGym}
+              onClick={() => {
+                setTypeAcyion("create");
+              }}
+            >
+              Ir a crear Gym
+            </button>
+          : null}
 
-          <button
-            className={styles.btnCreateEditGym}
-            onClick={() => {
-              setTypeAcyion("edit");
-            }}
-          >
-            Form Editar Gym
-          </button>
+          {typeAction === 'edit' ? null :
+            <button
+              className={styles.btnCreateEditGym}
+              onClick={() => {
+                setTypeAcyion("edit");
+              }}
+            >
+              Ir a editar Gym
+            </button>
+          }
+
+
           <p></p>
-          <button
-            className={styles.btnCreateEditGym}
-            onClick={() => {
-              setTypeAcyion("create");
-            }}
-          >
-            Form Crear Gym
-          </button>
+
           <p></p>
         </div>
         {/* {typeAction ? typeAction : null} */}
@@ -410,6 +418,11 @@ export default function UpdateGym(props) {
               />
             </div>
 
+            {typeAction === "create" ? newGym.price : editGym.price}
+
+
+            {typeAction === "create" ? null :
+            
             <div>
             <label><strong>*</strong>Gimnasio: </label>
             <select onChange={(e) => handleChangeGyms(e)}>
@@ -418,9 +431,10 @@ export default function UpdateGym(props) {
                 <option key={g._id} value={g._id}>{g.name}</option>
               )) : null}
             </select>
-            {gymId ? gymId : null}
-          </div>
+          </div>}
 
+
+            {/* {gymId ? gymId : null} */}
 
 
 
