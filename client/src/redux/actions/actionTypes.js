@@ -29,8 +29,8 @@ export const GET_ALL_PARTNERS = "GET_ALL_PARTNERS"; //llama al back para traerse
 export const GET_ADMIN = "GET_ADMIN"; // llama al back para traer infomación del admin por una ruta protegida
 export const GET_LOCK_ACCOUNTS = "GET_LOCK_ACCOUNTS"; // llama al back para traer información de las cuentas bloquedas (admin - ruta protegida)
 export const GET_PLANS = "GET_PLANS";
-export const GET_PARTNER_ID = "GET_PARTNER_ID" // Llama al back para obtener datos del usuario partner por media del id
-
+export const GET_PARTNER_ID = "GET_PARTNER_ID"; // Llama al back para obtener datos del usuario partner por media del id
+export const GET_ALL_SALES = "GET_ALL_SALES"; //llama al back para obtener los datos de todas las ventas por gym
 
 // Constantes relacionadas al funcionamiento de la app
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"; //setea el estado general "pagina actual" para paginado
