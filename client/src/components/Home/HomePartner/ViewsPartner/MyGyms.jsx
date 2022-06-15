@@ -2,12 +2,27 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styles from "./styles/mygym.module.css";
 import { CardGymPartner } from "../../../../helpers/Cards/Cards.jsx";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getUser } from "../../../../redux/actions";
 // import { EditMyGyms } from "../ViewsPartner/EditMyGyms";
 
 export function MyGyms() {
-  const userPartner = useSelector((state) => state.user);
+  const userPartner = useSelector((state) => state.myGyms);
+
+  let { userId } = useParams()
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(getUser(userId))
+    console.log('refrezco el estado user', userId)
+
+  }, [userId])
+  
+
 
 //   const [view, setView] = useState("myGyms")  
   

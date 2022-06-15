@@ -28,7 +28,7 @@ export default function UpdateGym(props) {
   const dataPartner = useSelector((state) => state.myGyms);
   let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
 
-  const [typeAction, setTypeAcyion] = useState("edit");
+  const [typeAction, setTypeAcyion] = useState("create");
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
 
@@ -430,31 +430,36 @@ export default function UpdateGym(props) {
       {/* <div>latNew{newGym.latitude}, LonNew{newGym.longitude}</div>
       <div>latEdit{editGym.latitude}, LonEdit{editGym.longitude}</div> */}
       <div>
-        <div className={styles.headerFormPartnerGym}>
-          <button
-            className={styles.btnCreateEditGym}
-            onClick={(e) => refreshState(e)}
-          >
-            Recargar
-          </button>
+        <div className={styles.headerFormPartnerGym}>          
+        <button  className={styles.btnCreateEditGym}
+        onClick={(e) => 
+        refreshState(e)}>Recargar
+        </button>
+          
+          {typeAction === 'edit' ?
+            <button
+              className={styles.btnCreateEditGym}
+              onClick={() => {
+                setTypeAcyion("create");
+              }}
+            >
+              Ir a crear Gym
+            </button>
+          : null}
 
-          <button
-            className={styles.btnCreateEditGym}
-            onClick={() => {
-              setTypeAcyion("edit");
-            }}
-          >
-            Form Editar Gym
-          </button>
+          {typeAction === 'edit' ? null :
+            <button
+              className={styles.btnCreateEditGym}
+              onClick={() => {
+                setTypeAcyion("edit");
+              }}
+            >
+              Ir a editar Gym
+            </button>
+          }
+
           <p></p>
-          <button
-            className={styles.btnCreateEditGym}
-            onClick={() => {
-              setTypeAcyion("create");
-            }}
-          >
-            Form Crear Gym
-          </button>
+
           <p></p>
         </div>
         {/* {typeAction ? typeAction : null} */}
@@ -489,25 +494,28 @@ export default function UpdateGym(props) {
                 onChange={(e) => handleChange(e)}
                 placeholder="https://logo-gym.jpg"
               />
-              {error.logo && <p className={styles.danger}>{error.logo}</p>}
             </div>
 
+            {typeAction === "create" ? newGym.price : editGym.price}
+
+
+            {typeAction === "create" ? null :
+            
             <div>
-              <label>
-                <strong>*</strong>Gimnasio:{" "}
-              </label>
-              <select onChange={(e) => handleChangeGyms(e)}>
-                <option key="id1">...</option>
-                {myGyms.length > 0
-                  ? myGyms.map((g) => (
-                      <option key={g._id} value={g._id}>
-                        {g.name}
-                      </option>
-                    ))
-                  : null}
-              </select>
-              {gymId ? gymId : null}
-            </div>
+            <label><strong>*</strong>Gimnasio: </label>
+            <select onChange={(e) => handleChangeGyms(e)}>
+              <option key="id1">...</option>
+              {myGyms.length > 0 ? myGyms.map((g) => (
+                <option key={g._id} value={g._id}>{g.name}</option>
+              )) : null}
+            </select>
+          </div>}
+
+
+            {/* {gymId ? gymId : null} */}
+
+
+
           </div>
           <div className={styles.mainInfoForm}>
             <div>

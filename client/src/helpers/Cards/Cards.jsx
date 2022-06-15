@@ -296,12 +296,12 @@ export const CardGymPartner = (props) => {
           <div className={styles.mainGymPartner}>
             <div className={styles.mainHeaderPartner}>
               <h2>{title}</h2>
-              <span
+              {/* <span
                 className={styles.btnEditarGym}
                 onClick={() => setView("editMyGyms")}
               >
                 Editar gimnasio
-              </span>
+              </span> */}
             </div>
             <div className={styles.bodyInfoGym}>
               <div

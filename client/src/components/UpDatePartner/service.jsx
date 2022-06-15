@@ -300,11 +300,17 @@ export default function Services() {
       <h3>FORMULARIO DE {typeAction === "create" ? "CREACIÓN" : "EDICIÓN"} DE PRODUCTO O SERVICIO</h3>
       <div>
 
-        <button onClick={() => { setTypeAcyion("edit") }}>Editar Gym</button>
+      {typeAction === "edit" ? 
+        <button onClick={() => { setTypeAcyion("create") }}>Ir a crear Gym</button>
+        : null  }
+
+      {typeAction === "edit" ? null :
+        <button onClick={() => { setTypeAcyion("edit") }}>Ir a editar Gym</button>
+      }
+
         <p></p>
-        <button onClick={() => { setTypeAcyion("create") }}>Crear Gym</button>
         <p></p>
-        {typeAction ? typeAction : null}
+        {/* {typeAction ? typeAction : null} */}
 
         <button onClick={(e) => refreshState(e)}>Recargar</button>
 
@@ -318,7 +324,7 @@ export default function Services() {
                 <option key={g._id} value={g._id}>{g.name}</option>
               )) : null}
             </select>
-            {gymId ? gymId : null}
+            {/* {gymId ? gymId : null} */}
           </div>
 
           {typeAction === "edit" ?
@@ -331,7 +337,7 @@ export default function Services() {
                   <option key={s._id} value={s._id}>{s.name}</option>
                 )) : null}
               </select>
-              {serviceId ? serviceId : null}
+              {/* {serviceId ? serviceId : null} */}
             </div>
 
 
@@ -369,7 +375,7 @@ export default function Services() {
             {error.description && (
               <p className={styles.danger}>{error.description}</p>
             )}
-            <p>{typeAction === "create" ? newService.descripcion : editService.descripcion}</p>
+            {typeAction === "create" ? <p>{newService.description}</p> : <p>{editService.description}</p>}
           </div>
 
           <div>
