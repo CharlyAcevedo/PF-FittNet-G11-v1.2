@@ -49,8 +49,8 @@ export default function UpdateGym(props) {
      price: "", // numero entero o decimal y no es obligatorio - sale del form
      // rating: // no se manda, por defecto se inicia como un array de numeros
      image: [], // es un array de imágenes y se inicia en vacio o con elementos
-     latitude: 0, // numero entero o decimal y no es obligatorio
-     longitude: 0, // numero entero o decimal y no es obligatorio
+     latitude: "", // numero entero o decimal y no es obligatorio
+     longitude: "", // numero entero o decimal y no es obligatorio
      // address: // no lo puedo mandar porque se relaciona con otra colección
      // y no es obligatorio
      trainers: [], // lo puedo tocar aunque no es obligatorio. Es un array de strings
@@ -94,6 +94,33 @@ export default function UpdateGym(props) {
     function refreshState(e) {
       e.preventDefault();
       dispatch(getMyGyms(userId))
+       setNewGym({
+         name: "",
+         price: "",
+         image: [],
+         latitude: "",
+         longitude: "",
+         trainers: [],
+         logo: "",
+         phone: "",
+         email: "",
+         gymActive: true,
+         favourite: 0,
+       });
+        setEditGym({
+          name: "",
+          price: "",
+          image: [],
+          latitude: "",
+          longitude: "",
+          trainers: [],
+          logo: "",
+          phone: "",
+          email: "",
+          gymActive: true,
+          favourite: 0,
+        });
+        setError({})
     }
 
   // Campos del formulario
@@ -128,8 +155,8 @@ export default function UpdateGym(props) {
     name: "",
     price: "",
     image: [],
-    latitude: 0,
-    longitude: 0,
+    latitude: "",
+    longitude: "",
     trainers: [],
     logo: "",
     phone: "",
@@ -213,7 +240,7 @@ export default function UpdateGym(props) {
     ) {
       return SweetAlrtTem("Los valores que ingreso son incorrectos", "warning");
     } else if (!newGym.name || !newGym.logo || !newGym.phone) {
-      return SweetAlrtTem("Completa los campos minimos requeridos", "warning");
+      return SweetAlrtTem("Completa los campos requeridos", "warning");
     } else {
       let dataForNewGym = {
         userId: { userId: userId },
@@ -224,13 +251,28 @@ export default function UpdateGym(props) {
       // dataNewGym: en este objeto va todo lo que obtienen del formulario (el input de arriba)
       console.log("recibe el click y crea un gym");
       let newOnGym = await createOneGym(dataForNewGym);
+
       if (newOnGym) {
         SweetAlrt("Exito", "Gimnasio creado", "success");
         dispatch(getMyGyms(userId))
       } else {
         SweetAlrt("Ocurrió un error y el gimnasio no fue creado", "error");
-      }
-      
+      }     
+
+     setNewGym({
+     name: "", 
+     price: "",     
+     image: [], 
+     latitude: "", 
+     longitude: "",
+     trainers: [], 
+     logo: "", 
+     phone: "", 
+     email: "", 
+     gymActive: true,
+     favourite: 0, 
+   });
+
       return newOnGym;
     }
   }
@@ -242,8 +284,8 @@ export default function UpdateGym(props) {
   async function onClickEditGym() {
     if (error.name || error.logo || error.price || error.phone || error.email) {
       return SweetAlrtTem("Los valores que ingreso son incorrectos", "warning");
-    } else if (!editGym.name && !editGym.phone && !editGym.price) {
-      return SweetAlrtTem("Completa los datos minimos requeridos", "warning");
+    } else if (!editGym.name && !editGym.phone && !editGym.price || !gymId) {
+      return SweetAlrtTem("Completa los datos  requeridos", "warning");
     } else {
       let dataForEditGym = {
         //userId: { userId: "userId" },
@@ -256,6 +298,19 @@ export default function UpdateGym(props) {
       console.log("recibe el click y edita un gym");
       let editOnGym = await editOneGym(dataForEditGym);
       SweetAlrt("Exito", "Gym editado!", "success");
+      setEditGym({
+        name: "",
+        price: "",
+        image: [],
+        latitude: "",
+        longitude: "",
+        trainers: [],
+        logo: "",
+        phone: "",
+        email: "",
+        gymActive: true,
+        favourite: 0,
+      });
       return editOnGym;
     }
   }
@@ -266,6 +321,8 @@ export default function UpdateGym(props) {
         const newInput = {
           ...newGym,
           [e.target.name]: e.target.value,
+          latitude: gymGeo.latitude,
+          longitude: gymGeo.longitude,
         };
         const errors = gymValidate(newInput);
         setError(errors);
@@ -281,7 +338,10 @@ export default function UpdateGym(props) {
         const newInput = {
           ...editGym,
           [e.target.name]: e.target.value,
+          latitude: gymGeo.latitude,
+          longitude: gymGeo.longitude,
         };
+        // newInput.phone ? newInput.phone : newInput.phone=myGyms.phone;
         const errors = gymValidateEdit(newInput);
         setError(errors);
         return newInput;
@@ -541,6 +601,7 @@ export default function UpdateGym(props) {
                 className={styles.inputImageLogo}
                 type="number"
                 name="price"
+                min="1"
                 value={typeAction === "create" ? newGym.price : editGym.price}
                 onChange={(e) => {
                   handleChange(e);
@@ -560,6 +621,7 @@ export default function UpdateGym(props) {
                 className={styles.inputImageLogo}
                 type="number"
                 name="phone"
+                min="0"
                 value={typeAction === "create" ? newGym.phone : editGym.phone}
                 onChange={(e) => {
                   handleChange(e);

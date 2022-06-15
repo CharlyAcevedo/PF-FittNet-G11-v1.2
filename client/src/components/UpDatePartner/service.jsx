@@ -59,6 +59,23 @@ export default function Services() {
   function refreshState(e) {
     e.preventDefault();
     dispatch(getMyGyms(userId))
+    setEditService({
+        name: "", // string requerido
+    description: "", // string requerido
+    duration: "", // numero en minutos
+    price: "", // numero requerido
+    photo: [], // Array de strings
+    profileCategory: [],
+    })
+    setNewService({
+        name: "", // string requerido
+    description: "", // string requerido
+    duration: "", // numero en minutos
+    price: "", // numero requerido
+    photo: [], // Array de strings
+    profileCategory: [],
+    })
+    setError({})
 
   }
 
@@ -72,7 +89,8 @@ export default function Services() {
     } else if (
       !newService.name ||
       !newService.description ||
-      !newService.price
+      !newService.price ||
+      !gymId
     ) {
       return SweetAlrtTem("Completa los campos  minimo requeridos", "warning");
     } else {
@@ -87,7 +105,14 @@ export default function Services() {
       console.log("recibe el click y crea un service");
       let newOnService = await createOneService(dataForNewService);
       SweetAlrt("Exito", "Servicio creado", "success");
-
+      setNewService({
+        name: "", // string requerido
+        description: "", // string requerido
+        duration: "", // numero en minutos
+        price: "", // numero requerido
+        photo: [], // Array de strings
+        profileCategory: [],
+      });
       return newOnService;
     }
   }
@@ -118,6 +143,14 @@ export default function Services() {
       console.log("recibe el click y edita un gym");
       let editOnService = await editOneService(dataForEditService);
       SweetAlrt("Exito", "Servicio editado", "success");
+      setEditService({
+        name: "", // string requerido
+        description: "", // string requerido
+        duration: "", // numero en minutos
+        price: "", // numero requerido
+        photo: [], // Array de strings
+        profileCategory: [],
+      });
       return editOnService;
     }
   }
