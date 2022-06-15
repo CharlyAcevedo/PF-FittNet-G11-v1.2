@@ -10,7 +10,7 @@ import {
   CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE,
   CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING, SORT_QUALIFICATION,
   FILTER_CATEGORY, SORT_PRICE, SEARCH, SORT_DISTANCE, SET_GYMS_GEO,
-  GET_PLANS, GET_PARTNER_ID, GET_MY_GYMS, GET_MY_SALES
+  GET_PLANS, GET_PARTNER_ID, GET_MY_GYMS, GET_MY_SALES, GET_ALL_SALES
 } from "./actionTypes";
 
 //--------------------------------------------------------------------------------
@@ -122,6 +122,7 @@ export function getSearch(payload) {
 
 //------AVATARS ACTIONS------(Favor de poner aqui todas las aciones referentes a los avatares)
 //--------------------------------------------------------------------------------
+
 // export const postAvatar = (id, body) => async (dispatch) => {
 //   try {
 //     const dataUdpateAvatar = await axios.put(`/api/user/avatar/${id}`, body);
@@ -176,7 +177,7 @@ export function getAdmin(userId) {
       });
     };
   };
-}
+};
 
 export const getPartner = (idPartner) => async dispatch => {
   try {
@@ -192,7 +193,7 @@ export const getPartner = (idPartner) => async dispatch => {
     });
 
   }
-}
+};
 
 
 export function getAllPartners() {
@@ -231,8 +232,24 @@ export function getLockAccounts() {
       });
     }
   };
-}
+};
 
+export function getAllSales(idAdmin){
+  return async (dispatch) => {
+    try{
+      const response = await axios.get(`/api/partner/sales/allsales/${idAdmin}`);
+      dispatch({
+        type: GET_ALL_SALES,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_ALL_SALES,
+        payload: { error: err.message },
+      });
+    }; 
+  }
+}
 
 //--------------------------------------------------------------------------------
 //------PARTNER ACTIONS------(Favor de poner aqui todas las aciones para partners)
@@ -260,8 +277,6 @@ export function getMyGyms(partnerId) {
     };
   };
 }
-
-
 
 // export function getMyGyms(partnerId) { 
 //   // Esta ruta la consume el admin (va a estar protegida), y me trae información del
@@ -361,8 +376,6 @@ export function updatePartnerData({
     }
   };
 }
-
-
 
 export function getPartnerDetails(id) {
   return async (dispatch) => {

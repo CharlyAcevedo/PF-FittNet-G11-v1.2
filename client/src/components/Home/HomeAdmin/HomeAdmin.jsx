@@ -8,8 +8,7 @@ import DeteleteAccount from "./ViewsAdmin/DeleteAccount";
 import BlockAccount from "./ViewsAdmin/BlockAccount";
 import SearchComponent from "./SearchComponent/SearchComponent";
 import { useDispatch } from "react-redux";
-import { getAllPartners } from "../../../redux/actions";
-import { getAllUsers } from "../../../redux/actions";
+import { getAllPartners, getAllSales, getAllUsers } from "../../../redux/actions";
 import { useEffect } from "react";
 import { getLockAccounts } from "../../../redux/actions";
 import { useState } from "react";
@@ -29,10 +28,10 @@ export default function HomeAdmin() {
   // Necesito una barra de búsqueda con filtros
   useEffect(() => {
     console.log("useEffect");
-
+    dispatch(getAllSales(userId))
     dispatch(getAllPartners());
     dispatch(getAllUsers());
-    dispatch(getLockAccounts());
+    dispatch(getLockAccounts());// eslint-disable-next-line
   }, [userId]);
 
   return (

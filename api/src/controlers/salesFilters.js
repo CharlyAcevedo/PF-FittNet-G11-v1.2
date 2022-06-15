@@ -4,6 +4,7 @@ const Gyms = require("../models/Gyms");
 const Service = require("../models/Service");
 const User = require("../models/User");
 const Partner = require("../models/Partner");
+const { getAllGyms } = require("./gyms")
 
 const getPartnerSales = async (idUser) => {
   try {
@@ -52,20 +53,26 @@ const getPartnerSales = async (idUser) => {
 
 const getAdminSales = async (idUser) => {
   try {
-    console.log("si entro a la funcion", idUser);
-    const userPartner = await User.findById(idUser);
-    const partner = await Partner.findById(userPartner.partner);
-    const gyms = partner.gyms
+    // console.log("si entro a la funcion", idUser);
+    const userAdmin = await User.findById(idUser);
+    if(userAdmin.type !== "admin"){
+      return "No esta autorizado para ver esta informacion"
+    };
+    console.log("si llega aqui")
+    const gyms = await getAllGyms();
     const sales = [];
     const salesPerGym = [];
     let totalSales = 0;
     let salesNumber = 0;
+    // console.log(gyms[0])
     if(gyms.length > 0){
+      console.log("entra al primer if")
       for(let i = 0; i < gyms.length; i++){
-        const gymSales = await ShopCart.find({ status: "Payed" })
+        const gymSales = await ShopCart.find({ gyms: gyms[i]._id, status: "Payed" })
         .populate({
           path: "user gyms services"
         })
+        // console.log(gyms[i])
         sales.push(gymSales);
       }
     };
@@ -86,8 +93,9 @@ const getAdminSales = async (idUser) => {
         }
       }
     };
-    const response = {userId: idUser, partner: partner.name, salesNumber: salesNumber, totalSales: totalSales, salesPreGym: salesPerGym};
+    const response = {userId: idUser, admin: userAdmin.name, salesNumber: salesNumber, totalSales: totalSales, salesPreGym: salesPerGym};
     return response
+    // return allgyms
   } catch (error) {
     console.log(error.message);
     return error.message;

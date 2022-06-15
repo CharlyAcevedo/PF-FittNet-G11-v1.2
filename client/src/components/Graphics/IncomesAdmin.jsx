@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from './styles/Incomes.module.css'
-import { getMySales, getUser } from "../../redux/actions";
+import { getAllSales, getUser } from "../../redux/actions";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Bar } from 'react-chartjs-2';
@@ -27,7 +27,7 @@ import {
     Legend
   );
 
-export default function IncomesGraph(){
+export default function IncomesAdmin(){
 
   let { userId } = useParams();
     
@@ -35,17 +35,18 @@ export default function IncomesGraph(){
 
   useEffect(()=>{
     dispatch(getUser(userId))
-    dispatch(getMySales(userId))// eslint-disable-next-line
-  },[userId])
+    dispatch(getAllSales(userId))// eslint-disable-next-line
+  },[])
 
   
-  const mySales = useSelector((state) => state.partnerSales)
-  const partnerData = useSelector((state) => state.partnerDetails)
-
+  const mySales = useSelector((state) => state.adminSales)
+  const userData = useSelector((state) => state.user)
+  console.log(mySales)
   let counter = 0;
   let colorArray = [ "#ff004c", "#fe5889", "#fb6d10", "#ff9550", "#572e13"];
-
-  const myDataSets = typeof mySales === "object" && Object.entries(mySales).length > 0 ? mySales.salesPreGym.map((g) => {
+  
+  const myDataSets = typeof mySales === "object" && Object.entries(mySales).length > 0  ?
+  mySales.salesPreGym.map((g) => {
     let dataSet = {
       label: g.gymName,
       backgroundColor: colorArray[counter],
@@ -57,12 +58,19 @@ export default function IncomesGraph(){
     };
     counter = counter < 5 ? counter + 1 : 0;
     return dataSet
-  }) : []
-
+  }) : [{
+    label: "loading...",
+    backgroundColor: "#ff2767",
+    bordercolor: "#ff2767",
+    borderWhidth: 1,
+    hoverBackgroundColor: "#ff276745",
+    hoverBordercolor: "#ff276745",
+    data: [0]
+}]
 
     const data = {
         labels: ["Ganancias en Miles", "Ventas"],
-        datasets: myDataSets
+        datasets: myDataSets,        
     };
     const options = {
         responsive: true,
@@ -82,7 +90,7 @@ export default function IncomesGraph(){
     return (
         <div className={styles.mainContainer}>
           <div className={styles.graphContainer}>
-            {/* {/* <h2>Grafica por Ingresos</h2> */}
+            <h2>Grafica por Ingresos</h2>
             <div className={styles.doubleContainer}>
               <div className={styles.doubleContainer}>
                 <Bar  data={data} options={options}/>
@@ -90,10 +98,10 @@ export default function IncomesGraph(){
             </div>
             <br />
             <div >
-            <h5>Estimado {partnerData.name + " " + partnerData.lastName} este es el desgloce de sus ingresos en Fittnet</h5>
-            <p>Sus ganancias totales desde que esta con Fittnet son de {totalIncomes}</p>
-            <p>Con un total de {mySales.salesNumber} ventas en todos sus gimnasios</p>
-            {typeof mySales === "object" && Object.entries(mySales).length > 0  ? mySales.salesPreGym.map((g) => {
+            <h5>Estimado {userData.name} este es el desgloce de los ingresos de Fittnet</h5>
+            <p>Sus ganancias totales Fittnet son de {totalIncomes}</p>
+            <p>Con un total de {mySales.salesNumber} ventas en todos los gimnasios</p>
+            {typeof mySales === "object" && Object.entries(mySales).length > 0 ? mySales.salesPreGym.map((g) => {
               return <div key={g.gym}>
                 Su gimnasio {g.gymName} ha vendido este mes {g.salesNumber} servicios, por un total de {new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARG'}).format(g.totalSales)}
                 </div>
