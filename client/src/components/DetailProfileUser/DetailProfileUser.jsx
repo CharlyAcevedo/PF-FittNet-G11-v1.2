@@ -121,7 +121,7 @@ export default function DetailProfileUser() {
                   color: "#8a8a8a",
                 }}
               >
-                {info && Object.keys(info?.address).length > 0 ? (
+                {info && info?.address ? (
                   <>
                     <MdLocationOn style={{ color: "var(--color-primD1)" }} />
                     <span
@@ -211,7 +211,7 @@ export default function DetailProfileUser() {
                   >
                     Address:{" "}
                     <span style={{ color: "var(--color-primD1)" }}>
-                      {info && Object.keys(info?.address).length > 0 ? (
+                      {info && info?.address ? (
                         <span
                           style={{ color: "var(--color-primD1)" }}
                         >{`${info.address.country} - ${info.address.city}`}</span>
