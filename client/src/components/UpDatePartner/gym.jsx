@@ -16,26 +16,6 @@ import { useEffect } from "react";
 
 export default function UpdateGym(props) {
   const dispatch = useDispatch();
-<<<<<<< HEAD
-  const navigate = useNavigate();
-  const params = useParams();
-
-  const [input, setInput] = useState({
-    name: "gym1",
-    price: "33",
-    raiting: "", // no sale del form
-    image: [],
-    address: "2323", 
-    services: [], /// no la voy a poder tocar
-    trainers: [],
-    logo: "dfdf",
-    phone: "df",
-    email: "dfd",
-    uEnd: [], ///
-    gymActive: "", //
-    idName: "",
-    id: "", // id del gym
-=======
   // const navigate = useNavigate();
   // const params = useParams();
 
@@ -71,7 +51,6 @@ export default function UpdateGym(props) {
     email: "newgym@mail.com", // es un string que guarda el email del gym
     gymActive: true,
     favourite: 0, // es un numero entero y se inicia  en cero
->>>>>>> 0859cc2a91ac9e8607cee21b428c07a7c097067d
   });
 
   // Campos obligatorios - Esto campos tiene que estar o se cae el back
