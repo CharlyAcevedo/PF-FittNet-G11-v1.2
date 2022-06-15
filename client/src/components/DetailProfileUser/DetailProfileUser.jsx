@@ -8,6 +8,7 @@ import {
   getAllGyms,
   getUserGoogleForToken,
   getGymDetail,
+  getUser,
 } from "../../redux/actions/index";
 import { NavBar3 } from "../GymDetail/NavBar3.jsx";
 
@@ -39,13 +40,18 @@ export default function DetailProfileUser() {
     if (gyms.length === 0) {
       dispatch(getAllGyms());
     }
+    if (userId) {
+      dispatch(getUser(userId))
+      
+    }  
     if (Object.keys(gyms).length === 0) {
+    // if (!user.length) {
       dispatch(getUserGoogleForToken(token));
     }
     if (Object.keys(gymDetail).length === 0) {
       dispatch(getGymDetail(userId));
     }
-  }, []);
+  }, [userId]);
 
   const { info, favourite } = user;
 
@@ -121,7 +127,7 @@ export default function DetailProfileUser() {
                   color: "#8a8a8a",
                 }}
               >
-                {info && info?.address ? (
+                {info?.address  ? (
                   <>
                     <MdLocationOn style={{ color: "var(--color-primD1)" }} />
                     <span
@@ -211,7 +217,7 @@ export default function DetailProfileUser() {
                   >
                     Address:{" "}
                     <span style={{ color: "var(--color-primD1)" }}>
-                      {info && info?.address ? (
+                      { info?.address  ? (
                         <span
                           style={{ color: "var(--color-primD1)" }}
                         >{`${info.address.country} - ${info.address.city}`}</span>

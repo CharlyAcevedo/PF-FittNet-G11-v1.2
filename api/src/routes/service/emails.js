@@ -159,15 +159,6 @@ function createBodyEmail(username, gymName, phoneGym, saleDetail) {
               </tr>
               `;
 
-  {
-    /* <tr>
-                <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-                  <p style="margin: 0;">Detalle de compra 
-                  </p>
-                </td>
-              </tr>
-              <!-- BULLETPROOF BUTTON --> */
-  }
 
   var resume = saleDetail.map((r) => ({
     precio: r.price,
