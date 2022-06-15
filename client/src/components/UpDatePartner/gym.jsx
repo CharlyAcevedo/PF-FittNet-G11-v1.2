@@ -372,9 +372,7 @@ export default function UpdateGym(props) {
       {/* <div>latNew{newGym.latitude}, LonNew{newGym.longitude}</div>
       <div>latEdit{editGym.latitude}, LonEdit{editGym.longitude}</div> */}
       <div>
-        <div className={styles.headerFormPartnerGym}>
-<<<<<<< HEAD
-          
+        <div className={styles.headerFormPartnerGym}>          
         <button  className={styles.btnCreateEditGym}
         onClick={(e) => 
         refreshState(e)}>Recargar
@@ -401,15 +399,6 @@ export default function UpdateGym(props) {
               Ir a editar Gym
             </button>
           }
-
-=======
-          <button
-            className={styles.btnCreateEditGym}
-            onClick={(e) => refreshState(e)}
-          >
-            Recargar
-          </button>
->>>>>>> e40b12153c27f5ce51b84740136543a20d82bc4f
 
           <p></p>
 
@@ -447,7 +436,6 @@ export default function UpdateGym(props) {
                 onChange={(e) => handleChange(e)}
                 placeholder="https://logo-gym.jpg"
               />
-              {error.logo && <p className={styles.danger}>{error.logo}</p>}
             </div>
 
             {typeAction === "create" ? newGym.price : editGym.price}
@@ -456,7 +444,6 @@ export default function UpdateGym(props) {
             {typeAction === "create" ? null :
             
             <div>
-<<<<<<< HEAD
             <label><strong>*</strong>Gimnasio: </label>
             <select onChange={(e) => handleChangeGyms(e)}>
               <option key="id1">...</option>
@@ -471,23 +458,6 @@ export default function UpdateGym(props) {
 
 
 
-=======
-              <label>
-                <strong>*</strong>Gimnasio:{" "}
-              </label>
-              <select onChange={(e) => handleChangeGyms(e)}>
-                <option key="id1">...</option>
-                {myGyms.length > 0
-                  ? myGyms.map((g) => (
-                      <option key={g._id} value={g._id}>
-                        {g.name}
-                      </option>
-                    ))
-                  : null}
-              </select>
-              {gymId ? gymId : null}
-            </div>
->>>>>>> e40b12153c27f5ce51b84740136543a20d82bc4f
           </div>
           <div className={styles.mainInfoForm}>
             <div>
