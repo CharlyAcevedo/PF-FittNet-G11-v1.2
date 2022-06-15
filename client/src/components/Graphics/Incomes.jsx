@@ -44,7 +44,7 @@ export default function IncomesGraph(){
   console.log(mySales)
   let counter = 10;
   
-  const myDataSets = mySales ? mySales.salesPreGym.map((g) => {
+  const myDataSets = mySales ? mySales.salesPreGym?.map((g) => {
     counter = counter + 5;
     let barColor = "#ff2767"
     let dataSet = {
@@ -107,26 +107,26 @@ export default function IncomesGraph(){
     return (
         <div className={styles.mainContainer}>
           <div className={styles.graphContainer}>
-            <h2>Grafica por Ingresos</h2>
+            {/* <h2>Grafica por Ingresos</h2>
             <div className={styles.doubleContainer}>
               <div className={styles.doubleContainer}>
                 <Bar  data={data} options={options}/>
-              </div>
+              </div> */}
               {/* <div className={styles.doubleContainer}>
             <Line data={data} options={options}/>
               </div> */}
-            </div>
+            {/* </div>
             <br />
-            <div >
-            <h5>Estimado {partnerData.name + " " + partnerData.lastName} este es el desgloce de sus ingresos en Fittnet</h5>
-            <p>Sus ganancias totales desde que esta con Fittnet son de {totalIncomes}</p>
-            <p>Con un total de {mySales.salesNumber} ventas en todos sus gimnasios</p>
-            {mySales && mySales.salesPreGym.map((g) => {
+            <div > */}
+            {/* <h5>Estimado {partnerData.name + " " + partnerData.lastName} este es el desgloce de sus ingresos en Fittnet</h5> */}
+            {/* <p>Sus ganancias totales desde que esta con Fittnet son de {totalIncomes}</p>
+            <p>Con un total de {mySales.salesNumber} ventas en todos sus gimnasios</p> */}
+            {/* {mySales && mySales.salesPreGym?.map((g) => {
               return <div key={g.gym}>
                 Su gimnasio {g.gymName} ha vendido este mes {g.salesNumber} servicios, por un total de {new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARG'}).format(g.totalSales)}
                 </div>
-            })}
-            </div>
+            })} */}
+            {/* </div> */}
             </div>
         </div>
     )
