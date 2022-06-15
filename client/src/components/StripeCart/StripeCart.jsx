@@ -63,10 +63,15 @@ const CheckoutForm = () => {
   const usuarioId = localStorage.getItem("userId");
   const name = localStorage.getItem("name");
   // const email = localStorage.getItem("email");
-  const { userName, info } = user;
+  const [detailUser, setDetailUser] = useState({ ///--------------Nano details
+    userName: user.name,
+    email: user.userName
+  })
+
+  // const { userName, info } = user;
   // const {name}
 
-  const username = info && info.name;
+
 
   const type = localStorage.getItem("type");
   const avatar = localStorage.getItem("avatar");
@@ -148,10 +153,7 @@ const CheckoutForm = () => {
     }));
 
     const det = {
-      userDetail: {
-        username: username,
-        email: userName,
-      },
+      userDetail: detailUser,
       gymDetail: {
         gymName: statusGym.nameGim,
         phoneGym: statusGym.phonmeGim
