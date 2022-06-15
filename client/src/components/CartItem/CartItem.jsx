@@ -23,9 +23,9 @@ export default function CartItem({ id, name, price, description, duration }) {
         <div className={style.box}>
           <div className={style.content}>
             <span>{duration} min</span>
-            <h2>{price} $</h2>
+            <h2>$ {price}</h2>
             <h3>{name}</h3>
-            <p>{description}</p>
+            <p>{description.slice(0,150)} ...</p>
             <div className={style.contButton}>
               <button onClick={() => handleClick(id)}>+</button>
               <button onClick={() => handleDelete(id)}>-</button>

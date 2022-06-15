@@ -1,12 +1,15 @@
 import { useState } from "react";
 import styles from "./style/client.module.css";
-//import { serviceValidate } from "./controlers/validaciones";
+import {
+  serviceValidate,
+  serviceValidateEdit,
+} from "./controlers/validaciones";
 import { useSelector } from "react-redux";
 import { getMyGyms } from "../../redux/actions"; // --------------LA ACTION
 import { useDispatch } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 // import { createService } from "../../redux/actions";
-// import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
+import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { createOneService, editOneService } from "./controlers/Functions";
 import { useEffect } from "react";
 
@@ -28,20 +31,20 @@ export default function Services() {
   const [gymId, setGymId] = useState("");
   const [serviceId, setServiceId] = useState("");
 
-  const [newService, setNewService] = useState({
-    name: "Nombre del servicio", // string requerido
-    description: "Descripción del servicio", // string requerido
-    duration: 30, // numero en minutos
-    price: 0, // numero requerido
-    photo: [], // Array de strings
-    profileCategory: [],
-  });
+ const [newService, setNewService] = useState({
+   name: "", // string requerido
+   description: "", // string requerido
+   duration: "", // numero en minutos
+   price: "", // numero requerido
+   photo: [], // Array de strings
+   profileCategory: [],
+ });
 
   const [editService, setEditService] = useState({
-    name: "Nuevo nombre", // string requerido
-    description: "Nueva descripción del servicio", // string requerido
-    duration: 45, // numero en minutos
-    price: 99, // numero requerido
+    name: "", // string requerido
+    description: "", // string requerido
+    duration: "", // numero en minutos
+    price: "", // numero requerido
     photo: [], // Array de strings
     profileCategory: [],
   });
@@ -64,67 +67,91 @@ export default function Services() {
   // Esta función sirve para crear un gym           
   //----------------------------------------------------------------------------
   async function onClickCreateService() {
-    let dataForNewService = {
-      gymId: { gymId: gymId },
-      dataNewService: newService
-    };
+    if (error.name || error.description || error.price) {
+      return SweetAlrtTem("Los valores ingresados son incorrectos", "warning");
+    } else if (
+      !newService.name ||
+      !newService.description ||
+      !newService.price
+    ) {
+      return SweetAlrtTem("Completa los campos  minimo requeridos", "warning");
+    } else {
+      let dataForNewService = {
+        gymId: { gymId: gymId },
+        dataNewService: newService,
+      };
 
-    // gymId: el id del gym que crea el servicio
-    // dataNewService: en este objeto va todo lo que obtienen del formulario (el input de arriba)
+      // gymId: el id del gym que crea el servicio
+      // dataNewService: en este objeto va todo lo que obtienen del formulario (el input de arriba)
 
-    console.log('recibe el click y crea un service')
-    let newOnService = await createOneService(dataForNewService);
-    return newOnService;
+      console.log("recibe el click y crea un service");
+      let newOnService = await createOneService(dataForNewService);
+      SweetAlrt("Exito", "Servicio creado", "success");
 
+      return newOnService;
+    }
   }
+
 
   //----------------------------------------------------------------------------
   // Esta función sirve para editar la info de un gym       
   //----------------------------------------------------------------------------
 
   async function onClickEditService() {
-    let dataForEditService = {
-      serviceId: { serviceId: serviceId },
-      newDataService: editService
-    };
+    if (error.name || error.description || error.price) {
+      return SweetAlrtTem("Los valores ingresados son incorrectos", "warning");
+    } else if (
+      !editService.name &&
+      !editService.description &&
+      !editService.price
+    ) {
+      return SweetAlrtTem("Completa los datos minimos requeridos", "warning");
+    } else {
+      let dataForEditService = {
+        serviceId: { serviceId: serviceId },
+        newDataService: editService,
+      };
 
-    // serviceId: el id del service a editar
-    // dataNewService: en este objeto va todo lo que obtienen del formulario (el input de arriba)
+      // serviceId: el id del service a editar
+      // dataNewService: en este objeto va todo lo que obtienen del formulario (el input de arriba)
 
-    console.log('recibe el click y edita un gym')
-    let editOnService = await editOneService(dataForEditService);
-    return editOnService;
-
+      console.log("recibe el click y edita un gym");
+      let editOnService = await editOneService(dataForEditService);
+      SweetAlrt("Exito", "Servicio editado", "success");
+      return editOnService;
+    }
   }
 
   //----------------HANDLECHANGE----------------------------------------------
-  function handleChange(e) {
-    if (typeAction === "create") {
-      setNewService(() => {
-        const newInput = {
-          ...newService,
-          [e.target.name]: e.target.value,
-        };
-        // const errors = gymValidate(newInput);
-        // setError(errors);
-        return newInput;
-      });
-      // console.table(newService);
-    }
+ function handleChange(e) {
+   if (typeAction === "create") {
+     setNewService(() => {
+       const newInput = {
+         ...newService,
+         [e.target.name]: e.target.value,
+       };
+       const errors = serviceValidate(newInput);
+       setError(errors);
+       console.log(newInput);
+       console.log(errors);
+       return newInput;
+     });
+   }
 
-    if (typeAction === "edit") {
-      setEditService(() => {
-        const newInput = {
-          ...editService,
-          [e.target.name]: e.target.value,
-        };
-        // const errors = gymValidate(newInput);
-        // setError(errors);
-        return newInput;
-      });
-      // console.table(editService);
-    }
-  }
+   if (typeAction === "edit") {
+     setEditService(() => {
+       const newInput = {
+         ...editService,
+         [e.target.name]: e.target.value,
+       };
+       const errors = serviceValidateEdit(newInput);
+       setError(errors);
+       console.log(newInput);
+       console.log(errors);
+       return newInput;
+     });
+   }
+ }
 
   function handleChangeGyms(e) {
     if (e.target.value !== "...") {
