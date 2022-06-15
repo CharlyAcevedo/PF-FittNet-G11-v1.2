@@ -2,7 +2,7 @@ const router = require("express").Router();
 const routerProfile = require('./profile');
 const routerGyms = require('./gyms');
 const routerServices = require('./services');
-const routerSales = require("./sales");
+const routerSales = require("./sales")
 
 router.use("/gyms", routerGyms);
 router.use("/services", routerServices); 

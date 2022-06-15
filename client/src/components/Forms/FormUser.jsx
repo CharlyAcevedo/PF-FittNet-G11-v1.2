@@ -67,7 +67,7 @@ export default function FormUser() {
     );
     if (e.target.name == "selDesease") {
       if (filtro.length) {
-        SweetAlrtTem("deberias agregar una enfermedad diferente","info");
+        SweetAlrtTem("deberias agregar una enfermedad diferente", "info");
       } else {
         setInput({
           ...input,
@@ -196,20 +196,19 @@ export default function FormUser() {
 
   return (
     <div style={{ width: "100%" }}>
-      <div className={styles.containerUser}>
-        <h2>Datos del Usuario</h2>
-        <p>
-          Aqui puedes completar los datos de tu información personal, esta
-          información es muy importante para nosotros
-          <br />
-          tanto como lo es para tí, es por eso que la tratarémos con la mayor
-          confidencialidad y discreción,
-          <br />
-          puedes consultar nuestro anuncio de privacidad aqui
-        </p>
-      </div>
-
       <form className={styles.containerFormUser}>
+        <div className={styles.containerUser}>
+          <h2>Datos del Usuario</h2>
+          <p>
+            Aqui puedes completar los datos de tu información personal, esta
+            información es muy importante para nosotros
+            <br />
+            tanto como lo es para tí, es por eso que la tratarémos con la mayor
+            confidencialidad y discreción,
+            <br />
+            puedes consultar nuestro anuncio de privacidad aqui
+          </p>
+        </div>
         <div className={styles.formUserOne}>
           <div>
             <label style={{ fontWeight: "700" }}>Avatar: </label>
@@ -324,7 +323,6 @@ export default function FormUser() {
             </div>
             {error.photo && <p className={styles.parrafo}>{error.photo}</p>}
           </div>
-
           <div
             style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}
           >
@@ -418,7 +416,15 @@ export default function FormUser() {
                   return (
                     input.desease.includes(e.deseaseName) && (
                       <div key={e._id} className={styles.deseaseBeneficts}>
-                        <p style={{color: "var(--color-primD1)", fontSize: "800", textTransform: "uppercase"}}>{e.deseaseName}</p>
+                        <p
+                          style={{
+                            color: "var(--color-primD1)",
+                            fontSize: "800",
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          {e.deseaseName}
+                        </p>
                         <li>{e.benefits}</li>
                       </div>
                     )
@@ -441,6 +447,7 @@ export default function FormUser() {
               DIRECCION
             </label>
           </div>
+
           <div className={styles.boxInputDirection}>
             <div>
               <InputPrimaryFormUsers

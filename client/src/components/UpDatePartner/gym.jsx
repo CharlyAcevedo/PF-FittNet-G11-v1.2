@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./style/client.module.css";
-// import { gymValidate } from "./controlers/validaciones";
+import { gymValidate, gymValidateEdit } from "./controlers/validaciones";
 // import { useNavigate } from "react-router-dom";
 
 import { createGym, setGymsGeo } from "../../redux/actions";
@@ -8,7 +8,7 @@ import { createGym, setGymsGeo } from "../../redux/actions";
 import { getMyGyms } from "../../redux/actions"; // --------------LA ACTION
 import { useDispatch } from "react-redux";
 // import { useParams } from "react-router-dom";
-// import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
+import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { createOneGym, editOneGym } from "./controlers/Functions";
 import MapGyms from "../MapsAndGeo/MapGyms";
 import { useSelector } from "react-redux";
@@ -35,23 +35,23 @@ export default function UpdateGym(props) {
   const [gymId, setGymId] = useState("");//------------------------- El Id
 
   const [error, setError] = useState({});
-  const [newGym, setNewGym] = useState({
-    name: "Nombre del gym a crear", //string y es obligatorio - sale del form
-    price: 999, // numero entero o decimal y no es obligatorio - sale del form
-    // rating: // no se manda, por defecto se inicia como un array de numeros
-    image: [], // es un array de imágenes y se inicia en vacio o con elementos
-    latitude: 0, // numero entero o decimal y no es obligatorio
-    longitude: 0, // numero entero o decimal y no es obligatorio
-    // address: // no lo puedo mandar porque se relaciona con otra colección
-    // y no es obligatorio
-    trainers: [], // lo puedo tocar aunque no es obligatorio. Es un array de strings
-    // que va a guardar los nombres de los instructores.
-    logo: "", // es un string que guarda el enlace a una imagen
-    phone: 12345678, // es un conjunto de numeros enteros y es un campo obligatorio
-    email: "newgym@mail.com", // es un string que guarda el email del gym
-    gymActive: true,
-    favourite: 0, // es un numero entero y se inicia  en cero
-  });
+   const [newGym, setNewGym] = useState({
+     name: "", //string y es obligatorio - sale del form
+     price: "", // numero entero o decimal y no es obligatorio - sale del form
+     // rating: // no se manda, por defecto se inicia como un array de numeros
+     image: [], // es un array de imágenes y se inicia en vacio o con elementos
+     latitude: 0, // numero entero o decimal y no es obligatorio
+     longitude: 0, // numero entero o decimal y no es obligatorio
+     // address: // no lo puedo mandar porque se relaciona con otra colección
+     // y no es obligatorio
+     trainers: [], // lo puedo tocar aunque no es obligatorio. Es un array de strings
+     // que va a guardar los nombres de los instructores.
+     logo: "", // es un string que guarda el enlace a una imagen
+     phone: "", // es un conjunto de numeros enteros y es un campo obligatorio
+     email: "", // es un string que guarda el email del gym
+     gymActive: true,
+     favourite: 0, // es un numero entero y se inicia  en cero
+   });
 
   // Campos obligatorios - Esto campos tiene que estar o se cae el back
   // 1 name
@@ -115,14 +115,14 @@ export default function UpdateGym(props) {
   //----------------------------------------------------------------------
   // Si edito un Gym cargo la info en este otro objeto
   const [editGym, setEditGym] = useState({
-    name: "Nombre del gym a editar",
-    price: 899,
+    name: "",
+    price: "",
     image: [],
     latitude: 0,
     longitude: 0,
     trainers: [],
     logo: "",
-    phone: 0,
+    phone: "",
     email: "",
   });
   // Campos obligatorios - Esto campos tiene que estar o se cae el back
@@ -156,16 +156,29 @@ export default function UpdateGym(props) {
   // Esta función sirve para crear un gym
   //----------------------------------------------------------------------------
   async function onClickCreateGym() {
-    let dataForNewGym = {
-      userId: { userId: userId },
-      dataNewGym: newGym,
-      // dataNewGym: { prop1: "data1", prop2: 2, prop3: [], prop4: {} }
-    };
-    // userId: el id del usuario partner que crea el gym
-    // dataNewGym: en este objeto va todo lo que obtienen del formulario (el input de arriba)
-    console.log("recibe el click y crea un gym");
-    let newOnGym = await createOneGym(dataForNewGym);
-    return newOnGym;
+    if (
+      error.name ||
+      error.logo ||
+      error.price ||
+      error.phone ||
+      error.emailr
+    ) {
+      return SweetAlrtTem("Los valores que ingreso son incorrectos", "warning");
+    } else if (!newGym.name || !newGym.logo || !newGym.phone) {
+      return SweetAlrtTem("Completa los campos minimos requeridos", "warning");
+    } else {
+      let dataForNewGym = {
+        userId: { userId: userId },
+        dataNewGym: newGym,
+        // dataNewGym: { prop1: "data1", prop2: 2, prop3: [], prop4: {} }
+      };
+      // userId: el id del usuario partner que crea el gym
+      // dataNewGym: en este objeto va todo lo que obtienen del formulario (el input de arriba)
+      console.log("recibe el click y crea un gym");
+      let newOnGym = await createOneGym(dataForNewGym);
+      SweetAlrt("Exito", "Gym creado", "success");
+      return newOnGym;
+    }
   }
 
   //----------------------------------------------------------------------------
@@ -173,19 +186,25 @@ export default function UpdateGym(props) {
   //----------------------------------------------------------------------------
 
   async function onClickEditGym() {
-    let dataForEditGym = {
-      //userId: { userId: "userId" },
-      gymId: { gymId: gymId || idGym },
-      newDataGym: editGym,
-      // newDataGym: { prop1: "data2", prop2: 3, prop3: ["algo"], prop4: {} }
-    };
-    // gymId: el id del gym a editar
-    // dataNewGym: en este objeto va todo lo que obtienen del formulario (el input de arriba)
-    console.log("recibe el click y edita un gym");
-    let editOnGym = await editOneGym(dataForEditGym);
-    return editOnGym;
+    if (error.name || error.logo || error.price || error.phone || error.email) {
+      return SweetAlrtTem("Los valores que ingreso son incorrectos", "warning");
+    } else if (!editGym.name && !editGym.phone && !editGym.price) {
+      return SweetAlrtTem("Completa los datos minimos requeridos", "warning");
+    } else {
+      let dataForEditGym = {
+        //userId: { userId: "userId" },
+        gymId: { gymId: idGym },
+        newDataGym: editGym,
+        // newDataGym: { prop1: "data2", prop2: 3, prop3: ["algo"], prop4: {} }
+      };
+      // gymId: el id del gym a editar
+      // dataNewGym: en este objeto va todo lo que obtienen del formulario (el input de arriba)
+      console.log("recibe el click y edita un gym");
+      let editOnGym = await editOneGym(dataForEditGym);
+      SweetAlrt("Exito", "Gym editado!", "success");
+      return editOnGym;
+    }
   }
-
   //----------------HANDLECHANGE----------------------------------------------
   function handleChange(e) {
     if (typeAction === "create") {
@@ -194,12 +213,14 @@ export default function UpdateGym(props) {
           ...newGym,
           [e.target.name]: e.target.value,
         };
-        // const errors = gymValidate(newInput);
-        // setError(errors);
+        const errors = gymValidate(newInput);
+        setError(errors);
+        console.log(errors);
         return newInput;
       });
-      console.table(newGym);
+      console.log(newGym);
     }
+    console.log(error);
 
     if (typeAction === "edit") {
       setEditGym(() => {
@@ -207,13 +228,14 @@ export default function UpdateGym(props) {
           ...editGym,
           [e.target.name]: e.target.value,
         };
-        // const errors = gymValidate(newInput);
-        // setError(errors);
+        const errors = gymValidateEdit(newInput);
+        setError(errors);
         return newInput;
       });
-      console.table(editGym);
+      console.log(editGym);
     }
   }
+
 
   // -----------------------delete Trainer-------------------------------------
   function handleDeleteT(e) {
@@ -351,6 +373,7 @@ export default function UpdateGym(props) {
       <div>latEdit{editGym.latitude}, LonEdit{editGym.longitude}</div> */}
       <div>
         <div className={styles.headerFormPartnerGym}>
+<<<<<<< HEAD
           
         <button  className={styles.btnCreateEditGym}
         onClick={(e) => 
@@ -379,6 +402,14 @@ export default function UpdateGym(props) {
             </button>
           }
 
+=======
+          <button
+            className={styles.btnCreateEditGym}
+            onClick={(e) => refreshState(e)}
+          >
+            Recargar
+          </button>
+>>>>>>> e40b12153c27f5ce51b84740136543a20d82bc4f
 
           <p></p>
 
@@ -416,6 +447,7 @@ export default function UpdateGym(props) {
                 onChange={(e) => handleChange(e)}
                 placeholder="https://logo-gym.jpg"
               />
+              {error.logo && <p className={styles.danger}>{error.logo}</p>}
             </div>
 
             {typeAction === "create" ? newGym.price : editGym.price}
@@ -424,6 +456,7 @@ export default function UpdateGym(props) {
             {typeAction === "create" ? null :
             
             <div>
+<<<<<<< HEAD
             <label><strong>*</strong>Gimnasio: </label>
             <select onChange={(e) => handleChangeGyms(e)}>
               <option key="id1">...</option>
@@ -438,6 +471,23 @@ export default function UpdateGym(props) {
 
 
 
+=======
+              <label>
+                <strong>*</strong>Gimnasio:{" "}
+              </label>
+              <select onChange={(e) => handleChangeGyms(e)}>
+                <option key="id1">...</option>
+                {myGyms.length > 0
+                  ? myGyms.map((g) => (
+                      <option key={g._id} value={g._id}>
+                        {g.name}
+                      </option>
+                    ))
+                  : null}
+              </select>
+              {gymId ? gymId : null}
+            </div>
+>>>>>>> e40b12153c27f5ce51b84740136543a20d82bc4f
           </div>
           <div className={styles.mainInfoForm}>
             <div>
@@ -537,7 +587,7 @@ export default function UpdateGym(props) {
                 +{" "}
               </button>
 
-              {error.email && <p className={styles.danger}>{error.email}</p>}
+              {/* {error.email && <p className={styles.danger}>{error.email}</p>} */}
 
               <ul>
                 <li>

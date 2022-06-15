@@ -39,9 +39,9 @@ const CheckoutForm = () => {
   const cart = useSelector((state) => state.cart);
   const allcart = useSelector((state) => state.gymDetail);
   const user = useSelector((state) => state.user);
-  
-  localStorage.setItem('phone', allcart.phone)  
-  localStorage.setItem('nameGym', allcart.name) 
+
+  localStorage.setItem('phone', allcart.phone)
+  localStorage.setItem('nameGym', allcart.name)
 
   let userId = localStorage.getItem('userId');
   // const cartPrice = parseInt(cart.map(c => c.price.$numberDecimal))
@@ -52,11 +52,11 @@ const CheckoutForm = () => {
   //     parseInt(c.price.$numberDecimal * c.qty) +
   //     parseInt(b.price.$numberDecimal * b.qty)
   // );`
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     dispatch(getUser(userId))
 
-  },[userId])
+  }, [userId])
 
 
   console.log(allcart)
@@ -177,23 +177,28 @@ const CheckoutForm = () => {
     });
     if (!error) {
       const { id } = paymentMethod;
-      await axios
+      let compra = await axios
         .post("/api/checkout", {
           //const response = await axios.post('/api/checkout', {
           id,
           amount: 2000 * 10,
         })
         .then((response) => {
-          console.log(response, "respuesta");
+          return response
         })
         .catch((error) => {
           console.log(error);
         });
+        console.log(compra.data)
+      if (compra.data === 'todomal') {
+        SweetAlrt(`Su pago fue rechazado ${name}`, "Intente con otra tarjeta")
+        return navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
+      }
       console.log(detalle, "statuscart");
+      console.log(idCart, " idcart mail");
       let edit = await functionEditStatus(detalle);
       dispatch(updateClientGym(detalle));
       SendEmail(det);
-      console.log(idCart, " idcart mail");
       SweetAlrtTem(`Su compra fue realizada con exito ${name}`, "success");
       navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
       dispatch(clearCart());
