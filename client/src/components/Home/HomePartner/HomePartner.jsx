@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getPartnerDetails } from "../../../redux/actions";
+import { getPartnerDetails, getMySales } from "../../../redux/actions";
 import { MyGyms } from "./ViewsPartner/MyGyms";
 import { MySales } from "./ViewsPartner/MySales";
 import { MyClients } from "./ViewsPartner/MyClients";
@@ -28,10 +28,11 @@ export function HomePartner () {
   useEffect(() => {
     if(Object.keys(userPartner).length === 0) {
       dispatch(getPartner(userId))
-    }
+    } // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
+    dispatch(getMySales(userId))
     dispatch(getPartnerDetails(userId));// eslint-disable-next-line
   }, []);
 
