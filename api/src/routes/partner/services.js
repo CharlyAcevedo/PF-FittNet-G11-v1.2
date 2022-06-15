@@ -19,6 +19,7 @@ const Service = require("../../models/Service");
 const router = Router();
 
 
+
 //----------------------------------------------------------------------------
 // Para crear un solo servicio - envío el id del gym que lo crea y la info 
 // para crear el el servicio
@@ -30,6 +31,7 @@ router.post('/createOneService/', async (req, res) => {
   const { gymId, dataNewService } = req.body;
 
   let idGym = gymId.gymId
+
 
   console.log(req.body, 'el body que recibo')
 

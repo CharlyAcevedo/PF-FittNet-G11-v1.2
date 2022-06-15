@@ -28,21 +28,27 @@ transporter.verify(() => {
 const router = Router();
 
 
+//! let body = createBodyEmail(username, gymName, phoneGym,saleDetail);
 //-------------------------------------------------------------------------------
 // Esta función crea el cuerpo del correo a enviar
 //------------------------------------------------------------------------------- 
-function createBodyEmail(gymName, product, quantity, price, phone, user) {
+function createBodyEmail(username, gymName, phoneGym, saleDetail) {
 
-  let bodyEmail = `<b> ${user} gracias por tu compra! </br> Detalle de tu compra: 
-  </br> ${product} x ${quantity} x US$ ${price}, total US$ ${quantity * price} </b>
-  </br> en el gimnasio ${gymName} telefono del gimnasio ${phone}`
+
+  //? username -> Es un string
+  //? gymName -> Es un string
+  //? phoneGym -> Es un string
+  //? saleDetail -> Es un array de objetos
+
+
+  let bodyEmail = `<b> ${username} gracias por tu compra! </br> Detalle de tu compra: 
+  </br> en el gimnasio ${gymName} telefono del gimnasio ${phoneGym}`
 
   // Fernando gracias por tu compra!
   // Detalle de tu compra:
   // Clase de yoga x 3 x US$ 5, total US$ 15
   console.log('correoenviado')
   return bodyEmail;
-
 };
 
 function isValidObjectId(id) {
@@ -64,80 +70,22 @@ function isValidObjectId(id) {
 //-------------------------------------------------------------------------------
 
 router.post('/emails', async (req, res, next) => {
-  // Esta es la ruta para postman
-  // http://localhost:3001/api/service/emails/fer_0144@hotmail.com
 
-  // Recordar que userName es un email
-  // let userId = req.body.user
-  // let serviceId = req.body.service[0]
-  // let gymId = req.body.gyms[0]
-  // let _id = req.body._id
-  // {
-  //   user: '629ce3fb748e4a864f6c4f98',
-  //   gyms: [ '6293ffed8ef1b21bf94b0581' ],
-  //   services: [ '6292c055d6ce532bbb79c133' ],
-  //   quantity: 1,
-  //   price: { '$numberDecimal': '500' },
-  //   total: { '$numberDecimal': '500' },
-  //   status: 'Payed',
-  //   _id: '62a842d05e18d894130e0ed4',
-  //   __v: 0
-  // }
-  // Si recibo id del user lo podría buscar en la base de datos y sacar la info 
-  // de name, product, quantity y price de su carrito.
-  if (!isValidObjectId(usuarioId) || !isValidObjectId(gymId)) {
-    return res.send('User id o sale id no valido')
-  }
-  console.log(statusClient,'statusclient')
-  const dataSale = await ShopCart.aggregate([
-    {
-      $match: { user: ObjectId(usuarioId)},
-      $match: { gyms: ObjectId(gymId) }
-    },
-    
-    { $lookup: { from: 'gyms', localField: 'gyms', foreignField: '_id', as: 'gyms' } },
-    { $unwind: { path: '$gyms', preserveNullAndEmptyArrays: true } },
+  console.log(req.body)
 
-    { $lookup: { from: 'users', localField: 'user', foreignField: '_id', as: 'user' } },
-    { $unwind: { path: '$user', preserveNullAndEmptyArrays: true } },
+  // const { user, gyms, services, price, quantity } = dataSale[0]
+  // const { name, phone } = gyms
+  // const nameserv = services.name
+  // const username = user.name
+  // const email = user.userName
 
-    { $lookup: { from: 'services', localField: 'services', foreignField: '_id', as: 'services' } },
-    { $unwind: { path: '$services', preserveNullAndEmptyArrays: true } },
-    { $project: { _id: 1, user: { name: 1, userName: 1 }, gyms: { name: 1, phone: 1 }, services: { name: 1 }, price: 1, quantity: 1 } }
-  ])
-  console.log(dataSale, 'datasale')
+  const { userDetail, gymDetail, saleDetail } = req.body
 
-  // [
-  //   {
-  //     _id: new ObjectId("62a835ff7ba246421cef53a1"),
-  //     user: { name: 'fredito', userName: 'largelescano@gmail.com' 
-  // },
-  //     gyms: { name: "Charly's Gym & Fitness", phone: 345345345 }, 
-  //     services: { name: 'Yoga' },
-  //     quantity: 4,
-  //     price: new Decimal128("500")
-  //   }
-  // ]
+  const { username, email } = userDetail //? -> username: nombre y apellido 
 
-  // if (!regEmail.test(email)) { // Testeo que sea un email
-  //   return res.send('El valor recibido no es un email');
-  // }
-
-  // {
-  //   _id: new ObjectId("62a3a2a2bbb65b18fa74deba"),
-  //   user: { name: 'fredito', userName: 'largelescano@gmail.com' },
-  //   gyms: { name: 'gym de prueba Charly', phone: 345345345 },  
-  //   services: { name: 'spring' },
-  //   price: new Decimal128("500"),
-  //   quantity: 2
-  // }
-
-  const { user, gyms, services, price, quantity } = dataSale[0]
-  const { name, phone } = gyms
-  const nameserv = services.name
-  const username = user.name
-  const email = user.userName
-  let body = createBodyEmail(name, nameserv, quantity, price, phone, username);
+  const { gymName, phoneGym } = gymDetail
+  // ! let body = createBodyEmail(name, nameserv, quantity, price, phone, username);
+  let body = createBodyEmail(username, gymName, phoneGym, saleDetail);
   // const { name, userName} = user
   // let body = createBodyEmail(name, product, quantity, price, phone, gyms);
   // Este body lo mandaría al item html

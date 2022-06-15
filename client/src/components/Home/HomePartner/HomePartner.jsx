@@ -35,6 +35,8 @@ export function HomePartner () {
     dispatch(getPartnerDetails(userId));// eslint-disable-next-line
   }, []);
 
+  console.log(userPartner)
+
   const partnerDetail = useSelector((state)=> state.partnerDetails)
   const userDetails = useSelector((state) => state.user)
 
@@ -49,7 +51,7 @@ export function HomePartner () {
         {/* Bloque de Button */}
         <div className={style.contButton}>
           <div className={style.contButtonTop}>
-            {/* <p>{partnerDetail.partnerGyms.name}</p> */}
+            <p>{userPartner && userPartner.name}</p>
           </div>
 
           <div className={style.contButtonH1}>

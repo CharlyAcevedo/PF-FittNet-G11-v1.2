@@ -11,7 +11,6 @@ const {
 const Gyms = require("../../models/Gyms");
 const Users = require("../../models/User");
 const Partner = require("../../models/Partner");
-const { findByIdAndUpdate } = require('../../models/Gyms');
 
 
 const router = Router();
@@ -89,19 +88,6 @@ router.put('/gymupdate', async (req, res) => {
       }
 }); 
 
-router.put('/gymsupdate', async (req, res) => {
-  try {        
-    console.log(req.body)
-      const { id2, client } = req.body
-      const response = await Gyms.findByIdAndUpdate(id2, {clients:client},{new:true});      
-      res.status(200).send('exitopa');
-  } catch (error) {
-    console.error('error')
-      res.status(404).send({ error: error.message });
-    }
-});
-
-
 // Para crear gym
 router.post('/gymcreate/:idUser', async (req, res) => {
     const { idUser } = req.params;    
@@ -178,7 +164,6 @@ router.post('/createOneGym/', async (req, res) => {
 
     if (addNewGym) {
       return res.status(200).json({ message: 'Gimasio creado' });
-
     }
 
   } catch (error) {
@@ -242,7 +227,6 @@ router.put('/editOneGym/', async (req, res) => {
 
 
     res.status(200).json({ message: 'Gimnasio actualizado' });
-
   } catch (error) {
     console.log(error);
     res.status(404).send({ error: error.message });

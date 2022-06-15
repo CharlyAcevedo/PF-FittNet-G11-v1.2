@@ -5,7 +5,8 @@ import styles from "./style/client.module.css";
 
 import { createGym, setGymsGeo } from "../../redux/actions";
 
-// import { useDispatch } from "react-redux";
+import { getMyGyms } from "../../redux/actions"; // --------------LA ACTION
+import { useDispatch } from "react-redux";
 // import { useParams } from "react-router-dom";
 // import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { createOneGym, editOneGym } from "./controlers/Functions";
@@ -14,7 +15,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 export default function UpdateGym(props) {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const navigate = useNavigate();
   // const params = useParams();
 
@@ -24,9 +25,14 @@ export default function UpdateGym(props) {
 
   const userId = localStorage.getItem("userId");
 
+  const dataPartner = useSelector((state) => state.myGyms);
+  let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
+
   const [typeAction, setTypeAcyion] = useState("edit");
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
+
+  const [gymId, setGymId] = useState("");//------------------------- El Id
 
   const [error, setError] = useState({});
   const [newGym, setNewGym] = useState({
@@ -68,6 +74,17 @@ export default function UpdateGym(props) {
       gymActive: true,
       favourite: 0,
     };
+
+
+    useEffect(() => {
+      dispatch(getMyGyms(userId))
+    }, [userId]);
+  
+  
+    function refreshState(e) {
+      e.preventDefault();
+      dispatch(getMyGyms(userId))
+    }
 
   // Campos del formulario
   //----------------------------------------------------------------------
@@ -158,7 +175,7 @@ export default function UpdateGym(props) {
   async function onClickEditGym() {
     let dataForEditGym = {
       //userId: { userId: "userId" },
-      gymId: { gymId: idGym },
+      gymId: { gymId: gymId || idGym },
       newDataGym: editGym,
       // newDataGym: { prop1: "data2", prop2: 3, prop3: ["algo"], prop4: {} }
     };
@@ -298,6 +315,31 @@ export default function UpdateGym(props) {
     // console.log(newGym.image)
     setPhoto("");
   }
+  //------------------ Select Gimnasio ------------------------------------------
+  function handleChangeGyms(e) {
+    if (e.target.value !== "...") {
+      e.preventDefault();
+      let value = e.target.value;
+      //
+      // let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
+      console.log(myGyms);
+
+      // filterServices = myGyms.length && myGyms.filter(e => e._id === value);
+
+      //setMyServices(filterServices);
+
+      // console.log(filterServices, ' los servicios del gym');
+
+      // Seteamos el id del servicio
+      setGymId(e.target.value);
+      // console.log(e.target.value, ' Service select dentro del if')
+
+    } else {
+      setGymId("");
+    }
+    console.log(e.target.value, ' Service select')
+  }
+
 
   //-----------------------------------------------------------------------------
   return (
@@ -309,6 +351,12 @@ export default function UpdateGym(props) {
       <div>latEdit{editGym.latitude}, LonEdit{editGym.longitude}</div> */}
       <div>
         <div className={styles.headerFormPartnerGym}>
+          
+        <button  className={styles.btnCreateEditGym}
+        onClick={(e) => 
+        refreshState(e)}>Recargar
+        </button>
+
           <button
             className={styles.btnCreateEditGym}
             onClick={() => {
@@ -361,6 +409,21 @@ export default function UpdateGym(props) {
                 placeholder="https://logo-gym.jpg"
               />
             </div>
+
+            <div>
+            <label><strong>*</strong>Gimnasio: </label>
+            <select onChange={(e) => handleChangeGyms(e)}>
+              <option key="id1">...</option>
+              {myGyms.length > 0 ? myGyms.map((g) => (
+                <option key={g._id} value={g._id}>{g.name}</option>
+              )) : null}
+            </select>
+            {gymId ? gymId : null}
+          </div>
+
+
+
+
           </div>
           <div className={styles.mainInfoForm}>
             <div>

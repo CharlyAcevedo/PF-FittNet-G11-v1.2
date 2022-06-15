@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import { Action } from "history";
+// import { Action } from "history";
 import { latBA, lngBA } from "../../asets/helpers/goeDefaults";
 
 import { 
@@ -90,15 +90,16 @@ export default function rootReducer(state = initialState, { type, payload }) {
         partnersToShow: payload,
       };
     case GET_PARTNER:
-      if (payload.error) {
-        return {
-          ...state,
-          errors: payload.error,
-        };
-      }
+      console.log(payload, 'llega al reducer')
+      // if (payload.error) {
+      //   return {
+      //     ...state,
+      //     errors: payload.error,
+      //   };
+      // }
       return {
         ...state,
-        partnerDetails: payload.partnerGyms,
+        partnerDetails: payload,
       };
     case GET_USER_TOKEN_GOOGLE:
       if (payload.error) {
@@ -123,6 +124,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
         user: {...state.user, info: payload}
       };
     case GET_PARTNER_ID:
+      if (payload.error) {
+        return {
+          ...state,
+          errors: payload.error,
+        };
+      };
       return {
         ...state,
         user: payload
@@ -466,7 +473,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         myGyms: payload
       }
-
     default:
       return state;
   }

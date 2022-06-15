@@ -27,7 +27,7 @@ const shopCartSchema = new mongoose.Schema({
     },
     status: {
         type: String,                
-    }
+    },
 
     //array de objetos(services) con las props nombre,detalle,precio
 
