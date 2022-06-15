@@ -6,10 +6,15 @@ const {
   getGymById,
   getGymByName,
 } = require("../../controlers/gyms");
-const {
-    putService
-  } = require("../../controlers/services");
+
+const { putService } = require("../../controlers/services");
+
+const Gyms = require("../../models/Gyms");
+const Users = require("../../models/User");
+const Partner = require("../../models/Partner");
 const Service = require("../../models/Service");
+
+
 
 const router = Router();
 
@@ -25,7 +30,8 @@ router.post('/createOneService/', async (req, res) => {
   // gymId, dataNewService
   const { gymId, dataNewService } = req.body;
 
-  let idGym = gymId.gymId;
+  let idGym = gymId.gymId
+
 
   console.log(req.body, 'el body que recibo')
 

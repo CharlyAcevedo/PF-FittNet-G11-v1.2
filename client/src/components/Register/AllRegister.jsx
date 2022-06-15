@@ -23,8 +23,8 @@ export default function AllRegister() {
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
   const [geoloc, setGeoloc] = useState({
-    lat: geolocation.latitude,
-    lng: geolocation.longitude,
+    lat: 0,
+    lng: 0,
   });
   const [error, setError] = useState("");
   // const [disableSubmit, setDisableSubmit] = useState(true)

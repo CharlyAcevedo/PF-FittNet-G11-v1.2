@@ -14,6 +14,7 @@ import actividades from "../../asets/icons/trending-up.svg";
 import start from "../../asets/icons/star.svg";
 import map from "../../asets/icons/map-pin.svg";
 import { CardIcons } from "../../helpers/Cards/Cards";
+import { getUser } from "../../redux/actions";
 
 export default function GymDetail() {
   let { userId } = useParams();
@@ -21,10 +22,12 @@ export default function GymDetail() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+  let idUser = localStorage.getItem('userId');
 
   useEffect(() => {
     dispatch(getGymDetail(userId)); // eslint-disable-next-line
-  }, [userId]);
+    dispatch(getUser(idUser))
+  }, [userId, idUser]);
 
   // This is equivalent to ComponentWillUnmount.
   // Que se ejecute cuando se desmonte gymDetail y limpie su estado en el reducer

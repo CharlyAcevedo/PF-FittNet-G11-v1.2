@@ -22,10 +22,14 @@ import { Link } from "react-router-dom";
 import { SendEmail } from "./SendEmail";
 import { BackgroundOne } from "../../helpers/Backround/Background";
 import { ButtonSimple } from "../../helpers/Buttons/Buttons";
+import { getUser } from "../../redux/actions";
+
 
 const stripePromise = loadStripe(
   "pk_test_51L7OPdEPCpA0H6YFBVpVX0fFBJbIIUnXcU4hSY5uUZwQth9mmogZEiwUzXyXi5aJLSb43EzWLXcMPk75NBTjFGEC00usvaG53P"
 );
+
+
 
 const CheckoutForm = () => {
   const dispatch = useDispatch();
@@ -37,7 +41,9 @@ const CheckoutForm = () => {
   const user = useSelector((state) => state.user);
   
   localStorage.setItem('phone', allcart.phone)  
-  localStorage.setItem('nameGym', allcart.name)  
+  localStorage.setItem('nameGym', allcart.name) 
+
+  let userId = localStorage.getItem('userId');
   // const cartPrice = parseInt(cart.map(c => c.price.$numberDecimal))
   // const cartQty = parseInt(cart.map(c => c.qty))
   // const totalPrice = cartPrice * cartQty
@@ -46,6 +52,12 @@ const CheckoutForm = () => {
   //     parseInt(c.price.$numberDecimal * c.qty) +
   //     parseInt(b.price.$numberDecimal * b.qty)
   // );`
+  
+  useEffect(()=>{
+    dispatch(getUser(userId))
+
+  },[userId])
+
 
   console.log(allcart)
   const usuarioId = localStorage.getItem("userId");
@@ -55,6 +67,7 @@ const CheckoutForm = () => {
   // const {name}
 
   const username = info && info.name;
+
   const type = localStorage.getItem("type");
   const avatar = localStorage.getItem("avatar");
 
