@@ -81,11 +81,11 @@ router.post('/emails', async (req, res, next) => {
 
   const { userDetail, gymDetail, saleDetail } = req.body
 
-  const { username, email } = userDetail //? -> username: nombre y apellido 
+  const { userName, email } = userDetail //? -> username: nombre y apellido 
 
   const { gymName, phoneGym } = gymDetail
   // ! let body = createBodyEmail(name, nameserv, quantity, price, phone, username);
-  let body = createBodyEmail(username, gymName, phoneGym, saleDetail);
+  let body = createBodyEmail(userName, gymName, phoneGym, saleDetail);
   // const { name, userName} = user
   // let body = createBodyEmail(name, product, quantity, price, phone, gyms);
   // Este body lo mandaría al item html
