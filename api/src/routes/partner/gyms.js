@@ -67,13 +67,13 @@ router.get("/gymbyid/:id", async (req, res) => {
 
 // Para solicitar info de un gym con su name
 router.get('/gymbyname', async (req, res) => {
-    try {
-        const { name } = req.query;
-        const response = await getGymByName(name);
-        res.status(200).send(response);
-    } catch (error) {
-        res.status(404).send({ error: error.message });
-      }
+  try {
+    const { name } = req.query;
+    const response = await getGymByName(name);
+    res.status(200).send(response);
+  } catch (error) {
+    res.status(404).send({ error: error.message });
+  }
 });
 
 // Para actualizar un gym
@@ -158,7 +158,8 @@ router.post('/createOneGym/', async (req, res) => {
       addNewGym = await Partner.findByIdAndUpdate(idInfoPartner,
         { $push: { gyms: newGym._id } },
         { new: true });
-      // console.log(addNewGym, 'estoy en el if newGym');  
+      // console.log(addNewGym, 'estoy en el if newGym');
+  
     }
 
     if (addNewGym) {
@@ -216,6 +217,7 @@ router.put('/editOneGym/', async (req, res) => {
   let editeGym;
 
   console.log(req.body, ' la data del gym a editar')
+
 
   try {
     editeGym = await Gyms.findByIdAndUpdate(idGym,

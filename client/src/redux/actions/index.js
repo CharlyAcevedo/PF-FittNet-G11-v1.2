@@ -1,17 +1,18 @@
 import axios from "axios";
 
 import {
- 
 
-  POST_USER,POST_GYM,POST_SERVICES,POST_PARTNER, ADD_TO_CART, DELETE_DESEASE, GET_PARTNER,
+
+  POST_USER, POST_GYM, POST_SERVICES, POST_PARTNER, ADD_TO_CART, DELETE_DESEASE, GET_PARTNER,
   GET_ALL_USERS, GET_ALL_PARTNERS, GET_AVATARS, SET_CURRENT_PAGE, SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT, GET_ALL_GYMS, GET_GYM_DETAIL, SET_USER_GEO, POST_USER_GOOGLE,
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, REMOVE_FROM_CART,
-  CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE, 
-  CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING,SORT_QUALIFICATION,
-  FILTER_CATEGORY,  SORT_PRICE,  SEARCH,  SORT_DISTANCE, SET_GYMS_GEO,
+  CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE,
+  CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING, SORT_QUALIFICATION,
+  FILTER_CATEGORY, SORT_PRICE, SEARCH, SORT_DISTANCE, SET_GYMS_GEO,
   GET_PLANS, GET_PARTNER_ID, GET_MY_GYMS
 } from "./actionTypes";
+
 //--------------------------------------------------------------------------------
 //------USER SERVICE ACTIONS------(favor de poner todas las aciones referentes a service en general todos los usuarios aqui)
 //--------------------------------------------------------------------------------
@@ -31,19 +32,38 @@ export function setUserGeo(payload) {
   };
 }
 
-export function getUser(data) {
-  return (dispatch) => {
-    dispatch({ type: GET_USER, payload: data });
-  };
+export function getUser(userId) { //----------------------------- nano ////----
+  console.log('sale la acción con id', userId)
+  return async (dispatch) => {
+    try {
+      //-------------------------> `/api/user/getuser/${userId}`
+      const response = await axios.get(
+        `/api/user/profile/${userId}`,
+        {
+          headers: { "X-Requested-With": "XMLHttpRequest" },
+        }
+      )     
+      dispatch({
+        type: GET_USER,
+        payload: response.data.user[0],
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_USER,
+        payload: { error: err.message },
+      });
+    };
+  }
 }
 
-export function getAllUsers() { 
+
+export function getAllUsers() {
   // Esta ruta la consume el admin (va a estar protegida), y me trae información de todos
   // los "users" registrados en a app
-    return async (dispatch) => {
-      try {
-        const response = await axios.get("/api/admin/allusers");
-        dispatch({
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/admin/allusers");
+      dispatch({
         type: GET_ALL_USERS,
         payload: response.data,
       });
@@ -106,12 +126,12 @@ export function getSearch(payload) {
 //   try {
 //     const dataUdpateAvatar = await axios.put(`/api/user/avatar/${id}`, body);
 //     dispatch({
-  //       type: POST_AVATAR,
-  //       payload: dataUdpateAvatar.data,
+//       type: POST_AVATAR,
+//       payload: dataUdpateAvatar.data,
 //     });
 //   } catch (error) {
 //     dispatch({
-  //       type: POST_AVATAR,
+//       type: POST_AVATAR,
 //       payload: { error: error.message },
 //     });
 //   };
@@ -135,7 +155,7 @@ export const getAvatars = () => async (dispatch) => {
 //--------------------------------------------------------------------------------
 //---------- Acciones para el admin (las rutas van a ser protegidas)---------------
 //---------------------------------------------------------------------------------
-export function getAdmin(userId) { 
+export function getAdmin(userId) {
   // Esta ruta la consume el admin (va a estar protegida), y me trae información del
   // perfil del admin que la solicita
   return async (dispatch) => {
@@ -170,7 +190,7 @@ export const getPartner = (idPartner) => async dispatch => {
       type: GET_PARTNER_ID,
       payload: { error: err.message },
     });
-    
+
   }
 }
 
@@ -217,7 +237,7 @@ export function getLockAccounts() {
 //--------------------------------------------------------------------------------
 //------PARTNER ACTIONS------(Favor de poner aqui todas las aciones para partners)
 //--------------------------------------------------------------------------------
-export function getMyGyms(partnerId) { 
+export function getMyGyms(partnerId) {
   // Esta ruta la consume el admin (va a estar protegida), y me trae información del
   // perfil del admin que la solicita
   return async (dispatch) => {
@@ -227,7 +247,7 @@ export function getMyGyms(partnerId) {
         headers: { "X-Requested-With": "XMLHttpRequest" }, withCredentials: true
       });
       console.log(parternGyms.data, "actions");
-      
+
       dispatch({
         type: GET_MY_GYMS,
         payload: parternGyms.data,
@@ -240,6 +260,32 @@ export function getMyGyms(partnerId) {
     };
   };
 }
+
+
+
+// export function getMyGyms(partnerId) { 
+//   // Esta ruta la consume el admin (va a estar protegida), y me trae información del
+//   // perfil del admin que la solicita
+//   return async (dispatch) => {
+//     try {
+//       const parternGyms = await axios({
+//         method: "get", url: `/api/partner/gyms/mygyms/${partnerId}`,
+//         headers: { "X-Requested-With": "XMLHttpRequest" }, withCredentials: true
+//       });
+//       console.log(parternGyms.data, "actions");
+
+//       dispatch({
+//         type: GET_MY_GYMS,
+//         payload: parternGyms.data,
+//       });
+//     } catch (err) {
+//       dispatch({
+//         type: GET_MY_GYMS,
+//         payload: { error: err.message },
+//       });
+//     };
+//   };
+// }
 
 
 export function getAllGyms() {
@@ -286,7 +332,7 @@ export function updatePartnerData({
   cbu,
   cuil,
   socialNetworks,
- 
+
 }) {
   return async (dispatch) => {
     try {
@@ -300,9 +346,9 @@ export function updatePartnerData({
         cbu: cbu,
         cuil: cuil,
         socialNetworks: socialNetworks,
-      
+
       });
-      console.log("esto es la action",result)
+      console.log("esto es la action", result)
       return dispatch({
         type: POST_PARTNER,
         payload: result.data,
@@ -337,15 +383,15 @@ export function getPartnerDetails(id) {
 
 };
 
-export function getPlans(){
-  return async (dispatch) =>{
+export function getPlans() {
+  return async (dispatch) => {
     const plans = await axios.get('/api/service/plans/all')
     dispatch({
       type: GET_PLANS,
       payload: plans.data
     })
   }
-}; 
+};
 //--------------------------------------------------------------------------------
 
 //------GYMS ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a gimnasios)
@@ -355,7 +401,7 @@ export function createGym({
   idUser,
 }) {
   return async (dispatch) => {
-    try {     
+    try {
       const response = await axios.put(`/api/partner/gyms/gymcreate/${idUser}`, gymInfo);
       return dispatch({
         type: POST_GYM,
@@ -390,11 +436,11 @@ export function setGymsGeo(payload) {
 //------SERVICE ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a servicios)
 //--------------------------------------------------------------------------------
 export function createService({ //para crear un servicio hay que enviarlo con el id del usuario 
-                                //y del gym al que se va a setear, igual seria mejor mandarlo junto con el gym
-  name, 
-  description, 
-  duration, 
-  price, 
+  //y del gym al que se va a setear, igual seria mejor mandarlo junto con el gym
+  name,
+  description,
+  duration,
+  price,
   photo,
   incomes,
 }) {
@@ -501,7 +547,7 @@ export const updateUserInfo = (id, body) => async (dispatch) => {
 export const getCart = () => {
   try {
     return async (dispatch) => {
-      const getCart = await axios.get('/api/shopcart')      
+      const getCart = await axios.get('/api/shopcart')
       return dispatch({
         type: GET_CART,
         payload: getCart.data
@@ -510,7 +556,7 @@ export const getCart = () => {
   } catch (error) {
     console.log(error)
   }
-  
+
 }
 
 export function addToCart(itemID) {
@@ -552,7 +598,7 @@ export const postCart = (body) => {
 
 export function editStatus(statusCart) {
   console.log(statusCart, 'statuscart')
-  return async (dispatch) => {    
+  return async (dispatch) => {
     const put = await axios({
       method: "put",
       url: "/api/shopcart",
@@ -568,9 +614,9 @@ export function editStatus(statusCart) {
   };
 }
 
-export function updateClientGym(body){
+export function updateClientGym(body) {
   return async (dispatch) => {
-    const put = await axios.put('/api/partner/gyms/gymsupdate', body)    
+    const put = await axios.put('/api/partner/gyms/gymsupdate', body)
     return put
   }
 }
@@ -624,9 +670,9 @@ export function sortByPrice(payload) {
     payload,
   };
 }
-export function sortByDistance(payload){
+export function sortByDistance(payload) {
   return {
-    type: SORT_DISTANCE ,
+    type: SORT_DISTANCE,
     payload
   }
 }
@@ -662,10 +708,10 @@ export const updateFavouriteGym = (id, user) => async (dispatch) => {
 //--------------------------------------------------------------------------------
 export function getAttributeDesease() {
   return async (dispatch) => {
-    
+
     try {
       var json = await axios.get("/api/user/all/deseasesMap", {
-        
+
       });
       return dispatch({
         type: GET_ATTRIBUTE_DESEASE,
@@ -677,12 +723,12 @@ export function getAttributeDesease() {
   }
 }
 
-export function deleteDesease(id){
-  return function(dispatch){
+export function deleteDesease(id) {
+  return function (dispatch) {
     return axios.delete("/api/user/all/deleteDesease" + id)
-    .then(json => {
-      dispatch({type: DELETE_DESEASE})
-    })
+      .then(json => {
+        dispatch({ type: DELETE_DESEASE })
+      })
   }
 }
 

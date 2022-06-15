@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const Users = require('../../models/User')
-const { deleteUser } = require('../../controlers/users')
+const { deleteUser, getUser } = require('../../controlers/users')
 const InfoUsers = require('../../models/InfoUser');
 const Partner = require('../../models/Partner');
 const bcrypt = require('bcrypt');
@@ -22,6 +22,11 @@ function isAuthenticated(req, res, next) {
     next();
   }
 }
+
+// router.get('/getuser', (req, res, next) => {
+
+  
+// })
 
 
 

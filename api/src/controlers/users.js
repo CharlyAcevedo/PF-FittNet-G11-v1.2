@@ -660,4 +660,5 @@ module.exports = {
     googleSignIn,
     isValidObjectId,
     getUserGoogleAccount,
+    getUserDetails,
 };
