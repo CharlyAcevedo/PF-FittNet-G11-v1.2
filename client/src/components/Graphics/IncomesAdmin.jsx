@@ -3,7 +3,7 @@ import styles from './styles/Incomes.module.css'
 import { getAllSales, getUser } from "../../redux/actions";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Bar, Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -56,7 +56,6 @@ export default function IncomesAdmin(){
       hoverBordercolor: colorArray[counter]+45,
       data: [g.totalSales/1000, g.salesNumber ],
     };
-    console.log(dataSet)
     counter = counter < 5 ? counter + 1 : 0;
     return dataSet
   }) : [{
@@ -70,7 +69,7 @@ export default function IncomesAdmin(){
 }]
 
     const data = {
-        labels: ["Ganancias en MDP", "Ventas"],
+        labels: ["Ganancias en Miles", "Ventas"],
         datasets: myDataSets,        
     };
     const options = {
@@ -86,9 +85,6 @@ export default function IncomesAdmin(){
         },
       };
 
-      // const monthIncomes = new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARG'}).format(58.8 + 42.8)
-      // const gym2Incomes = mySales.salesPerGym[1].totalsales
-      // const gym1Incomes = mySales.salesPerGym[0].totalsales
       const totalIncomes = new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARG'}).format(mySales.totalSales)
 
     return (
