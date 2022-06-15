@@ -10,7 +10,7 @@ import {
   CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE,
   CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING, SORT_QUALIFICATION,
   FILTER_CATEGORY, SORT_PRICE, SEARCH, SORT_DISTANCE, SET_GYMS_GEO,
-  GET_PLANS, GET_PARTNER_ID, GET_MY_GYMS
+  GET_PLANS, GET_PARTNER_ID, GET_MY_GYMS, GET_MY_SALES
 } from "./actionTypes";
 
 //--------------------------------------------------------------------------------
@@ -380,7 +380,6 @@ export function getPartnerDetails(id) {
       });
     }
   };
-
 };
 
 export function getPlans() {
@@ -392,6 +391,24 @@ export function getPlans() {
     })
   }
 };
+
+export function getMySales(id) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`/api/partner/sales/${id}`);
+      dispatch({
+        type: GET_MY_SALES,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_MY_SALES,
+        payload: { error: err.message },
+      });
+    }
+  };
+};
+
 //--------------------------------------------------------------------------------
 
 //------GYMS ACTIONS------(Favor de poner aqui todas las aciones que hagan referencia a gimnasios)
