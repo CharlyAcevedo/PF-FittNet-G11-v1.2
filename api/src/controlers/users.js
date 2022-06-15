@@ -37,15 +37,28 @@ async function findAllUsers() {
     }
 }
 
+const getUserDetails = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id)
+        .populate('avatar')
+        .populate('favourite')
+
+    const infoUser = await InfoUser.findById(user.info)
+        .populate('diseases')
+        .populate('disease')
+        .populate('address')
+
+    res.json({
+        ok: true,
+        user,
+        infoUser
+    })
+}
+
 const getUser = async (req, res) => {
     const { id } = req.params;
     console.log(id)
     try {
-        // const user = await User.findById(id)
-        //     .populate('avatar')
-        //     .populate('info')
-        //     .populate('info.address')
-        //     .populate('partner')
         const user = await User.aggregate([
             {
                 $match: { _id: ObjectId(id) }
@@ -241,17 +254,25 @@ const updateUser = async (req, res) => {
             zipCode: body.zipCode
         }
         const user = await User.findById(id)
-        let idAddress = user.address ? user.address : null;
+
+
+
+        const idInfo = user.info
+        const idAvatar = user.avatar
+        const infoUsuario = await InfoUser.findById(idInfo);
+
+        let idAddress = infoUsuario.address ? infoUsuario.address : null
+
         if (idAddress === null) {
+            console.log("estoy en crear una nueva direccion")
             const addressUser = new Address(newAddressUser)
             await addressUser.save()
             idAddress = addressUser._id
         } else {
+            console.log("estoy en editar un nueva direccion")
             await Address.findByIdAndUpdate(idAddress, newAddressUser, { new: true })
         }
-        const idInfo = user.info
-        const idAvatar = user.avatar
-        // console.log(body.username)
+
         const newInfoUser = {
             username: body.username,
             lastName: body.lastname,
@@ -264,9 +285,15 @@ const updateUser = async (req, res) => {
             gender: body.gender,
             photo: body.photo,
         }
-        const updUser = await InfoUser.findByIdAndUpdate(idInfo, newInfoUser, { new: true })
 
-        console.log(updUser)
+        const updUser = await InfoUser.findByIdAndUpdate(idInfo, newInfoUser, { new: true })
+        .populate("address");
+        
+
+        // const userInfo = await User.findById(updUser._id)
+        // .populate("info")
+        // .populate("address")
+
         res.status(200).json({
             ok: true,
             updUser,
@@ -326,19 +353,19 @@ const getUserGoogleAccount = async (req, res) => {
                     preserveNullAndEmptyArrays: true
                 }
             },
-            // {
-            //     $lookup: {
-            //         from: "addresses",
-            //         localField: "info.address",
-            //         foreignField: "_id",
-            //         as: "info.address"
-            //     }
-            // },
-            // {
-            //     $unwind: {
-            //         path: "$info.address",
-            //     }
-            // },
+            {
+                $lookup: {
+                    from: "addresses",
+                    localField: "info.address",
+                    foreignField: "_id",
+                    as: "info.address"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$info.address",
+                }
+            },
             {
                 $project: {
                     name: 1,
@@ -349,7 +376,10 @@ const getUserGoogleAccount = async (req, res) => {
                         name: 1,
                         photo: 1,
                         lastName: 1,
-                        address: 1
+                        address: 1,
+                        phone: 1,
+                        gender: 1,
+                        birthday: 1
                     },
                     // info: {
                     //     name: 1,
@@ -503,6 +533,7 @@ const googleSignIn = async (req, res) => {
                 password: "0xoaudfj203ru09dsfu2390fdsfc90sdf2dfs",
                 type: "user",
                 active: true,
+                // partner: 0,
                 info: infoId
             });
         } else {
@@ -523,7 +554,6 @@ const googleSignIn = async (req, res) => {
             usuario,
             googleToken,
             user
-
         })
     } catch (error) {
         console.log("error: ", error);
@@ -635,4 +665,5 @@ module.exports = {
     googleSignIn,
     isValidObjectId,
     getUserGoogleAccount,
+    getUserDetails,
 };

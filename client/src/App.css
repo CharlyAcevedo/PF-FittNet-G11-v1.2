@@ -42,6 +42,10 @@
   box-sizing: border-box;
 }
 
+/* html {
+  scroll-behavior: smooth;
+} */
+
 body {
   /* font-family: "Poppins", sans-serif; */
   background: rgb(37, 38, 39);

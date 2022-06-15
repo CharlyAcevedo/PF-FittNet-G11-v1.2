@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserGeo } from "../../redux/actions/index";
+import { setUserGeo, getPartnerDetails } from "../../redux/actions/index";
 import styles from "./styles/LoginInit.module.css";
 import jwt_decode from "jwt-decode";
 import {
@@ -10,13 +10,12 @@ import {
   BackgroundOne,
 } from "../../helpers/Backround/Background";
 import { InputPrymary, InputSecond } from "../../helpers/Inputs/Inputs";
-import { SweetAlrt } from "../../asets/helpers/sweetalert";
-// , SweetAlrt2, SweetAlrtTem
+import { SweetAlrt } from "../../asets/helpers/sweetalert"; // , SweetAlrt2, SweetAlrtTem
 
 export default function LoginInit() {
   const dispatch = useDispatch();
   const geolocation = useSelector(
-    (state) => state.currentUserDetails.currentGeo
+    (state) => state.currentGeo
   );
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +29,6 @@ export default function LoginInit() {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
-  // const dispatch = useDispatch();
 
   const handleCallbackGoogle = async (response) => {
     const userObject = jwt_decode(response.credential);
@@ -48,6 +46,7 @@ export default function LoginInit() {
       localStorage.setItem("type", finalizacionData.user.type);
       localStorage.setItem("avatar", finalizacionData.user.avatar);
       localStorage.setItem("name", finalizacionData.usuario.name);
+      localStorage.setItem("email", finalizacionData.usuario.email);
       // localStorage.setItem('latitude',finalizacionData.user.latitude.$numberDecimal)
       // localStorage.setItem('longitude',finalizacionData.user.longitude.$numberDecimal)
 
@@ -56,6 +55,10 @@ export default function LoginInit() {
       // console.log(finalizacionData, ' finalización data')
 
       const { avatar } = finalizacionData.usuario;
+      
+      if(finalizacionData.usuario.type === "partner"){        
+          dispatch(getPartnerDetails(userId));       
+      }
 
       // console.log(finalizacionData.usuario);
       if (!avatar) {
@@ -135,6 +138,9 @@ export default function LoginInit() {
 
         if (active === true) {
           // Si la cuenta está activa
+          if(type === "partner"){        
+            // dispatch(getPartnerDetails(userId));
+          }
           if (!login.avatar) {
             localStorage.setItem("userId", userId);
             localStorage.setItem("name", name);
@@ -142,9 +148,11 @@ export default function LoginInit() {
             localStorage.setItem("latitude", latitude.$numberDecimal);
             localStorage.setItem("longitude", longitude.$numberDecimal);
 
-            return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}`);
+            navigate(`/home/${type}/${name}/${userId}`);
           }
-          if (login.avatar._id) {
+
+          console.log(login.avatar)
+          if (login.avatar) {
             console.log(login, " el user");
 
             localStorage.setItem("userId", userId);
@@ -155,7 +163,7 @@ export default function LoginInit() {
             localStorage.setItem("longitude", longitude.$numberDecimal);
 
             let avatarId = avatar._id;
-            return (window.location = `http://localhost:3000/home/${type}/${name}/${userId}/${avatarId}`);
+            navigate(`/home/${type}/${name}/${userId}/${avatarId}`);
           }
           // ya le paso info por params de quién estamos hablando
         } else {

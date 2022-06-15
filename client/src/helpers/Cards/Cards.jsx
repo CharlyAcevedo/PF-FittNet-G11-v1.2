@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { postAvatar, updateFavouriteGym } from "../../redux/actions/index";
 
-
 import axios from "axios";
 
 import styles from "./styles/stylesCards.module.css";
 import { useEffect } from "react";
 import { IoIosHeart } from "react-icons/io";
 import { AiFillStar, AiOutlineShoppingCart } from "react-icons/ai";
+import { useState } from "react";
+import { EditMyGyms } from "../../components/Home/HomePartner/ViewsPartner/EditMyGyms.jsx";
 
 export const CardAvatares = (props) => {
   const { image } = props;
@@ -27,7 +28,6 @@ export const CardAvatares = (props) => {
     </div>
   );
 };
-
 
 export const CardAvatarAdicional = (props) => {
   // El id del avatar llega por props
@@ -55,7 +55,7 @@ export const CardAvatarAdicional = (props) => {
 
     if (avatarSelect.data.ok === false) {
       // Si el userId es invalido
-      return window.alert(avatarSelect.data.msg);
+      return SweetAlrtTem(`${avatarSelect.data.msg}`, "warning");
     }
 
     let avatarId = avatarSelect
@@ -157,11 +157,20 @@ export const CardShop = (props) => {
       );
     }
   };
+  console.log(imagen);
 
   return (
     <div className={styles.cardShop}>
       <div className={styles.imgBox}>
-        <img src={imagen} alt="mouse corsair" className={styles.mouseCard} />
+        <img
+          src={
+            imagen.length > 0
+              ? imagen[0]
+              : "https://i0.wp.com/votoenblanco.com.mx/wp-content/uploads/2021/12/IMG_7680.jpg?fit=972%2C648&ssl=1"
+          }
+          alt="imagen gym"
+          className={styles.mouseCard}
+        />
       </div>
 
       <div className={styles.contentBox}>
@@ -193,7 +202,14 @@ export const CardShop = (props) => {
               />
             )}
           </div>
-          <span style={{ display: "flex", alignItems: "center", gap: ".1rem", fontWeight: "700"}}>
+          <span
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: ".1rem",
+              fontWeight: "700",
+            }}
+          >
             {rating}
             <AiFillStar style={{ color: "#FEAA09", marginTop: ".2rem" }} />
           </span>
@@ -239,5 +255,83 @@ export const CardsPlansPartner = (props) => {
         </div>
       </div>
     </div>
+  );
+};
+
+export const CardGymPartner = (props) => {
+  const {
+    title,
+    onClick,
+    id,
+    price,
+    image,
+    services,
+    trainers,
+    logo,
+    phone,
+    email,
+    favorito,
+  } = props;
+
+  const navigate = useNavigate();
+
+  const [view, setView] = useState("myGyms");
+
+  const userId = localStorage.getItem("userId");
+  const type = localStorage.getItem("type");
+  const name = localStorage.getItem("name");
+  // const [view, setView] = useState("");`
+
+  return (
+    <>
+      {view !== "editMyGyms" ? (
+        <div className={styles.containerCardGymPartner}>
+          <div className={styles.headerGymPartner}>
+            <img
+              src={image[0]}
+              alt="imagen gimnasio"
+              style={{ width: "160px", height: "120px", borderRadius: ".6rem" }}
+            />
+          </div>
+          <div className={styles.mainGymPartner}>
+            <div className={styles.mainHeaderPartner}>
+              <h2>{title}</h2>
+              <span
+                className={styles.btnEditarGym}
+                onClick={() => setView("editMyGyms")}
+              >
+                Editar gimnasio
+              </span>
+            </div>
+            <div className={styles.bodyInfoGym}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: ".4rem" }}
+              >
+                <span>Entrenadores:</span>
+                <ul className={styles.listTrainers}>
+                  {trainers &&
+                    trainers.map((x, y) => (
+                      <li key={y}>
+                        {y + 1}. {x}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        // </div>
+        <>
+          <EditMyGyms idGym={id} />
+          <button
+            onClick={() => setView("myGyms")}
+            className={styles.btnVolverForGym}
+          >
+            Volver
+          </button>
+        </>
+      )}
+    </>
   );
 };

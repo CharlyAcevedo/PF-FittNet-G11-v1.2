@@ -1,6 +1,7 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getPartnerDetails } from "../../../redux/actions";
 import { MyGyms } from "./ViewsPartner/MyGyms";
 import { MySales } from "./ViewsPartner/MySales";
 import { MyClients } from "./ViewsPartner/MyClients";
@@ -8,18 +9,41 @@ import { Plans } from "./ViewsPartner/Plans";
 import { EditMyGyms } from "./ViewsPartner/EditMyGyms";
 import { MyServices } from "./ViewsPartner/MyServices";
 import { EditMyServices } from "./ViewsPartner/EditMyServices";
+import { getPartner } from "../../../redux/actions/index";
 
 import style from "./styles/style.module.css";
 import { ButtonHomePA } from "../../../helpers/Buttons/Buttons";
 
-
 export function HomePartner () {
-    const [ view , setView ] = useState("editMyServices");
 
-
+  const dispatch = useDispatch()
   let { userId } = useParams();
+//  const [view, setView] = useState("myGyms");
 
-  console.log(userId, "los params en el home");
+  // const [ view , setView ] = useState("plans");
+  const userPartner = useSelector((state) => state.user); 
+
+
+
+  useEffect(() => {
+    if(Object.keys(userPartner).length === 0) {
+      dispatch(getPartner(userId))
+    }
+  }, [])
+
+  useEffect(() => {
+    dispatch(getPartnerDetails(userId));// eslint-disable-next-line
+  }, []);
+
+  console.log(userPartner)
+
+  const partnerDetail = useSelector((state)=> state.partnerDetails)
+  const userDetails = useSelector((state) => state.user)
+
+  const [ view , setView ] = useState("editMyGyms");
+
+
+
 
   return (
     <div className={style.content}>
@@ -27,44 +51,65 @@ export function HomePartner () {
         {/* Bloque de Button */}
         <div className={style.contButton}>
           <div className={style.contButtonTop}>
-            <p>Username</p>
+            <p>{userPartner && userPartner.name}</p>
           </div>
 
           <div className={style.contButtonH1}>
-          <ButtonHomePA onClick={(e) => {
+            <ButtonHomePA
+              onClick={(e) => {
                 setView("plans");
-              }} title="Planes y promociones"/>
+              }}
+              title="Planes y promociones"
+            />
           </div>
 
           <div className={style.contButtonHg}>
-          <ButtonHomePA onClick={(e) => {
+            <ButtonHomePA
+              onClick={(e) => {
                 setView("mySales");
-              }} title="Mis ventas"/>
+              }}
+              title="Mis ventas"
+            />
           </div>
           <div className={style.contButtonHg}>
-          <ButtonHomePA onClick={(e) => {
+            <ButtonHomePA
+              onClick={(e) => {
                 setView("myClients");
-              }} title="Mis clientes"/>
+              }}
+              title="Mis clientes"
+            />
           </div>
           <div className={style.contButtonHg}>
-          <ButtonHomePA onClick={(e) => {
+            <ButtonHomePA
+              onClick={(e) => {
                 setView("myGyms");
-              }} title="Mis gimnasios"/>
+              }}
+              title="Mis gimnasios"
+            />
           </div>
           <div className={style.contButtonHg}>
-          <ButtonHomePA onClick={(e) => {
+            <ButtonHomePA
+              onClick={(e) => {
                 setView("editMyGyms");
-              }} title="Editar mis gimnasios"/>
+              }}
+              title="Editar mis gimnasios"
+            />
           </div>
           <div className={style.contButtonHg}>
-          <ButtonHomePA onClick={(e) => {
+            <ButtonHomePA
+              onClick={(e) => {
                 setView("myServices");
-              }} title="Mis servicios"/>
+              }}
+              title="Mis servicios"
+            />
           </div>
           <div className={style.contButtonHg}>
-          <ButtonHomePA onClick={(e) => {
+            <ButtonHomePA
+              onClick={(e) => {
                 setView("editMyServices");
-              }} title="Editar mis servicios"/>
+              }}
+              title="Editar mis servicios"
+            />
           </div>
         </div>
         {/* Bloque de contenido */}

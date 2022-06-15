@@ -6,24 +6,25 @@ import SelecAvatar from "../SelectAvatar/SelectAvatar";
 import GymCards from "../GymCards/GymCards";
 // import UserCards from "../UserCards/UserCards";
 // import PartnerCards from "../PartnerCards/PartnerCards";
-import { getAllGyms, getUserGoogleForToken } from "../../redux/actions";
-import { useDispatch } from "react-redux";
+import { getAllGyms, getUserGoogleForToken, getPartnerDetails } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 // import IncomesGraph from "../Graphics/Incomes";
 import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
 import styles from "./styles/homeMain.module.css";
 // import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
-import Advertising from "../PartnerHomeComponents/Advertising";
-import ClientsGraph from "../Graphics/GraphClient";
+// import Advertising from "../PartnerHomeComponents/Advertising";
+// import ClientsGraph from "../Graphics/GraphClient";
 import OrderBy from "../OrderBy/OrderBy";
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
 import { HomePartner } from "./HomePartner/HomePartner";
 import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
 // import { CardShop } from "../../helpers/Cards/Cards.jsx";
+import { getUser } from "../../redux/actions";
 
 export default function HomeMain() {
-  let { userId, type, avatar } = useParams();
+  let { userId } = useParams();
 
   const dispatch = useDispatch();
 
@@ -31,17 +32,30 @@ export default function HomeMain() {
 
   const token = localStorage.getItem("token");
 
+  const type = localStorage.getItem("type");
+
   const navigate = useNavigate();
 
+   
+  // useEffect(()=>{
+  //   dispatch(getUser(userId))
+
+  // },[userId])
+
+  
   useEffect(() => {
     dispatch(getAllGyms());
+    dispatch(getUser(userId));
     if (token) {
       dispatch(getUserGoogleForToken(token));
     } // eslint-disable-next-line
   }, [userId]);
-
+  
+  const partnerDetail = useSelector((state)=> state.partnerDetails);
+  partnerDetail && localStorage.setItem("partnerDetail", partnerDetail);
+  
   //! Esto es una vista para un usuario sin avatar
-  if ((type === "user" && !avatar) || !avatarLS) {
+  if (type === "user" && !avatarLS) {
     return (
       <div
         style={{
@@ -70,7 +84,7 @@ export default function HomeMain() {
   }
 
   //! Esto es una vista para un usuario con avatar
-  if (type === "user" && avatar) {
+  if (type === "user" && avatarLS) {
     return (
       <div className={styles.cont}>
         <GymsForUsersMap />
@@ -88,7 +102,6 @@ export default function HomeMain() {
           <OrderBy />
         </div>
         <GymCards />
-        {/* <CardShop /> */}
         <Paginated />
       </div>
     );
@@ -103,7 +116,6 @@ export default function HomeMain() {
           <OrderBy />
         </div>
         <GymCards />
-        {/* <CardShop /> */}
         <Paginated />
       </div>
     );
@@ -111,9 +123,11 @@ export default function HomeMain() {
 
   //! Esto es una para cliente empresa
   if (type === "partner") {
+
     return (
       <div>
         <HomePartner />
+        {/* {console.log("entro a la ventana del partner")} */}
         {/* <div className={styles.advertising}>
           <Advertising/>
         </div>

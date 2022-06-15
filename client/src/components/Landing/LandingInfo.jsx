@@ -22,7 +22,7 @@ import { ScrollContainer, Sticky, Animator, ScrollPage, Fade, MoveOut, FadeIn, Z
 
 export default function LandingInfo() {
   const navigate = useNavigate();
-  
+
   const divRef = useRef()
   const dispatch = useDispatch();
 
@@ -44,7 +44,7 @@ export default function LandingInfo() {
   const Scr4 = MoveOut(-1000, 0)
   const Scr5 = FadeIn(0, 1)
 
- 
+
 
   useEffect(() => {
     if (token) {
@@ -53,13 +53,13 @@ export default function LandingInfo() {
   }, []);
 
   useEffect(() => {
-    dispatch(getMarketing());
+    dispatch(getMarketing());// eslint-disable-next-line
   }, []);
 
   const userSistem = useSelector((state) => state.users);
   const cantUser = userSistem.length;
   return (
-    
+
 
     <div className={style.container}>
       {console.log(userSistem)}
@@ -111,116 +111,116 @@ export default function LandingInfo() {
             </div>
           </Animator>
         </ScrollPage>
-          <div>
-            <ScrollPage page={1}>
-              <Animator animation={Scr2}>
-                <div className={style.promoDiv}>
-                  <div className={style.containerBtnPromos}>
-                    <ButtonPrimary
-                      title="Conocé nuestras promos"
-                      padding="0 1rem"
-                      onClick={() => navigate("/userprices")}
-                    />
-                  </div>
+        <div>
+          <ScrollPage page={1}>
+            <Animator animation={Scr2}>
+              <div className={style.promoDiv}>
+                <div className={style.containerBtnPromos}>
+                  <ButtonPrimary
+                    title="Conocé nuestras promos"
+                    padding="0 1rem"
+                    onClick={() => navigate("/userprices")}
+                  />
                 </div>
-                <div className={style.contDat}>
-                  <CardIcons img={startIcon} num="5" />
-                  <CardIcons img={userIcon} num={cantUser} />
-                  <CardIcons img={mapIcon} num="1.4 Km" />
-                  <CardIcons img={actividadesIcon} num="20" />
-                </div>
-              </Animator>
-            </ScrollPage>
-          </div>
-          <ScrollPage page={2}>
-            <Animator animation={Scr3}>
-              <div>
-
-                <div className={style.promosUsuarios}>
-                  <CardPromoBalance />
-                  <CardPromoBulk />
-                </div>
-
+              </div>
+              <div className={style.contDat}>
+                <CardIcons img={startIcon} num="5" />
+                <CardIcons img={userIcon} num={cantUser} />
+                <CardIcons img={mapIcon} num="1.4 Km" />
+                <CardIcons img={actividadesIcon} num="20" />
               </div>
             </Animator>
           </ScrollPage>
-          {/* Bloque de cards partner */}
-          <ScrollPage page={3}>
-            <Animator animation={Scr4}>
-          <div ref={divRef} className={style.contPlanPartner}>
-            <CardsPlansPartner
-              title="STANDARD"
-              busqueda="10%"
-              gym="Hasta 1 GYM"
-              servicios="5 servicios por GYM"
-              Size="2em"
-            />
-            <CardsPlansPartner
-              title="PREMIUM"
-              busqueda="30%"
-              gym="Hasta 5 GYM"
-              servicios="10 servicios por GYM"
-              Size="2em"
-            />
-            <CardsPlansPartner
-              title="GOLDEN"
-              busqueda="50%"
-              gym="Hasta 50 GYM"
-              servicios="50 servicios en GYM"
-              Size="2em"
-            />
-          </div>
-          </Animator>
-          </ScrollPage>
-         <ScrollPage page={4}>
-            <Animator animation={Scr5}>
-          <div className={style.containerBtnPromos}>
-            <ButtonPrimary
-              title="MAS INFO"
-              padding="0 1rem"
-              onClick={() => navigate("/legendCe")}
-            />
-          </div>
-          <br />
-          <div className={style.hero}>
-            <h1
-              style={{
-                color: "#fff",
-                textTransform: "uppercase",
-                fontWeight: "700",
-                fontSize: "40px",
-                marginTop: "5rem",
-              }}
-            >
-              El cambio empieza dentro tuyo
-            </h1>
-            <h1 className={style.texto}>FITTNET</h1>
-            <div style={{ marginBottom: "6rem" }}>
-              {!idUser ? (
-                <ButtonSecondaryDeslice
-                  padding="1.5rem 5rem"
-                  title="Empeza aqui"
-                  onClick={() => navigate("/login")}
-                />
-              ) : user.avatar ? (
-                <ButtonSecondaryDeslice
-                  title="Ir a home"
-                  padding="1rem 5rem"
-                  onClick={() =>
-                    navigate(`/home/${type}/${name}/${idUser}/${avatar}}`)
-                  }
-                />
-              ) : (
-                <ButtonSecondaryDeslice
-                  title="Ir a home"
-                  padding="1.1rem 5rem"
-                  onClick={() => navigate(`/home/${type}/${name}/${idUser}`)}
-                />
-              )}
+        </div>
+        <ScrollPage page={2}>
+          <Animator animation={Scr3}>
+            <div>
+
+              <div className={style.promosUsuarios}>
+                <CardPromoBalance />
+                <CardPromoBulk />
+              </div>
+
             </div>
-          </div>
-           </Animator>
-          </ScrollPage>
+          </Animator>
+        </ScrollPage>
+        {/* Bloque de cards partner */}
+        <ScrollPage page={3}>
+          <Animator animation={Scr4}>
+            <div ref={divRef} className={style.contPlanPartner}>
+              <CardsPlansPartner
+                title="STANDARD"
+                busqueda="10%"
+                gym="Hasta 1 GYM"
+                servicios="5 servicios por GYM"
+                Size="2em"
+              />
+              <CardsPlansPartner
+                title="PREMIUM"
+                busqueda="30%"
+                gym="Hasta 5 GYM"
+                servicios="10 servicios por GYM"
+                Size="2em"
+              />
+              <CardsPlansPartner
+                title="GOLDEN"
+                busqueda="50%"
+                gym="Hasta 50 GYM"
+                servicios="50 servicios en GYM"
+                Size="2em"
+              />
+            </div>
+          </Animator>
+        </ScrollPage>
+        <ScrollPage page={4}>
+          <Animator animation={Scr5}>
+            <div className={style.containerBtnPromos}>
+              <ButtonPrimary
+                title="MAS INFO"
+                padding="0 1rem"
+                onClick={() => navigate("/legendCe")}
+              />
+            </div>
+            <br />
+            <div className={style.hero}>
+              <h1
+                style={{
+                  color: "#fff",
+                  textTransform: "uppercase",
+                  fontWeight: "700",
+                  fontSize: "40px",
+                  marginTop: "5rem",
+                }}
+              >
+                El cambio empieza dentro tuyo
+              </h1>
+              <h1 className={style.texto}>FITTNET</h1>
+              <div style={{ marginBottom: "6rem" }}>
+                {!idUser ? (
+                  <ButtonSecondaryDeslice
+                    padding="1.5rem 5rem"
+                    title="Empeza aqui"
+                    onClick={() => navigate("/login")}
+                  />
+                ) : user.avatar ? (
+                  <ButtonSecondaryDeslice
+                    title="Ir a home"
+                    padding="1rem 5rem"
+                    onClick={() =>
+                      navigate(`/home/${type}/${name}/${idUser}/${avatar}}`)
+                    }
+                  />
+                ) : (
+                  <ButtonSecondaryDeslice
+                    title="Ir a home"
+                    padding="1.1rem 5rem"
+                    onClick={() => navigate(`/home/${type}/${name}/${idUser}`)}
+                  />
+                )}
+              </div>
+            </div>
+          </Animator>
+        </ScrollPage>
       </ScrollContainer>
     </div>
 

@@ -19,12 +19,18 @@ export const POST_PARTNER = "POST_PARTNER"; //llama al back para crear setear lo
 export const POST_GYM = "POST_GYM"; //llama al back para crear un gymnasio del partner
 export const POST_SERVICES = "POST_SERVICES"; // crea un servicio
 export const GET_PARTNER = "GET_PARTNER"; // llama al back para traer infomación del partner
+export const GET_MY_GYMS = "GET_MY_GYMS"; // llama al back para traer los gyms del partner y sus servicios asociados.
+export const SET_GYMS_GEO = "SET_GYMS_GEO"; // setea en el estado de redux la geolocalizacion del gym que se edita o crea
+
 
 // Constantes relacionadas a api/admin
 export const GET_ALL_USERS = "GET_ALL_USERS"; //llama al back para traerse todos los usuarios
 export const GET_ALL_PARTNERS = "GET_ALL_PARTNERS"; //llama al back para traerse todos los user partner
 export const GET_ADMIN = "GET_ADMIN"; // llama al back para traer infomación del admin por una ruta protegida
 export const GET_LOCK_ACCOUNTS = "GET_LOCK_ACCOUNTS"; // llama al back para traer información de las cuentas bloquedas (admin - ruta protegida)
+export const GET_PLANS = "GET_PLANS";
+export const GET_PARTNER_ID = "GET_PARTNER_ID" // Llama al back para obtener datos del usuario partner por media del id
+
 
 // Constantes relacionadas al funcionamiento de la app
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"; //setea el estado general "pagina actual" para paginado

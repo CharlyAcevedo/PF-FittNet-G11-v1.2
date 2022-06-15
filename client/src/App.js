@@ -4,7 +4,6 @@ import { Route, Routes, Outlet } from "react-router-dom";
 import Landing from "./views/Landing";
 import LegendCe from "./components/LegendCe/LegendCe";
 import LegendUf from "./components/LegendUf/LegendUf";
-import UserPrices from "./components/UserPrices/UserPrices";
 
 import Home from "./views/Home";
 
@@ -58,7 +57,6 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/legendCe" element={<LegendCe />} />
           <Route path="/legendUf" element={<LegendUf />} />
-          <Route path="/userprices" element={<UserPrices />} />
         </Route>
       </Routes>
       <Routes>
@@ -76,7 +74,7 @@ function App() {
             element={<UpdatePartner />}
           />
           <Route
-            path="/profile/edit/partner/:name/:userId/gym"
+            path="/profile/edit/partner/:name/:userId/:gymId"
             element={<UpdateGym />}
           />
           <Route

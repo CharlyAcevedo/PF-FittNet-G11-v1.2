@@ -26,9 +26,8 @@ const shopCartSchema = new mongoose.Schema({
         type: mongoDB.Decimal128
     },
     status: {
-        type: String,        
-        default: "Pending"
-    }
+        type: String,                
+    },
 
     //array de objetos(services) con las props nombre,detalle,precio
 
