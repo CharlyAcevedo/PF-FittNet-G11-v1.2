@@ -77,6 +77,9 @@ export default function ResetPassword() {
         });
     } else {
       setError("Campos incompletos");
+       setTimeout(() => {
+         setError("");
+       }, 3000);
     }
   }
 
@@ -107,10 +110,16 @@ export default function ResetPassword() {
 
         // window.alert('Contraseña cambiada, vuelva a iniciar sesión');
         // return (window.location = "http://localhost:3000/login");
+      } else {
+        SweetAlrt(
+          "Error!",
+          "Verifique que la informacion ingresada sea correcta",
+          "warning"
+        );
       }
     } else {
       SweetAlrtTem(
-        "No puede envar al solicitud, por favor verigique los valores de los campos requeridos",
+        "No puede enviar la solicitud, por favor verifique los datos ingresados",
         "warning"
       );
       // window.alert("No puede enviar la solicitud, por favor verifique los valores de los campos requeridos")
