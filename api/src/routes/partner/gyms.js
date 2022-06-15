@@ -147,10 +147,15 @@ router.post('/createOneGym/', async (req, res) => {
   // console.log(partnerId, 'partener id');
   try {
     let addNewGym;
+    
+    
+    let infoPartner = await Users.findById(partnerId)
+    console.log(infoPartner, ' info del partner')
+
 
     const newGym = new Gyms(dataNewGym);
     await newGym.save();
-    let infoPartner = await Users.findById(partnerId)
+
 
     if (infoPartner.partner) {
       let idInfoPartner = infoPartner.partner;
