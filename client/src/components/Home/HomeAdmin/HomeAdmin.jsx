@@ -41,7 +41,7 @@ export default function HomeAdmin() {
         {/* Bloque de Button */}
         <div className={style.contButton}>
           <div className={style.contButtonTop}>
-            <p>Partner</p>
+            <p>ADMIN</p>
           </div>
 
           <div className={style.contButtonH1}>
