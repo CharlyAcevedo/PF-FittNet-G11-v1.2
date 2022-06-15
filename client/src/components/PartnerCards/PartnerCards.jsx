@@ -10,9 +10,9 @@ export default function PartnerCards() {
     return (
         <div className={styles.mainBoxCards2}>
             <div className={styles.boxCards2}>
-                <h3>Nuestros Socios Comerciales</h3>
-                <table>
-                    <thead>
+                <h3 style={{color: "#fff", textAlign: "center", fontSize: "1.6rem"}}>Nuestros Socios Comerciales</h3>
+                <table className={styles.tableCards2}>
+                    <thead className={styles.headCards2}>
                         <tr>
                             <th>Type</th>
                             <th>Nombre</th>
