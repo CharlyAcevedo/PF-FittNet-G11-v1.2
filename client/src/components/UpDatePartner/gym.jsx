@@ -227,16 +227,17 @@ export default function UpdateGym(props) {
   async function onClickCreateGym() {
     // Acá debe estar la validación de catidad de gyms =)
     let validate = await validatePlanGyms(userPlan, myGyms); // Lla a la función validadora de plan y gyms
-
+    
     if (typeof validate === "string") {
       return SweetAlrt(validate);
     }
-
+    
     if (error.name || error.logo || error.price || error.phone || error.email) {
       return SweetAlrtTem("Los valores que ingreso son incorrectos", "warning");
     } else if (!newGym.name || !newGym.logo || !newGym.phone) {
       return SweetAlrtTem("Completa los campos requeridos", "warning");
     } else {
+      SweetAlrt("Estamos procesando su solicitud!")
       let dataForNewGym = {
         userId: { userId: userId },
         dataNewGym: newGym,
@@ -282,6 +283,7 @@ export default function UpdateGym(props) {
     } else if ((!editGym.name && !editGym.phone && !editGym.price) || !gymId) {
       return SweetAlrtTem("Completa los datos  requeridos", "warning");
     } else {
+      SweetAlrt("Estamos procesando su solicitud!")
       let dataForEditGym = {
         //userId: { userId: "userId" },
         gymId: { gymId: gymId || idGym },
