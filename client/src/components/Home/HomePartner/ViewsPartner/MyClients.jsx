@@ -11,7 +11,7 @@ export function MyClients() {
 
     return (
         <div className={styles.containMainMyGyms}>
-           <ClientsGraph/>
+           {/* <ClientsGraph/> */}
         </div>
     );
 }

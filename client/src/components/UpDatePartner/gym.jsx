@@ -197,7 +197,7 @@ export default function UpdateGym(props) {
     let maxGyms;
     if (userPlan === false) {
       // si el usuario no tiene plan
-      return `La cuenta no tiene asignado un plan, no puede crear un gimnasios`;
+      return `La cuenta no tiene asignado un plan, no puede crear gimnasios`;
     }
     planType = userPlan.planName;
     maxGyms = userPlan.gymsPermited;

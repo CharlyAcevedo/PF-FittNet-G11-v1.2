@@ -512,10 +512,10 @@ export default function Services() {
       </div>
       <p></p>
       {typeAction === "create" &&
-        <button onClick={(e) => { onClickCreateService(e) }}>Crear servicio de prueba</button>
+        <button onClick={(e) => { onClickCreateService(e) }}>Crear servicio</button>
       }
       {typeAction === "edit" &&
-        <button onClick={(e) => { onClickEditService(e) }}> Editar servicio de prueba</button>
+        <button onClick={(e) => { onClickEditService(e) }}> Editar servicio</button>
       }
 
     </div>
