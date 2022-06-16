@@ -66,7 +66,7 @@ const updateCart = async (req, res) => {
     // }
     try {
         const updatedShopCart = await ShopCart.create(promesas)
-        console.log(updatedShopCart, 'promesas sobre el bidet')        
+        console.log(updatedShopCart, 'promesas sobre el bidet')
         res.json(updatedShopCart)
     } catch (error) {
         console.log(error.message)

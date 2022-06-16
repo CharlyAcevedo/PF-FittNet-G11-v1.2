@@ -6,7 +6,7 @@ const CORS_URL = process.env.CORS_URL || "http://localhost:3000";
 const { regEmail } = require("../../controlers/regExes");
 const ObjectId = require("mongoose").Types.ObjectId;
 const ShopCart = require("../../models/ShopCart");
-const { getShopCart } = require("../../controlers/shopCart");
+const { getShopCart } = require("../../controlers/ShopCart");
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -204,7 +204,7 @@ function createBodyEmail(username, gymName, phoneGym, saleDetail) {
         </table>
       </td>
     </tr>`;
-    
+
     return compra.join("").concat(detalleButton);
   }
 

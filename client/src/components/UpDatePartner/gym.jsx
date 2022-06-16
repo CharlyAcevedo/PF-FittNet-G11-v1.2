@@ -664,7 +664,6 @@ export default function UpdateGym(props) {
                   addTrainer(e);
                 }}
               >
-                {" "}
                 +{" "}
               </button>
 
@@ -723,7 +722,6 @@ export default function UpdateGym(props) {
                 addPhoto(e);
               }}
             >
-              {" "}
               +{" "}
             </button>
 
