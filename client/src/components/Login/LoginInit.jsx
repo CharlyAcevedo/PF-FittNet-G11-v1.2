@@ -143,7 +143,7 @@ export default function LoginInit() {
         url: "/api/service/login",
         data: userLogin,
         headers: { "X-Requested-With": "XMLHttpRequest" },
-        withCredentials: true,
+        // withCredentials: true,
       })
         .then((res) => {
           return res.data;

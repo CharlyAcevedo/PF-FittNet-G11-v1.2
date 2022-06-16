@@ -25,12 +25,12 @@ router.post(
       return res.redirect('/api/service/lockedaccount');
     } 
 
-    res.redirect('/api/service/authenticated');
+//     res.redirect('/api/service/authenticated');
    
-  }
-);
+//   }
+// );
 
-router.get('/authenticated',  (req, res) => {
+// router.get('/authenticated',  (req, res) => {
   // console.log(req.session, ' esto es req.session autenticado'); 
   
   
