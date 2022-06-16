@@ -51,16 +51,18 @@ export default function GymsCards() {
   return (
     <div className={style.mainBoxCards}>
       <div className={style.boxCards}>
+        {console.log()}
         {gyms.length
           ? currentGyms.map((x, y) => (
               <CardShop
                 key={y}
                 id={x._id}
                 title={x.name}
-                rating={x.raiting}
+                services={x.services}
                 price={x.price}
                 imagen={x.image}
                 favourite={x.favourite}
+                logo={x.logo}
               />
             ))
           : gyms.length === 0 && (

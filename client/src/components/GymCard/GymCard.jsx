@@ -27,6 +27,7 @@ export default function GymCard(props) {
 
   return (
     <div className={style.card}>
+      
       <div className={style.cardImg}>
         <img
           src={props.image}

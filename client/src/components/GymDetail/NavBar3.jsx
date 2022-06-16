@@ -60,12 +60,15 @@ export function NavBar3({ id, usuarioId, button, background, color, align }) {
       <p className={style.titleCarrito} style={{textAlign: align}}>CARRITO DE COMPRAS</p>
       <div className={style.tablePadre}>        
         <CardServices title="true" />
+        {console.log("cards")}
+        {console.log(cart)}
         {cart.map((e) => {
           return (
             <CardServices
               title="false"
               key={e._id}
-              img="img"
+
+              img={e.photo[0]}
               name={e.name}
               unidad={e.qty}
               price={e.price.$numberDecimal}
