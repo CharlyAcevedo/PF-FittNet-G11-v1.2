@@ -24,6 +24,7 @@ export default function CardPlans() {
               <li>Gestios de servicios</li>
               <li>incorporar hasta 1 gym</li>
               <li>incorporar hasta 5 servicos</li>
+              <li>Comision por venta: 0.50</li>
             </ul>
           </div>
         </div>
@@ -46,6 +47,7 @@ export default function CardPlans() {
               <li>Gestios de servicios</li>
               <li>incorporar hasta 5 gym</li>
               <li>incorporar hasta 10 servicos</li>
+              <li>Comision por venta: 0.50</li>
             </ul>
           </div>
         </div>
@@ -68,6 +70,7 @@ export default function CardPlans() {
               <li>Gestios de servicios</li>
               <li>incorporar hasta 50 gym</li>
               <li>incorporar hasta 50 servicos</li>
+              <li>Comision por venta: 0.50</li>
             </ul>
           </div>
         </div>
