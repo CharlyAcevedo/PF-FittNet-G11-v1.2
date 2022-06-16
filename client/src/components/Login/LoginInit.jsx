@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUserGeo, getPartnerDetails } from "../../redux/actions/index";
 import styles from "./styles/LoginInit.module.css";
 import jwt_decode from "jwt-decode";
