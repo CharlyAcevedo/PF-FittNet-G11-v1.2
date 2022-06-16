@@ -92,7 +92,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
         partnersToShow: payload,
       };
     case GET_PARTNER:
-      console.log(payload, 'llega al reducer')
       // if (payload.error) {
       //   return {
       //     ...state,

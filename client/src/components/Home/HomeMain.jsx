@@ -53,6 +53,8 @@ export default function HomeMain() {
   
   const partnerDetail = useSelector((state)=> state.partnerDetails);
   partnerDetail && localStorage.setItem("partnerDetail", partnerDetail);
+
+  // console.log(avatarLS)
   
   //! Esto es una vista para un usuario sin avatar
   if (type === "user" && !avatarLS) {
@@ -107,19 +109,19 @@ export default function HomeMain() {
     );
   }
 
-  if (type === "user" && avatarLS) {
-    return (
-      <div className={styles.cont}>
-        <GymsForUsersMap />
-        <div>
-          <Sarch />
-          <OrderBy />
-        </div>
-        <GymCards />
-        <Paginated />
-      </div>
-    );
-  }
+  // if (type === "user" && avatarLS) {
+  //   return (
+  //     <div className={styles.cont}>
+  //       <GymsForUsersMap />
+  //       <div>
+  //         <Sarch />
+  //         <OrderBy />
+  //       </div>
+  //       <GymCards />
+  //       <Paginated />
+  //     </div>
+  //   );
+  // }
 
   //! Esto es una para cliente empresa
   if (type === "partner") {

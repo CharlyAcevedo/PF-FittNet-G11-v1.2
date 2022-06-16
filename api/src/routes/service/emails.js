@@ -314,6 +314,19 @@ router.post("/emails", async (req, res, next) => {
   // Este body lo mandaría al item html
   // console.log('correoenviad2', body)
 
+  // try {
+  //   if (email && body) { // Una verificación que sea necesria
+  //     await transporter.sendMail({
+  //       from: '"Fittnet - Confirmación de compra" <fittnet.com>', // sender address
+  //       to: email, // list of receivers
+  //       subject: "Confirmación de compra", // Subject line
+  //       html: body
+  //       // html: `<b> Acá va el cuerpo del correo y puede ser un html </b>` // html body
+  //     });
+  //     console.log('correoenviado3')
+  //     res.json({ sended: true, message: 'Correo enviado con éxito' });
+  //     // Si hay que responder al front para confirmar que el correo fue enviado     
+  //   }
   try {
     if (email && body) {
       // Una verificación que sea necesria

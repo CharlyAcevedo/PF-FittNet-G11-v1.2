@@ -23,11 +23,8 @@ export default function HomeAdmin() {
 
   let { userId } = useParams();
 
-  console.log(userId, "los params");
-
   // Necesito una barra de búsqueda con filtros
   useEffect(() => {
-    console.log("useEffect");
     dispatch(getAllSales(userId))
     dispatch(getAllPartners());
     dispatch(getAllUsers());
@@ -40,7 +37,7 @@ export default function HomeAdmin() {
         {/* Bloque de Button */}
         <div className={style.contButton}>
           <div className={style.contButtonTop}>
-            <p>Partner</p>
+            <p>ADMIN</p>
           </div>
 
           <div className={style.contButtonH1}>
@@ -68,22 +65,22 @@ export default function HomeAdmin() {
               title="Users"
             />
           </div>
-          <div className={style.contButtonHg}>
+          {/* <div className={style.contButtonHg}>
             <ButtonHomePA
               onClick={(e) => {
                 setView("viewPartner");
               }}
               title="Vista Partner"
             />
-          </div>
-          <div className={style.contButtonHg}>
+          </div> */}
+          {/* <div className={style.contButtonHg}>
             <ButtonHomePA
               onClick={(e) => {
                 setView("viewUser");
               }}
               title="Vista User"
             />
-          </div>
+          </div> */}
           <div className={style.contButtonHg}>
             <ButtonHomePA
               onClick={(e) => {
@@ -106,8 +103,8 @@ export default function HomeAdmin() {
           {view === "finances" && <Finances />}
           {view === "partners" && <Partners />}
           {view === "users" && <Users />}
-          {view === "viewPartner" && <ViewPartner />}
-          {view === "viewUser" && <ViewUsers />}
+          {/* {view === "viewPartner" && <ViewPartner />} */}
+          {/* {view === "viewUser" && <ViewUsers />} */}
           {view === "deleteAccount" && <DeteleteAccount />}
           {view === "blockAccount" && <BlockAccount />}
         </div>
