@@ -1,11 +1,15 @@
 .partnerMainContainer{
     color: white;
-    padding-top: 20px;
-    padding-left: 20px;
+    /* padding-top: 20px; */
+    width: 80%;
+    /* padding-left: 20px; */
 }
 
 .partnerMiniContainer{
-    padding-top: 20px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   background-color: red;
 }
 .styles.redirect {
     padding-left: 20px;
