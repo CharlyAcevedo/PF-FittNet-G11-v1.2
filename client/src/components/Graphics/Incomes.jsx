@@ -82,7 +82,7 @@ export default function IncomesGraph(){
     return (
         <div className={styles.mainContainer}>
           <div className={styles.graphContainer}>
-            <h2>Grafica por Ingresos</h2>
+            {/* {/* <h2>Grafica por Ingresos</h2> */}
             <div className={styles.doubleContainer}>
               <div className={styles.doubleContainer}>
                 <Bar  data={data} options={options}/>

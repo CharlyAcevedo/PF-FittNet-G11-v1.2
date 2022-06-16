@@ -78,12 +78,12 @@ export default function SearchComponent () {
     //    /profile/:type/:name/:userId
     
     return (
-        <div id = "main-box-search-nano">
+        <div id = "main-box-search-nano" className={style.containerSearch}>
             <div id = "div-search-nano">               
                 <form onFocus={()=>focusSearch()} onBlur={()=>focusSearch()} id = "search-nano-nano">
                     <input id='input-search-nano' type="text" onChange={(e) => onInputChange(e)} 
                     value= {search} autoComplete='off' spellCheck="false"
-                    placeholder='Buscar por nombre... ' style={{fontSize: "17px"}}
+                    placeholder='Buscar por nombre... ' className={style.inputSearch}
                     />                   
                 </form>                   
             </div>
@@ -95,8 +95,7 @@ export default function SearchComponent () {
                         <Link to = {g.type === "partner" ? `/profile/partner/${g.name}/${g.id}`
                                     : `/profile/user/${g.name}/${g.id}` } key={g.id} >
 
-                            <li style={{color: "#fff", paddingBottom:"7px", paddingTop: "7px",
-                            fontSize: "16px" }} >{g.name}, {g.userName}</li>
+                            <li className={style.listSearch}>{g.name}, {g.userName}</li>
                         </Link>    
                     )
                 }) : <div id='id-nano'></div>}

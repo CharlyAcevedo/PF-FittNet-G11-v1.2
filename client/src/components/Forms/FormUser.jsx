@@ -47,9 +47,9 @@ export default function FormUser() {
     neighborhood: user.info?.address?.neighborhood
       ? user.info.address.neighborhood
       : "",
-    city: user.info?.address.city ? user.info.address.city : "",
-    country: user.info?.address.country ? user.info.address.country : "",
-    zipCode: user.info?.address.zipCode ? user.info.address.zipCode : "",
+    city: user.info?.address?.city ? user.info.address.city : "",
+    country: user.info?.address?.country ? user.info.address.country : "",
+    zipCode: user.info?.address?.zipCode ? user.info.address.zipCode : "",
     desease:
       /* user.info?.diseases.desease ? user.info.diseases.desease : */ [],
     trainlimits:

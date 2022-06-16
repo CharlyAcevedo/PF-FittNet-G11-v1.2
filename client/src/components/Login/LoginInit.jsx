@@ -77,6 +77,8 @@ export default function LoginInit() {
       }
 
       // console.log(finalizacionData.usuario);
+
+      console.log(avatar)
       if (!avatar) {
         console.log('entro aqui')
         navigate(`/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
@@ -84,7 +86,6 @@ export default function LoginInit() {
         navigate(`/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
       }
     } else {
-      console.log("estas autenticado actualmente");
       // const googleData = await axios.post(
       //   `/api/google/auth`,
       //   {
