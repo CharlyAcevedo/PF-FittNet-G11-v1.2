@@ -2,6 +2,7 @@ import React, { useMemo, useEffect, useState, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useDispatch } from "react-redux";
 import { setUserGeo } from "../../redux/actions/index";
+import {ButtonSimple} from "../../helpers/Buttons/Buttons.jsx";
 import styles from "./styles/mapGyms.module.css";
 
 export default function MapUser() {
@@ -88,10 +89,13 @@ export default function MapUser() {
         )}
       </div>
       <div>
+        <ButtonSimple onClick={handleOnClick} padding=".1rem 1rem" title="Agregar Ubicacion" />
+      </div>
+      {/* <div>
         <button className={styles.btnMapSend} onClick={handleOnClick}>
           Agregar Ubicación
         </button>
-      </div>
+      </div> */}
       <div className={styles.ubicationDiv}>
         La ubicacion actual es: Latitud:{" "}
         <span style={{ color: "var(--color-primD1)" }}>{lat} </span>, Longitud:{" "}

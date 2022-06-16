@@ -18,7 +18,7 @@ import { getUser } from "../../redux/actions";
 export default function UpdateGym(props) {
   const dispatch = useDispatch();
   // const navigate = useNavigate();
- 
+
   const { idGym } = props;
 
   const gymGeo = useSelector((state) => state.gymsGeo);
@@ -26,41 +26,39 @@ export default function UpdateGym(props) {
   const userInfo = useSelector((state) => state.user);
   let userPlan = userInfo.planType ? userInfo.planType : false;
 
-  console.log(userPlan, ' el plan del partner') // false si no tiene plan
-
+  console.log(userPlan, " el plan del partner"); // false si no tiene plan
 
   const userId = localStorage.getItem("userId");
 
   const dataPartner = useSelector((state) => state.myGyms);
   let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
 
-  console.log(myGyms, ' los gyms del partner') // false si no tiene plan
-
+  console.log(myGyms, " los gyms del partner"); // false si no tiene plan
 
   const [typeAction, setTypeAcyion] = useState("create");
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
 
-  const [gymId, setGymId] = useState("");//------------------------- El Id
+  const [gymId, setGymId] = useState(""); //------------------------- El Id
 
   const [error, setError] = useState({});
-   const [newGym, setNewGym] = useState({
-     name: "", //string y es obligatorio - sale del form
-     price: "", // numero entero o decimal y no es obligatorio - sale del form
-     // rating: // no se manda, por defecto se inicia como un array de numeros
-     image: [], // es un array de imágenes y se inicia en vacio o con elementos
-     latitude: "", // numero entero o decimal y no es obligatorio
-     longitude: "", // numero entero o decimal y no es obligatorio
-     // address: // no lo puedo mandar porque se relaciona con otra colección
-     // y no es obligatorio
-     trainers: [], // lo puedo tocar aunque no es obligatorio. Es un array de strings
-     // que va a guardar los nombres de los instructores.
-     logo: "", // es un string que guarda el enlace a una imagen
-     phone: "", // es un conjunto de numeros enteros y es un campo obligatorio
-     email: "", // es un string que guarda el email del gym
-     gymActive: true,
-     favourite: 0, // es un numero entero y se inicia  en cero
-   });
+  const [newGym, setNewGym] = useState({
+    name: "", //string y es obligatorio - sale del form
+    price: "", // numero entero o decimal y no es obligatorio - sale del form
+    // rating: // no se manda, por defecto se inicia como un array de numeros
+    image: [], // es un array de imágenes y se inicia en vacio o con elementos
+    latitude: "", // numero entero o decimal y no es obligatorio
+    longitude: "", // numero entero o decimal y no es obligatorio
+    // address: // no lo puedo mandar porque se relaciona con otra colección
+    // y no es obligatorio
+    trainers: [], // lo puedo tocar aunque no es obligatorio. Es un array de strings
+    // que va a guardar los nombres de los instructores.
+    logo: "", // es un string que guarda el enlace a una imagen
+    phone: "", // es un conjunto de numeros enteros y es un campo obligatorio
+    email: "", // es un string que guarda el email del gym
+    gymActive: true,
+    favourite: 0, // es un numero entero y se inicia  en cero
+  });
 
   // Campos obligatorios - Esto campos tiene que estar o se cae el back
   // 1 name
@@ -84,44 +82,46 @@ export default function UpdateGym(props) {
       favourite: 0,
     };
 
+  useEffect(() => {
+    dispatch(getMyGyms(userId));
+  }, [userId]);
 
-    useEffect(() => {
-      dispatch(getMyGyms(userId))
-      dispatch(getUser(userId))
-    }, [userId]);
-  
-  
-    function refreshState(e) {
-      e.preventDefault();
-      dispatch(getMyGyms(userId))
-       setNewGym({
-         name: "",
-         price: "",
-         image: [],
-         latitude: "",
-         longitude: "",
-         trainers: [],
-         logo: "",
-         phone: "",
-         email: "",
-         gymActive: true,
-         favourite: 0,
-       });
-        setEditGym({
-          name: "",
-          price: "",
-          image: [],
-          latitude: "",
-          longitude: "",
-          trainers: [],
-          logo: "",
-          phone: "",
-          email: "",
-          gymActive: true,
-          favourite: 0,
-        });
-        setError({})
-    }
+  useEffect(() => {
+    dispatch(getMyGyms(userId));
+    dispatch(getUser(userId));
+  }, [userId]);
+
+  function refreshState(e) {
+    e.preventDefault();
+    dispatch(getMyGyms(userId));
+    setNewGym({
+      name: "",
+      price: "",
+      image: [],
+      latitude: "",
+      longitude: "",
+      trainers: [],
+      logo: "",
+      phone: "",
+      email: "",
+      gymActive: true,
+      favourite: 0,
+    });
+    setEditGym({
+      name: "",
+      price: "",
+      image: [],
+      latitude: "",
+      longitude: "",
+      trainers: [],
+      logo: "",
+      phone: "",
+      email: "",
+      gymActive: true,
+      favourite: 0,
+    });
+    setError({});
+  }
 
   // Campos del formulario
   //----------------------------------------------------------------------
@@ -189,35 +189,36 @@ export default function UpdateGym(props) {
   // pero de todas formas usamos el mismo form para las dos cosas (crear y editar)
   //----------------------------------------------------------------------------
 
-  function validatePlanGyms (userPlan, partnerGyms) {
-    // userPlan es un string o un objeto -> false || { } ||  
+  function validatePlanGyms(userPlan, partnerGyms) {
+    // userPlan es un string o un objeto -> false || { } ||
     // Si es objeto trae info del plan y la cantidad de gyms
     // parnerGys -> Es un arreglo de objetos (un objeto por cada gym)
     let planType;
     let maxGyms;
-    if (userPlan === false ) { // si el usuario no tiene plan
-      return `La cuenta no tiene asignado un plan, no puede crear un gimnasios`;      
+    if (userPlan === false) {
+      // si el usuario no tiene plan
+      return `La cuenta no tiene asignado un plan, no puede crear un gimnasios`;
     }
     planType = userPlan.planName;
-    maxGyms = userPlan.gymsPermited
+    maxGyms = userPlan.gymsPermited;
     // console.log(planType, maxGyms, 'plan del user y cantidad de gyms')
-    
+
     // if (planType === "Estandar" && partnerGyms.length === 1 ) { // Máximo un gym, nada más
-    if (planType === "Standar" && partnerGyms.length === Number(maxGyms) ) { // De pruebaa, el que vale es el que sigue
+    if (planType === "Standar" && partnerGyms.length === Number(maxGyms)) {
+      // De pruebaa, el que vale es el que sigue
       return `La cuenta Estandar solo permite crear un gimnasio,
       si desea crear más de un gimnasio debería cambiar de plan.`;
     }
-    if (planType === "Premium" && partnerGyms.length === Number(maxGyms) ) {      
+    if (planType === "Premium" && partnerGyms.length === Number(maxGyms)) {
       return `La cuenta Premium solo permite crear hasta cinco gimnasio,
       si desea crear más gimnasios debería cambiar de plan.`;
     }
-    if (planType === "Golden" && partnerGyms.length === Number(maxGyms) ) {     
+    if (planType === "Golden" && partnerGyms.length === Number(maxGyms)) {
       return `La cuenta Golden le permite crear un máximo de cincuenta gimnasios,
       no es posible crear más gimnasios.`;
-    }    
+    }
 
-    return true;    
-
+    return true;
   }
 
   //----------------------------------------------------------------------------
@@ -225,19 +226,13 @@ export default function UpdateGym(props) {
   //----------------------------------------------------------------------------
   async function onClickCreateGym() {
     // Acá debe estar la validación de catidad de gyms =)
-    let validate = await validatePlanGyms (userPlan, myGyms ) // Lla a la función validadora de plan y gyms
-    
-    if (typeof validate === 'string' ) {
-      return SweetAlrt(validate)
+    let validate = await validatePlanGyms(userPlan, myGyms); // Lla a la función validadora de plan y gyms
+
+    if (typeof validate === "string") {
+      return SweetAlrt(validate);
     }
 
-    if (
-      error.name ||
-      error.logo ||
-      error.price ||
-      error.phone ||
-      error.email
-    ) {
+    if (error.name || error.logo || error.price || error.phone || error.email) {
       return SweetAlrtTem("Los valores que ingreso son incorrectos", "warning");
     } else if (!newGym.name || !newGym.logo || !newGym.phone) {
       return SweetAlrtTem("Completa los campos requeridos", "warning");
@@ -254,24 +249,24 @@ export default function UpdateGym(props) {
 
       if (newOnGym) {
         SweetAlrt("Exito", "Gimnasio creado", "success");
-        dispatch(getMyGyms(userId))
+        dispatch(getMyGyms(userId));
       } else {
         SweetAlrt("Ocurrió un error y el gimnasio no fue creado", "error");
-      }     
+      }
 
-     setNewGym({
-     name: "", 
-     price: "",     
-     image: [], 
-     latitude: "", 
-     longitude: "",
-     trainers: [], 
-     logo: "", 
-     phone: "", 
-     email: "", 
-     gymActive: true,
-     favourite: 0, 
-   });
+      setNewGym({
+        name: "",
+        price: "",
+        image: [],
+        latitude: "",
+        longitude: "",
+        trainers: [],
+        logo: "",
+        phone: "",
+        email: "",
+        gymActive: true,
+        favourite: 0,
+      });
 
       return newOnGym;
     }
@@ -284,7 +279,7 @@ export default function UpdateGym(props) {
   async function onClickEditGym() {
     if (error.name || error.logo || error.price || error.phone || error.email) {
       return SweetAlrtTem("Los valores que ingreso son incorrectos", "warning");
-    } else if (!editGym.name && !editGym.phone && !editGym.price || !gymId) {
+    } else if ((!editGym.name && !editGym.phone && !editGym.price) || !gymId) {
       return SweetAlrtTem("Completa los datos  requeridos", "warning");
     } else {
       let dataForEditGym = {
@@ -349,7 +344,6 @@ export default function UpdateGym(props) {
       console.log(editGym);
     }
   }
-
 
   // -----------------------delete Trainer-------------------------------------
   function handleDeleteT(e) {
@@ -469,13 +463,11 @@ export default function UpdateGym(props) {
       // Seteamos el id del servicio
       setGymId(e.target.value);
       // console.log(e.target.value, ' Service select dentro del if')
-
     } else {
       setGymId("");
     }
-    console.log(e.target.value, ' Service select')
+    console.log(e.target.value, " Service select");
   }
-
 
   //-----------------------------------------------------------------------------
   return (
@@ -486,13 +478,15 @@ export default function UpdateGym(props) {
       {/* <div>latNew{newGym.latitude}, LonNew{newGym.longitude}</div>
       <div>latEdit{editGym.latitude}, LonEdit{editGym.longitude}</div> */}
       <div>
-        <div className={styles.headerFormPartnerGym}>          
-        <button  className={styles.btnCreateEditGym}
-        onClick={(e) => 
-        refreshState(e)}>Recargar
-        </button>
-          
-          {typeAction === 'edit' ?
+        <div className={styles.headerFormPartnerGym}>
+          <button
+            className={styles.btnCreateEditGym}
+            onClick={(e) => refreshState(e)}
+          >
+            Recargar
+          </button>
+
+          {typeAction === "edit" ? (
             <button
               className={styles.btnCreateEditGym}
               onClick={() => {
@@ -501,9 +495,9 @@ export default function UpdateGym(props) {
             >
               Ir a crear Gym
             </button>
-          : null}
+          ) : null}
 
-          {typeAction === 'edit' ? null :
+          {typeAction === "edit" ? null : (
             <button
               className={styles.btnCreateEditGym}
               onClick={() => {
@@ -512,7 +506,7 @@ export default function UpdateGym(props) {
             >
               Ir a editar Gym
             </button>
-          }
+          )}
 
           <p></p>
 
@@ -554,24 +548,25 @@ export default function UpdateGym(props) {
 
             {typeAction === "create" ? newGym.price : editGym.price}
 
-
-            {typeAction === "create" ? null :
-            
-            <div>
-            <label><strong>*</strong>Gimnasio: </label>
-            <select onChange={(e) => handleChangeGyms(e)}>
-              <option key="id1">...</option>
-              {myGyms.length > 0 ? myGyms.map((g) => (
-                <option key={g._id} value={g._id}>{g.name}</option>
-              )) : null}
-            </select>
-          </div>}
-
+            {typeAction === "create" ? null : (
+              <div>
+                <label>
+                  <strong>*</strong>Gimnasio:{" "}
+                </label>
+                <select onChange={(e) => handleChangeGyms(e)}>
+                  <option key="id1">...</option>
+                  {myGyms.length > 0
+                    ? myGyms.map((g) => (
+                        <option key={g._id} value={g._id}>
+                          {g.name}
+                        </option>
+                      ))
+                    : null}
+                </select>
+              </div>
+            )}
 
             {gymId ? gymId : null}
-
-
-
           </div>
           <div className={styles.mainInfoForm}>
             <div>
