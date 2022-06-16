@@ -27,6 +27,7 @@
   font-weight: 700;
   border: 1px solid var(--light-color);
   color: #fff;
+  padding: 20px;
 }
 
 .contButtonH1 {

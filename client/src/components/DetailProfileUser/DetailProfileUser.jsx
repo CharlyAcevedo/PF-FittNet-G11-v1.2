@@ -80,13 +80,17 @@ export default function DetailProfileUser() {
   const handleNext = (e) => {
     e.preventDefault();
 
-    setCurrentPage((prev) => prev + 1);
+    if(currentItemsFavorite.length > 0) {
+      setCurrentPage((prev) => prev + 1);
+    }
   };
 
   const handlePrev = (e) => {
     e.preventDefault();
 
-    setCurrentPage((prev) => prev - 1);
+    if(currentItemsFavorite.length > 0) {
+      setCurrentPage((prev) => prev - 1);
+    }
   };
 
   return (
@@ -277,7 +281,7 @@ export default function DetailProfileUser() {
                 Mis favoritos
               </h3>
               <div className={styles.containerFavourite}>
-                {gyms.length > 0 ? (
+                {currentItemsFavorite?.length > 0 ? (
                   currentItemsFavorite.map((x, y) => (
                     <div
                       style={{
@@ -290,7 +294,7 @@ export default function DetailProfileUser() {
                     >
                       <div className={styles.itemGymFavourite}>
                         <img
-                          src={x.image}
+                          src={x.logo}
                           style={{
                             width: "68px",
                             height: "65px",
