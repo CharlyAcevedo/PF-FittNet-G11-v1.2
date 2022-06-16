@@ -118,7 +118,7 @@ export default function LandingInfo() {
                 </div>
               </div>
             </div>
-            <div className={style.promoDiv}>
+            {/* <div className={style.promoDiv}>
               <div className={style.containerBtnPromos}>
                 <ButtonPrimary
                   title="Conocé nuestras promos"
@@ -126,17 +126,17 @@ export default function LandingInfo() {
                   onClick={() => navigate("/userprices")}
                 />
               </div>
-            </div>
+            </div> */}
           </Animator>
         </ScrollPage>
       </ScrollContainer>
       <div>
-        <div className={style.contDat}>
+        {/* <div className={style.contDat}>
           <CardIcons img={startIcon} num="5" />
           <CardIcons img={userIcon} num={cantUser} />
           <CardIcons img={mapIcon} num="1.4 Km" />
           <CardIcons img={actividadesIcon} num="20" />
-        </div>
+        </div> */}
         {/* <div className={style.promosUsuarios}>
         <CardPromoBalance />
         <CardPromoBulk />
