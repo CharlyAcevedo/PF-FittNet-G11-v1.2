@@ -8,7 +8,7 @@ export default function Logout() {
       method: 'post',
       url: '/api/service/logout',
       headers: {'X-Requested-With': 'XMLHttpRequest'},
-      withCredentials: true
+      // withCredentials: true
     })
     .then((res) => {
       console.log(res.data)

@@ -111,7 +111,7 @@ export default function HomeMain() {
           <OrderBy />
         </div>
         <GymCards />
-        <Paginated />
+        {/* <Paginated /> */}
       </div>
     );
   }

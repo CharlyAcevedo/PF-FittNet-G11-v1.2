@@ -115,7 +115,7 @@ const CheckoutForm = () => {
       url: "/api/shopcart",
       data: detalle,
       headers: { "X-Requested-With": "XMLHttpRequest" },
-      withCredentials: true,
+      // withCredentials: true,
     })
       .then((res) => {
         return res.data;
