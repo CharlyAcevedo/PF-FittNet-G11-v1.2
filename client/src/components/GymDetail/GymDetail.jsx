@@ -72,6 +72,7 @@ export default function GymDetail() {
 
         {/* Detalle servicio */}
         <div className={style.contServices}>
+          {console.log(gymDetail)}
           {gymDetail.services.map((e) => {
             return (
               <div key={e._id} >
