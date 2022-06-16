@@ -17,7 +17,7 @@ export default function DeteleteAccount() {
         method: "get",
         url: `/api/admin/userId/${userId}`,
         headers: { "X-Requested-With": "XMLHttpRequest" },
-        withCredentials: true,
+        // withCredentials: true,
       })
         .then((res) => {
           return res.data;
@@ -44,7 +44,7 @@ export default function DeteleteAccount() {
         url: "/api/admin/delete",
         data: { userId: userId },
         headers: { "X-Requested-With": "XMLHttpRequest" },
-        withCredentials: true,
+        // withCredentials: true,
       })
         .then((res) => {
           return res.data;

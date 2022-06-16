@@ -43,7 +43,6 @@ a{
 .logoutNavBarProfile {
     text-transform: uppercase;
     font-weight: 700;
-    margin-top: .55rem;
     cursor: pointer;
     transition: .3s;
 }

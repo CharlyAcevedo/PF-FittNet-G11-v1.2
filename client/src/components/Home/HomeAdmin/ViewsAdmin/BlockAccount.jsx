@@ -36,7 +36,7 @@ export default function BlockAccount() {
         url: "/api/admin/lockaccounts",
         data: { userName: userName },
         headers: { "X-Requested-With": "XMLHttpRequest" },
-        withCredentials: true,
+        // withCredentials: true,
       })
         .then((res) => {
           console.log(res.data);
@@ -67,7 +67,7 @@ export default function BlockAccount() {
         url: "/api/admin/lockaccounts",
         data: { userName: userName },
         headers: { "X-Requested-With": "XMLHttpRequest" },
-        withCredentials: true,
+        // withCredentials: true,
       })
         .then((res) => {
           console.log(res.data);

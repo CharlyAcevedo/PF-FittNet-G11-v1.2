@@ -204,7 +204,7 @@ function createBodyEmail(username, gymName, phoneGym, saleDetail) {
         </table>
       </td>
     </tr>`;
-    
+
     return compra.join("").concat(detalleButton);
   }
 

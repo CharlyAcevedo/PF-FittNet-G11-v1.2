@@ -41,7 +41,7 @@ export function HomePartner () {
   const partnerDetail = useSelector((state)=> state.partnerDetails)
   const userDetails = useSelector((state) => state.user)
 
-  const [ view , setView ] = useState("editMyGyms");
+  const [ view , setView ] = useState("mySales");
 
 
 

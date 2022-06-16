@@ -6,7 +6,7 @@ export async function SendEmail(put) {
     url: "/api/service/emails/",
     data: put,
     headers: { "X-Requested-With": "XMLHttpRequest" },
-    withCredentials: true,
+    // withCredentials: true,
   })
     .then((res) => {
       return res.data;

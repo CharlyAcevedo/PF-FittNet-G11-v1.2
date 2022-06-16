@@ -23,7 +23,34 @@
   color: rgb(66, 66, 66);
   margin-bottom: 0.5rem;
   padding: .4rem .9rem;
-  height: 70px;
   font-weight: 700;
   border-radius: 0.6rem;
+}
+
+.navBarAdmin {
+  color: #fff;
+  display: flex;
+  gap: .4rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.navBarAdmin a {
+  text-decoration: none;
+  position: relative;
+}
+
+.navBarAdmin a::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 10%;
+  opacity: 0;
+  border-bottom: 2px solid var(--color-primD1);
+  transition: 0.5s all;
+}
+.navBarAdmin a:hover::before {
+  opacity: 1;
+  width: 100%;
 }
