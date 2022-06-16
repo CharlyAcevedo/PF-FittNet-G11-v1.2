@@ -11,7 +11,7 @@ import dotenv from 'dotenv';
 
 
 dotenv.config();
-axios.defaults.baseURL = REACT_APP_API
+axios.defaults.baseURL = "https://fittnet.herokuapp.com/"
 
 
 ReactDOM.render(
