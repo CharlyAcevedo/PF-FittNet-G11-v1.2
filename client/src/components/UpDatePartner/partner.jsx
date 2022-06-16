@@ -293,9 +293,9 @@ export default function UpdatePartner() {
             </li>
           </ul>
         </div>
-        <div>
+        {/* <div>
           <label>Gimnasios: </label>
-          {/* <select
+          <select
             className={styles.input}
             onChange={(e) => handleChangeGyms(e)}
           >
@@ -304,7 +304,7 @@ export default function UpdatePartner() {
                 {e.name}
               </option>
             ))}
-          </select> */}
+          </select>
           <ul>
             <li>
               {partner.gyms?.map((e) => (
@@ -317,7 +317,7 @@ export default function UpdatePartner() {
               ))}{" "}
             </li>
           </ul>
-        </div>
+        </div> */}
         <br />
         <br />
         <div>
