@@ -5,12 +5,13 @@
 
 .Input {
   border: none;
-  border-bottom: 2px solid #fff;
+  border: 2px solid #fff;
   background: none;
   padding: 10px;
   padding-left: 24px;
   font-weight: 700;
   width: 75%;
+  border-radius: 25px;
   transition: 0.2s;
 }
 
