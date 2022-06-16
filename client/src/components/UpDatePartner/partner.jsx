@@ -12,11 +12,11 @@ export default function UpdatePartner() {
   const dispatch = useDispatch();
   const params = useParams();
 
-  useEffect(()=>{
-    dispatch(getPartnerDetails(userId))// eslint-disable-next-line
-  },[])
+  useEffect(() => {
+    dispatch(getPartnerDetails(userId)); // eslint-disable-next-line
+  }, []);
 
-  const partner = useSelector((state) => state.partnerDetails)
+  const partner = useSelector((state) => state.partnerDetails);
   const usuario = useSelector((state) => state.user);
   const gym = useSelector((state) => state.gyms);
 
@@ -74,7 +74,7 @@ export default function UpdatePartner() {
   //   });
   // }
   function handleEditGyms(e) {
-    navigate(`/profile/edit/partner/${nameU}/${ID}/${e.target.value}`)
+    navigate(`/profile/edit/partner/${nameU}/${ID}/${e.target.value}`);
     // setInput({
     //   ...input,
     //   gyms: input.gyms.filter((el) => el !== e.target.value),
@@ -125,7 +125,7 @@ export default function UpdatePartner() {
           ciul: input.cuil === "" ? partner.cuil : input.cuil,
           // socialNetworks: [],
         };
-        console.log(payload, "lo que se envia")
+        console.log(payload, "lo que se envia");
         dispatch(updatePartnerData(payload));
         dispatch(getPartnerDetails(userId));
         SweetAlrt("Exito!", "Perfil Editado", "success");
@@ -173,7 +173,7 @@ export default function UpdatePartner() {
   return (
     <div className={styles.editPartnerMainContainer}>
       <h3>Mi Perfil</h3>
-<br />
+      <br />
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nombre: </label>
