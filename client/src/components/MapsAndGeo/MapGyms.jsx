@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { setGymsGeo } from "../../redux/actions";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
+import {ButtonSimple} from "../../helpers/Buttons/Buttons.jsx";
 import styles from './styles/mapGyms.module.css';
 
 export default function MapGyms() {
@@ -82,7 +83,9 @@ export default function MapGyms() {
           </Marker>
         </MapContainer>}
       </div>
-      <div><button className={styles.btnMapGyms} onClick={handleOnClick}>Agregar Ubicación</button></div>
+      <div>
+        <ButtonSimple onClick={handleOnClick} padding=".1rem 1rem" title="Agregar Ubicacion" />
+      </div>
       <div>La ubicacion actual es: Latitud: {lat}, Longitud: {lng}</div>
     </div>
   );

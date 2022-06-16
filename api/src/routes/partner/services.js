@@ -14,8 +14,6 @@ const Users = require("../../models/User");
 const Partner = require("../../models/Partner");
 const Service = require("../../models/Service");
 
-
-
 const router = Router();
 
 
