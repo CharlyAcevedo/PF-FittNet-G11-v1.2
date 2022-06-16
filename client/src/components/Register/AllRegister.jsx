@@ -229,7 +229,7 @@ export default function AllRegister() {
                 <option value="Tipo de cliente">Tipo de cliente</option>
                 <option value="user">Usuario Final</option>
                 <option value="partner">Cliente Empresa</option>
-                <option value="admin">Administrador</option>
+                {/* <option value="admin">Administrador</option> */}
                 {/* Quitar más adelante la opción Administrador*/}
               </select>
             </div>
@@ -243,7 +243,13 @@ export default function AllRegister() {
             <br />
             <br />
             {/* <h5 className={error ? styles.alerText : null}>{error ? error : null}</h5> */}
-            <p>{error ? error : null}</p>
+            <p>
+              {error === "" ? null : (
+                <div className={styles.errors}>
+                  <h3>{error}</h3>
+                </div>
+              )}
+            </p>
             <div></div>
           </form>
         </div>

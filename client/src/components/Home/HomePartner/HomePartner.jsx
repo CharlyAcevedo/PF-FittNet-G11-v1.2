@@ -41,7 +41,7 @@ export function HomePartner () {
   const partnerDetail = useSelector((state)=> state.partnerDetails)
   const userDetails = useSelector((state) => state.user)
 
-  const [ view , setView ] = useState("editMyGyms");
+  const [ view , setView ] = useState("mySales");
 
 
 
@@ -72,14 +72,14 @@ export function HomePartner () {
               title="Mis ventas"
             />
           </div>
-          <div className={style.contButtonHg}>
+          {/* <div className={style.contButtonHg}>
             <ButtonHomePA
               onClick={(e) => {
                 setView("myClients");
               }}
               title="Mis clientes"
             />
-          </div>
+          </div> */}
           <div className={style.contButtonHg}>
             <ButtonHomePA
               onClick={(e) => {

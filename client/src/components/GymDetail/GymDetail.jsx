@@ -22,19 +22,18 @@ export default function GymDetail() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  let idUser = localStorage.getItem('userId');
+  let idUser = localStorage.getItem("userId");
 
   useEffect(() => {
     dispatch(getGymDetail(userId)); // eslint-disable-next-line
-    dispatch(getUser(idUser))
+    dispatch(getUser(idUser));
   }, [userId, idUser]);
 
   // This is equivalent to ComponentWillUnmount.
   // Que se ejecute cuando se desmonte gymDetail y limpie su estado en el reducer
-  useEffect(()=>{
-    return () => dispatch(clearGymDetail())
-  },[gymDetail])
-
+  useEffect(() => {
+    return () => dispatch(clearGymDetail());
+  }, [gymDetail]);
 
   const gymDetail = useSelector((state) => state.gymDetail);
 
@@ -53,21 +52,108 @@ export default function GymDetail() {
   } else {
     return (
       <div>
-        {/* Bloque de titulo */}
-        <section className={style.curved}>
+        {console.log(gymDetail)}
+        <div style={{ background: "#f74177" }}>
+          {gymDetail.image.length > 0 ? (
+            <div className={style.container}>
+              {gymDetail.image.length == 1 ? (
+                <div>
+                  <ul className={style.slider}>
+                    <li id="slide1">
+                      <img src={gymDetail.image[0]} />
+                    </li>
+                  </ul>
+                  <ul className={style.menu}>
+                    <li>
+                      <a href="#slide1"></a>
+                    </li>
+                  </ul>
+                </div>
+              ) : null}
+              {gymDetail.image.length == 2 ? (
+                <div>
+                  <ul className={style.slider}>
+                    <li id="slide1">
+                      <img src={gymDetail.image[0]} />
+                    </li>
+                    <li id="slide2">
+                      <img src={gymDetail.image[1]} />
+                    </li>
+                  </ul>
+                  <ul className={style.menu}>
+                    <li>
+                      <a href="#slide1"></a>
+                    </li>
+                    <li>
+                      <a href="#slide2"></a>
+                    </li>
+                  </ul>
+                </div>
+              ) : null}
+              {gymDetail.image.length >= 3 ? (
+                <div>
+                  <ul className={style.slider}>
+                    <li id="slide1">
+                      <img src={gymDetail.image[0]} />
+                    </li>
+                    <li id="slide2">
+                      <img src={gymDetail.image[1]} />
+                    </li>
+                    <li id="slide3">
+                      <img src={gymDetail.image[2]} />
+                    </li>
+                  </ul>
+                  <ul className={style.menu}>
+                    <li>
+                      <a href="#slide1"></a>
+                    </li>
+                    <li>
+                      <a href="#slide2"></a>
+                    </li>
+                    <li>
+                      <a href="#slide3"></a>
+                    </li>
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
           <p className={style.title}>{gymDetail.name}</p>
+        </div>
+
+        <section className={style.semicircle}>
+          <div className={style.cardShop}>
+            <div className={style.imgBoxLogo}>
+              <img
+                src={
+                  gymDetail.logo.length > 0
+                    ? gymDetail.logo
+                    : "https://i0.wp.com/votoenblanco.com.mx/wp-content/uploads/2021/12/IMG_7680.jpg?fit=972%2C648&ssl=1"
+                }
+                alt="imagen gym"
+                className={style.mouseCardLogo}
+              />
+            </div>
+          </div>
         </section>
-        {/* Bloque de cards presentacion */}
-        <div className={style.contDat}>
+        {/* <section className={style.curved}>
+          <p className={style.title}>{gymDetail.name}</p>
+        </section> */}
+        {/* <div className={style.contDat}>
           <CardIcons img={start} num={gymDetail.raiting} />
           <CardIcons img={user} num="55" />
           <CardIcons img={map} num="1.4 Km" />
           <CardIcons img={actividades} num={gymDetail.services.length} />
-        </div>
-   
+        </div> */}
+
         {/* Bloque de info del carrito */}
-        <div>
-          <NavBar3 id={[gymDetail]} usuarioId={usuarioId} button={true} background="#fff"/>
+        <div style={{paddingTop:"200px"}}>
+          <NavBar3
+            id={[gymDetail]}
+            usuarioId={usuarioId}
+            button={true}
+            background="#fff"
+          />
         </div>
 
         {/* Detalle servicio */}
@@ -75,7 +161,7 @@ export default function GymDetail() {
           {console.log(gymDetail)}
           {gymDetail.services.map((e) => {
             return (
-              <div key={e._id} >
+              <div key={e._id}>
                 <CartItem
                   id={e._id}
                   key={e._id}
@@ -89,10 +175,7 @@ export default function GymDetail() {
             );
           })}
         </div>
-        <button onClick={() => navigate(-1)}>Go back</button>
       </div>
     );
   }
 }
-
-
