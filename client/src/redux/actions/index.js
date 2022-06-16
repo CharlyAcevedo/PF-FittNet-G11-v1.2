@@ -164,7 +164,6 @@ export function getAdmin(userId) {
       const infoAdmin = await axios({
         method: "get", url: `/api/admin/userId/${userId}`,
         headers: { "X-Requested-With": "XMLHttpRequest" },
-        //  withCredentials: true
       });
 
       dispatch({

@@ -1,6 +1,10 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Logout() {
+
+  const navigate = useNavigate();
+
   function onClick(e) {
     e.preventDefault();
 
@@ -20,8 +24,8 @@ export default function Logout() {
         // localStorage.removeItem('type');
         // localStorage.removeItem('avatar');
         localStorage.clear();
-        
-        return (window.location = "http://localhost:3000/");
+        navigate('/')
+        // return (window.location = "http://localhost:3000/");
       }
     })
     .catch((error) => console.log(error));

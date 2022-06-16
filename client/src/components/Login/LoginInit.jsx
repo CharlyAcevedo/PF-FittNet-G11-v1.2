@@ -150,6 +150,8 @@ export default function LoginInit() {
         })
         .catch((error) => console.log(error));
 
+        console.log(login, "ESTE ES EL QUE ANDO BUSCANDO")
+
       if (login.login) {
         console.log(login, " lo que responde el back si se autentica el user");
 
