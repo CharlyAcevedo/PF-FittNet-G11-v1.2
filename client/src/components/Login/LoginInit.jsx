@@ -14,9 +14,25 @@ import { SweetAlrt } from "../../asets/helpers/sweetalert"; // , SweetAlrt2, Swe
 
 export default function LoginInit() {
   const dispatch = useDispatch();
-  const geolocation = useSelector(
-    (state) => state.currentGeo
-  );
+  
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+        function (position) {          
+            let geoPayload = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            }          
+            dispatch(setUserGeo(geoPayload))
+        },
+        function (error) {
+          console.log(error);
+        },
+        {
+          enableHighAccuracy: true,
+        }
+      ); // eslint-disable-next-line
+  }, [])
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // const [googleUser, setGoogleUser] = useState({});

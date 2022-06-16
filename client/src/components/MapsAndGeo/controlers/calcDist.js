@@ -30,7 +30,7 @@ var d = RadioTierra * c;
 
 // let DistanciaGeografica = a * RadioTierra * 1000
 
-console.log(d)
+// console.log(d)
 return d
 
 }
