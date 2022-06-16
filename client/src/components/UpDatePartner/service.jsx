@@ -151,6 +151,8 @@ export default function Services() {
     ) {
       return SweetAlrtTem("Completa los campos  minimo requeridos", "warning");
     } else {
+      SweetAlrt("Estamos procesando su solicitud!")
+
       let dataForNewService = {
         gymId: { gymId: gymId },
         dataNewService: newService,
@@ -195,6 +197,7 @@ export default function Services() {
     ) {
       return SweetAlrtTem("Completa los datos minimos requeridos", "warning");
     } else {
+      SweetAlrt("Estamos procesando su solicitud!")
       let dataForEditService = {
         serviceId: { serviceId: serviceId },
         newDataService: editService,
