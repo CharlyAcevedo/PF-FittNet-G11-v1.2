@@ -9,7 +9,7 @@ import {
   SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE,
   CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING, SORT_QUALIFICATION,
   FILTER_CATEGORY, SORT_PRICE, SEARCH, SORT_DISTANCE, GET_PLANS, GET_PARTNER_ID,
-  GET_MY_GYMS, GET_PARTNER, SET_GYMS_GEO, POST_GYM, GET_MY_SALES
+  GET_MY_GYMS, GET_PARTNER, SET_GYMS_GEO, POST_GYM, GET_MY_SALES, GET_ALL_SALES
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -25,9 +25,8 @@ const initialState = {
   gymsGeo: {
     latitude: 0,
     longitude: 0,
-  },
+  },  
   currentGymCreated: {},
-  partnerSales: {},
   gymCreaded: {},
   gyms: [],
   myGyms: {},
@@ -36,6 +35,7 @@ const initialState = {
   partners: [],
   partnersToShow: [],
   partnerDetails: {},
+  partnerSales: {},
   avatars: [],
   pageToShow: [],
   currentLimit: 6,
@@ -46,6 +46,7 @@ const initialState = {
   getCart: [],
   deseaseAttribute: [],
   lockAccounts: [],
+  adminSales: {},
   plans: [],
   allCart:[]
 };
@@ -112,6 +113,17 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         partnerSales: payload,
+      };
+    case GET_ALL_SALES:
+      if (payload.error) {
+        return {
+          ...state,
+          errors: payload.error,
+        };
+      }
+      return {
+        ...state,
+        adminSales: payload,
       };
     case GET_USER_TOKEN_GOOGLE:
       if (payload.error) {
