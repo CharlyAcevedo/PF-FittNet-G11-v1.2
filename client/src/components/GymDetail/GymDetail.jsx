@@ -147,7 +147,7 @@ export default function GymDetail() {
         </div> */}
 
         {/* Bloque de info del carrito */}
-        <div>
+        <div style={{paddingTop:"200px"}}>
           <NavBar3
             id={[gymDetail]}
             usuarioId={usuarioId}
