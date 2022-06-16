@@ -31,7 +31,7 @@ export default function CardServices(props) {
       <div className={style.content}>
         <div className={style.card}>
           <div className={style.contImg}>
-            <p>{img}</p>
+            <img src={img} alt="" style={{ width: "60px", height: "60px",borderRadius:"50%"}}/>
           </div>
           <div className={style.contText}>
             <p>{name}</p>

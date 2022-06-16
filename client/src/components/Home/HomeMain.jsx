@@ -16,7 +16,7 @@ import OrderBy from "../OrderBy/OrderBy";
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
 import { HomePartner } from "./HomePartner/HomePartner";
 import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
-import { getUser } from "../../redux/actions";
+import { getUser, sortByDistance } from "../../redux/actions";
 
 export default function HomeMain() {
   let { userId } = useParams();
@@ -50,7 +50,8 @@ export default function HomeMain() {
   }, [])
   
   useEffect(() => {
-    dispatch(getAllGyms());
+    dispatch(getAllGyms());   
+    dispatch(sortByDistance("menor"));    
     dispatch(getUser(userId));
     if (token) {
       dispatch(getUserGoogleForToken(token));
@@ -110,7 +111,7 @@ export default function HomeMain() {
           <OrderBy />
         </div>
         <GymCards />
-        <Paginated />
+        {/* <Paginated /> */}
       </div>
     );
   }

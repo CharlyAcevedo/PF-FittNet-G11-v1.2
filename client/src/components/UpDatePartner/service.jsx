@@ -151,6 +151,8 @@ export default function Services() {
     ) {
       return SweetAlrtTem("Completa los campos  minimo requeridos", "warning");
     } else {
+      SweetAlrt("Estamos procesando su solicitud!")
+
       let dataForNewService = {
         gymId: { gymId: gymId },
         dataNewService: newService,
@@ -195,6 +197,7 @@ export default function Services() {
     ) {
       return SweetAlrtTem("Completa los datos minimos requeridos", "warning");
     } else {
+      SweetAlrt("Estamos procesando su solicitud!")
       let dataForEditService = {
         serviceId: { serviceId: serviceId },
         newDataService: editService,
@@ -512,10 +515,10 @@ export default function Services() {
       </div>
       <p></p>
       {typeAction === "create" &&
-        <button onClick={(e) => { onClickCreateService(e) }}>Crear servicio de prueba</button>
+        <button onClick={(e) => { onClickCreateService(e) }}>Crear servicio</button>
       }
       {typeAction === "edit" &&
-        <button onClick={(e) => { onClickEditService(e) }}> Editar servicio de prueba</button>
+        <button onClick={(e) => { onClickEditService(e) }}> Editar servicio</button>
       }
 
     </div>

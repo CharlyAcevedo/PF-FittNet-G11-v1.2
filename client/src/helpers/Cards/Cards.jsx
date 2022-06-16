@@ -10,7 +10,7 @@ import axios from "axios";
 import styles from "./styles/stylesCards.module.css";
 import { useEffect } from "react";
 import { IoIosHeart } from "react-icons/io";
-import { AiFillStar, AiOutlineShoppingCart } from "react-icons/ai";
+import { AiFillStepForward, AiOutlineShoppingCart } from "react-icons/ai";
 import { useState } from "react";
 import { EditMyGyms } from "../../components/Home/HomePartner/ViewsPartner/EditMyGyms.jsx";
 
@@ -135,7 +135,7 @@ export const CardIcons = (props) => {
 };
 
 export const CardShop = (props) => {
-  const { title, imagen, price, rating, favourite, id } = props;
+  const { title, imagen, price, services, favourite, id, logo } = props;
 
   const avatar = localStorage.getItem("avatar");
 
@@ -157,15 +157,26 @@ export const CardShop = (props) => {
       );
     }
   };
-  console.log(imagen);
 
   return (
     <div className={styles.cardShop}>
+      {console.log(props)}
+      {/* <div className={styles.imgBoxLogo}>
+        <img
+          src={
+            logo.length > 0
+              ? logo
+              : "https://i0.wp.com/votoenblanco.com.mx/wp-content/uploads/2021/12/IMG_7680.jpg?fit=972%2C648&ssl=1"
+          }
+          alt="imagen gym"
+          className={styles.mouseCardLogo}
+        />
+      </div> */}
       <div className={styles.imgBox}>
         <img
           src={
-            imagen.length > 0
-              ? imagen[0]
+            logo.length > 0
+              ? logo
               : "https://i0.wp.com/votoenblanco.com.mx/wp-content/uploads/2021/12/IMG_7680.jpg?fit=972%2C648&ssl=1"
           }
           alt="imagen gym"
@@ -210,13 +221,15 @@ export const CardShop = (props) => {
               fontWeight: "700",
             }}
           >
-            {rating}
-            <AiFillStar style={{ color: "#FEAA09", marginTop: ".2rem" }} />
+            {services.length}
+            <AiFillStepForward
+              style={{ color: "#FEAA09", marginTop: ".2rem" }}
+            />
           </span>
         </div>
-        <h2 className={styles.priceCard}>
+        {/* <h2 className={styles.priceCard}>
           <small>{price.$numberDecimal}</small> €
-        </h2>
+        </h2> */}
         <div
           className={styles.buyCard}
           onClick={() => navigate(`/detail/gym/${id}`)}
