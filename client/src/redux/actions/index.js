@@ -163,7 +163,8 @@ export function getAdmin(userId) {
     try {
       const infoAdmin = await axios({
         method: "get", url: `/api/admin/userId/${userId}`,
-        headers: { "X-Requested-With": "XMLHttpRequest" }, withCredentials: true
+        headers: { "X-Requested-With": "XMLHttpRequest" }, 
+        // withCredentials: true
       });
 
       dispatch({
@@ -261,7 +262,8 @@ export function getMyGyms(partnerId) {
     try {
       const parternGyms = await axios({
         method: "get", url: `/api/partner/gyms/mygyms/${partnerId}`,
-        headers: { "X-Requested-With": "XMLHttpRequest" }, withCredentials: true
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+        //  withCredentials: true
       });
       console.log(parternGyms.data, "actions");
 
@@ -634,7 +636,7 @@ export function editStatus(statusCart) {
       url: "/api/shopcart",
       data: statusCart,
       headers: { "X-Requested-With": "XMLHttpRequest" },
-      withCredentials: true,
+      // withCredentials: true,
     })
       .then((res) => {
         return res.data;

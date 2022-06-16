@@ -32,7 +32,7 @@ async function onSubmit (value){
         url: "/api/service/mercadopago",
         data: data,
         headers: { "X-Requested-With": "XMLHttpRequest" },
-        withCredentials: true,
+        // withCredentials: true,
       })
     .then((data)=>{
         setDatos(data.data)

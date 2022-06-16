@@ -16,7 +16,7 @@ export async function createOneGym(dataForNewGym) {
         url: "/api/partner/gyms/createOneGym",
         data: dataForNewGym,
         headers: { "X-Requested-With": "XMLHttpRequest" },
-        withCredentials: true,
+        // withCredentials: true,
         })
         .then((res) => {
           return res.data;
@@ -42,7 +42,7 @@ export async function editOneGym(dataForEditGym) {
         url: "/api/partner/gyms/editOneGym",
         data: dataForEditGym,
         headers: { "X-Requested-With": "XMLHttpRequest" },
-        withCredentials: true,
+        // withCredentials: true,
         })
         .then((res) => {
           return res.data;
@@ -68,7 +68,7 @@ export async function createOneService(dataForNewService) {
         url: "/api/partner/services/createOneService",
         data: dataForNewService,
         headers: { "X-Requested-With": "XMLHttpRequest" },
-        withCredentials: true,
+        // withCredentials: true,
         })
         .then((res) => {
           return res.data;
@@ -94,7 +94,7 @@ export async function editOneService(dataForEditService) {
         url: "/api/partner/services/editOneService/",
         data: dataForEditService,
         headers: { "X-Requested-With": "XMLHttpRequest" },
-        withCredentials: true,
+        // withCredentials: true,
         })
         .then((res) => {
           return res.data;
