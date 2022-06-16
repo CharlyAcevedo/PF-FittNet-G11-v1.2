@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./styles/GymCards.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import GymCard from "../GymCard/GymCard";
 import { CardShop } from "../../helpers/Cards/Cards.jsx";
+import { sortByDistance } from "../../redux/actions";
 
 export default function GymsCards() {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(sortByDistance("menor"))// eslint-disable-next-line
+  },[])
+
+
   const gyms = useSelector((state) => state.pageToShow);
 
   return (
