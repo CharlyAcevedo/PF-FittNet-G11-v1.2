@@ -22,7 +22,8 @@ const getPartnerSales = async (idUser) => {
         .populate({
           path: "user gyms services"
         })
-        sales.push(gymSales);
+        console.log(gymSales)
+        if(gymSales !== undefined) sales.push(gymSales);
       }
     };
     if(sales.length > 0){
@@ -36,6 +37,7 @@ const getPartnerSales = async (idUser) => {
             salesNumber = salesNumber + 1;
             if(!isNaN(sales[i][g].price)) totalSales = totalSales + parseFloat(sales[i][g].price);
           }
+          // console.log(sales[i][0].gyms[0], "1")
           salesPerGym.push({gym: sales[i][0].gyms[0]._id, gymName: sales[i][0].gyms[0].name, totalSales: gymCount, salesNumber: salesCountPerGym})
           gymCount = 0;
           salesCountPerGym = 0;

@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Logout from "../Logout/Logout";
-import { getUserGoogleForToken } from "../../redux/actions/index";
+import { getUserGoogleForToken, getUser } from "../../redux/actions/index";
 import style from "./style/NavBarProfile.module.css";
 import { useDispatch, useSelector } from "react-redux";
+import { useCallback } from "react";
 // import FormUser from "../Forms/FormUser";
 
 export default function NavBarProfile() {
@@ -25,11 +26,16 @@ export default function NavBarProfile() {
 
   const dispatch = useDispatch();
 
+  const instantCallback = useCallback(dispatch, [dispatch])
+
   useEffect(() => {
-    if (token) {
-      dispatch(getUserGoogleForToken(token));
+    if (!token) {
+      dispatch(getUser(userId));
     }
-  }, []);
+    if (token) {
+      instantCallback(getUserGoogleForToken(token));
+    }
+  }, [instantCallback, token, userId]);
 
   return (
     <div className={style.boxNavBarProfile}>

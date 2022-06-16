@@ -13,10 +13,6 @@ export default function CardPlans() {
           <p>
             <span className={style.dollar}>$</span>3000
           </p>
-          <ButtonSimple
-            title="CREAR CEUNTA"
-            onClick={() => navigate("/register")}
-          />
         </div>
         <div className={style.cardright}>
           <div className={style.plan}>
@@ -37,12 +33,8 @@ export default function CardPlans() {
         <div className={style.cardleft}>
           <h1>Premiun</h1>
           <p>
-            <span className={style.dollar}>$</span>5000
+            <span className={style.dollar}>$</span>4000
           </p>
-          <ButtonSimple
-            title="CREAR CEUNTA"
-            onClick={() => navigate("/register")}
-          />
         </div>
         <div className={style.cardright}>
           <div className={style.plan}>
@@ -63,12 +55,8 @@ export default function CardPlans() {
         <div className={style.cardleft}>
           <h1>Golden</h1>
           <p>
-            <span className={style.dollar}>$</span>7000
+            <span className={style.dollar}>$</span>5000
           </p>
-          <ButtonSimple
-            title="CREAR CEUNTA"
-            onClick={() => navigate("/register")}
-          />
         </div>
         <div className={style.cardright}>
           <div className={style.plan}>

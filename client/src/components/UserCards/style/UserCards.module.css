@@ -1,14 +1,22 @@
 .mainBoxCards2 {
-    /* border: 2px solid #FEAA09; */
-    height: auto;
-    width: 100%;
-
+  height: auto;
+  width: 100%;
 }
 
 .boxCards2 {
-    /* border: 2px solid #096bfe; */
-    width: auto;
-    height: auto;
-    padding-bottom: 60px;
-    padding-top: 20px;
+  width: 80%;
+  margin: 0 auto;
 }
+
+.tableUser {
+  width: 90%;
+  margin: 1rem auto;
+  color: #fff;
+  letter-spacing: 1.5px;
+}
+
+.headerTableUser {
+    background-color: var(--color-primD1);
+}
+
+
