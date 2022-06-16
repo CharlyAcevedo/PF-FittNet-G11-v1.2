@@ -139,12 +139,12 @@ export default function GymDetail() {
         {/* <section className={style.curved}>
           <p className={style.title}>{gymDetail.name}</p>
         </section> */}
-        <div className={style.contDat}>
+        {/* <div className={style.contDat}>
           <CardIcons img={start} num={gymDetail.raiting} />
           <CardIcons img={user} num="55" />
           <CardIcons img={map} num="1.4 Km" />
           <CardIcons img={actividades} num={gymDetail.services.length} />
-        </div>
+        </div> */}
 
         {/* Bloque de info del carrito */}
         <div>
