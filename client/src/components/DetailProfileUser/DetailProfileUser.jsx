@@ -364,7 +364,7 @@ export default function DetailProfileUser() {
               style={{
                 // width: "200px",
                 width: "95%",
-                height: "220px",
+                /* height: "220px", */
                 backgroundColor: "#181818",
                 borderRadius: ".6rem",
                 margin: "1.2rem auto"

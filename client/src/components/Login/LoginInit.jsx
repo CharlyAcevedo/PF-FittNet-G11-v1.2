@@ -14,9 +14,7 @@ import { SweetAlrt } from "../../asets/helpers/sweetalert"; // , SweetAlrt2, Swe
 
 export default function LoginInit() {
   const dispatch = useDispatch();
-  const geolocation = useSelector(
-    (state) => state.currentGeo
-  );
+  const geolocation = useSelector((state) => state.currentGeo);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // const [googleUser, setGoogleUser] = useState({});
@@ -28,7 +26,6 @@ export default function LoginInit() {
 
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
-
 
   const handleCallbackGoogle = async (response) => {
     const userObject = jwt_decode(response.credential);
@@ -55,17 +52,21 @@ export default function LoginInit() {
       // console.log(finalizacionData, ' finalización data')
 
       const { avatar } = finalizacionData.usuario;
-      
-      if(finalizacionData.usuario.type === "partner"){        
-          dispatch(getPartnerDetails(userId));       
+
+      if (finalizacionData.usuario.type === "partner") {
+        dispatch(getPartnerDetails(userId));
       }
 
       // console.log(finalizacionData.usuario);
       if (!avatar) {
-        console.log('entro aqui')
-        navigate(`/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
+        console.log("entro aqui");
+        navigate(
+          `/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`
+        );
       } else {
-        navigate(`/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
+        navigate(
+          `/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`
+        );
       }
     } else {
       console.log("estas autenticado actualmente");
@@ -113,7 +114,6 @@ export default function LoginInit() {
 
     console.log("se está intentando hacer el post");
 
-
     if (username && password) {
       userLogin = { username: username, password: password };
 
@@ -138,7 +138,7 @@ export default function LoginInit() {
 
         if (active === true) {
           // Si la cuenta está activa
-          if(type === "partner"){        
+          if (type === "partner") {
             // dispatch(getPartnerDetails(userId));
           }
           if (!login.avatar) {
@@ -151,7 +151,7 @@ export default function LoginInit() {
             navigate(`/home/${type}/${name}/${userId}`);
           }
 
-          console.log(login.avatar)
+          console.log(login.avatar);
           if (login.avatar) {
             console.log(login, " el user");
 
@@ -230,11 +230,22 @@ export default function LoginInit() {
 
             <div id="signInDiv" style={{ paddingTop: "1.5rem" }}></div>
             {/* <button onClick={(e) => handleLogoutGoogle(e)}>Logout</button> */}
-            <p>{error === "" ? null : error}</p>
+            <div className={styles.contraseña}>
+              <a
+                href="/resetpassword"
+                style={{ color: "#111111" }}
+              >
+                Olvidé mi contraseña
+              </a>
+            </div>
+            <p>
+              {error === "" ? null : (
+                <div className={styles.errors}>
+                  <h3>{error}</h3>
+                </div>
+              )}
+            </p>
           </form>
-          <a href="/resetpassword" style={{ padding: "1.5rem", color: "#fff" }}>
-            Olvidé mi contraseña
-          </a>
         </div>
         <BackgroundTwo />
       </div>
