@@ -143,12 +143,14 @@ export default function LoginInit() {
         url: "/api/service/login",
         data: userLogin,
         headers: { "X-Requested-With": "XMLHttpRequest" },
-        withCredentials: true,
+        // withCredentials: true,
       })
         .then((res) => {
           return res.data;
         })
         .catch((error) => console.log(error));
+
+        console.log(login, "ESTE ES EL QUE ANDO BUSCANDO")
 
       if (login.login) {
         console.log(login, " lo que responde el back si se autentica el user");

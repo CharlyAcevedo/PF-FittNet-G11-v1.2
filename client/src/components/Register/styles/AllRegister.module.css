@@ -44,7 +44,7 @@
   background-attachment: fixed;
   height: 50px;
   width: 100px;
-  background-image: url("../../../asets/images/logo_fitnet.jpg");
+  background-image: url("https://res.cloudinary.com/salta/image/upload/v1654028866/prueba-fondo-gris_kbfvaz.png");
 }
 .containerReg {
   display: flex;
@@ -78,7 +78,7 @@
 .login {
   width: 320px;
   padding: 30px;
-  padding-top: 106px;
+  padding-top: 85px;
   text-align: initial;
 }
 
@@ -95,12 +95,13 @@
 
 .loginInput {
   border: none;
-  border-bottom: 2px solid #fff;
+  border: 2px solid #fff;
   background: none;
   padding: 10px;
   padding-left: 24px;
   font-weight: 700;
   width: 75%;
+  border-radius: 25px;
   transition: 0.2s;
 }
 
@@ -140,12 +141,24 @@
   border: none;
   outline: none;
   font-weight: 600;
-  padding: .2rem 1rem;
-  border-radius: .6rem;
+  padding: 0.2rem 1rem;
+  border-radius: 0.6rem;
   cursor: pointer;
 }
 
 .selectTypeClient option {
   background-color: var(--color-prim);
   color: #fff;
+}
+.errors {
+  background: var(--color-backgotund);
+  font-size: 11px;
+  /*  margin-top: 30px; */
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 3px solid var(--color-primD1);
+  font-weight: 700;
+  align-items: center;
+  color: var(--color-primD1);
+  cursor: auto;
 }

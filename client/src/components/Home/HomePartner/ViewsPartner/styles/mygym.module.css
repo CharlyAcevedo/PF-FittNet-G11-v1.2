@@ -1,33 +1,88 @@
 .containMainMyGyms {
-    padding: 1rem 2rem;
+  padding: 1rem 2rem;
 }
 
 .headerMyGyms {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--color-primD1);
-    padding-bottom: .7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-primD1);
+  padding-bottom: 0.7rem;
 }
 
 .headerMyGyms h2 {
-    text-transform: uppercase;
-} 
-
-.titleBtn {
-    color: #fff;
-    font-weight: 600;
-    text-transform: uppercase;
-    border: 1px solid var(--color-primD1);
-    padding: .2rem 1rem;
-    border-radius: .6rem;
-    transition: .5s;
-    cursor: pointer;
+  text-transform: uppercase;
 }
 
-.titleBtn:hover{
-    background-color: var(--color-primD1);
-    color: #fff;
+.titleBtn {
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: 1px solid var(--color-primD1);
+  padding: 0.2rem 1rem;
+  border-radius: 0.6rem;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.titleBtn:hover {
+  background-color: var(--color-primD1);
+  color: #fff;
+}
+
+.btnService {
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: 1px solid var(--color-primD1);
+  background-color: var(--color-primD1);
+  padding: 0.2rem 1rem;
+  border-radius: 0.6rem;
+  transition: 0.5s;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.btnService:hover {
+  box-shadow: 0px 0px 6px var(--color-primD1);
+}
+.cont {
+  display: flex;
+  justify-content: space-around;
+}
+
+.cardright {
+  text-align: left;
+  background: #191919;
+  /* width: 70%; */
+  color: #dc2430;
+  border-radius: 20px;
+  padding: 10px;
+  width: 22rem;
+  border: solid 3px var(--color-primD1);
+}
+
+.plan {
+  background-color: var(--light-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.plan ul {
+  list-style: none;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.plan ul li {
+  text-align: center;
+  font-size: 1rem;
+  padding: 6px;
+  font-weight: 600;
+}
+
+.plan ul li:not(:last-child) {
+  border-bottom: 1px solid var(--color-primD1);
 }
 
 /* style={{color: "#fff", fontWeight: "600", textTransform: "uppercase"}} */
