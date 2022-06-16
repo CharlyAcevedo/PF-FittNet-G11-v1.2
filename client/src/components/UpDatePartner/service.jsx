@@ -5,7 +5,7 @@ import {
   serviceValidateEdit,
 } from "./controlers/validaciones";
 import { useSelector } from "react-redux";
-import { getMyGyms } from "../../redux/actions"; // --------------LA ACTION
+import { getMyGyms, getUser } from "../../redux/actions"; // --------------LA ACTION
 import { useDispatch } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 // import { createService } from "../../redux/actions";
@@ -18,6 +18,12 @@ export default function Services() {
   // const navigate = useNavigate();
   const dataPartner = useSelector((state) => state.myGyms);
   let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
+
+  const userInfo = useSelector((state) => state.partnerDetails);
+  let userPlan = userInfo.planType ? userInfo.planType : false;
+  console.log(userPlan, 'el plan del usuario partner')
+
+
   let filterServices = [];
   let dataEditService;
 
@@ -53,6 +59,7 @@ export default function Services() {
 
   useEffect(() => {
     dispatch(getMyGyms(userId))
+    dispatch(getUser(userId))
   }, [userId]);
 
 
@@ -63,10 +70,60 @@ export default function Services() {
   }
 
 
+
+  
+  function validatePlanServices (userPlan, partnerGym) {
+    console.log(userPlan, partnerGym, 'el plan del partner contra los servicios')
+    // // userPlan es un string o un booleano-> false || "Premium" ||  
+    // // "Estandar" || "Golden"
+    // // parnerGmy -> Es un arreglo con un objeto, con una propiedad services 
+    // // que es un array donde cada elemento es un servicio (un elemento por cada servicio)
+
+    let planType;
+    let maxService;
+    let services;
+    if (userPlan === false ) { // si el usuario no tiene plan
+      return `La cuenta no tiene asignado un plan, no puede crear un gimnasios`;      
+    }
+    planType = userPlan.planName; // tipo de plan
+    maxService = userPlan.servicePerGym; // cantidad de servicios máximos por gym
+    services = partnerGym[0].services; // cantidad de servicios que tiene el gym (es un array)
+    
+    // console.log(planType, 'tipo de plan', maxService, 'cantidad de servicios máximos', services, 'servicios',) 
+        
+    // if (planType === "Estandar" && partnerGym.length === 1 ) { // Máximo un gym, nada más
+    if (planType === "Standar" && services.length === Number(maxService) ) { // De pruebaa, el que vale es el que sigue
+      return `La cuenta Estandar solo permite crear hasta cinco servicios por cada gimnasio,
+      si desea crear más servicios debería cambiar de plan.`;
+    }
+    if (planType === "Premium" && services.length === Number(maxService) ) {      
+      return `La cuenta Premium solo permite crear hasta diez servicios por cada gimnasio,
+      si desea crear más gimnasios debería cambiar de plan.`;
+    }
+    if (planType === "Golden" && services.length === Number(maxService) ) {     
+      return `La cuenta Golden le permite crear hasta cien servicios por cada gimnasio,
+      no es posible crear más servicios.`;
+    }    
+
+    return true;    
+
+  }
+
+
   //----------------------------------------------------------------------------
   // Esta función sirve para crear un gym           
   //----------------------------------------------------------------------------
   async function onClickCreateService() {
+
+    let validateS = await validatePlanServices (userPlan, myServices)
+    // userPlan es un objeto que tiene info del plan del user
+    // myService es un array (un gym) de objetos(servicios de ese gym),
+    // donde cada objeto es un servicio asociado a ese gym en particular 
+
+    if (typeof validateS === 'string' ) {
+      return SweetAlrt(validateS)
+    }
+
     if (error.name || error.description || error.price) {
       return SweetAlrtTem("Los valores ingresados son incorrectos", "warning");
     } else if (
@@ -86,7 +143,13 @@ export default function Services() {
 
       console.log("recibe el click y crea un service");
       let newOnService = await createOneService(dataForNewService);
-      SweetAlrt("Exito", "Servicio creado", "success");
+            
+      if (newOnService) {
+        SweetAlrt("Exito", "Servicio creado", "success");
+        dispatch(getMyGyms(userId))
+      } else {
+        SweetAlrt("Ocurrió un error y el servicio no fue creado", "error");
+      }
 
       return newOnService;
     }
@@ -246,51 +309,6 @@ export default function Services() {
     }
 
   }
-
-  // function validatePlanServices (userPlan, partnerGyms) {
-  //   // userPlan es un string o un booleano-> false || "Premium" ||  
-  //   // "Estandar" || "Golden"
-  //   // parnerGys -> Es un arreglo de objetos (un objeto por cada gym)
-  //   let planType;
-  //   let maxGyms;
-  //   if (userPlan === false ) { // si el usuario no tiene plan
-  //     return `La cuenta no tiene asignado un plan, no puede crear un gimnasios`;      
-  //   }
-  //   planType = userPlan.planName;
-  //   maxGyms = userPlan.gymsPermited
-  //   // console.log(planType, maxGyms, 'plan del user y cantidad de gyms')
-    
-  //   // if (planType === "Estandar" && partnerGyms.length === 1 ) { // Máximo un gym, nada más
-  //   if (planType === "Estandar" && partnerGyms.length === Number(maxGyms) ) { // De pruebaa, el que vale es el que sigue
-  //     return `La cuenta Estandar solo permite crear un gimnasio,
-  //     si desea crear más de un gimnasio debería cambiar de plan.`;
-  //   }
-  //   if (planType === "Premium" && partnerGyms.length === Number(maxGyms) ) {      
-  //     return `La cuenta Premium solo permite crear hasta cinco gimnasio,
-  //     si desea crear más gimnasios debería cambiar de plan.`;
-  //   }
-  //   if (planType === "Golden" && partnerGyms.length === Number(maxGyms) ) {     
-  //     return `La cuenta Golden le permite crear un máximo de cincuenta gimnasios,
-  //     no es posible crear más gimnasios.`;
-  //   }    
-
-  //   return true;    
-
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   return (
 
