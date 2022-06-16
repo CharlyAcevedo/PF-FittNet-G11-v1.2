@@ -46,11 +46,35 @@ export default function DetailProfileAdmin() {
           <p>Id: {user._id && user._id}</p>
         </div>
       </div>
-      <p style={{ padding: "5px" }}>Email: {user.userName && user.userName}</p>
+      <div className={styles.navBarAdmin}>
+        <Link to={`/updatepassword/${userId}`}>Cambiar mi contraseña</Link>
 
-      <h3 style={{ padding: "5px" }}>Detalles del perfil admin</h3>
+        <Link to={`/deactivate/${userId}`}>Borra mi cuenta</Link>
 
-      <p style={{ padding: "5px" }}></p>
+        <Link to="/">Volver</Link>
+      </div>
+
+      <div
+        style={{
+          backgroundColor: "#181818",
+          width: "30%",
+          marginTop: ".5rem",
+          padding: "1.2rem .4rem",
+          borderRadius: ".6rem",
+          textAlign: "center"
+        }}
+      >
+        <h3>Detalles del perfil admin</h3>
+        <p style={{ paddingTop: ".4rem" }}>
+          Email:
+          <span style={{ color: "var(--color-primD1)" }}>
+            {" "}
+            {user.userName && user.userName}{" "}
+          </span>
+        </p>
+      </div>
+
+      {/* <p style={{ padding: "5px" }}></p>
       <h3 style={{ padding: "5px" }}>Cosas que necesito</h3>
       <p style={{ padding: "5px" }}>
         1 - Necesito la info completa del perfil del admin, ir a buscar en la db
@@ -64,19 +88,7 @@ export default function DetailProfileAdmin() {
         perfil user
       </p>
       <p style={{ padding: "15px" }}></p>
-      <p style={{ padding: "15px" }}></p>
-
-      <Link style={{ padding: "5px" }} to={`/updatepassword/${userId}`}>
-        Cambiar mi contraseña
-      </Link>
-
-      <Link style={{ padding: "5px" }} to={`/deactivate/${userId}`}>
-        Borra mi cuenta
-      </Link>
-
-      <a style={{ padding: "5px" }} to="/">
-        Volver
-      </a>
+      <p style={{ padding: "15px" }}></p> */}
     </div>
   );
 }
