@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Elements,
   CardElement,
@@ -17,6 +17,7 @@ import {
   editStatus,
   getCart,
   updateClientGym,
+  getUserGoogleForToken,
 } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import { SendEmail } from "./SendEmail";
@@ -24,12 +25,9 @@ import { BackgroundOne } from "../../helpers/Backround/Background";
 import { ButtonSimple } from "../../helpers/Buttons/Buttons";
 import { getUser } from "../../redux/actions";
 
-
 const stripePromise = loadStripe(
   "pk_test_51L7OPdEPCpA0H6YFBVpVX0fFBJbIIUnXcU4hSY5uUZwQth9mmogZEiwUzXyXi5aJLSb43EzWLXcMPk75NBTjFGEC00usvaG53P"
 );
-
-
 
 const CheckoutForm = () => {
   const dispatch = useDispatch();
@@ -40,10 +38,11 @@ const CheckoutForm = () => {
   const allcart = useSelector((state) => state.gymDetail);
   const user = useSelector((state) => state.user);
 
-  localStorage.setItem('phone', allcart.phone)
-  localStorage.setItem('nameGym', allcart.name)
+  localStorage.setItem("phone", allcart.phone);
+  localStorage.setItem("nameGym", allcart.name);
 
-  let userId = localStorage.getItem('userId');
+  let token = localStorage.getItem("token");
+  let userId = localStorage.getItem("userId");
   // const cartPrice = parseInt(cart.map(c => c.price.$numberDecimal))
   // const cartQty = parseInt(cart.map(c => c.qty))
   // const totalPrice = cartPrice * cartQty
@@ -53,25 +52,27 @@ const CheckoutForm = () => {
   //     parseInt(b.price.$numberDecimal * b.qty)
   // );`
 
+  const instantCallback = useCallback(dispatch, [dispatch]);
+
   useEffect(() => {
-    dispatch(getUser(userId))
+    instantCallback(getUser(userId));
+    if (token) {
+      instantCallback(getUserGoogleForToken(token));
+    }
+  }, [instantCallback]);
 
-  }, [userId])
-
-
-  console.log(allcart)
+  console.log(allcart);
   const usuarioId = localStorage.getItem("userId");
   const name = localStorage.getItem("name");
   // const email = localStorage.getItem("email");
-  const [detailUser, setDetailUser] = useState({ ///--------------Nano details
+  const [detailUser, setDetailUser] = useState({
+    ///--------------Nano details
     userName: user.name,
-    email: user.userName
-  })
+    email: user.userName,
+  });
 
   // const { userName, info } = user;
   // const {name}
-
-
 
   const type = localStorage.getItem("type");
   const avatar = localStorage.getItem("avatar");
@@ -83,8 +84,8 @@ const CheckoutForm = () => {
 
   const [statusGym, setStatusGim] = useState({
     nameGim: allcart.name,
-    phonmeGim: allcart.phone
-  })
+    phonmeGim: allcart.phone,
+  });
 
   const gymId = allcart._id;
   console.log(statusClient, "allcart");
@@ -125,8 +126,8 @@ const CheckoutForm = () => {
     return put;
   }
 
-  const gymName = localStorage.getItem("nameGym")
-  const phoneGym = localStorage.getItem("phone")
+  const gymName = localStorage.getItem("nameGym");
+  const phoneGym = localStorage.getItem("phone");
 
   // let detailGym = {
   //   gymN,
@@ -156,7 +157,7 @@ const CheckoutForm = () => {
       userDetail: detailUser,
       gymDetail: {
         gymName: statusGym.nameGim,
-        phoneGym: statusGym.phonmeGim
+        phoneGym: statusGym.phonmeGim,
       },
       saleDetail: saleDetail,
     };
@@ -184,20 +185,20 @@ const CheckoutForm = () => {
           amount: 2000 * 10,
         })
         .then((response) => {
-          return response
+          return response;
         })
         .catch((error) => {
           console.log(error);
         });
-        console.log(compra.data)
-      if (compra.data === 'todomal') {
-        SweetAlrt(`Su pago fue rechazado ${name}`, "Intente con otra tarjeta")
+      console.log(compra.data);
+      if (compra.data === "todomal") {
+        SweetAlrt(`Su pago fue rechazado ${name}`, "Intente con otra tarjeta");
         return navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
       }
       console.log(detalle, "statuscart");
       console.log(idCart, " idcart mail");
       let edit = await functionEditStatus(detalle);
-      dispatch(updateClientGym(detalle));
+      // dispatch(updateClientGym(detalle));
       SendEmail(det);
       SweetAlrtTem(`Su compra fue realizada con exito ${name}`, "success");
       navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
