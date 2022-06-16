@@ -72,14 +72,14 @@ export function HomePartner () {
               title="Mis ventas"
             />
           </div>
-          <div className={style.contButtonHg}>
+          {/* <div className={style.contButtonHg}>
             <ButtonHomePA
               onClick={(e) => {
                 setView("myClients");
               }}
               title="Mis clientes"
             />
-          </div>
+          </div> */}
           <div className={style.contButtonHg}>
             <ButtonHomePA
               onClick={(e) => {
