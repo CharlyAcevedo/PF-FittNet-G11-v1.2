@@ -45,7 +45,8 @@ export default function IncomesGraph(){
   let counter = 0;
   let colorArray = [ "#ff004c", "#fe5889", "#fb6d10", "#ff9550", "#572e13"];
 
-  const myDataSets = typeof mySales === "object" && Object.entries(mySales).length > 0 ? mySales.salesPreGym.map((g) => {
+  const myDataSets = typeof mySales === "object" && Object.entries(mySales).length > 0 ?
+  mySales.salesPreGym.map((g) => {
     let dataSet = {
       label: g.gymName,
       backgroundColor: colorArray[counter],

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 // import Logout from "../Logout/Logout";
@@ -6,22 +6,17 @@ import SelecAvatar from "../SelectAvatar/SelectAvatar";
 import GymCards from "../GymCards/GymCards";
 // import UserCards from "../UserCards/UserCards";
 // import PartnerCards from "../PartnerCards/PartnerCards";
-import { getAllGyms, getUserGoogleForToken, getPartnerDetails } from "../../redux/actions";
+import { getAllGyms, getUserGoogleForToken, setUserGeo } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-// import IncomesGraph from "../Graphics/Incomes";
 import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
 import styles from "./styles/homeMain.module.css";
-// import GeneralActions from "../PartnerHomeComponents/GeneralActions";
 import Sarch from "../Search/Search";
-// import Advertising from "../PartnerHomeComponents/Advertising";
-// import ClientsGraph from "../Graphics/GraphClient";
 import OrderBy from "../OrderBy/OrderBy";
 import HomeAdmin from "./HomeAdmin/HomeAdmin";
 import { HomePartner } from "./HomePartner/HomePartner";
 import GymsForUsersMap from "../MapsAndGeo/GymsForUsers";
-// import { CardShop } from "../../helpers/Cards/Cards.jsx";
-import { getUser } from "../../redux/actions";
+import { getUser, sortByDistance } from "../../redux/actions";
 
 export default function HomeMain() {
   let { userId } = useParams();
@@ -36,15 +31,27 @@ export default function HomeMain() {
 
   const navigate = useNavigate();
 
-   
-  // useEffect(()=>{
-  //   dispatch(getUser(userId))
-
-  // },[userId])
-
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+        function (position) {          
+            let geoPayload = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            }          
+            dispatch(setUserGeo(geoPayload))
+        },
+        function (error) {
+          console.log(error);
+        },
+        {
+          enableHighAccuracy: true,
+        }
+      ); // eslint-disable-next-line
+  }, [])
   
   useEffect(() => {
-    dispatch(getAllGyms());
+    dispatch(getAllGyms());   
+    dispatch(sortByDistance("menor"));    
     dispatch(getUser(userId));
     if (token) {
       dispatch(getUserGoogleForToken(token));

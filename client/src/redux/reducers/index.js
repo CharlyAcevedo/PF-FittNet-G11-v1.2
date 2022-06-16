@@ -1,12 +1,13 @@
 // eslint-disable-next-line
 // import { Action } from "history";
 import { latBA, lngBA } from "../../asets/helpers/goeDefaults";
+import CalcDist from "../../components/MapsAndGeo/controlers/calcDist"
 
 import { 
   GET_ALL_USERS, GET_ALL_PARTNERS, GET_AVATARS, SET_CURRENT_PAGE, SET_PAGE_NUMBER,
   SET_CURRENT_LIMIT, GET_ALL_GYMS, GET_GYM_DETAIL, SET_USER_GEO, POST_USER_GOOGLE,
   GET_USER, POST_AVATAR, GET_USER_TOKEN_GOOGLE, PUT_USER_INFO, ADD_TO_CART, REMOVE_FROM_CART,
-  SORT_BY_NAME, SORT_BY_SCORE, CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE,
+  CLEAR_GYM_DETAIL, GET_ATTRIBUTE_DESEASE, PUT_FAVOURITE,
   CLEAR_CART, GET_CART, GET_ADMIN, GET_LOCK_ACCOUNTS, GET_MARKETING, SORT_QUALIFICATION,
   FILTER_CATEGORY, SORT_PRICE, SEARCH, SORT_DISTANCE, GET_PLANS, GET_PARTNER_ID,
   GET_MY_GYMS, GET_PARTNER, SET_GYMS_GEO, POST_GYM, GET_MY_SALES, GET_ALL_SALES
@@ -262,34 +263,48 @@ export default function rootReducer(state = initialState, { type, payload }) {
       };
     case SORT_DISTANCE:
       const gym = state.gyms;
-      const user = state.user;
-      console.log("Esta aqui en reducer");
-      console.log("esto seria user", user);
-      const dist =
-        (Math.pow(
-          gym.map((e) => Number(e.longitude.$numberDecimal)) -
-          Number(user.longitude.$numberDecimal)
-        ) +
-          Math.pow(
-            gym.map((e) => Number(e.latitude.$numberDecimal)) -
-            Number(user.latitude.$numberDecimal)
-          )) **
-        0.5;
-      console.log("Esto es la distancia de los GYM: ", dist);
-      const newPage6 = dist.slice(payload.offset, payload.limit);
-      if (dist <= 1 && payload === "menor") {
-        return {
+      const geo = state.currentGeo;
+      const gymsDist = gym.map((g) => {
+        let distanceCalc = CalcDist(geo.latitude, geo.longitude, g.latitude.$numberDecimal, g.longitude.$numberDecimal)
+        let newGymD = {
+          _id: g._id,
+          name: g.name,
+          price: g.price,
+          raiting: g.raiting ? g.raiting : 0,
+          image: g.image,
+          logo: g.logo,
+          phone: g.phone,
+          email: g.email,
+          services: g.services,
+          trainers: g.trainers ? g.trainer : [],
+          clients: g.clients ? g.clients : [],
+          latitude: g.latitude,
+          longitude: g.longitude,
+          socialNetworks: g.socialNetworks,
+          gymActive: g.gymActive,
+          favourite: g.favourite,
+          address: g.address,
+          uEnd: g.uEnd,
+          distance: distanceCalc
+        }
+        return newGymD
+      })
+      gymsDist.sort((a, b) => {
+        if (a.distance > b.distance) {
+          return 1;
+        }
+        if (a.distance < b.distance) {
+          return -1;
+        }
+        return 0;
+      })
+      const newPage6 = gymsDist.slice(payload.offset, payload.limit);
+      return {
           ...state,
-          gymsToShow: dist,
+          gymsToShow: gymsDist,
           pageToShow: newPage6,
         };
-      } else {
-        return {
-          ...state,
-          gymsToShow: dist,
-          pageToShow: newPage6,
-        };
-      };
+     
     case FILTER_CATEGORY:
       const category = state.gyms;
       const filtCateg =
@@ -419,7 +434,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         cart: state.cart.map(item =>
           item._id === payload.id
-            ? { ...item, qty: item.qty == 0 ? 0 : item.qty - 1 }
+            ? { ...item, qty: item.qty === 0 ? 0 : item.qty - 1 }
             : item
         )
       };
