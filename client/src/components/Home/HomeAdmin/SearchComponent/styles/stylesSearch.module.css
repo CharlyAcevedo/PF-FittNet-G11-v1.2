@@ -1,0 +1,32 @@
+.containerSearch {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.divListNano {
+    background-color: rgb(65, 65, 65);
+    position: absolute;
+    top: 8.4rem;
+    border-radius: 0 0 .6rem .6rem;
+}
+
+.inputSearch {
+    border: none;
+    width: 400px;
+    padding: .55rem 1rem;
+    border-radius: .6rem;
+    background-color: #181818;
+    color: #fff;
+    outline: none;
+}
+
+.listSearch {
+    color: rgb(209, 209, 209);
+    padding: .2rem 0;
+    font-size: 1.1rem;
+}
+
+.listSearch:hover {
+    background-color: var(--color-primD1);
+}

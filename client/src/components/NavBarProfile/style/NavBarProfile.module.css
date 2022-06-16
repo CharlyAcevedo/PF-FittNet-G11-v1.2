@@ -1,0 +1,99 @@
+.boxNavBarProfile {
+  margin: 0 auto;
+  width: 100%;
+  background: linear-gradient(
+    75deg,
+    #5c5c5c0e 0%,
+    #fffcf510 44%,
+    #f0e8d70e 100%
+  );
+  text-decoration: none;
+  z-index: 10;
+}
+
+a{
+    text-decoration: none;
+    color: #acacac;
+}
+
+.navBarProfile {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  color: #fff;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.titleNavBar {
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+}
+
+.titleNavBar h3 {
+  font-size: 1.3rem;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  animation: text 5s linear infinite;
+}
+
+.logoutNavBarProfile {
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: .55rem;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.logoutNavBarProfile:hover {
+    color: var(--color-primD1);
+}
+
+
+.boxListaNavBarProfile {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.boxListaNavBarProfile a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #fff;
+  position: relative;
+}
+
+.boxListaNavBarProfile a::before,
+.boxListaNavBarProfile a::after {
+  content: "";
+  border-bottom: 2px solid var(--color-primD1);
+  position: absolute;
+  transition: .5s;
+  opacity: 0;
+}
+
+.boxListaNavBarProfile a::before {
+  bottom: -4px;
+  width: 70%;
+  right: 0;
+}
+
+.boxListaNavBarProfile a::after {
+  bottom: -10px;
+  width: 40%;
+  left: 0;
+}
+
+.boxListaNavBarProfile a:hover::before {
+  width: 90%;
+  opacity: 1;
+}
+
+.boxListaNavBarProfile a:hover::after {
+  width: 60%;
+  opacity: 1;
+}

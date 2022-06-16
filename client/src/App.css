@@ -1,4 +1,64 @@
-.App {
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,500;0,700;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800&display=swap");
+
+:root {
+  --main-color: #fb6d10;
+  --color--logo: #f5978c;
+  --dark-color: #191919;
+  --light-color: #fff;
+
+  --color-backgotund:#212121;
+
+  --color-prim: #ff004c;
+  --color-primD1: #ff2767;
+  --color-primD2: #f74177;
+  --color-primD3: #fe5889;
+  --color-primD4: #ff83a8;
+
+  --color-sec: #b31e43;
+  --color-secD1: #d1496b;
+  --color-secD2: #ff7a9b;
+  --color-secD3: #ffaabf;
+
+  --color-cua: #666680;
+  --color-cuaD1: #57576f;
+  --color-cuaD2: #8a8ab1;
+  --color-cuaD3: #8a8ab1;
+
+  --color-qui: #fb6d10;
+  --color-quiD1: #ff893b;
+  --color-quiD2: #ff9550;
+  --color-quiD3: #ffaa72;
+  --color-quiD4: #ffbb8f;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+/* html {
+  scroll-behavior: smooth;
+} */
+
+body {
+  /* font-family: "Poppins", sans-serif; */
+  background: rgb(37, 38, 39);
+  /* background: linear-gradient(
+    45deg,
+    rgba(37, 38, 39, 1) 26%,
+    rgba(24, 25, 27, 1) 62%,
+    rgba(2, 2, 3, 1) 87%
+  ); */
+  background: var(--color-backgotund);
+}
+
+App {
   text-align: center;
 }
 
@@ -35,4 +95,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
 }

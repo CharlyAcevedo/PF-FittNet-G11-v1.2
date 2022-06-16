@@ -1,0 +1,22 @@
+.mainBoxCards2 {
+  height: auto;
+  width: 100%;
+}
+
+.boxCards2 {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.tableUser {
+  width: 90%;
+  margin: 1rem auto;
+  color: #fff;
+  letter-spacing: 1.5px;
+}
+
+.headerTableUser {
+    background-color: var(--color-primD1);
+}
+
+

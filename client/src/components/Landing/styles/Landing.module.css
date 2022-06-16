@@ -1,0 +1,465 @@
+.contPrim {
+  height: 70vh;
+  width: 100%;
+  display: flex;
+  background-image: url("../../../asets/images/Langing/wallpaperbetter\ \(1\).jpg");
+  background-size: cover;
+  padding: 0px;
+}
+
+.contElempadre {
+  height: 70%;
+  width: 47%;
+  position: absolute;
+  padding: 1px 1px 1px 1px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+.contElem {
+  height: 70%;
+  width: 100%;
+  position: absolute;
+  position: absolute;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.contText {
+  position: absolute;
+  z-index: 1;
+  -webkit-clip-path: inset(0 0 0 0);
+  clip-path: inset(0 0 0 0);
+  position: absolute;
+  color: #fff7f5;
+  font-style: italic;
+  font-size: x-large;
+  padding: 15px;
+  animation: upercase 1.5s forwards 0.1s;
+}
+.contText h1 {
+  font-size: 20px;
+  font-weight: 700;
+  background: #fff;
+  padding: 15px 10px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  background: var(--color-primD1);
+  backdrop-filter: blur(5px);
+}
+.contlin {
+  height: 100%;
+  width: 100%;
+  /* background: rgba(255,255,255,0.2); */
+  /* backdrop-filter: blur(5px); */
+  border: 3px solid rgb(255, 255, 255);
+}
+
+.btn {
+  border-radius: 10px;
+  border-style: none;
+  background-color: var(--color-primD3);
+  margin-top: 30px;
+  padding: 12px 40px 12px 40px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #ffffff;
+  box-shadow: 0 0 5px rgb(255, 255, 255);
+}
+
+.btn:hover {
+  background-color: rgb(19, 15, 15);
+  color: #ffffff;
+  transition-delay: 0.2s;
+  transition: 0.8s;
+  box-shadow: 0 0 5px rgb(255, 255, 255);
+}
+.screenBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  -webkit-clip-path: inset(0 0 0 0);
+  clip-path: inset(0 0 0 0);
+}
+
+.shapeButtom1 {
+  transform: rotate(12deg);
+  position: absolute;
+  height: 70%;
+  width: 20%;
+  background: var(--light-color);
+  top: 46.5%;
+  right: 13%;
+  border-radius: 0px;
+  box-shadow: 0 0 5px rgb(255, 255, 255);
+  animation: slideInButtom 1s forwards 0.1s;
+}
+
+.shapeTop1 {
+  transform: rotate(-12deg);
+  position: absolute;
+  height: 70%;
+  width: 20%;
+  background: var(--light-color);
+  top: -16.5%;
+  right: 13%;
+  border-radius: 0px;
+  box-shadow: 0 0 5px rgb(255, 255, 255);
+  animation: slideInTop 1s forwards 0.1s;
+}
+.shapeButtom2 {
+  transform: rotate(12deg);
+  position: absolute;
+  height: 70%;
+  width: 20%;
+  background: var(--light-color);
+  top: 46.5%;
+  right: 55%;
+  border-radius: 0px;
+  box-shadow: 0 0 5px rgb(255, 255, 255);
+  animation: slideInButtom 1.5s forwards 0.1s;
+}
+
+.shapeTop2 {
+  transform: rotate(-12deg);
+  position: absolute;
+  height: 70%;
+  width: 20%;
+  background: var(--light-color);
+  top: -16.5%;
+  right: 55%;
+  border-radius: 0px;
+  box-shadow: 0 0 5px rgb(255, 255, 255);
+  animation: slideInTop 1.5s forwards 0.1s;
+}
+
+.shapeButtom4 {
+  transform: rotate(12deg);
+  position: absolute;
+  height: 70%;
+  width: 20%;
+  background: var(--light-color);
+  top: 46.5%;
+  right: 97%;
+  border-radius: 0px;
+  box-shadow: 0 0 5px rgb(255, 255, 255);
+  animation: slideInButtom 1.5s forwards 0.1s;
+}
+
+.shapeTop4 {
+  transform: rotate(-12deg);
+  position: absolute;
+  height: 70%;
+  width: 20%;
+  background: var(--light-color);
+  top: -16.5%;
+  right: 97%;
+  border-radius: 0px;
+  box-shadow: 0 0 5px rgb(255, 255, 255);
+  animation: slideInTop 1.5s forwards 0.1s;
+}
+
+.ingresarRegistrarse {
+  display: flex;
+  justify-content: flex-end;
+  background: #f5978c;
+  background: linear-gradient(
+    160deg,
+    #f5978c 47%,
+    rgb(72, 48, 66) 30%,
+    rgba(72, 48, 66, 1) 14%
+  );
+  height: 300px;
+  margin-top: 5%;
+}
+.ingresar {
+  position: absolute;
+  text-decoration: none;
+  border: 2.5px solid #fb6d10;
+  border-radius: 10px;
+  color: #683042;
+  font-weight: 700;
+  font-style: italic;
+  font-size: larger;
+  padding: 0px 2px 0px 2px;
+  margin: 4% 30% 0px 4px;
+  background-color: #f5978c;
+  cursor: pointer;
+}
+.registrarse {
+  position: absolute;
+  text-decoration: none;
+  border: 2.5px solid #fb6d10;
+  border-radius: 10px;
+  color: #683042;
+  font-weight: 700;
+  font-style: italic;
+  font-size: larger;
+  padding: 0px 2px 0px 2px;
+  margin: 4% 10% 0px 4px;
+  background-color: #f5978c;
+  cursor: pointer;
+}
+.imageStrong {
+  margin: 20px 47% 20px 0px;
+  border-radius: 20px;
+}
+.parrafo1Landing {
+  position: absolute;
+  color: #fff7f5;
+  font-style: italic;
+  font-weight: 900;
+  font-size: x-large;
+  margin: 11% 2% 0px 50%;
+}
+.promos {
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 0.5%;
+  border: 2.5px solid #fb6d10;
+  border-radius: 19px;
+  color: #683042;
+  font-style: italic;
+  font-weight: 700;
+  font-size: x-large;
+  cursor: pointer;
+}
+.promoDiv {
+  margin: 7% 0% 7% 0;
+}
+
+.containerBtnPromos {
+  width: 20%;
+  margin: 0 auto;
+}
+
+@media (max-width: 1600px) {
+  .containerBtnPromos {
+    width: 26%;
+  }
+}
+
+@media (max-width: 1500px) {
+  .containerBtnPromos {
+    width: 28%;
+  }
+}
+
+@media (max-width: 1400px) {
+  .containerBtnPromos {
+    width: 30%;
+  }
+}
+
+@media (max-width: 1300px) {
+  .containerBtnPromos {
+    width: 35%;
+  }
+}
+
+/* Bloque info gnral */
+.contDat {
+  width: 100%;
+  /* height: 30vh; */
+  /* background-color: red; */
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  padding: 0px 0px 100px 0px;
+  /* padding-top: 100px; */
+  justify-content: space-around;
+}
+/* Bloque de Cards de planes partner */
+.contPlanPartner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  padding: 50px 20px;
+}
+
+.mujerHombre {
+  max-width: 100%;
+}
+.tituloEmpeza {
+  position: absolute;
+  font-size: 50px;
+  font-style: italic;
+  font-weight: 800;
+  color: #fff5fc;
+  margin: 1% 30% 0 25%;
+}
+.footerEmpeza {
+  position: absolute;
+  padding: 40% 25% 0 25%;
+  color: #fff7f5;
+  font-size: x-large;
+  font-style: italic;
+}
+.empezaAqui {
+  position: absolute;
+  text-decoration: none;
+  margin: 49% 0 0 41%;
+  padding: 0.5%;
+  font-size: x-large;
+  font-style: italic;
+  font-weight: 800;
+  border: 3px solid white;
+  border-radius: 20px;
+  background-color: white;
+  color: black;
+}
+.uniteGyms {
+  max-width: 100%;
+}
+.tituloUnite {
+  position: absolute;
+  font-size: 50px;
+  font-style: italic;
+  font-weight: 800;
+  color: #fff7f5;
+  margin: 1% 30% 0 25%;
+}
+.footerUnite {
+  position: absolute;
+  padding: 40% 25% 0 25%;
+  color: #fff7f5;
+  font-size: x-large;
+  font-style: italic;
+}
+.uniteAqui {
+  position: absolute;
+  text-decoration: none;
+  margin: 49% 0 0 41%;
+  padding: 0.5%;
+  font-size: x-large;
+  font-style: italic;
+  font-weight: 800;
+  border: 3px solid white;
+  border-radius: 20px;
+  background-color: white;
+  color: black;
+}
+
+.promosUsuarios {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* AQUI ESTAN LOS ESTILOS DE LA CARD DE BALANCE CARE */
+.promoBalance {
+  border: 2px solid #ff004c;
+  border-radius: 15px;
+  box-shadow: 0 0 15px #ff004c;
+  transform: translate3d(-5%, -5%, 0);
+  padding: 2% 5% 2% 5%;
+  color: #fff;
+  margin: 4% 0% 4% 11%;
+}
+
+.balanceLista {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.balanceLista li {
+  list-style: none;
+}
+
+.balanceLista li span {
+  color: #ff004c;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  margin-right: 1rem;
+}
+
+/* AQUI ESTAN LOS ESTILOS DE LA CARD DE PRO BULK */
+.promoBulk {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.733);
+  transform: translate3d(-5%, -5%, 0);
+  border-radius: 15px;
+  padding: 2.5% 5% 0 5%;
+  color: #fff;
+  margin: 4% 11% 4% 4%;
+}
+
+.bulkLista {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.bulkLista li {
+  list-style: none;
+}
+
+.bulkLista li span {
+  color: #fff;
+  font-size: 1.3rem;
+  margin-right: 1rem;
+}
+
+@keyframes slideInTop {
+  0% {
+    transform: translateX(-500px);
+  }
+  100% {
+    transform: translateX(0px);
+    transform: rotate(-12deg);
+  }
+}
+
+@keyframes slideInButtom {
+  0% {
+    transform: translateX(-500px);
+  }
+  100% {
+    transform: translateX(0px);
+    transform: rotate(12deg);
+  }
+}
+@keyframes upercase {
+  0% {
+    transform: scale(0.0001);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.hero {
+  background-color: #fff;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://res.cloudinary.com/salta/image/upload/v1654129995/Gym-fondo-bn_f57ywe.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: grayscale(10%);
+}
+
+.texto {
+  width: 100%;
+  color: #ac5c5c2d;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 300px;
+  font-weight: 900;
+  background-image: url("https://res.cloudinary.com/salta/image/upload/v1654014806/man-1920_vcrlef.jpg");
+  background-size: cover;
+  background-position-y: center;
+  background-clip: text;
+}

@@ -1,0 +1,95 @@
+h1 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  padding-bottom: 30px;
+  padding-top: 20px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-weight: 500;
+  color:  var(--color-primD1);
+}
+
+.pricingcard {
+  display: flex;
+  margin: 30px 0px;
+}
+
+.cardleft {
+  text-align: center;
+  background:#fff;
+  color:  var(--color-primD1);
+  width: 30%;
+  padding:20px;
+  border-radius: 15px 0 0 15px;
+}
+
+.cardleft h1 {
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  font-size: 24px;
+}
+
+.cardleft p {
+  font-size: 60px;
+}
+
+.dollar {
+  font-size: 24px;
+  position: relative;
+  top: -26px;
+}
+
+.cardright {
+  text-align: left;
+  background: #191919;
+  width: 70%;
+  color: #dc2430;
+  border-radius: 0 15px 15px 0;
+  padding: 10px;
+}
+
+.plan {
+  background-color: var(--light-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.plan ul {
+  list-style: none;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.plan ul li {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 6px;
+  font-weight: 650;
+}
+
+.plan ul li:not(:last-child) {
+  border-bottom: 1px solid var(--color-primD1);
+}
+
+.button {
+  text-decoration: none;
+  color: #fff;
+  background: #dc2430;
+  padding: 20px 80px;
+  border-radius: 100px;
+  transition: all 500ms ease;
+}
+
+.button:hover {
+  background: #7b4397;
+}

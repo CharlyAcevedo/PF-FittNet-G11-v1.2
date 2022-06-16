@@ -1,0 +1,46 @@
+.container {
+  /* background-color: rgba(250, 235, 215, 0.456); */
+}
+.contTitle {
+  background-color:#191919;
+  color: #fff;
+  margin: 25px 50px;
+  padding: 20px;
+  font-weight: 600;
+  font-size: 30px;
+  border-radius: 15px;
+}
+
+.contInfo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.legend {
+  text-align: center;
+  width: 80%;
+  margin: 1.5rem auto;
+  
+}
+.legend h3 {
+  color: rgb(218, 218, 218);
+  padding: 2rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.card {
+  margin-top: 1rem;
+}
+.containerPack {
+  /* background-color: rgb(178, 178, 178); */
+}
+
+.sliderCard {
+  margin-top: 1rem;
+}
+

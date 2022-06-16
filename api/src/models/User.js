@@ -1,30 +1,25 @@
 const mongoose = require('mongoose');
-let regWord = /^[a-zA-Z0-9]{5}[a-zA-Z0-9]*\s*\w*/;
-let regMail = /^[A-Z0-9a-z._%+-]{2}+@[A-Za-z0-9.-]{2}[A-Za-z0-9.-]*+\\.[A-Za-z]{2,64}/;
+const mongoDB = require('mongodb');
+const { regEmail, regWord } = require('../controlers/regExes')
+
 
 const userSchema = new mongoose.Schema({
-    name: {
+    name:{
         type: String,
         required: true,
-    },
-    lastName: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-        required: true,
-        lowercase: true,
         validate: {
             validator: v => regWord.test(v),
-            message: props => `${props.value} is not a valid email address`
+            message: props => `${props.value} is not a valid Name`
         }
     },
     userName: {
         type: String,
         required: true,
+        lowercase: true,
+        trim: true,
+        unique: true,
         validate: {
-            validator: v => regWord.test(v),
+            validator: v => regEmail.test(v),
             message: props => `${props.value} is not a valid User Name`
         }
     },
@@ -32,26 +27,41 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    phone: {
-        type: String,
+    latitude: {
+        type: mongoDB.Decimal128,        
     },
-    birthday: {
-        type: Date,
-    },
-    gender: {
-        type: String,
-    },
-    photo: {
-        type: String,
+    longitude: {
+        type: mongoDB.Decimal128,
     },
     active: {
         type: Boolean,
+        required: true,
+       
     },
-    address: {
+    secretToken: {
+        type: String,
+        required: false,
+    },      
+    type: {
+        type: String,
+        required: true,
+    },
+    avatar: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: "Address"
+        ref: "Avatar",
     },
-
+    info: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "InfoUser"
+    },
+    partner: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Partner"
+    },
+    favourite: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "gyms"
+    },
     createdAt: {
         type: Date,
         required: true,
@@ -63,7 +73,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         default: () => Date.now(),
     },
-
 })
 
 module.exports = mongoose.model('Users', userSchema)

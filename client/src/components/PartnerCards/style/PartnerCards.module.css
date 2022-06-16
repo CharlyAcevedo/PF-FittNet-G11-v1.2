@@ -1,0 +1,28 @@
+.mainBoxCards2 {
+    margin-top: 0rem;
+    /* border: 2px solid #FEAA09; */
+    height: auto;
+    width: 100%;
+
+}
+
+.boxCards2 {
+    /* border: 2px solid #096bfe; */
+    width: 80%;
+    margin: 0 auto;
+    /* background-color: red; */
+    /* height: auto; */
+    /* padding-bottom: 60px; */
+    /* padding-top: 20px; */
+}
+
+.tableCards2 {
+    width: 90%;
+    margin: 1rem auto;
+    color: #fff;
+    letter-spacing: 1.5px;
+}
+
+.headCards2 {
+    background-color: var(--color-primD1)
+}
