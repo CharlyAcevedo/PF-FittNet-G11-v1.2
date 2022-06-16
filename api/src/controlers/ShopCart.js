@@ -15,7 +15,6 @@ const getShopCart = async (req, res) => {
 
             { $lookup: { from: 'services', localField: 'services', foreignField: '_id', as: 'services' } },
             { $unwind: { path: '$services', preserveNullAndEmptyArrays: true } },
-<<<<<<< HEAD
             { $project: { _id: 1, user: 1, gyms: 1, services: 1, status: 1, quantity: 1, price: 1, total: 1 } }])
 
         res.send(response)
