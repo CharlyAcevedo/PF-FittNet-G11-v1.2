@@ -363,7 +363,7 @@ export default function DetailProfileUser() {
             <div
               style={{
                 width: "95%",
-                height: "220px",
+                /* height: "220px", */
                 backgroundColor: "#181818",
                 borderRadius: ".6rem",
                 margin: "1.2rem auto",
