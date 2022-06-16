@@ -2,8 +2,8 @@ import React from "react";
 import style from "./styles/styleCard.module.css";
 export default function CardServices(props) {
   const { img, name, unidad, price, title } = props;
-  const imgeFond = [];
-  if (name && !img) imgeFond = name[0];
+  // const imgeFond = [];
+  // if (name && !img) imgeFond = name[0];
 
   if (title == "true") {
     return (
