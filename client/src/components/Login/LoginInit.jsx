@@ -148,7 +148,9 @@ export default function LoginInit() {
         })
         .catch((error) => console.log(error));
 
-      if (login?.login) {
+        console.log(login, "ESTE ES EL QUE ANDO BUSCANDO")
+
+      if (login.login) {
         console.log(login, " lo que responde el back si se autentica el user");
 
         let { userId, name, type, avatar, active, latitude, longitude } = login;
