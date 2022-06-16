@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserGeo } from "../../redux/actions/index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles/AllRegister.module.css";
-import { regexEmail, regexName } from "../../asets/helpers/regexValidators"
+import { regexEmail, regexName } from "../../asets/helpers/regexValidators";
 
 import {
   BackgroundTwo,
   BackgroundOne,
 } from "../../helpers/Backround/Background";
-import { SweetAlrt, SweetAlrt2, SweetAlrtTem } from "../../asets/helpers/sweetalert";
+import {
+  SweetAlrt,
+  SweetAlrt2,
+  SweetAlrtTem,
+} from "../../asets/helpers/sweetalert";
 
 export default function AllRegister() {
   const dispatch = useDispatch();
   const geolocation = useSelector(
     (state) => state.currentUserDetails.currentGeo
   );
+
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,8 +44,12 @@ export default function AllRegister() {
         };
         dispatch(setUserGeo(payload));
         setGeoloc({
-          lat: position.coords.latitude ? position.coords.latitude : geolocation.latitude,
-          lng: position.coords.longitude ? position.coords.longitude : geolocation.longitude,
+          lat: position.coords.latitude
+            ? position.coords.latitude
+            : geolocation.latitude,
+          lng: position.coords.longitude
+            ? position.coords.longitude
+            : geolocation.longitude,
         });
       },
       function (error) {
@@ -73,7 +83,7 @@ export default function AllRegister() {
         type: type,
       };
 
-      SweetAlrt("Estamos procesando su solicitud!")
+      SweetAlrt("Estamos procesando su solicitud!");
       console.log("está saliendo el post ", userCreate);
 
       axios
@@ -88,8 +98,7 @@ export default function AllRegister() {
             setError("");
             setEmail("");
             SweetAlrt("Exito!", res.data.message, "success");
-            // window.alert(res.data.message);
-            return (window.location = "http://localhost:3000/login");
+            navigate('/login');
           }
           if (res.data.created === false) {
             // window.alert(res.data.message);
@@ -99,14 +108,14 @@ export default function AllRegister() {
             setError("");
             setEmail("");
           }
-          if (typeof res.data === 'string') {
+          if (typeof res.data === "string") {
             SweetAlrt(res.data);
           }
         })
         .catch((error) => console.log(error));
     }
     if (!name || !email || !password || !type) {
-      SweetAlrtTem("Por favor complete todos los campos","warning")
+      SweetAlrtTem("Por favor complete todos los campos", "warning");
       // window.alert('Por favor complete todos los campos')
     }
   }
