@@ -156,8 +156,7 @@ export const CardShop = (props) => {
         "no se pudo agregar a favorito por que aun no estas registrado"
       );
     }
-  };
-  console.log(imagen);
+  };  
 
   return (
     <div className={styles.cardShop}>
