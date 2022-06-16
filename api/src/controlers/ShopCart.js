@@ -17,9 +17,7 @@ const getShopCart = async (req, res) => {
             { $unwind: { path: '$services', preserveNullAndEmptyArrays: true } },
 <<<<<<< HEAD
             { $project: { _id: 1, user: 1, gyms: 1, services: 1, status: 1, quantity: 1, price: 1, total: 1 } }])
-=======
-            { $project: { _id: 1, user: 1, gyms: 1, services: 1, status: 1, quantity:1, price:1, total:1 } }])
->>>>>>> 029fee0e50928eccfe241e9e3fc623dc324a2e83
+
         res.send(response)
     } catch (error) {
         console.log(error.message)
