@@ -67,8 +67,7 @@ export function NavBar3({ id, usuarioId, button, background, color, align }) {
             <CardServices
               title="false"
               key={e._id}
-
-              img={e.photo[0]}
+              img={e.photo}
               name={e.name}
               unidad={e.qty}
               price={e.price.$numberDecimal}
