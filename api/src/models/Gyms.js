@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const mongoDB = require('mongodb')
+const mongoDB = require("mongodb");
 
 const gymSchema = new mongoose.Schema({
   name: {
@@ -11,18 +11,18 @@ const gymSchema = new mongoose.Schema({
   },
   raiting: {
     type: Number,
-    enum: [1,2,3,4,5]
+    enum: [1, 2, 3, 4, 5],
   },
   image: {
     type: Array,
     of: String,
   },
   latitude: {
-      type: mongoDB.Decimal128,        
+    type: mongoDB.Decimal128,
   },
   longitude: {
-      type: mongoDB.Decimal128,
-  },  
+    type: mongoDB.Decimal128,
+  },
   address: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Address",
@@ -46,7 +46,7 @@ const gymSchema = new mongoose.Schema({
     required: true,
   },
   email: {
-    type: String,   
+    type: String,
   },
   uEnd: {
     type: Array,
@@ -58,8 +58,9 @@ const gymSchema = new mongoose.Schema({
     of: mongoose.SchemaTypes.ObjectId,
     ref: "SocialMedia",
   },
+  
   gymActive: {
-    type: Boolean,   
+    type: Boolean,
     default: true,
   },
   favourite: {
@@ -67,8 +68,8 @@ const gymSchema = new mongoose.Schema({
   },
   clients: {
     type: Array,
-    of: String,    
-  }
+    of: String,
+  },
 });
 
 module.exports = mongoose.model("Gyms", gymSchema);

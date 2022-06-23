@@ -162,6 +162,10 @@
   border-radius: 32px;
 }
 
+
+
+
+
 .shape4 {
   animation: slideUp 1s forwards 0.1s;
   transform: rotate(45deg);
@@ -173,6 +177,7 @@
   right: 19px;
   border-radius: 60px;
 }
+
 
 @keyframes slideUp {
   0% {
