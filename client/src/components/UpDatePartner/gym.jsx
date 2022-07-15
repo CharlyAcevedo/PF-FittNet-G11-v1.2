@@ -23,7 +23,7 @@ export default function UpdateGym(props) {
 
   const gymGeo = useSelector((state) => state.gymsGeo);
 
-  const userInfo = useSelector((state) => state.user);
+  const userInfo = useSelector((state) => state.partnerDetails);
   let userPlan = userInfo.planType ? userInfo.planType : false;
 
   console.log(userPlan, " el plan del partner"); // false si no tiene plan
@@ -193,6 +193,8 @@ export default function UpdateGym(props) {
     // userPlan es un string o un objeto -> false || { } ||
     // Si es objeto trae info del plan y la cantidad de gyms
     // parnerGys -> Es un arreglo de objetos (un objeto por cada gym)
+    console.log(userPlan, partnerGyms, 'plan del user y cantidad de gyms')
+
     let planType;
     let maxGyms;
     if (userPlan === false) {
