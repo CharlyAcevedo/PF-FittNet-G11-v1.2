@@ -5,10 +5,6 @@ import {
   setPageNumber,
   setCurrentLimit,
 } from "../../redux/actions/index";
-import leftArrows from "../../asets/icons/leftArrows.svg";
-import rightArrows from "../../asets/icons/rightArrows.svg";
-import firstPage from "../../asets/icons/firstPage.svg";
-import lastPage from "../../asets/icons/lastPage.svg";
 import style from "./styles/paginated.module.css";
 
 export default function Paginated() {

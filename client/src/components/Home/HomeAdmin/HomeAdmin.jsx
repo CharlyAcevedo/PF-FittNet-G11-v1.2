@@ -2,8 +2,6 @@ import React from "react";
 import Finances from "./ViewsAdmin/Finances";
 import Partners from "./ViewsAdmin/Partners";
 import Users from "./ViewsAdmin/Users";
-import ViewPartner from "./ViewsAdmin/ViewPartner";
-import ViewUsers from "./ViewsAdmin/ViewUser";
 import DeteleteAccount from "./ViewsAdmin/DeleteAccount";
 import BlockAccount from "./ViewsAdmin/BlockAccount";
 import SearchComponent from "./SearchComponent/SearchComponent";

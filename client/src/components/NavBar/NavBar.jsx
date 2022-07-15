@@ -5,18 +5,11 @@ import {
   ButtonSecondarySimple,
 } from "../../helpers/Buttons/Buttons.jsx";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 export default function NavBar() {
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.user);
-
-  const token = localStorage.getItem("token");
-
   const name = localStorage.getItem("name");
-
-  const type = localStorage.getItem("type");
 
   const idUser = localStorage.getItem("userId");
 

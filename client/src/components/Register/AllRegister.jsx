@@ -12,7 +12,6 @@ import {
 } from "../../helpers/Backround/Background";
 import {
   SweetAlrt,
-  SweetAlrt2,
   SweetAlrtTem,
 } from "../../asets/helpers/sweetalert";
 

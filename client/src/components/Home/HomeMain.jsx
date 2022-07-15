@@ -1,14 +1,9 @@
-import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-// import Logout from "../Logout/Logout";
+import { useNavigate, useParams } from "react-router-dom";
 import SelecAvatar from "../SelectAvatar/SelectAvatar";
 import GymCards from "../GymCards/GymCards";
-// import UserCards from "../UserCards/UserCards";
-// import PartnerCards from "../PartnerCards/PartnerCards";
 import { getAllGyms, getUserGoogleForToken, setUserGeo } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import Paginated from "../paginated/paginated";
 import { ButtonBack } from "../../helpers/Buttons/Buttons.jsx";
 import styles from "./styles/homeMain.module.css";
 import Sarch from "../Search/Search";
@@ -60,28 +55,13 @@ export default function HomeMain() {
   
   const partnerDetail = useSelector((state)=> state.partnerDetails);
   partnerDetail && localStorage.setItem("partnerDetail", partnerDetail);
-
-  // console.log(avatarLS)
   
   //! Esto es una vista para un usuario sin avatar
   if (type === "user" && !avatarLS) {
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          paddingTop: "1rem",
-          paddingBottom: "1rem",
-        }}
-      >
+      <div className={styles.styleContWithOutAvatar}>
         <SelecAvatar />
-        <div
-          style={{
-            display: "grid",
-            alignItems: "center",
-          }}
-        >
+        <div style={{ display: "grid", alignItems: "center" }} >
           <ButtonBack
             title="Volver"
             padding=".5rem 2rem"
@@ -97,38 +77,14 @@ export default function HomeMain() {
     return (
       <div className={styles.cont}>
         <GymsForUsersMap />
-        <div
-          style={{
-            width: "90%",
-            margin: "0 auto",
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+        <div className={styles.styleContWithAvatar}>
           <Sarch />
           <OrderBy />
         </div>
         <GymCards />
-        {/* <Paginated /> */}
       </div>
     );
   }
-
-  // if (type === "user" && avatarLS) {
-  //   return (
-  //     <div className={styles.cont}>
-  //       <GymsForUsersMap />
-  //       <div>
-  //         <Sarch />
-  //         <OrderBy />
-  //       </div>
-  //       <GymCards />
-  //       <Paginated />
-  //     </div>
-  //   );
-  // }
 
   //! Esto es una para cliente empresa
   if (type === "partner") {
@@ -136,29 +92,15 @@ export default function HomeMain() {
     return (
       <div>
         <HomePartner />
-        {/* {console.log("entro a la ventana del partner")} */}
-        {/* <div className={styles.advertising}>
-          <Advertising/>
-        </div>
-        <div className={styles.generalActions}>
-          <GeneralActions/>
-        </div>
-        <div className={styles.infoClients}>
-          <ClientsGraph />
-        </div>
-        <div className={styles.infoFinantial}>
-          <IncomesGraph/>
-        </div> */}
       </div>
     );
   }
 
-  // Esto es una para un administrador de sitio
+  //! Esto es una para un administrador de sitio
   if (type === "admin") {
     return (
       <div>
         <HomeAdmin />
-        {/* <PartnerCards /><UserCards /><IncomesGraph /> */}
       </div>
     );
   }
