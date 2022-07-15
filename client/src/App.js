@@ -31,6 +31,7 @@ import StripeCart from "./components/StripeCart/StripeCart";
 
 const MainLayoutLanding = () => {
   return (
+    //? Incluir modo dark/light
     <div>
       <NavBar />
       <Outlet />
