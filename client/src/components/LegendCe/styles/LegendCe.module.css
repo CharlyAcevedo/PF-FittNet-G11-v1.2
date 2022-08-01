@@ -1,5 +1,6 @@
 .container {
-  /* background-color: rgba(250, 235, 215, 0.456); */
+  position: absolute;
+  margin-top: 6rem;
 }
 .contTitle {
   background-color:#191919;

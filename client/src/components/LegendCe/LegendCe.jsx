@@ -1,4 +1,3 @@
-import React from "react";
 import style from "./styles/LegendCe.module.css";
 import Slider from "../Slider/Slider";
 import CardPlans from "../CardPlans/CardPlans";

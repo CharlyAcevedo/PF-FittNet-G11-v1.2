@@ -8,6 +8,7 @@ import {
 import style from "./styles/paginated.module.css";
 
 export default function Paginated() {
+
   const dispatch = useDispatch();
 
   const defaultRecipesXPage = useSelector((state) => state.currentLimit);
@@ -22,15 +23,6 @@ export default function Paginated() {
   const limit = currentPage * recipesXPage;
   const offset = limit - recipesXPage;
 
-  // useEffect(() => {
-  //   const payload = {
-  //     currentPage: currentPage,
-  //     offset: offset,
-  //     limit: limit,
-  //   };
-  //   dispatch(setCurrentPage(payload)); // eslint-disable-next-line
-  // }, []);
-
   useEffect(() => {
     const payload = {
       currentPage: currentPage,
@@ -39,8 +31,6 @@ export default function Paginated() {
     };
     dispatch(setCurrentPage(payload));
   }, [dispatch, offset, limit, currentPage]);
-
-  console.log(recipesXPage);
 
   const defaultButtonsPerPage = 6;
   const halfPages = Math.ceil(defaultButtonsPerPage / 2);
@@ -100,20 +90,6 @@ export default function Paginated() {
       dispatch(setPageNumber(currentPage - 1));
     }
   };
-
-  // const handlelastPage = () => {
-  //   if (currentPage === totalPages) return;
-  //   dispatch(setPageNumber(totalPages));
-  // };
-
-  // const handleFirstPage = () => {
-  //   if (currentPage === 1) return;
-  //   dispatch(setPageNumber(1));
-  // };
-
-  console.log("este es mi current page", currentPage);
-
-  console.log("estos son mis items por pagina", recipesXPage);
 
   function handlePageSelect(e) {
     e.preventDefault();
