@@ -1,7 +1,4 @@
-import React, { useRef, useEffect } from "react";
 import style from "../Slider/styles/Slider.module.css";
-import benefits from "../../asets/images/benefits.jpg";
-import benefits1 from "../../asets/images/benefits(1).jpg";
 
 export default function Slider() {
   return (

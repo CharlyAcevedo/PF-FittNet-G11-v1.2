@@ -7,7 +7,6 @@ import {
   BackgroundOne,
   BackgroundTwo,
 } from "../../helpers/Backround/Background";
-import { InputPrymary, InputSecond } from "../../helpers/Inputs/Inputs";
 import check from "../../asets/icons/check-circle.svg";
 
 export default function Activation() {

@@ -32,7 +32,7 @@ export default function CardPlans() {
 
       <div className={style.pricingcard}>
         <div className={style.cardleft}>
-          <h1>Premiun</h1>
+          <h1>Premium</h1>
           <p>
             <span className={style.dollar}>$</span>4000
           </p>
@@ -77,59 +77,4 @@ export default function CardPlans() {
       </div>
     </div>
   );
-}
-{
-  /* <div className={style.containCp}>
-  <div className={style.containEx}>
-    <h2>Estandar</h2>
-    <ul className={style.listStandar}>
-      <li>
-        Tu anuncio tendrá un alcance del 20% en busquedas de usuarios!
-      </li>
-      <li>Podras gestionar tus cupos, horarios y perfil!</li>
-      <li>Contaras con un panel de control e historial de ventas!</li>
-      <li>Otorgarás visibilidad a tus casos de exito!</li>
-    </ul>
-    {plansPrice.map((a) => (
-      <h4 key={a} >Costo mensual: {a.planStandar}</h4>
-    ))}
-    {plansPorcentage.map((a) => (
-      <h4 key={a}>Comision sobre venta de servicio: {a.planStandar} </h4>
-    ))}
-  </div>
-  <div className={style.containEx}>
-    <h2>Premium</h2>
-    <ul className={style.listStandar}>
-      <li>
-        Tu anuncio tendrá un alcance del 30% en busquedas de usuarios!
-      </li>
-      <li>Podras gestionar tus cupos, horarios y perfil!</li>
-      <li>Contaras con un panel de control e historial de ventas!</li>
-      <li>Otorgarás visibilidad a tus casos de exito!</li>
-    </ul>
-    {plansPrice.map((a) => (
-      <h4 key={a}>Costo mensual: {a.planPremiun}</h4>
-    ))}
-    {plansPorcentage.map((a) => (
-      <h4 key={a}>Comision sobre venta de servicio: {a.planPremiun} </h4>
-    ))}
-  </div>
-  <div className={style.containEx}>
-    <h2>Golden</h2>
-    <ul className={style.listStandar}>
-      <li>
-        Tu anuncio tendrá un alcance del 50% en busquedas de usuarios!
-      </li>
-      <li>Podras gestionar tus cupos, horarios y perfil!</li>
-      <li>Contaras con un panel de control e historial de ventas!</li>
-      <li>Otorgarás visibilidad a tus casos de exito!</li>
-    </ul>
-    {plansPrice.map((a) => (
-      <h4 key={a}>Costo mensual: {a.planGolden}</h4>
-    ))}
-    {plansPorcentage.map((a) => (
-      <h4 key={a}>Comision sobre venta de servicio: {a.planGolden} </h4>
-    ))}
-  </div>
-</div> */
 }

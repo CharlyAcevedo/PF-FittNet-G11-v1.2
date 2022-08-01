@@ -1,13 +1,8 @@
-import React, { useMemo, useEffect, useState, useRef } from "react";
+import { useMemo, useEffect, useState, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import {  useSelector } from "react-redux";
 import styles from "./styles/mapGyms.module.css";
-// import L from "leaflet";
-// import iconMarker from "../../asets/icons/iconMarker.png";
-// import MapPin from "../../asets/icons/map-pin.svg";
 import CalcDist from "./controlers/calcDist";
-// import {ButtonSimple} from "../../helpers/Buttons/Buttons.jsx"
-// import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
 
 export default function GymsForUsersMap() {
 
@@ -17,7 +12,6 @@ export default function GymsForUsersMap() {
   
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
-  // const [dist, setDist] = useState(0);
   
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -53,23 +47,6 @@ export default function GymsForUsersMap() {
       return newMarker
     }) 
 
-
-    
-
-
-
-  //   const iconGym = new L.Icon({
-  //     iconUrl: require('../../asets/icons/marker-icon.png'),
-  //     iconRetinaUrl: require('../../asets/icons/marker-icon.png'),
-  //     iconAnchor: [22, 94],
-  //     popupAnchor: [-3, -76],
-  //     shadowUrl: null,
-  //     shadowSize: null,
-  //     shadowAnchor: null,
-  //     iconSize: new L.Point(60, 75),
-  // });
-
-  // const gymIcon = new baseIcon({iconUrl: {iconMarker}})
   const markerRef = useRef(null);
   const eventHandlers = useMemo(
     () => ({
@@ -85,10 +62,6 @@ export default function GymsForUsersMap() {
     }), // eslint-disable-next-line
     []
   );
-
-  // function handleOnClick() {
-  //   SweetAlrtTem("Tu ubicacion ha sido enviada con exito","success");
-  // }
 
   return (
     <div className={styles.mainContainer}>
@@ -144,9 +117,6 @@ export default function GymsForUsersMap() {
           </MapContainer>
         )}
       </div>
-      {/* <div>
-        <ButtonSimple onClick={handleOnClick} padding=".1rem 1rem" title="Agregar Ubicacion" />
-      </div> */}
       <div style={{marginTop: "1rem", fontSize: "1rem"}}>
         La ubicacion actual es: Latitud: <span style={{color: "var(--color-prim"}}>{lat}</span>, Longitud: <span style={{color: "var(--color-prim"}}>{lng}</span>
       </div>

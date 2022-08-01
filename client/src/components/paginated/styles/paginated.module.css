@@ -1,6 +1,7 @@
 .cont {
   justify-content: center;
   display: flex;
+  background-color: red;
   gap: 10%;
   align-content: center;
   align-items: center;
@@ -172,7 +173,6 @@
   font-size: 1.2rem;
   width: 50px;
   height:55px;
-  /* padding: .9rem; */
 }
 
 

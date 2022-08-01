@@ -1,14 +1,12 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { SweetAlrtTem } from "../../asets/helpers/sweetalert";
-import { postAvatar, updateFavouriteGym } from "../../redux/actions/index";
+import { updateFavouriteGym } from "../../redux/actions/index";
 
 import axios from "axios";
 
 import styles from "./styles/stylesCards.module.css";
-import { useEffect } from "react";
 import { IoIosHeart } from "react-icons/io";
 import { AiFillStepForward, AiOutlineShoppingCart } from "react-icons/ai";
 import { useState } from "react";
@@ -35,7 +33,6 @@ export const CardAvatarAdicional = (props) => {
     props;
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   async function handleUdpateAvatar(idAvatar, e) {
     e.preventDefault();
     const avatar = { avatar: idAvatar };
@@ -135,7 +132,7 @@ export const CardIcons = (props) => {
 };
 
 export const CardShop = (props) => {
-  const { title, imagen, price, services, favourite, id, logo } = props;
+  const { title, services, favourite, id, logo } = props;
 
   const avatar = localStorage.getItem("avatar");
 
@@ -274,26 +271,12 @@ export const CardsPlansPartner = (props) => {
 export const CardGymPartner = (props) => {
   const {
     title,
-    onClick,
     id,
-    price,
     image,
-    services,
     trainers,
-    logo,
-    phone,
-    email,
-    favorito,
   } = props;
 
-  const navigate = useNavigate();
-
   const [view, setView] = useState("myGyms");
-
-  const userId = localStorage.getItem("userId");
-  const type = localStorage.getItem("type");
-  const name = localStorage.getItem("name");
-  // const [view, setView] = useState("");`
 
   return (
     <>

@@ -1,13 +1,9 @@
 import { useState } from "react";
 import styles from "./style/client.module.css";
 import { gymValidate, gymValidateEdit } from "./controlers/validaciones";
-// import { useNavigate } from "react-router-dom";
-
-import { createGym, setGymsGeo } from "../../redux/actions";
 
 import { getMyGyms } from "../../redux/actions"; // --------------LA ACTION
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
 import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { createOneGym, editOneGym } from "./controlers/Functions";
 import MapGyms from "../MapsAndGeo/MapGyms";
@@ -17,7 +13,6 @@ import { getUser } from "../../redux/actions";
 
 export default function UpdateGym(props) {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
 
   const { idGym } = props;
 
@@ -45,12 +40,9 @@ export default function UpdateGym(props) {
   const [newGym, setNewGym] = useState({
     name: "", //string y es obligatorio - sale del form
     price: "", // numero entero o decimal y no es obligatorio - sale del form
-    // rating: // no se manda, por defecto se inicia como un array de numeros
     image: [], // es un array de imágenes y se inicia en vacio o con elementos
     latitude: "", // numero entero o decimal y no es obligatorio
     longitude: "", // numero entero o decimal y no es obligatorio
-    // address: // no lo puedo mandar porque se relaciona con otra colección
-    // y no es obligatorio
     trainers: [], // lo puedo tocar aunque no es obligatorio. Es un array de strings
     // que va a guardar los nombres de los instructores.
     logo: "", // es un string que guarda el enlace a una imagen
@@ -65,23 +57,6 @@ export default function UpdateGym(props) {
   // 2 price
   // 3 logo
   // 4 phone
-
-  let exampleObject =
-    // Esto no se está usado
-    {
-      name: "Nuevo Fittnet", // obligatorio
-      price: 999, // obligatorio
-      image: [],
-      latitude: 0,
-      longitude: 0,
-      trainers: [],
-      logo: "https://static.vecteezy.com/system/resources/thumbnails/003/108/337/small/fitness-gym-logo-with-strong-athlete-and-barbell-vector.jpg", // obligatorio
-      phone: 155790033, //obligatorio, sin espacios
-      email: "emaildelgym@gmail.com",
-      gymActive: true,
-      favourite: 0,
-    };
-
   useEffect(() => {
     dispatch(getMyGyms(userId));
   }, [userId]);
@@ -453,10 +428,8 @@ export default function UpdateGym(props) {
   function handleChangeGyms(e) {
     if (e.target.value !== "...") {
       e.preventDefault();
-      let value = e.target.value;
       //
       // let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
-      console.log(myGyms);
 
       // filterServices = myGyms.length && myGyms.filter(e => e._id === value);
 

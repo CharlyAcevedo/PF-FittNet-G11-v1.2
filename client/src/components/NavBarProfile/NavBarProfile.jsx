@@ -1,14 +1,12 @@
-import React, { useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import Logout from "../Logout/Logout";
 import { getUserGoogleForToken, getUser } from "../../redux/actions/index";
 import style from "./style/NavBarProfile.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useCallback } from "react";
-// import FormUser from "../Forms/FormUser";
 
 export default function NavBarProfile() {
-  // let { userId, name, type, avatar } = useParams();
 
   const token = localStorage.getItem("token");
 
@@ -19,8 +17,6 @@ export default function NavBarProfile() {
   const type = localStorage.getItem("type");
   
   const avatar = localStorage.getItem("avatar");
-
-  const user = useSelector((state) => state.user);
 
   const navigate = useNavigate();
 
