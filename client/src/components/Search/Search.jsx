@@ -11,7 +11,6 @@ export default function Sarch() {
   function handleInput(e) {
     e.preventDefault();
     setSearch(e.target.value);
-    console.log(e.target.value);
     dispatch(getSearch(e.target.value));
   }
 

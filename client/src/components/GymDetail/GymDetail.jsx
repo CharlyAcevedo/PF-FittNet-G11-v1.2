@@ -1,26 +1,16 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getGymDetail } from "../../redux/actions";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { NavBar3 } from "./NavBar3";
 import CartItem from "../CartItem/CartItem";
 import { clearGymDetail } from "../../redux/actions";
 import style from "./styles/style.module.css";
-import user from "../../asets/icons/users.svg";
-import actividades from "../../asets/icons/trending-up.svg";
-import start from "../../asets/icons/star.svg";
-import map from "../../asets/icons/map-pin.svg";
-import { CardIcons } from "../../helpers/Cards/Cards";
 import { getUser } from "../../redux/actions";
 
 export default function GymDetail() {
   let { userId } = useParams();
-
-  const navigate = useNavigate();
-
   const dispatch = useDispatch();
   let idUser = localStorage.getItem("userId");
 
@@ -136,17 +126,6 @@ export default function GymDetail() {
             </div>
           </div>
         </section>
-        {/* <section className={style.curved}>
-          <p className={style.title}>{gymDetail.name}</p>
-        </section> */}
-        {/* <div className={style.contDat}>
-          <CardIcons img={start} num={gymDetail.raiting} />
-          <CardIcons img={user} num="55" />
-          <CardIcons img={map} num="1.4 Km" />
-          <CardIcons img={actividades} num={gymDetail.services.length} />
-        </div> */}
-
-        {/* Bloque de info del carrito */}
         <div style={{paddingTop:"200px"}}>
           <NavBar3
             id={[gymDetail]}

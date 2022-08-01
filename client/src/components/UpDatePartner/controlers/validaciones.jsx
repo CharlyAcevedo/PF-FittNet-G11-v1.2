@@ -2,10 +2,8 @@
 import {
   regexEmail,
   regexName,
-  regPhrase,
 } from "../../../asets/helpers/regexValidators";
 const regCBU = /^[0-9]{16}\b/;
-const regCUIL = /^[0-9]{11}\b/;
 //!--------------------------------VALIDACIONES GYM----------------------
 export function gymValidate(newGym) {
   let error = {};

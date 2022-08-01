@@ -4,7 +4,6 @@ import { getPlans } from "../../../../redux/actions";
 import axios from "axios";
 import CheckOut from "./CheckOut";
 import { useState } from "react";
-import CardPlans from "../../../CardPlans/CardPlans";
 import style from "./styles/mygym.module.css";
 import { ButtonSimple } from "../../../../helpers/Buttons/Buttons";
 
@@ -35,7 +34,6 @@ export function Plans() {
       url: "/api/service/mercadopago",
       data: data,
       headers: { "X-Requested-With": "XMLHttpRequest" },
-      // withCredentials: true,
     })
       .then((data) => {
         setDatos(data.data);
@@ -53,16 +51,6 @@ export function Plans() {
           ? plan.map((p) => {
               return (
                 <div key={p.planName}>
-                  {/* <h3>Plan: {p.planName}</h3>
-                  <h3>Precio: {p.price.$numberDecimal}</h3>
-                  <h4>Alcance: {p.services}</h4>
-                  <br></br>
-                  <h5>Cantidad de servicios: {p.servicePerGym}</h5>
-                  <h5>Gimnasios admitidos: {p.gymsPermited}</h5>
-                  <h5>
-                    Comision por venta de servicios:{" "}
-                    {p.commission.$numberDecimal}
-                  </h5> */}
                   <div className={style.cardright}>
                     <div className={style.plan}>
                       <p
@@ -102,7 +90,7 @@ export function Plans() {
             })
           : "Cargando..."}
       </div>
-      <div  style={{padding: "20px 0px 0px 0px ", display:"flex", justifyContent:"center",justifyContent: "space-around"}}>
+      <div  style={{padding: "20px 0px 0px 0px ", display:"flex", justifyContent: "space-around"}}>
           <ButtonSimple
             title="Plan Premium"
             padding="0 1rem"

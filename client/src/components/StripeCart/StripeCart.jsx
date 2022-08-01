@@ -14,8 +14,6 @@ import { useNavigate } from "react-router-dom";
 import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import {
   clearCart,
-  editStatus,
-  getCart,
   updateClientGym,
   getUserGoogleForToken,
 } from "../../redux/actions";
@@ -54,6 +52,10 @@ const CheckoutForm = () => {
 
   const instantCallback = useCallback(dispatch, [dispatch]);
 
+
+  const usuarioId = localStorage.getItem("userId");
+  const name = localStorage.getItem("name");
+  //const [detailUser, setDetailUser] = useState({ ///--------------Nano details
   useEffect(() => {
     instantCallback(getUser(userId));
     if (token) {
@@ -87,8 +89,6 @@ const CheckoutForm = () => {
     phonmeGim: allcart.phone,
   });
 
-  const gymId = allcart._id;
-  console.log(statusClient, "allcart");
   const idCart = useSelector((state) => state.getCart);
   const [imgBack, setImgBack] = useState(
     Math.floor(Math.random() * (26 - 1) + 1)
@@ -116,15 +116,14 @@ const CheckoutForm = () => {
       url: "/api/shopcart",
       data: detalle,
       headers: { "X-Requested-With": "XMLHttpRequest" },
-      // withCredentials: true,
     })
       .then((res) => {
         return res.data;
       })
       .catch((error) => console.log(error));
-    console.log(put, "put");
     return put;
   }
+
 
   const gymName = localStorage.getItem("nameGym");
   const phoneGym = localStorage.getItem("phone");
@@ -133,7 +132,7 @@ const CheckoutForm = () => {
   //   gymN,
   //   phoneGym,
   // }
-
+  
   const handleSubmit = async (e) => {
     var detalle = cart.map((c) => ({
       user: usuarioId,
@@ -180,7 +179,6 @@ const CheckoutForm = () => {
       const { id } = paymentMethod;
       let compra = await axios
         .post("/api/checkout", {
-          //const response = await axios.post('/api/checkout', {
           id,
           amount: 2000 * 10,
         })
@@ -195,10 +193,11 @@ const CheckoutForm = () => {
         SweetAlrt(`Su pago fue rechazado ${name}`, "Intente con otra tarjeta");
         return navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);
       }
+      dispatch(updateClientGym(detalle));
+
       console.log(detalle, "statuscart");
       console.log(idCart, " idcart mail");
       let edit = await functionEditStatus(detalle);
-      // dispatch(updateClientGym(detalle));
       SendEmail(det);
       SweetAlrtTem(`Su compra fue realizada con exito ${name}`, "success");
       navigate(`/home/${type}/${name}/${usuarioId}/${avatar}`);

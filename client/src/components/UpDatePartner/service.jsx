@@ -7,16 +7,12 @@ import {
 import { useSelector } from "react-redux";
 import { getMyGyms, getUser } from "../../redux/actions"; // --------------LA ACTION
 import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import { createService } from "../../redux/actions";
 import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
 import { createOneService, editOneService } from "./controlers/Functions";
 import { useEffect } from "react";
-import style from "./style/client.module.css";
 
 export default function Services() {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
   const dataPartner = useSelector((state) => state.myGyms);
   let myGyms = dataPartner.gyms ? dataPartner.gyms : [];
 
@@ -28,7 +24,6 @@ export default function Services() {
   let dataEditService;
 
   const [myServices, setMyServices] = useState([]);
-  const [dataService, setDataService] = useState({}); // A ver si puedo tomar la info
   const userId = localStorage.getItem("userId");
 
   const [typeAction, setTypeAcyion] = useState("create");

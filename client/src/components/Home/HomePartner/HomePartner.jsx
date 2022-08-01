@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPartnerDetails, getMySales } from "../../../redux/actions";
@@ -18,12 +18,7 @@ export function HomePartner () {
 
   const dispatch = useDispatch()
   let { userId } = useParams();
-//  const [view, setView] = useState("myGyms");
-
-  // const [ view , setView ] = useState("plans");
   const userPartner = useSelector((state) => state.user); 
-
-
 
   useEffect(() => {
     if(Object.keys(userPartner).length === 0) {
@@ -36,15 +31,7 @@ export function HomePartner () {
     dispatch(getPartnerDetails(userId));// eslint-disable-next-line
   }, []);
 
-  console.log(userPartner)
-
-  const partnerDetail = useSelector((state)=> state.partnerDetails)
-  const userDetails = useSelector((state) => state.user)
-
   const [ view , setView ] = useState("mySales");
-
-
-
 
   return (
     <div className={style.content}>
@@ -72,14 +59,6 @@ export function HomePartner () {
               title="Mis ventas"
             />
           </div>
-          {/* <div className={style.contButtonHg}>
-            <ButtonHomePA
-              onClick={(e) => {
-                setView("myClients");
-              }}
-              title="Mis clientes"
-            />
-          </div> */}
           <div className={style.contButtonHg}>
             <ButtonHomePA
               onClick={(e) => {

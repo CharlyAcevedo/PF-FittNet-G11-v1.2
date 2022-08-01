@@ -5,15 +5,10 @@ import img3 from "../../asets/images/benefits(uf)3.jpeg";
 import style from "../LegendUf/style/LegendUf.module.css";
 import { ButtonSecondaryDeslice } from "../../helpers/Buttons/Buttons.jsx";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { ScrollContainer, Sticky, Animator, ScrollPage, Fade, MoveOut, FadeIn, ZoomIn, MoveIn, Zoom, Move } from 'react-scroll-motion';
+import { ScrollContainer, Animator, ScrollPage, Fade, Zoom, Move } from 'react-scroll-motion';
 
 export default function LegendUf() {
   const navigate = useNavigate();
-
-  const user = useSelector((state) => state.user);
-
-  const token = localStorage.getItem("token");
 
   const name = localStorage.getItem("name");
 

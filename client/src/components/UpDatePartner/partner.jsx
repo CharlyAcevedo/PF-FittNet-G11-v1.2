@@ -4,7 +4,7 @@ import { partnerValidacion } from "./controlers/validaciones";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePartnerData, getPartnerDetails } from "../../redux/actions";
 import { useNavigate, useParams } from "react-router-dom";
-import { SweetAlrt, SweetAlrtTem } from "../../asets/helpers/sweetalert";
+import { SweetAlrt } from "../../asets/helpers/sweetalert";
 
 export default function UpdatePartner() {
   let { userId } = useParams();
@@ -73,14 +73,6 @@ export default function UpdatePartner() {
   //     return newGyms;
   //   });
   // }
-  function handleEditGyms(e) {
-    navigate(`/profile/edit/partner/${nameU}/${ID}/${e.target.value}`);
-    // setInput({
-    //   ...input,
-    //   gyms: input.gyms.filter((el) => el !== e.target.value),
-    // });
-    console.log("ESTO ES DELET", e);
-  }
   //!------------------socialNetworks---------------
   function addSocial(e) {
     e.preventDefault();
