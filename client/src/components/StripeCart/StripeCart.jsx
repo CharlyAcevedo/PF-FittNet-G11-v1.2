@@ -53,7 +53,7 @@ const CheckoutForm = () => {
   const instantCallback = useCallback(dispatch, [dispatch]);
 
 
-  const usuarioId = localStorage.getItem("userId");
+  const usuarioId = localStorage.getItem('userId');
   const name = localStorage.getItem("name");
   //const [detailUser, setDetailUser] = useState({ ///--------------Nano details
   useEffect(() => {
@@ -72,9 +72,6 @@ const CheckoutForm = () => {
     userName: user.name,
     email: user.userName,
   });
-
-  // const { userName, info } = user;
-  // const {name}
 
   const type = localStorage.getItem("type");
   const avatar = localStorage.getItem("avatar");
@@ -98,17 +95,6 @@ const CheckoutForm = () => {
     "https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/" +
     imgBack +
     ".jpeg";
-  // useEffect(() => {
-  //   setStatusCart({
-  //     status: "Payed",
-  //     id: idCart,
-  //     price: cartPrice,
-  //     quantity: cartQty,
-  //     total: cartPrice * cartQty,
-  //   });
-  //   console.log(statusCart, 'esto es partnergyms')
-  // }, [idCart, name]);
-  // var compra = [ {_id: "id1", name:"yoga", price: 700, qty: 2},{_id: "id2", name:"boxeo", price:500, qty: 1 } ];
 
   async function functionEditStatus(detalle) {
     const put = await axios({
@@ -160,17 +146,6 @@ const CheckoutForm = () => {
       },
       saleDetail: saleDetail,
     };
-
-    e.preventDefault();
-    // const inputsito = document.querySelector('#card-element')
-    // const inputFull = inputsito.classList.contains('StripeElement--complete')
-    // #root > form > div > div.CardField-input-wrapper.is-ready-to-slide > span.CardField-number.CardField-child > span:nth-child(2) > div > div.CardNumberField-input-wrapper > span > input
-    // console.log(inputsito)
-    // const input2 = inputsito.getElementsByTagName('div')
-    // console.log(input2)
-    // if (!inputFull) {
-    //     return SweetAlrt("*Valid card number is required ")
-    // }
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
@@ -206,6 +181,7 @@ const CheckoutForm = () => {
       SweetAlrtTem(`Su compra NO fue realizada con exito ${name}`, "error");
     }
   };
+  
   if (imgBack) {
     return (
       <div className={styles.container}>
