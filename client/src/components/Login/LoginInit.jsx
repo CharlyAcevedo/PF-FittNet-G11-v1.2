@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUserGeo, getPartnerDetails } from "../../redux/actions/index";
+import { getPartnerDetails } from "../../redux/actions/index";
+import { setUserGeo } from '../../services/servicesQuery';
 import styles from "./styles/LoginInit.module.css";
 import jwt_decode from "jwt-decode";
+import { useQuery } from "@tanstack/react-query";
 import {
   BackgroundTwo,
   BackgroundOne,
@@ -15,6 +17,11 @@ import { SweetAlrt } from "../../asets/helpers/sweetalert"; // , SweetAlrt2, Swe
 export default function LoginInit() {
   const dispatch = useDispatch();
 
+  const [ geo, setGeo ] = useState({
+    latitude: "",
+    longitude: "",
+  });
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       function (position) {
@@ -22,7 +29,11 @@ export default function LoginInit() {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
-        dispatch(setUserGeo(geoPayload));
+        // dispatch(setUserGeo(geoPayload));
+        setGeo({
+          latitude: geoPayload.latitude,
+          longitude: geoPayload.longitude,
+        })
       },
       function (error) {
         console.log(error);
@@ -33,14 +44,18 @@ export default function LoginInit() {
     ); // eslint-disable-next-line
   }, []);
 
+  const { data: geoLocalizacion, isLoading: loadingGeo, isError: errorGeo } = useQuery( "geolocalizacion", setUserGeo(geo) )
+
+
+  console.log(geoLocalizacion);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [googleUser, setGoogleUser] = useState({});
+
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
-  // const userGoogle = useSelector((state) => state.user);
 
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
@@ -62,12 +77,6 @@ export default function LoginInit() {
       localStorage.setItem("avatar", finalizacionData.user.avatar);
       localStorage.setItem("name", finalizacionData.usuario.name);
       localStorage.setItem("email", finalizacionData.usuario.email);
-      // localStorage.setItem('latitude',finalizacionData.user.latitude.$numberDecimal)
-      // localStorage.setItem('longitude',finalizacionData.user.longitude.$numberDecimal)
-
-      // localStorage.setItem("type", type)
-      // localStorage.setItem("avatar", avatar._id)
-      // console.log(finalizacionData, ' finalización data')
 
       const { avatar } = finalizacionData.usuario;
 
@@ -75,7 +84,6 @@ export default function LoginInit() {
         dispatch(getPartnerDetails(userId));
       }
 
-      // console.log(finalizacionData.usuario);
 
       console.log(avatar);
       if (!avatar) {
@@ -89,21 +97,6 @@ export default function LoginInit() {
         );
       }
     } else {
-      // const googleData = await axios.post(
-      //   `/api/google/auth`,
-      //   {
-      //     tokenId: response.credential,
-      //     data: userObject,
-      //   }
-      // );
-      // const finalizacionData = await googleData.data;
-      // dispatch(getUser(finalizacionData.usuario._id));
-      // const { avatar } = finalizacionData.usuario;
-      // if (!avatar) {
-      //   return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}`);
-      // } else {
-      //   return (window.location = `http://localhost:3000/home/${finalizacionData.usuario.type}/${finalizacionData.usuario.name}/${finalizacionData.usuario._id}/${finalizacionData.usuario.avatar}`);
-      // }
       navigate("/");
     }
   };
@@ -125,8 +118,6 @@ export default function LoginInit() {
     );
   });
 
-  // }, [window.google?.accounts]);
-
   async function onSubmit(e) {
     e.preventDefault();
     let userLogin = {};
@@ -143,7 +134,6 @@ export default function LoginInit() {
         url: "/api/service/login",
         data: userLogin,
         headers: { "X-Requested-With": "XMLHttpRequest" },
-        // withCredentials: true,
       })
         .then((res) => {
           return res.data;
@@ -193,7 +183,6 @@ export default function LoginInit() {
       }
       if (typeof login === "string") {
         console.log(login); // qué  me responde el back?
-        SweetAlrt(login);
         setPassword("");
         setUsername("");
       }
@@ -250,7 +239,6 @@ export default function LoginInit() {
             />
 
             <div id="signInDiv" style={{ paddingTop: "1.5rem" }}></div>
-            {/* <button onClick={(e) => handleLogoutGoogle(e)}>Logout</button> */}
             <div className={styles.contraseña}>
               <a href="/resetpassword" style={{ color: "#111111" }}>
                 Olvidé mi contraseña
