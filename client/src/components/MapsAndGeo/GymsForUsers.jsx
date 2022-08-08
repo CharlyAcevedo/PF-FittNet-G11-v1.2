@@ -2,6 +2,7 @@ import { useMemo, useEffect, useState, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import {  useSelector } from "react-redux";
 import styles from "./styles/mapGyms.module.css";
+import Loading from "../Loading/Loading";
 import CalcDist from "./controlers/calcDist";
 
 export default function GymsForUsersMap() {
@@ -75,7 +76,9 @@ export default function GymsForUsersMap() {
       </div>
       <div className={styles.mapContainer} id="map">
         {centerCoords.lat === null || centerCoords.lng === null ? (
-          <div>Loading...</div>
+          <div style={{display: "grid", placeContent: "center"}}>
+           <Loading />
+          </div>
         ) : (
           <MapContainer center={[centerCoords.lat, centerCoords.lng]} zoom={15}>
             <TileLayer

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { getGymDetail } from "../../redux/actions";
 import { useSelector } from "react-redux";
 import { NavBar3 } from "./NavBar3";
+import Loading from "../Loading/Loading";
 import CartItem from "../CartItem/CartItem";
 import { clearGymDetail } from "../../redux/actions";
 import style from "./styles/style.module.css";
@@ -19,7 +20,6 @@ export default function GymDetail() {
     dispatch(getUser(idUser));
   }, [userId, idUser]);
 
-  // This is equivalent to ComponentWillUnmount.
   // Que se ejecute cuando se desmonte gymDetail y limpie su estado en el reducer
   useEffect(() => {
     return () => dispatch(clearGymDetail());
@@ -33,11 +33,9 @@ export default function GymDetail() {
 
   if (!gymDetail.name) {
     return (
-      <img
-        id="loading"
-        src="https://www.sanfranciscohm.com/static/img/loading.gif"
-        alt="loading..."
-      />
+      <div style={{display: "grid", placeContent: "center", marginTop: "25vh"}}>
+        <Loading />
+      </div>
     );
   } else {
     return (

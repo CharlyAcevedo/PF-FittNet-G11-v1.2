@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import styles from "./styles/detailProfile.module.css";
 import { MdLocationOn, MdLocationOff } from "react-icons/md";
+import Loading from "../Loading/Loading";
 import { useEffect } from "react";
 import {
   getAllGyms,
@@ -94,7 +95,17 @@ export default function DetailProfileUser() {
   };
 
   return (
-    <div style={{ width: "100%", height: "85vh" }}>
+    <>
+    {
+      (user && Object.keys(user).length === 0) && (
+      <div style={{display: "grid", placeContent: "center", marginTop: "25vh"}}>
+        <Loading />
+      </div>
+      )
+    } 
+    {
+      (user && Object.keys(user).length > 0) && (
+        <div style={{ width: "100%", height: "85vh" }}>
       <div className={styles.containerPerfilUser}>
         <div className={styles.containerPhotoPerfil}>
           <img
@@ -386,5 +397,8 @@ export default function DetailProfileUser() {
         </div>
       </div>
     </div>
+      )  
+    }
+    </>
   );
 }

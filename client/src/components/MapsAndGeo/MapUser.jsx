@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useDispatch } from "react-redux";
 import { setUserGeo } from "../../redux/actions/index";
 import {ButtonSimple} from "../../helpers/Buttons/Buttons.jsx";
+import Loading from "../Loading/Loading";
 import styles from "./styles/mapGyms.module.css";
 
 export default function MapUser() {
@@ -68,7 +69,7 @@ export default function MapUser() {
       </div>
       <div className={styles.mapContainer} id="map">
         {lat === null || lng === null ? (
-          <div>Loading...</div>
+          <Loading />
         ) : (
           <MapContainer center={[lat, lng]} zoom={15}>
             <TileLayer
@@ -91,11 +92,6 @@ export default function MapUser() {
       <div>
         <ButtonSimple onClick={handleOnClick} padding=".1rem 1rem" title="Agregar Ubicacion" />
       </div>
-      {/* <div>
-        <button className={styles.btnMapSend} onClick={handleOnClick}>
-          Agregar Ubicación
-        </button>
-      </div> */}
       <div className={styles.ubicationDiv}>
         La ubicacion actual es: Latitud:{" "}
         <span style={{ color: "var(--color-primD1)" }}>{lat} </span>, Longitud:{" "}

@@ -42,14 +42,6 @@ const CheckoutForm = () => {
   localStorage.setItem('nameGym', allcart.name)
 
   let userId = localStorage.getItem('userId');
-  // const cartPrice = parseInt(cart.map(c => c.price.$numberDecimal))
-  // const cartQty = parseInt(cart.map(c => c.qty))
-  // const totalPrice = cartPrice * cartQty
-  // co`nst totalPrice = cart.reduce(
-  //   (c, b) =>
-  //     parseInt(c.price.$numberDecimal * c.qty) +
-  //     parseInt(b.price.$numberDecimal * b.qty)
-  // );`
 
   useEffect(() => {
     dispatch(getUser(userId))
