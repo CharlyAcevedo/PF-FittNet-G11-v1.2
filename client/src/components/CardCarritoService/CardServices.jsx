@@ -2,10 +2,8 @@ import React from "react";
 import style from "./styles/styleCard.module.css";
 export default function CardServices(props) {
   const { img, name, unidad, price, title } = props;
-  // const imgeFond = [];
-  // if (name && !img) imgeFond = name[0];
 
-  if (title == "true") {
+  if (title === "true") {
     return (
       <div className={style.content}>
         <div className={style.contTitle}>
@@ -26,7 +24,7 @@ export default function CardServices(props) {
     );
   }
 
-  if (title == "false" && unidad > 0) {
+  if (title === "false" && unidad > 0) {
     return (
       <div className={style.content}>
         <div className={style.card}>
@@ -46,7 +44,7 @@ export default function CardServices(props) {
       </div>
     );
   }
-  if (title == "false" && unidad <= 0) {
+  if (title === "false" && unidad <= 0) {
     return (
       <div>
       </div>

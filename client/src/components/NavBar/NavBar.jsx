@@ -38,15 +38,12 @@ export default function NavBar() {
           title="Beneficios para miembros"
           padding="0 2rem"
         />
-        {idUser ? (
-          <p style={{color: "#fff", fontSize: "1.3rem"}}>{name} ya estas registrado!</p>
-        ) : (
-          <ButtonSimple
-            title="Prueba gratis"
-            onClick={() => navigate("/register")}
-            padding="0 2rem"
-          />
-        )}
+        {
+          idUser && <p style={{color: "#fff", fontSize: "1.2rem"}}>{name} ya estas registrado!</p>
+        }
+        {
+          !idUser && <ButtonSimple title="Prueba gratis" onClick={() => navigate("/register")} padding="0 2rem" />
+        }
       </ul>
     </nav>
   );

@@ -1,129 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserGeo } from "../../redux/actions/index";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./styles/AllRegister.module.css";
 import { regexEmail, regexName } from "../../asets/helpers/regexValidators";
+
+import { useGeo } from "../../hooks/useGeo";
+import { useCampos } from "../../hooks/useCampos";
+import { useRegister } from "../../hooks/useRegister";
 
 import {
   BackgroundTwo,
   BackgroundOne,
 } from "../../helpers/Backround/Background";
-import {
-  SweetAlrt,
-  SweetAlrtTem,
-} from "../../asets/helpers/sweetalert";
+
 
 export default function AllRegister() {
-  const dispatch = useDispatch();
-  const geolocation = useSelector(
-    (state) => state.currentUserDetails.currentGeo
-  );
-
-  const navigate = useNavigate();
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [type, setType] = useState("");
-  const [geoloc, setGeoloc] = useState({
-    lat: 0,
-    lng: 0,
-  });
   const [error, setError] = useState("");
-  // const [disableSubmit, setDisableSubmit] = useState(true)
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        const payload = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        };
-        dispatch(setUserGeo(payload));
-        setGeoloc({
-          lat: position.coords.latitude
-            ? position.coords.latitude
-            : geolocation.latitude,
-          lng: position.coords.longitude
-            ? position.coords.longitude
-            : geolocation.longitude,
-        });
-      },
-      function (error) {
-        console.log(error);
-      },
-      {
-        enableHighAccuracy: true,
-      }
-    ); // eslint-disable-next-line
-  }, []);
+  const campos = useCampos();
 
-  function onSubmit(e) {
-    e.preventDefault();
-    let userCreate;
+  const { latitude, longitude } = useGeo();
 
-    console.log("está saliendo el post ", userCreate);
-
-    //---------------------------------------------------------------------
-    // La validación de los campos la hace la función validadora
-    // llamada desde cada input. Luego si tengo todos los campos completos
-    // y no tengo errores(seteados por la función validadora), entonces
-    // creo el objeto y hago el post al back.
-    //--------------------------------------------------------------------
-    if (error === "" && name && email && password && type) {
-      userCreate = {
-        name: name,
-        username: email,
-        password: password,
-        latitude: geoloc.lat,
-        longitude: geoloc.lng,
-        type: type,
-      };
-
-      SweetAlrt("Estamos procesando su solicitud!");
-      console.log("está saliendo el post ", userCreate);
-
-      axios
-        .post("/api/service/register", userCreate)
-        .then((res) => {
-          console.log(res.data, "-> respuesta del post de creación de cuenta");
-          // El nombre de usuario ya existe o es incorrecto, por favor indique otro username
-          //
-          if (res.data.created === true) {
-            setName("");
-            setPassword("");
-            setError("");
-            setEmail("");
-            SweetAlrt("Exito!", res.data.message, "success");
-            navigate('/login');
-          }
-          if (res.data.created === false) {
-            // window.alert(res.data.message);
-            SweetAlrt("Atencion!", res.data.message, "warning");
-            setName("");
-            setPassword("");
-            setError("");
-            setEmail("");
-          }
-          if (typeof res.data === "string") {
-            SweetAlrt(res.data);
-          }
-        })
-        .catch((error) => console.log(error));
-    }
-    if (!name || !email || !password || !type) {
-      SweetAlrtTem("Por favor complete todos los campos", "warning");
-      // window.alert('Por favor complete todos los campos')
-    }
-  }
+  const { onSubmit } = useRegister(latitude, longitude, campos, error, setError);
 
   function onChangeName(e) {
-    setName(e.target.value);
-    if (name.length < 3) {
+    campos.setName(e.target.value);
+    if (campos.name.length < 3) {
       setError("El nombre es requerido");
-    } else if (!regexName.test(name)) {
+    } else if (!regexName.test(campos.name)) {
       setError("El nombre debe contener letras");
     } else {
       setError("");
@@ -131,10 +34,10 @@ export default function AllRegister() {
   }
 
   function onChangeEmail(e) {
-    setEmail(e.target.value);
-    if (email.length < 3) {
+    campos.setEmail(e.target.value);
+    if (campos.email.length < 3) {
       setError("El Email es requerido");
-    } else if (!regexEmail.test(email)) {
+    } else if (!regexEmail.test(campos.email)) {
       setError("Email invalido");
     } else {
       setError("");
@@ -142,10 +45,10 @@ export default function AllRegister() {
   }
 
   function onChangePassword(e) {
-    setPassword(e.target.value);
-    if (password.length < 2) {
+    campos.setPassword(e.target.value);
+    if (campos.password.length < 2) {
       setError("Necesita introducir una contraseña");
-    } else if (password.length < 3) {
+    } else if (campos.password.length < 3) {
       setError("La constraseña debe tener un mínimo de tres caracteres");
     } else {
       setError("Recuerde seleccionar el tipo de usuario");
@@ -153,7 +56,7 @@ export default function AllRegister() {
   }
 
   function onChangeType(e) {
-    setType(e.target.value);
+    campos.setType(e.target.value);
 
     setError("");
   }
@@ -184,36 +87,36 @@ export default function AllRegister() {
               <input
                 type="text"
                 name="name"
-                value={name}
+                value={campos.name}
                 className={styles.loginInput}
                 placeholder="Escriba su Nombre..."
                 required
-                onChange={(e) => onChangeName(e)}
-                onClick={(e) => onChangeName(e)}
+                onChange={onChangeName}
+                onClick={onChangeName}
               />
             </div>
             <div className={styles.loginField}>
               <input
                 type="email"
-                value={email}
+                value={campos.email}
                 name="email"
                 className={styles.loginInput}
                 placeholder="Escriba un e-mail valido..."
                 required
-                onChange={(e) => onChangeEmail(e)}
-                onClick={(e) => onChangeEmail(e)}
+                onChange={onChangeEmail}
+                onClick={onChangeEmail}
               />
             </div>
             <div className={styles.loginRield}>
               <input
                 type="password"
-                value={password}
+                value={campos.password}
                 name="password"
                 className={styles.loginInput}
                 placeholder="Contraseña"
                 required
-                onChange={(e) => onChangePassword(e)}
-                onClick={(e) => onChangePassword(e)}
+                onChange={onChangePassword}
+                onClick={onChangePassword}
               />
             </div>
             <br />
@@ -236,7 +139,6 @@ export default function AllRegister() {
               className={styles.loginSubmit}
               type="submit"
               value="Registrarse"
-              // disabled={disableSubmit}
               onClick={(e) => onSubmit(e)}
             />
             <br />

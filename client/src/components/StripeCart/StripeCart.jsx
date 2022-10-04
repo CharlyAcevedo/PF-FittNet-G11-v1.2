@@ -66,7 +66,6 @@ const CheckoutForm = () => {
 
   // const email = localStorage.getItem("email");
   const [detailUser, setDetailUser] = useState({
-    ///--------------Nano details
     userName: user.name,
     email: user.userName,
   });
@@ -108,14 +107,8 @@ const CheckoutForm = () => {
     return put;
   }
 
-
   const gymName = localStorage.getItem("nameGym");
   const phoneGym = localStorage.getItem("phone");
-
-  // let detailGym = {
-  //   gymN,
-  //   phoneGym,
-  // }
   
   const handleSubmit = async (e) => {
     var detalle = cart.map((c) => ({
